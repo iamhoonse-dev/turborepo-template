@@ -17,6 +17,9 @@
       "require": "./dist/string/index.cjs.js"
     }
   },
+  "files": [
+    "dist"
+  ],
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
