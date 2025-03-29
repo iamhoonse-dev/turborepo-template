@@ -14,9 +14,11 @@ export default defineConfig({
   build: {
     lib: {
       name: "utils",
-      entry: resolve(__dirname, "src/index.ts"),
+      entry: {
+        string: resolve(__dirname, "src/string/index.ts"),
+      },
       formats: ["es", "cjs"],
-      fileName: (format) => `index.${format}.js`,
+      fileName: (format, entryName) => `${entryName}/index.${format}.js`,
     },
   },
   resolve: { alias: { src: resolve("src/") } },

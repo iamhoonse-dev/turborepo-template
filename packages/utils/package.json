@@ -10,6 +10,13 @@
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
+  "exports": {
+    "./string": {
+      "types": "./dist/string/index.d.ts",
+      "import": "./dist/string/index.es.js",
+      "require": "./dist/string/index.cjs.js"
+    }
+  },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
