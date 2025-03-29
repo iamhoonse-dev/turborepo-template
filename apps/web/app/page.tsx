@@ -1,6 +1,7 @@
 import Image, { type ImageProps } from "next/image";
 import { Button } from "@repo/ui/button";
 import { isEmptyString } from "@repo/utils/string";
+import HelloWorldButton from "../components/HelloWorldButton";
 import styles from "./page.module.css";
 
 type Props = Omit<ImageProps, "src"> & {
@@ -42,6 +43,9 @@ export default function Home() {
           </li>
           <li>
             isEmptyString : {JSON.stringify(isEmptyString("  \t  t  \n  "))}
+          </li>
+          <li>
+            <HelloWorldButton />
           </li>
         </ol>
 
