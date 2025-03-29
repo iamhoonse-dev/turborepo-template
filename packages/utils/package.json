@@ -15,6 +15,11 @@
       "types": "./dist/string/index.d.ts",
       "import": "./dist/string/index.es.js",
       "require": "./dist/string/index.cjs.js"
+    },
+    "./dom": {
+      "types": "./dist/dom/index.d.ts",
+      "import": "./dist/dom/index.es.js",
+      "require": "./dist/dom/index.cjs.js"
     }
   },
   "files": [
