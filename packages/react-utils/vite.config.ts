@@ -10,9 +10,11 @@ export default defineConfig({
   build: {
     lib: {
       name: "react-utils",
-      entry: resolve(__dirname, "src/index.ts"),
+      entry: {
+        hooks: resolve(__dirname, "src/hooks/index.ts"),
+      },
       formats: ["es", "cjs"],
-      fileName: (format) => `index.${format}.js`,
+      fileName: (format, entryName) => `${entryName}/index.${format}.js`,
     },
   },
   resolve: { alias: { src: resolve(__dirname, "src/") } },
