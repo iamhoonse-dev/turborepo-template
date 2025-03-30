@@ -1,5 +1,3 @@
-"use client";
-
 import { withHelloWorld } from "@repo/react-utils/hocs";
 
 const MessageContainer = ({
