@@ -2,6 +2,7 @@ import Image, { type ImageProps } from "next/image";
 import { Button } from "@repo/ui/button";
 import { isEmptyString } from "@repo/utils/string";
 import HelloWorldButton from "../components/HelloWorldButton";
+import AutoCounter from "../containers/AutoCounter";
 import styles from "./page.module.css";
 
 type Props = Omit<ImageProps, "src"> & {
@@ -46,6 +47,9 @@ export default function Home() {
           </li>
           <li>
             <HelloWorldButton />
+          </li>
+          <li>
+            <AutoCounter />
           </li>
         </ol>
 
