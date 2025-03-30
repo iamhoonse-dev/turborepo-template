@@ -12,6 +12,7 @@ export default defineConfig({
       name: "react-utils",
       entry: {
         hooks: resolve(__dirname, "src/hooks/index.ts"),
+        hocs: resolve(__dirname, "src/hocs/index.ts"),
       },
       formats: ["es", "cjs"],
       fileName: (format, entryName) => `${entryName}/index.${format}.js`,

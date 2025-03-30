@@ -15,6 +15,11 @@
       "types": "./dist/hooks/index.d.ts",
       "import": "./dist/hooks/index.es.js",
       "require": "./dist/hooks/index.cjs.js"
+    },
+    "./hocs": {
+      "types": "./dist/hocs/index.d.ts",
+      "import": "./dist/hocs/index.es.js",
+      "require": "./dist/hocs/index.cjs.js"
     }
   },
   "files": [
