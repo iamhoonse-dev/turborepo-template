@@ -32,7 +32,7 @@ export default function withHelloWorld<P extends RequiredProps>(
   Comp: ComponentType<P>,
 ) {
   return function HelloWorldComponent(props: Omit<P, keyof RequiredProps>) {
-    // @ts-expect-error TS2322
-    return <Comp message={HELLO_WORLD_MESSAGE} {...props} />;
+    const newProps = { ...props, message: HELLO_WORLD_MESSAGE } as P;
+    return <Comp {...newProps} />;
   };
 }
