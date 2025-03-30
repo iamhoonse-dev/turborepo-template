@@ -16,6 +16,15 @@ export default defineConfig({
       formats: ["es", "cjs"],
       fileName: (format, entryName) => `${entryName}/index.${format}.js`,
     },
+    rollupOptions: {
+      external: ["react", "react-dom"],
+      output: {
+        globals: {
+          react: "React",
+          "react-dom": "ReactDOM",
+        },
+      },
+    },
   },
   resolve: { alias: { src: resolve(__dirname, "src/") } },
 });
