@@ -82,6 +82,9 @@ importers:
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
+      '@repo/react-utils':
+        specifier: workspace:*
+        version: link:../../packages/react-utils
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
