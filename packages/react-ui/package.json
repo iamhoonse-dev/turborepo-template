@@ -22,6 +22,9 @@
       "require": "./dist/lib/utils.cjs.js"
     }
   },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.2",
     "@tailwindcss/vite": "^4.0.17",
