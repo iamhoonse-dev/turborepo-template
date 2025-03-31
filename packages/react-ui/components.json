@@ -15,7 +15,7 @@
     "utils": "@/lib/utils",
     "ui": "@/base/shadcn-ui",
     "lib": "@/lib",
-    "hooks": "@/hooks"
+    "hooks": "@/lib/hooks"
   },
   "iconLibrary": "lucide"
 }
