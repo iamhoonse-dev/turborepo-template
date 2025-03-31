@@ -3,10 +3,11 @@ import { resolve } from "path";
 import react from "@vitejs/plugin-react";
 import dtsPlugin from "vite-plugin-dts";
 import tsConfigPaths from "vite-tsconfig-paths";
+import tailwindcss from "@tailwindcss/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [dtsPlugin(), react(), tsConfigPaths()],
+  plugins: [dtsPlugin(), react(), tsConfigPaths(), tailwindcss()],
   build: {
     lib: {
       name: "react-ui",
@@ -15,5 +16,5 @@ export default defineConfig({
       fileName: (format) => `index.${format}.js`,
     },
   },
-  resolve: { alias: { src: resolve(__dirname, "src/") } },
+  resolve: { alias: { "@": resolve(__dirname, "./src") } },
 });
