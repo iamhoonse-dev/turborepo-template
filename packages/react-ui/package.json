@@ -20,7 +20,8 @@
       "types": "./dist/lib/utils.d.ts",
       "import": "./dist/lib/utils.es.js",
       "require": "./dist/lib/utils.cjs.js"
-    }
+    },
+    "./base.css": "./dist/styles/base.css"
   },
   "files": [
     "dist"
