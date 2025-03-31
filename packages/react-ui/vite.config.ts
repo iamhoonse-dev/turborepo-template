@@ -46,6 +46,17 @@ export default defineConfig({
           react: "React",
           "react-dom": "ReactDOM",
         },
+        /**
+         * Generates the asset file names for the library.
+         *
+         * @param chunkInfo - Information about the chunk being processed.
+         */
+        assetFileNames: (chunkInfo) => {
+          if (chunkInfo.name === "react-ui.css") {
+            return "styles/base.css";
+          }
+          return chunkInfo.name;
+        },
       },
     },
   },
