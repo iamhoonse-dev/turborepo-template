@@ -1,5 +1,5 @@
 /* base 스타일 */
-import "@/styles/index.css";
+import "@/styles/base.css";
 
 /* Button 컴포넌트 */
 export { buttonVariants } from "@/base/shadcn-ui/buttonVariants";
