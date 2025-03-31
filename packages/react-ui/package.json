@@ -10,6 +10,18 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview"
   },
+  "exports": {
+    "./shadcn-ui": {
+      "types": "./dist/base/shadcn-ui/index.d.ts",
+      "import": "./dist/base/shadcn-ui/index.es.js",
+      "require": "./dist/base/shadcn-ui/index.cjs.js"
+    },
+    "./utils": {
+      "types": "./dist/lib/utils.d.ts",
+      "import": "./dist/lib/utils.es.js",
+      "require": "./dist/lib/utils.cjs.js"
+    }
+  },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.2",
     "@tailwindcss/vite": "^4.0.17",
