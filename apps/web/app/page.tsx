@@ -4,6 +4,7 @@ import { isEmptyString } from "@repo/utils/string";
 import HelloWorldButton from "../components/HelloWorldButton";
 import AutoCounter from "../containers/AutoCounter";
 import HelloWorldParagraph from "../components/HelloWorldParagraph";
+import FancyShadcnButton from "../components/FancyShadcnButton";
 import styles from "./page.module.css";
 
 type Props = Omit<ImageProps, "src"> & {
@@ -85,6 +86,7 @@ export default function Home() {
         <Button appName="web" className={styles.secondary}>
           Open alert
         </Button>
+        <FancyShadcnButton />
       </main>
       <footer className={styles.footer}>
         <a
