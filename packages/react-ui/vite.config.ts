@@ -21,6 +21,8 @@ const fileName: Exclude<LibraryOptions["fileName"], string> = (
       return `base/shadcn-ui/index.${format}.js`;
     case "utils":
       return `lib/utils.${format}.js`;
+    case "components":
+      return `components/index.${format}.js`;
     default:
       return `${entryName}/index.${format}.js`;
   }
@@ -35,6 +37,7 @@ export default defineConfig({
       entry: {
         "shadcn-ui": resolve(__dirname, "src/base/shadcn-ui/index.ts"),
         utils: resolve(__dirname, "src/lib/utils.ts"),
+        components: resolve(__dirname, "src/components/index.ts"),
       },
       formats: ["es", "cjs"],
       fileName,
