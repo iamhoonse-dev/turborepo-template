@@ -82,6 +82,9 @@ importers:
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
+      '@repo/react-ui':
+        specifier: workspace:*
+        version: link:../../packages/react-ui
       '@repo/react-utils':
         specifier: workspace:*
         version: link:../../packages/react-utils
