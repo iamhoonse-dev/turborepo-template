@@ -185,6 +185,9 @@ importers:
       vite:
         specifier: ^6.2.0
         version: 6.2.3(@types/node@22.13.10)(jiti@2.4.2)
+      vite-plugin-dts:
+        specifier: ^4.5.3
+        version: 4.5.3(@types/node@22.13.10)(rollup@4.38.0)(typescript@5.8.2)(vite@6.2.3(@types/node@22.13.10)(jiti@2.4.2))
 
   packages/react-utils:
     devDependencies:
