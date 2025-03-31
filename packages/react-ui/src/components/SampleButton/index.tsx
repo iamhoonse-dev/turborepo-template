@@ -1,6 +1,6 @@
 import { type FC } from "react";
 import { Button } from "@/base/shadcn-ui";
-import { cn } from "@/lib/utils.ts";
+import { cn } from "@/lib/utils";
 
 const SampleButton: FC = () => {
   return (
