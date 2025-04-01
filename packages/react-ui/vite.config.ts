@@ -34,6 +34,7 @@ const fileName: Exclude<LibraryOptions["fileName"], string> = (
 export default defineConfig({
   plugins: [dtsPlugin(), react(), tsConfigPaths(), tailwindcss()],
   build: {
+    emptyOutDir: false,
     lib: {
       name: "react-ui",
       entry: {
