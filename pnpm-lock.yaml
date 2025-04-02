@@ -264,6 +264,9 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
+      '@storybook/react':
+        specifier: ^8.6.11
+        version: 8.6.11(@storybook/test@8.6.11(storybook@8.6.11(prettier@3.5.3)))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(storybook@8.6.11(prettier@3.5.3))(typescript@5.8.2)
       '@types/node':
         specifier: ^22.13.10
         version: 22.13.10
@@ -5239,6 +5242,21 @@ snapshots:
     optionalDependencies:
       '@storybook/test': 8.6.11(storybook@8.6.11(prettier@3.5.3))
       typescript: 5.7.3
+
+  '@storybook/react@8.6.11(@storybook/test@8.6.11(storybook@8.6.11(prettier@3.5.3)))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(storybook@8.6.11(prettier@3.5.3))(typescript@5.8.2)':
+    dependencies:
+      '@storybook/components': 8.6.11(storybook@8.6.11(prettier@3.5.3))
+      '@storybook/global': 5.0.0
+      '@storybook/manager-api': 8.6.11(storybook@8.6.11(prettier@3.5.3))
+      '@storybook/preview-api': 8.6.11(storybook@8.6.11(prettier@3.5.3))
+      '@storybook/react-dom-shim': 8.6.11(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(storybook@8.6.11(prettier@3.5.3))
+      '@storybook/theming': 8.6.11(storybook@8.6.11(prettier@3.5.3))
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
+      storybook: 8.6.11(prettier@3.5.3)
+    optionalDependencies:
+      '@storybook/test': 8.6.11(storybook@8.6.11(prettier@3.5.3))
+      typescript: 5.8.2
 
   '@storybook/test@8.6.11(storybook@8.6.11(prettier@3.5.3))':
     dependencies:
