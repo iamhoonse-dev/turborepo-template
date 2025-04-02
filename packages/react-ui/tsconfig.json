@@ -26,9 +26,8 @@
     /* settings for shadcn/ui  */
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"],
+      "@repo/react-ui/*": ["./src/*"],
     }
   },
   "include": ["src"],
