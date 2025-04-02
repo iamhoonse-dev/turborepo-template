@@ -3,7 +3,7 @@ import tseslint from "typescript-eslint";
 import { config } from "@repo/eslint-config/react-internal";
 
 export default tseslint.config(
-  { ignores: ["dist"] },
+  { ignores: ["dist", "storybook-static"] },
   {
     extends: [...config],
     files: ["**/*.{ts,tsx}"],
