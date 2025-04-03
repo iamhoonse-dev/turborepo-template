@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import { resolve } from "path";
 import dtsPlugin from "vite-plugin-dts";
+import tsConfigPaths from "vite-tsconfig-paths";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -8,6 +9,7 @@ export default defineConfig({
     dtsPlugin({
       insertTypesEntry: true,
     }),
+    tsConfigPaths(),
   ],
   build: {
     lib: {
