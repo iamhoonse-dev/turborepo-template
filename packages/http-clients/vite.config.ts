@@ -5,12 +5,7 @@ import tsConfigPaths from "vite-tsconfig-paths";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    dtsPlugin({
-      insertTypesEntry: true,
-    }),
-    tsConfigPaths(),
-  ],
+  plugins: [dtsPlugin(), tsConfigPaths()],
   build: {
     lib: {
       name: "http-clients",
