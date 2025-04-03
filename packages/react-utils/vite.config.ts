@@ -13,6 +13,7 @@ export default defineConfig({
       entry: {
         hooks: resolve(__dirname, "src/hooks/index.ts"),
         hocs: resolve(__dirname, "src/hocs/index.ts"),
+        providers: resolve(__dirname, "src/providers/index.ts"),
       },
       formats: ["es", "cjs"],
       fileName: (format, entryName) => `${entryName}/index.${format}.js`,
