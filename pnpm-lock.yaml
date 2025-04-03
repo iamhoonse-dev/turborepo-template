@@ -170,6 +170,9 @@ importers:
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
+      '@repo/http-clients':
+        specifier: workspace:*
+        version: link:../../packages/http-clients
       '@repo/react-ui':
         specifier: workspace:*
         version: link:../../packages/react-ui
