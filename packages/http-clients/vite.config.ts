@@ -9,9 +9,11 @@ export default defineConfig({
   build: {
     lib: {
       name: "http-clients",
-      entry: resolve(__dirname, "src/index.ts"),
+      entry: {
+        instances: resolve(__dirname, "src/instances/index.ts"),
+      },
       formats: ["es", "cjs"],
-      fileName: (format) => `index.${format}.js`,
+      fileName: (format, entryName) => `${entryName}/index.${format}.js`,
     },
   },
   resolve: { alias: { src: resolve(__dirname, "src/") } },
