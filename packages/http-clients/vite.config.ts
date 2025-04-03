@@ -14,5 +14,5 @@ export default defineConfig({
       fileName: (format) => `index.${format}.js`,
     },
   },
-  resolve: { alias: { src: resolve("src/") } },
+  resolve: { alias: { src: resolve(__dirname, "src/") } },
 });
