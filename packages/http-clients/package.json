@@ -1,5 +1,5 @@
 {
-  "name": "http-clients",
+  "name": "@repo/http-clients",
   "private": true,
   "version": "0.0.0",
   "type": "module",
