@@ -6,6 +6,7 @@ import AutoCounter from "../containers/AutoCounter";
 import HelloWorldParagraph from "../components/HelloWorldParagraph";
 import FancyShadcnButton from "../components/FancyShadcnButton";
 import ButtonFromPackage from "../components/ButtonFromPackage";
+import AxiosOnClient from "../components/AxiosOnClient";
 import styles from "./page.module.css";
 
 type Props = Omit<ImageProps, "src"> & {
@@ -58,6 +59,11 @@ export default function Home() {
             <AutoCounter />
           </li>
         </ol>
+
+        <div>
+          <h1>AxiosOnClient</h1>
+          <AxiosOnClient />
+        </div>
 
         <div className={styles.ctas}>
           <a
