@@ -15,6 +15,11 @@
       "types": "./dist/instances/index.d.ts",
       "import": "./dist/instances/index.es.js",
       "require": "./dist/instances/index.cjs.js"
+    },
+    "./mocks": {
+      "types": "./dist/mocks/index.d.ts",
+      "import": "./dist/mocks/index.es.js",
+      "require": "./dist/mocks/index.cjs.js"
     }
   },
   "files": [
