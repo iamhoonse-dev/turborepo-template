@@ -6,7 +6,7 @@ import { selfInstance } from "@repo/http-clients/instances";
 const AxiosOnClient: FC = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<unknown>(null);
 
   useEffect(function () {
     (async function () {
@@ -15,7 +15,6 @@ const AxiosOnClient: FC = () => {
         const response = await selfInstance.get("/foo");
         setData(response.data);
       } catch (error) {
-        // @ts-expect-error TS2345
         setError(error);
       } finally {
         setLoading(false);
