@@ -3,10 +3,11 @@ import { resolve } from "path";
 import react from "@vitejs/plugin-react";
 import dtsPlugin from "vite-plugin-dts";
 import tsConfigPaths from "vite-tsconfig-paths";
+import { preserveDirective } from "rollup-preserve-directives";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [dtsPlugin(), react(), tsConfigPaths()],
+  plugins: [dtsPlugin(), react(), tsConfigPaths(), preserveDirective()],
   build: {
     lib: {
       name: "react-utils",
