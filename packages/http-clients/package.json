@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint . --max-warnings 0",
     "check-types": "tsc --noEmit",
-    "dev": "tsc && vite build --watch",
+    "dev": "pnpm dlx msw init && tsc && vite build --watch",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
@@ -41,5 +41,10 @@
   "dependencies": {
     "axios": "^1.8.4",
     "msw": "^2.7.3"
+  },
+  "msw": {
+    "workerDirectory": [
+      "../../apps/web/public"
+    ]
   }
 }
