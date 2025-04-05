@@ -20,6 +20,11 @@
       "types": "./dist/dom/index.d.ts",
       "import": "./dist/dom/index.es.js",
       "require": "./dist/dom/index.cjs.js"
+    },
+    "./msw": {
+      "types": "./dist/msw/index.d.ts",
+      "import": "./dist/msw/index.es.js",
+      "require": "./dist/msw/index.cjs.js"
     }
   },
   "files": [
