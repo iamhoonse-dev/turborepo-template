@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { USE_MSW } from "../configs/mocks";
 import "./globals.css";
-import ApplyMSW from "../containers/ApplyMSW";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {!USE_MSW ? children : <ApplyMSW>{children}</ApplyMSW>}
+        {children}
       </body>
     </html>
   );
