@@ -6,7 +6,7 @@ import fs from "fs";
 export default function ls() {
   const files = fs.readdirSync(process.cwd());
   return files.map((file) => {
-    const stats = fs.statSync(file);
+    const stats = fs.statSync(path.join(process.cwd(), file));
     return {
       name: file,
       isDirectory: stats.isDirectory(),
