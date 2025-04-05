@@ -3,7 +3,7 @@ import { BASE_URL } from "@/instances/self.ts";
 import type { Foo } from "@/types/self";
 
 export const handlers = [
-  // Intercept "GET https://example.com/user" requests...
+  // Intercept "GET ${BASE_URL}/foo" requests...
   http.get(`${BASE_URL}/foo`, () => {
     // ...and respond to them using this JSON response.
     return HttpResponse.json<Foo>({
