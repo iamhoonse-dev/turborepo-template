@@ -176,6 +176,9 @@ importers:
       '@repo/http-clients':
         specifier: workspace:*
         version: link:../../packages/http-clients
+      '@repo/node-utils':
+        specifier: workspace:*
+        version: link:../../packages/node-utils
       '@repo/react-ui':
         specifier: workspace:*
         version: link:../../packages/react-ui
