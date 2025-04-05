@@ -202,6 +202,10 @@ importers:
         version: 5.8.2
 
   packages/browser-utils:
+    dependencies:
+      msw:
+        specifier: ^2.7.3
+        version: 2.7.3(@types/node@22.13.10)(typescript@5.8.2)
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
