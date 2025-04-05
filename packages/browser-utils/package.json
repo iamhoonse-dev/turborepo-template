@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint . --max-warnings 0",
     "check-types": "tsc --noEmit",
-    "dev": "tsc && vite build --watch",
+    "dev": "pnpm dlx msw init && tsc && vite build --watch",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
@@ -20,6 +20,11 @@
       "types": "./dist/dom/index.d.ts",
       "import": "./dist/dom/index.es.js",
       "require": "./dist/dom/index.cjs.js"
+    },
+    "./msw": {
+      "types": "./dist/msw/index.d.ts",
+      "import": "./dist/msw/index.es.js",
+      "require": "./dist/msw/index.cjs.js"
     }
   },
   "files": [
@@ -35,7 +40,15 @@
     "vite-plugin-dts": "^4.5.3",
     "vite-tsconfig-paths": "^5.1.4"
   },
+  "dependencies": {
+    "msw": "^2.7.3"
+  },
   "engines": {
     "node": ">=22"
+  },
+  "msw": {
+    "workerDirectory": [
+      "../../apps/web/public"
+    ]
   }
 }

@@ -12,6 +12,7 @@ export default defineConfig({
       entry: {
         string: resolve(__dirname, "src/string/index.ts"),
         dom: resolve(__dirname, "src/dom/index.ts"),
+        msw: resolve(__dirname, "src/msw/index.ts"),
       },
       formats: ["es", "cjs"],
       fileName: (format, entryName) => `${entryName}/index.${format}.js`,
