@@ -13,6 +13,9 @@
   "files": [
     "dist"
   ],
+  "dependencies": {
+    "msw": "^2.7.3"
+  },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
