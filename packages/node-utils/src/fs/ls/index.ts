@@ -1,4 +1,5 @@
 import fs from "fs";
+import path from "path";
 
 /**
  * Lists files in the current directory with their details.
