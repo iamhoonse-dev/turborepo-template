@@ -15,6 +15,16 @@
       "types": "./dist/instances/index.d.ts",
       "import": "./dist/instances/index.es.js",
       "require": "./dist/instances/index.cjs.js"
+    },
+    "./mocks": {
+      "types": "./dist/mocks/index.d.ts",
+      "import": "./dist/mocks/index.es.js",
+      "require": "./dist/mocks/index.cjs.js"
+    },
+    "./types": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/types/index.es.js",
+      "require": "./dist/types/index.cjs.js"
     }
   },
   "files": [
@@ -34,6 +44,7 @@
     "node": ">=22"
   },
   "dependencies": {
-    "axios": "^1.8.4"
+    "axios": "^1.8.4",
+    "msw": "^2.7.3"
   }
 }

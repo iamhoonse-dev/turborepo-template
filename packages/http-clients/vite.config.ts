@@ -11,6 +11,8 @@ export default defineConfig({
       name: "http-clients",
       entry: {
         instances: resolve(__dirname, "src/instances/index.ts"),
+        mocks: resolve(__dirname, "src/mocks/index.ts"),
+        types: resolve(__dirname, "src/types/index.ts"),
       },
       formats: ["es", "cjs"],
       fileName: (format, entryName) => `${entryName}/index.${format}.js`,
