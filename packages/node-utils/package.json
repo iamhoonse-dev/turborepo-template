@@ -16,6 +16,11 @@
       "import": "./dist/fs/index.es.js",
       "require": "./dist/fs/index.cjs.js"
     },
+    "./msw": {
+      "types": "./dist/msw/index.d.ts",
+      "import": "./dist/msw/index.es.js",
+      "require": "./dist/msw/index.cjs.js"
+    },
     "./misc": {
       "types": "./dist/misc/index.d.ts",
       "import": "./dist/misc/index.es.js",
