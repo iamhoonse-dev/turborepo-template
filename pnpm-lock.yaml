@@ -176,6 +176,9 @@ importers:
       '@repo/http-clients':
         specifier: workspace:*
         version: link:../../packages/http-clients
+      '@repo/node-utils':
+        specifier: workspace:*
+        version: link:../../packages/node-utils
       '@repo/react-ui':
         specifier: workspace:*
         version: link:../../packages/react-ui
@@ -294,6 +297,37 @@ importers:
         version: 5.8.2
       vite:
         specifier: ^6.2.5
+        version: 6.2.5(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2)
+      vite-plugin-dts:
+        specifier: ^4.5.3
+        version: 4.5.3(@types/node@22.13.10)(rollup@4.39.0)(typescript@5.8.2)(vite@6.2.5(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2))
+      vite-tsconfig-paths:
+        specifier: ^5.1.4
+        version: 5.1.4(typescript@5.8.2)(vite@6.2.5(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2))
+
+  packages/node-utils:
+    dependencies:
+      msw:
+        specifier: ^2.7.3
+        version: 2.7.3(@types/node@22.13.10)(typescript@5.8.2)
+    devDependencies:
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@types/node':
+        specifier: ^22.13.10
+        version: 22.13.10
+      eslint:
+        specifier: ^9.23.0
+        version: 9.23.0(jiti@2.4.2)
+      typescript:
+        specifier: 5.8.2
+        version: 5.8.2
+      vite:
+        specifier: ^6.2.0
         version: 6.2.5(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2)
       vite-plugin-dts:
         specifier: ^4.5.3

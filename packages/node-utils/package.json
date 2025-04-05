@@ -1,0 +1,44 @@
+{
+  "name": "@repo/node-utils",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint . --max-warnings 0",
+    "check-types": "tsc --noEmit",
+    "dev": "tsc && vite build --watch",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "exports": {
+    "./fs": {
+      "types": "./dist/fs/index.d.ts",
+      "import": "./dist/fs/index.es.js",
+      "require": "./dist/fs/index.cjs.js"
+    },
+    "./misc": {
+      "types": "./dist/misc/index.d.ts",
+      "import": "./dist/misc/index.es.js",
+      "require": "./dist/misc/index.cjs.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "msw": "^2.7.3"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "^22.13.10",
+    "eslint": "^9.23.0",
+    "typescript": "5.8.2",
+    "vite": "^6.2.0",
+    "vite-plugin-dts": "^4.5.3",
+    "vite-tsconfig-paths": "^5.1.4"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
