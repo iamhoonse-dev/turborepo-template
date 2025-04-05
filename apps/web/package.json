@@ -19,7 +19,7 @@
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "@repo/utils": "workspace:*",
+    "@repo/browser-utils": "workspace:*",
     "@repo/react-utils": "workspace:*",
     "@repo/react-ui": "workspace:*",
     "@repo/http-clients": "workspace:*",

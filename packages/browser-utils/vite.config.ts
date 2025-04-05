@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [dtsPlugin(), tsConfigPaths()],
   build: {
     lib: {
-      name: "utils",
+      name: "browser-utils",
       entry: {
         string: resolve(__dirname, "src/string/index.ts"),
         dom: resolve(__dirname, "src/dom/index.ts"),
