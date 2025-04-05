@@ -311,8 +311,8 @@ importers:
         specifier: workspace:*
         version: link:../typescript-config
       typescript:
-        specifier: ~5.7.2
-        version: 5.7.3
+        specifier: 5.8.2
+        version: 5.8.2
       vite:
         specifier: ^6.2.0
         version: 6.2.5(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2)
