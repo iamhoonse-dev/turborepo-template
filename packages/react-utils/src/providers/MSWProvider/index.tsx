@@ -32,8 +32,8 @@ const MSWProvider: FC<PropsWithChildren<Props>> = ({
         try {
           await initMockWorker(handlers, startOptions);
           setInitialized(true);
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
+          console.error("Failed to initialize mock worker:", error);
           setInitialized(false);
         }
       })();
