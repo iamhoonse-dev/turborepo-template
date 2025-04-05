@@ -1,6 +1,6 @@
 import Image, { type ImageProps } from "next/image";
 import { Button } from "@repo/ui/button";
-import { isEmptyString } from "@repo/utils/string";
+import { isEmptyString } from "@repo/browser-utils/string";
 import HelloWorldButton from "../components/HelloWorldButton";
 import AutoCounter from "../containers/AutoCounter";
 import HelloWorldParagraph from "../components/HelloWorldParagraph";
