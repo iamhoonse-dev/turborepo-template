@@ -10,6 +10,18 @@
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
+  "exports": {
+    "./fs": {
+      "types": "./dist/fs/index.d.ts",
+      "import": "./dist/fs/index.es.js",
+      "require": "./dist/fs/index.cjs.js"
+    },
+    "./misc": {
+      "types": "./dist/misc/index.d.ts",
+      "import": "./dist/misc/index.es.js",
+      "require": "./dist/misc/index.cjs.js"
+    }
+  },
   "files": [
     "dist"
   ],

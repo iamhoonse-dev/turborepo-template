@@ -7,11 +7,24 @@ import tsConfigPaths from "vite-tsconfig-paths";
 export default defineConfig({
   plugins: [dtsPlugin(), tsConfigPaths()],
   build: {
-    lib: {
-      name: "node-utils",
-      entry: resolve(__dirname, "src/index.ts"),
-      formats: ["es", "cjs"],
-      fileName: (format) => `index.${format}.js`,
+    ssr: true,
+    rollupOptions: {
+      input: {
+        fs: resolve(__dirname, "src/fs/index.ts"),
+        misc: resolve(__dirname, "src/misc/index.ts"),
+      },
+      output: [
+        {
+          format: "es",
+          dir: resolve(__dirname, "dist"),
+          entryFileNames: ({ name }) => `${name}/index.es.js`,
+        },
+        {
+          format: "cjs",
+          dir: resolve(__dirname, "dist"),
+          entryFileNames: ({ name }) => `${name}/index.cjs.js`,
+        },
+      ],
     },
   },
   resolve: { alias: { src: resolve(__dirname, "src/") } },
