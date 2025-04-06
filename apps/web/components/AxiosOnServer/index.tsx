@@ -1,9 +1,9 @@
 import type { FC } from "react";
-import { selfInstance } from "@repo/http-clients/instances";
+import { iamhoonseDevInstance } from "@repo/http-clients/instances";
 
 const AxiosOnServer: FC = async () => {
   try {
-    const response = await selfInstance.get("/foo");
+    const response = await iamhoonseDevInstance.get(`/bar`);
     return <>{JSON.stringify(response.data)}</>;
   } catch (error) {
     return <>{JSON.stringify(error)}</>;

@@ -41,7 +41,7 @@
     "vite-tsconfig-paths": "^5.1.4"
   },
   "dependencies": {
-    "msw": "^2.7.3"
+    "msw": "2.4.3"
   },
   "engines": {
     "node": ">=22"

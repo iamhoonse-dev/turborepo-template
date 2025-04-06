@@ -11,6 +11,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         fs: resolve(__dirname, "src/fs/index.ts"),
+        msw: resolve(__dirname, "src/msw/index.ts"),
         misc: resolve(__dirname, "src/misc/index.ts"),
       },
       output: [
@@ -28,4 +29,7 @@ export default defineConfig({
     },
   },
   resolve: { alias: { src: resolve(__dirname, "src/") } },
+  ssr: {
+    noExternal: true,
+  },
 });
