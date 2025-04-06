@@ -9,6 +9,7 @@ import { preserveDirective } from "rollup-preserve-directives";
 export default defineConfig({
   plugins: [dtsPlugin(), react(), tsConfigPaths(), preserveDirective()],
   build: {
+    emptyOutDir: false,
     lib: {
       name: "react-utils",
       entry: {
