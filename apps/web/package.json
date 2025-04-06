@@ -14,16 +14,16 @@
     "@repo/ui": "workspace:*",
     "next": "^15.2.4",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
-  },
-  "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
+    "react-dom": "^19.0.0",
     "@repo/node-utils": "workspace:*",
     "@repo/browser-utils": "workspace:*",
     "@repo/react-utils": "workspace:*",
     "@repo/react-ui": "workspace:*",
-    "@repo/http-clients": "workspace:*",
+    "@repo/http-clients": "workspace:*"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
     "@types/node": "^22.13.10",
     "@types/react": "19.0.10",
     "@types/react-dom": "19.0.4",

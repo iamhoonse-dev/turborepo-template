@@ -8,6 +8,7 @@ export default defineConfig({
   plugins: [dtsPlugin(), tsConfigPaths()],
   build: {
     ssr: true,
+    emptyOutDir: false,
     rollupOptions: {
       input: {
         fs: resolve(__dirname, "src/fs/index.ts"),
