@@ -13,12 +13,12 @@
   },
   "dependencies": {
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "@repo/react-ui": "workspace:*"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3",
     "@eslint/js": "^9.21.0",
-    "@repo/react-ui": "workspace:*",
     "@repo/eslint-config": "workspace:*",
     "@storybook/addon-essentials": "^8.6.11",
     "@storybook/blocks": "^8.6.11",

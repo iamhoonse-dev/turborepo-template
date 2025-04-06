@@ -66,6 +66,9 @@ importers:
 
   apps/storybook:
     dependencies:
+      '@repo/react-ui':
+        specifier: workspace:*
+        version: link:../../packages/react-ui
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -82,9 +85,6 @@ importers:
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
-      '@repo/react-ui':
-        specifier: workspace:*
-        version: link:../../packages/react-ui
       '@storybook/addon-essentials':
         specifier: ^8.6.11
         version: 8.6.11(@types/react@19.0.10)(storybook@8.6.11(prettier@3.5.3))
@@ -154,6 +154,21 @@ importers:
 
   apps/web:
     dependencies:
+      '@repo/browser-utils':
+        specifier: workspace:*
+        version: link:../../packages/browser-utils
+      '@repo/http-clients':
+        specifier: workspace:*
+        version: link:../../packages/http-clients
+      '@repo/node-utils':
+        specifier: workspace:*
+        version: link:../../packages/node-utils
+      '@repo/react-ui':
+        specifier: workspace:*
+        version: link:../../packages/react-ui
+      '@repo/react-utils':
+        specifier: workspace:*
+        version: link:../../packages/react-utils
       '@repo/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -167,24 +182,9 @@ importers:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
     devDependencies:
-      '@repo/browser-utils':
-        specifier: workspace:*
-        version: link:../../packages/browser-utils
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
-      '@repo/http-clients':
-        specifier: workspace:*
-        version: link:../../packages/http-clients
-      '@repo/node-utils':
-        specifier: workspace:*
-        version: link:../../packages/node-utils
-      '@repo/react-ui':
-        specifier: workspace:*
-        version: link:../../packages/react-ui
-      '@repo/react-utils':
-        specifier: workspace:*
-        version: link:../../packages/react-utils
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
