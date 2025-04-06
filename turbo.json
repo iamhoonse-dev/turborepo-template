@@ -19,5 +19,5 @@
       "persistent": true
     }
   },
-  "globalEnv": ["NODE_ENV"]
+  "globalEnv": ["NODE_ENV", "NEXT_RUNTIME"]
 }
