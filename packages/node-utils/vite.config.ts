@@ -29,4 +29,7 @@ export default defineConfig({
     },
   },
   resolve: { alias: { src: resolve(__dirname, "src/") } },
+  ssr: {
+    noExternal: true,
+  },
 });
