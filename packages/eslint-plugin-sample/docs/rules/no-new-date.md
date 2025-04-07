@@ -11,13 +11,13 @@ This rule aims to detect any usage of new Date() syntax.
 ### Examples of **incorrect** code for this rule:
 
 ```js
-Date.now();
+new Date().getTime();
 ```
 
 ### Examples of **correct** code for this rule:
 
 ```js
-new Date().getTime();
+Date.now();
 ```
 
 <!--
