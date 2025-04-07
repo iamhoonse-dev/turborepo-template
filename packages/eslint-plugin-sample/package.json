@@ -1,5 +1,5 @@
 {
-  "name": "eslint-plugin-sample",
+  "name": "@repo/eslint-plugin-sample",
   "version": "0.0.0",
   "description": "This is a sample plugin.",
   "keywords": [
