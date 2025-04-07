@@ -61,6 +61,8 @@ TODO: Run eslint-doc-generator to generate the configs list (or delete this sect
 
 <!-- begin auto-generated rules list -->
 
-TODO: Run eslint-doc-generator to generate the rules list.
+| Name                                     | Description                                        |
+| :--------------------------------------- | :------------------------------------------------- |
+| [no-new-date](docs/rules/no-new-date.md) | Rule for detecting any usage of new Date() syntax. |
 
 <!-- end auto-generated rules list -->

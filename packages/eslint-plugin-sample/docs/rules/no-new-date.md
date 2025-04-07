@@ -1,22 +1,26 @@
-# Rule for detecting any usage of new Date() syntax. (`no-new-date`)
+# Rule for detecting any usage of new Date() syntax (`sample/no-new-date`)
 
-Please describe the origin of the rule here.
+<!-- end auto-generated rule header -->
+
+This plugin is written for the purpose of a basic sample to verify functionality of ESLint Plugin.
 
 ## Rule Details
 
-This rule aims to...
+This rule aims to detect any usage of new Date() syntax.
 
-Examples of **incorrect** code for this rule:
-
-```js
-// fill me in
-```
-
-Examples of **correct** code for this rule:
+### Examples of **incorrect** code for this rule:
 
 ```js
-// fill me in
+Date.now();
 ```
+
+### Examples of **correct** code for this rule:
+
+```js
+new Date().getTime();
+```
+
+<!--
 
 ### Options
 
@@ -29,3 +33,5 @@ Give a short description of when it would be appropriate to turn off this rule.
 ## Further Reading
 
 If there are other links that describe the issue this rule addresses, please include them here in a bulleted list.
+
+-->
