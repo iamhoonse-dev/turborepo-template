@@ -8,6 +8,9 @@
     "check-types": "tsc --noEmit",
     "dev": "tsc && vite build --watch",
     "build": "tsc && vite build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "coverage": "vitest run --coverage",
     "preview": "vite preview"
   },
   "exports": {
