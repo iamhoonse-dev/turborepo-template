@@ -35,6 +35,7 @@ export default defineConfig({
     noExternal: true,
   },
   test: {
+    environment: "node",
     coverage: {
       provider: "v8",
       reporter: ["json"],
