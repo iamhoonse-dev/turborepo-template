@@ -46,8 +46,7 @@ test("examples of some things", async () => {
 
   // Get form elements by their label text.
   // An error will be thrown if one cannot be found (accessibility FTW!)
-  const input = getByLabelText(container, "Username");
-  // @ts-expect-error TS2339
+  const input = getByLabelText(container, "Username") as HTMLInputElement;
   input.value = famousProgrammerInHistory;
 
   // Get elements by their text, just like a real user does.
