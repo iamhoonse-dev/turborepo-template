@@ -6,10 +6,12 @@ import {
   getByText,
   getByTestId,
   queryByTestId,
+  getByRole,
   // Tip: all queries are also exposed on an object
   // called "queries" which you could import here as well
   waitFor,
 } from "@testing-library/dom";
+import userEvent from "@testing-library/user-event";
 
 function getExampleDOM() {
   // This is just a raw example of setting up some DOM
@@ -26,16 +28,13 @@ function getExampleDOM() {
   button.addEventListener("click", () => {
     // let's pretend this is making a server request, so it's async
     // (you'd want to mock this imaginary request in your unit tests)...
-    setTimeout(
-      () => {
-        const printedUsernameContainer = document.createElement("div");
-        printedUsernameContainer.innerHTML = `
+    setTimeout(() => {
+      const printedUsernameContainer = document.createElement("div");
+      printedUsernameContainer.innerHTML = `
         <div data-testid="printed-username">${input.value}</div>
       `;
-        div.appendChild(printedUsernameContainer);
-      },
-      100,
-    );
+      div.appendChild(printedUsernameContainer);
+    }, 100);
   });
   return div;
 }
@@ -61,6 +60,11 @@ test("examples of some things", async () => {
   expect(getByTestId(container, "printed-username")).toHaveTextContent(
     famousProgrammerInHistory,
   );
+
+  // button is clickable
+  const button = getByRole(container, "button", { name: "Print Username" });
+  await userEvent.click(button);
+
   // jest snapshots work great with regular DOM nodes!
   // expect(container).toMatchSnapshot(); // fixme: this is not working
 });
