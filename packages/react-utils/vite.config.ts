@@ -33,6 +33,7 @@ export default defineConfig({
   },
   resolve: { alias: { src: resolve(__dirname, "src/") } },
   test: {
+    environment: "jsdom",
     coverage: {
       provider: "v8",
       reporter: ["json"],
