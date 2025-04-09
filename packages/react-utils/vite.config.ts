@@ -34,6 +34,7 @@ export default defineConfig({
   resolve: { alias: { src: resolve(__dirname, "src/") } },
   test: {
     environment: "jsdom",
+    setupFiles: ["./src/tests/setup.ts"],
     coverage: {
       provider: "v8",
       reporter: ["json"],
