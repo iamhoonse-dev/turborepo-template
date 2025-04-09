@@ -1,6 +1,6 @@
 import { describe, test, expect } from "vitest";
 import { render } from "@testing-library/react";
-import { userEvent } from "@testing-library/user-event";
+import userEvent from "@testing-library/user-event";
 import withHelloWorld from ".";
 
 describe("withHelloWorld()", () => {
