@@ -70,6 +70,7 @@ export default defineConfig({
   },
   resolve: { alias: { "@": resolve(__dirname, "./src") } },
   test: {
+    environment: "jsdom",
     coverage: {
       provider: "v8",
       reporter: ["json"],
