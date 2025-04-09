@@ -34,7 +34,7 @@ function getExampleDOM() {
       `;
         div.appendChild(printedUsernameContainer);
       },
-      Math.floor(Math.random() * 200),
+      100,
     );
   });
   return div;
