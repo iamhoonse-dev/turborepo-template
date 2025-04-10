@@ -1,8 +1,12 @@
 import { mergeConfig } from "vite";
 import { defineProject } from "vitest/config";
 import uiTestConfig from "@repo/vitest-config/ui";
+import viteConfig from "./vite.config";
 
 export default mergeConfig(
-  uiTestConfig,
-  defineProject({ test: { setupFiles: ["./src/tests/setup.ts"] } }),
+  viteConfig,
+  mergeConfig(
+    uiTestConfig,
+    defineProject({ test: { setupFiles: ["./src/tests/setup.ts"] } }),
+  ),
 );
