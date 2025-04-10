@@ -506,6 +506,9 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
+      '@repo/vitest-config':
+        specifier: workspace:*
+        version: link:../vitest-config
       '@testing-library/dom':
         specifier: ^10.4.0
         version: 10.4.0
