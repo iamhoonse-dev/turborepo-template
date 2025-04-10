@@ -34,11 +34,4 @@ export default defineConfig({
   ssr: {
     noExternal: true,
   },
-  test: {
-    environment: "node",
-    coverage: {
-      provider: "v8",
-      reporter: ["json"],
-    },
-  },
 });
