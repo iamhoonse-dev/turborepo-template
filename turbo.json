@@ -20,6 +20,13 @@
     "dev": {
       "cache": false,
       "persistent": true
+    },
+    "test": {
+      "dependsOn": ["^test"]
+    },
+    "test:watch": {
+      "cache": false,
+      "persistent": true
     }
   },
   "globalEnv": ["NODE_ENV", "NEXT_RUNTIME"]

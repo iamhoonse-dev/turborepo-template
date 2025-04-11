@@ -31,14 +31,5 @@ export default defineConfig({
     },
   },
   resolve: { alias: { src: resolve(__dirname, "src/") } },
-  ssr: {
-    noExternal: true,
-  },
-  test: {
-    environment: "node",
-    coverage: {
-      provider: "v8",
-      reporter: ["json"],
-    },
-  },
+  ssr: process.env.NODE_ENV === "test" ? undefined : { noExternal: true },
 });
