@@ -10,6 +10,7 @@
     "check-types": "turbo run check-types",
     "test": "turbo run test",
     "test:watch": "turbo run test:watch",
+    "view-report": "turbo run view-report",
     "prepare": "husky"
   },
   "devDependencies": {
