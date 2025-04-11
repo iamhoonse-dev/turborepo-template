@@ -31,7 +31,5 @@ export default defineConfig({
     },
   },
   resolve: { alias: { src: resolve(__dirname, "src/") } },
-  ssr: {
-    noExternal: true,
-  },
+  ssr: process.env.NODE_ENV === "test" ? undefined : { noExternal: true },
 });
