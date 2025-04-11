@@ -1,7 +1,10 @@
 {
   "extends": ["@repo/typescript-config/base.json"],
   "compilerOptions": {
-    "outDir": "dist"
+    "outDir": "dist",
+    "paths": {
+      "@repo/vitest-config/*": ["./configs/*.ts"],
+    }
   },
   "include": ["configs", "scripts"],
   "exclude": ["node_modules", "dist"]
