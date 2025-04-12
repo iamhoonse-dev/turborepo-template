@@ -29,9 +29,13 @@
       "cache": false,
       "persistent": true
     },
+    "test:e2e": {
+      "dependsOn": ["^build"],
+      "passThroughEnv": ["PLAYWRIGHT_*"]
+    },
     "transit": {
       "dependsOn": ["^transit"]
     }
   },
-  "globalEnv": ["NODE_ENV", "NEXT_RUNTIME"]
+  "globalEnv": ["NODE_ENV", "CI", "NEXT_RUNTIME"]
 }
