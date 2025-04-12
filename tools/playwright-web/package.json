@@ -2,7 +2,11 @@
   "name": "playwright-web",
   "private": true,
   "version": "0.0.0",
-  "scripts": {},
+  "scripts": {
+    "test:e2e": "npx playwright test",
+    "test:e2e:report": "npx playwright show-report",
+    "test:e2e:codegen": "npx playwright codegen"
+  },
   "devDependencies": {
     "@playwright/test": "^1.51.1",
     "@types/node": "^22.13.10"
