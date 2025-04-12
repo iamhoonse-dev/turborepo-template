@@ -3,12 +3,15 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
+    "lint": "eslint . --max-warnings 0",
     "test:e2e": "npx playwright test",
     "test:e2e:report": "npx playwright show-report",
     "test:e2e:codegen": "npx playwright codegen"
   },
   "devDependencies": {
     "web": "workspace:*",
+    "@repo/eslint-config": "workspace:*",
+    "eslint": "^9.23.0",
     "@playwright/test": "^1.51.1",
     "@types/node": "^22.13.10"
   }
