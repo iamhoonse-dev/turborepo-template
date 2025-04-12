@@ -3,9 +3,9 @@ import { render, screen } from "@testing-library/react";
 import HelloWorldButton from ".";
 
 describe("<HelloWorldButton/>", () => {
-  test("render", async () => {
+  test("render", () => {
     render(<HelloWorldButton />);
-    const button = await screen.getByRole("button", {
+    const button = screen.getByRole("button", {
       name: "Click me!",
     });
     expect(button).toBeInTheDocument();

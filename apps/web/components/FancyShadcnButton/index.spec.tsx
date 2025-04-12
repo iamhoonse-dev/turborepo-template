@@ -3,9 +3,9 @@ import { render, screen } from "@testing-library/react";
 import FancyShadcnButton from ".";
 
 describe("<FancyShadcnButton/>", () => {
-  test("render", async () => {
+  test("render", () => {
     render(<FancyShadcnButton />);
-    const button = await screen.getByRole("button", {
+    const button = screen.getByRole("button", {
       name: "shadcn/ui",
     });
     expect(button).toBeInTheDocument();
