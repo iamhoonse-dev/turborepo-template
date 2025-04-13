@@ -87,3 +87,8 @@ jobs:
             packages/*/dist
           key: ${{ runner.os }}-dist-${{ hashFiles('**/pnpm-lock.yaml') }}
       - run: pnpm run test
+      - name: Upload coverage reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-reports
+          path: packages/vitest-config/coverage/merged
