@@ -6,6 +6,8 @@ on:
       - install-and-build
     types:
       - completed
+    branches:
+      - '*'
 
 jobs:
   test:
