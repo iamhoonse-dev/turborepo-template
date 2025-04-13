@@ -87,6 +87,7 @@ jobs:
             packages/*/dist
           key: ${{ runner.os }}-dist-${{ hashFiles('**/pnpm-lock.yaml') }}
       - run: pnpm run test
+      - run: pnpm run merge-json-reports
       - name: Upload coverage reports
         uses: actions/upload-artifact@v4
         with:
