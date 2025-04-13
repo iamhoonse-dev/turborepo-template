@@ -1,6 +1,9 @@
 name: install-and-build
 
-on: [push]
+on:
+  push:
+    branches:
+      - '*'
 
 jobs:
   install:
