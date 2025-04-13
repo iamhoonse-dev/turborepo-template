@@ -58,6 +58,8 @@ jobs:
           path: |
             packages/*/dist
           key: ${{ runner.os }}-dist-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-dist-
 
   test:
     runs-on: ubuntu-latest
