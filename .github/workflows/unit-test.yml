@@ -16,7 +16,7 @@ jobs:
           node-version: 22.x
           cache: 'pnpm'
       - name: Cache node_modules
-        id: cache
+        id: cache-node-modules
         uses: actions/cache@v3
         with:
           path: |
