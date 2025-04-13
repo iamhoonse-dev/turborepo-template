@@ -27,7 +27,6 @@ jobs:
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-node-modules-
-      - run: pnpm add turbo
       - run: pnpm install --frozen-lockfile
 
   build:
