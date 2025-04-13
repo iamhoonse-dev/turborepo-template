@@ -63,3 +63,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-dist-
       - run: pnpm run build
+
+  finish:
+    runs-on: ubuntu-latest
+    needs: [install, build]
+    steps:
+      - run: echo 'The install and build jobs have completed'
