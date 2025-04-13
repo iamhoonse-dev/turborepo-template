@@ -42,7 +42,11 @@ jobs:
       - name: Restore node_modules cache
         uses: actions/cache@v3
         with:
-          path: node_modules
+          path: |
+            node_modules
+            apps/*/node_modules
+            tools/*/node_modules
+            packages/*/node_modules
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
       - run: pnpm run build
 
@@ -59,6 +63,10 @@ jobs:
       - name: Restore node_modules cache
         uses: actions/cache@v3
         with:
-          path: node_modules
+          path: |
+            node_modules
+            apps/*/node_modules
+            tools/*/node_modules
+            packages/*/node_modules
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
       - run: pnpm run test
