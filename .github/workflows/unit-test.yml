@@ -2,8 +2,12 @@ name: unit-test
 
 on:
   workflow_run:
-    workflows: [install-and-build]
-    types: [completed]
+    workflows:
+      - install-and-build
+    types:
+      - completed
+    branches:
+      - '*'
 
 jobs:
   on-success:
