@@ -26,37 +26,33 @@ jobs:
             }
             const workflowId = workflow.id;
 
-            let runs;
+            let isWorkflowCompleted = false;
             do {
-              runs = await github.rest.actions.listWorkflowRuns({
+              const completedRuns = await github.rest.actions.listWorkflowRuns({
                 owner,
                 repo,
                 workflow_id: workflowId,
-                status: "in_progress",
+                status: "completed",
               });
-              if (runs.data.total_count > 0) {
+            
+              if (completedRuns.data.total_count === 0) {
+                console.log("Waiting for install-and-build workflow to start...");
+                await new Promise((resolve) => setTimeout(resolve, 30000)); // 30초 대기
+                continue;
+              }
+            
+              const latestRun = completedRuns.data.workflow_runs[0];
+              if (latestRun.conclusion === "success") {
+                isWorkflowCompleted = true;
+              } else if (latestRun.conclusion === "failure" || latestRun.conclusion === "cancelled") {
+                throw new Error(
+                  `The latest 'install-and-build' workflow run did not succeed. Conclusion: ${latestRun.conclusion}`
+                );
+              } else {
                 console.log("Waiting for install-and-build workflow to complete...");
                 await new Promise((resolve) => setTimeout(resolve, 30000)); // 30초 대기
-              } else {
-                const completedRuns = await github.rest.actions.listWorkflowRuns({
-                  owner,
-                  repo,
-                  workflow_id: workflowId,
-                  status: "completed",
-                });
-              
-                if (completedRuns.data.total_count === 0) {
-                  throw new Error("No completed runs found for 'install-and-build' workflow.");
-                }
-              
-                const latestRun = completedRuns.data.workflow_runs[0];
-                if (latestRun.conclusion !== "success") {
-                  throw new Error(
-                    `The latest 'install-and-build' workflow run did not succeed. Conclusion: ${latestRun.conclusion}`
-                  );
-                }
               }
-            } while (runs.data.total_count > 0);
+            } while (!isWorkflowCompleted);
 
             console.log("install-and-build workflow completed.");
         env:
