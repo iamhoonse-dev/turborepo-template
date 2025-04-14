@@ -37,6 +37,24 @@ jobs:
               if (runs.data.total_count > 0) {
                 console.log("Waiting for install-and-build workflow to complete...");
                 await new Promise((resolve) => setTimeout(resolve, 30000)); // 30초 대기
+              } else {
+                const completedRuns = await github.rest.actions.listWorkflowRuns({
+                  owner,
+                  repo,
+                  workflow_id: workflowId,
+                  status: "completed",
+                });
+              
+                if (completedRuns.data.total_count === 0) {
+                  throw new Error("No completed runs found for 'install-and-build' workflow.");
+                }
+              
+                const latestRun = completedRuns.data.workflow_runs[0];
+                if (latestRun.conclusion !== "success") {
+                  throw new Error(
+                    `The latest 'install-and-build' workflow run did not succeed. Conclusion: ${latestRun.conclusion}`
+                  );
+                }
               }
             } while (runs.data.total_count > 0);
 
