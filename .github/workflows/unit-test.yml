@@ -10,19 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Wait for install-and-build workflow
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
-            const { Octokit } = require("@octokit/rest");
-            const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
-
-            const owner = context.repo.owner;
-            const repo = context.repo.repo;
+            const { repo, owner } = context.repo;
             const workflowName = "install-and-build";
 
             let runs;
             do {
-              runs = await octokit.actions.listWorkflowRuns({
+              runs = await github.rest.actions.listWorkflowRuns({
                 owner,
                 repo,
                 workflow_id: workflowName,
