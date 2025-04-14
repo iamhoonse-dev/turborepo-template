@@ -1,5 +1,10 @@
 name: install-and-build
 
+on:
+  push:
+    branches:
+      - '*'
+
 jobs:
   install:
     runs-on: ubuntu-latest
