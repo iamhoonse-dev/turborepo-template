@@ -13,20 +13,25 @@ jobs:
         uses: actions/github-script@v7
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_FOR_WORKFLOWS_AND_ACTIONS }}
-          PAT: ${{ secrets.PAT_FOR_WORKFLOWS_AND_ACTIONS }}
+          GH_TOKEN: ${{ secrets.PAT_FOR_WORKFLOWS_AND_ACTIONS }}
         with:
           script: |
             const { repo, owner } = context.repo;
             const eventType = "trigger-install-and-build";
 
-            const response = await github.rest.repos.createDispatchEvent({
-              owner,
-              repo,
-              event_type: eventType,
-            });
-
-            console.log(`Triggered repository_dispatch event: ${eventType}`);
-            console.log(`Response : ${JSON.stringify(response, null, 2)}`);
+            try {
+              const response = await github.rest.repos.createDispatchEvent({
+                owner,
+                repo,
+                event_type: eventType,
+              });
+              
+              console.log(`Triggered repository_dispatch event: ${eventType}`);
+              console.log(`Response: ${JSON.stringify(response, null, 2)}`);
+            } catch (error) {
+              console.error("Error triggering repository_dispatch event:", error);
+              throw error;
+            }
 
   wait-for-install-and-build:
     runs-on: ubuntu-latest
