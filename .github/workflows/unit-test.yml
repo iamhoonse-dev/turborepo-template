@@ -35,8 +35,8 @@ jobs:
             } while (runs.data.total_count > 0);
 
             console.log("install-and-build workflow completed.");
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   test:
     runs-on: ubuntu-latest
