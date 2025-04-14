@@ -13,11 +13,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-      - name: Cache turbo build setup
+      - name: Cache turbo task output
         id: cache-turbo
         uses: actions/cache@v4
         with:
-          path: .turbo
+          path: |
+            .turbo
+            apps/*/.turbo
+            tools/*/.turbo
+            packages/*/.turbo
           key: ${{ runner.os }}-turbo-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-turbo-
@@ -48,10 +52,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-      - name: Restore turbo build setup
+      - name: Restore turbo cache
         uses: actions/cache@v4
         with:
-          path: .turbo
+          path: |
+            .turbo
+            apps/*/.turbo
+            tools/*/.turbo
+            packages/*/.turbo
           key: ${{ runner.os }}-turbo-${{ github.sha }}
       - name: Use Node.js 22.x
         uses: actions/setup-node@v4
