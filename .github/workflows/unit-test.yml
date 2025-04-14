@@ -14,14 +14,24 @@ jobs:
         with:
           script: |
             const { repo, owner } = context.repo;
+            const workflows = await github.rest.actions.listRepoWorkflows({
+              owner,
+              repo,
+            });
+
             const workflowName = "install-and-build";
+            const workflow = workflows.data.workflows.find(w => w.name === workflowName);
+            if (!workflow) {
+              throw new Error("Workflow 'install-and-build' not found");
+            }
+            const workflowId = workflow.id;
 
             let runs;
             do {
               runs = await github.rest.actions.listWorkflowRuns({
                 owner,
                 repo,
-                workflow_id: workflowName,
+                workflow_id: workflowId,
                 status: "in_progress",
               });
               if (runs.data.total_count > 0) {
