@@ -12,7 +12,8 @@ jobs:
       - name: Trigger install-and-build workflow
         uses: actions/github-script@v7
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT_FOR_WORKFLOWS_AND_ACTIONS }}
+          PAT: ${{ secrets.PAT_FOR_WORKFLOWS_AND_ACTIONS }}
         with:
           script: |
             const { repo, owner } = context.repo;
