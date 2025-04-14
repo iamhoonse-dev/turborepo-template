@@ -1,9 +1,9 @@
 name: install-and-build
 
 on:
-  push:
-    branches:
-      - '*'
+  repository_dispatch:
+    types:
+      - trigger-install-and-build
 
 jobs:
   install:
