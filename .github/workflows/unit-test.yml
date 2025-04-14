@@ -1,26 +1,46 @@
 name: unit-test
 
 on:
-  workflow_run:
-    workflows:
-      - install-and-build
-    types:
-      - completed
+  push:
+    branches:
+      - '*'
 
 jobs:
-  on-success:
+  wait-for-install-and-build:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - run: echo 'The triggering workflow passed'
-  on-failure:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
-    steps:
-      - run: echo 'The triggering workflow failed'
+      - name: Wait for install-and-build workflow
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { Octokit } = require("@octokit/rest");
+            const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const workflowName = "install-and-build";
+
+            let runs;
+            do {
+              runs = await octokit.actions.listWorkflowRuns({
+                owner,
+                repo,
+                workflow_id: workflowName,
+                status: "in_progress",
+              });
+              if (runs.data.total_count > 0) {
+                console.log("Waiting for install-and-build workflow to complete...");
+                await new Promise((resolve) => setTimeout(resolve, 30000)); // 30초 대기
+              }
+            } while (runs.data.total_count > 0);
+
+            console.log("install-and-build workflow completed.");
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   test:
     runs-on: ubuntu-latest
-    needs: [on-success]
+    needs: [wait-for-install-and-build]
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
