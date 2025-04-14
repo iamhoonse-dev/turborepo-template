@@ -28,20 +28,21 @@ jobs:
 
             let isWorkflowCompleted = false;
             do {
-              const completedRuns = await github.rest.actions.listWorkflowRuns({
+              const allRuns = await github.rest.actions.listWorkflowRuns({
                 owner,
                 repo,
                 workflow_id: workflowId,
-                status: "completed",
               });
             
-              if (completedRuns.data.total_count === 0) {
+              if (allRuns.data.total_count === 0) {
                 console.log("Waiting for install-and-build workflow to start...");
                 await new Promise((resolve) => setTimeout(resolve, 30000)); // 30초 대기
                 continue;
               }
             
-              const latestRun = completedRuns.data.workflow_runs[0];
+              const latestRun = allRuns.data.workflow_runs[0];
+              if (!latestRun?.conclusion) continue;
+            
               if (latestRun.conclusion === "success") {
                 isWorkflowCompleted = true;
               } else if (latestRun.conclusion === "failure" || latestRun.conclusion === "cancelled") {
