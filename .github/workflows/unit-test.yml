@@ -25,6 +25,7 @@ jobs:
                 repo,
                 event_type: eventType,
               });
+              await new Promise((resolve) => setTimeout(resolve, 30000)); // 30초 대기
               
               console.log(`Triggered repository_dispatch event: ${eventType}`);
               console.log(`Response: ${JSON.stringify(response, null, 2)}`);
