@@ -46,8 +46,6 @@ jobs:
               owner,
               repo,
             });
-            
-            await new Promise((resolve) => setTimeout(resolve, 30000)); // 30초 대기
 
             const workflowName = "install-and-build";
             const workflow = workflows.data.workflows.find(w => w.name === workflowName);
