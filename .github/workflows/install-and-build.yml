@@ -1,9 +1,7 @@
 name: install-and-build
 
 on:
-  repository_dispatch:
-    types:
-      - trigger-install-and-build
+  workflow_dispatch:
 
 jobs:
   install:

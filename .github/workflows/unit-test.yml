@@ -14,26 +14,29 @@ jobs:
     steps:
       - name: Trigger install-and-build workflow
         uses: actions/github-script@v7
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           script: |
             const { repo, owner } = context.repo;
-            const eventType = "trigger-install-and-build";
+            const workflowName = "install-and-build";
 
-            try {
-              console.log(`Triggering repository_dispatch event : `, { eventType, repo, owner });
-              const response = await github.rest.repos.createDispatchEvent({
-                owner,
-                repo,
-                event_type: eventType,
-              });
-              console.log(`Triggered repository_dispatch event: ${eventType}`);
-              console.log(`Response: ${JSON.stringify(response, null, 2)}`);
-            } catch (error) {
-              console.error("Error triggering repository_dispatch event:", error);
-              throw error;
+            const workflows = await github.rest.actions.listRepoWorkflows({
+              owner,
+              repo,
+            });
+
+            const workflow = workflows.data.workflows.find(w => w.name === workflowName);
+            if (!workflow) {
+              throw new Error(`Workflow '${workflowName}' not found`);
             }
+
+            const response = await github.rest.actions.createWorkflowDispatch({
+              owner,
+              repo,
+              workflow_id: workflow.id,
+              ref: context.ref,
+            });
+
+            console.log(`Triggered workflow_dispatch for '${workflowName}'`, response);
 
   wait-for-install-and-build:
     runs-on: ubuntu-latest
