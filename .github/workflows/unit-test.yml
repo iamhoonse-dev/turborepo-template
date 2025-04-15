@@ -124,8 +124,11 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
+            apps/*/.next
+            !apps/*/.next/cache
+            apps/*/storybook-static
             packages/*/dist
-          key: ${{ runner.os }}-dist-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-dist-${{ github.sha }}
       - run: pnpm run test
       - run: pnpm run merge-json-reports
       - name: Upload coverage reports
