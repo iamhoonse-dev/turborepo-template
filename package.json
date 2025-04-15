@@ -12,6 +12,7 @@
     "test:watch": "turbo run test:watch",
     "test:e2e": "turbo run test:e2e",
     "view-report": "turbo run view-report",
+    "merge-json-reports": "turbo run merge-json-reports",
     "prepare": "husky"
   },
   "devDependencies": {
