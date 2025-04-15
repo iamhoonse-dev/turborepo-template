@@ -20,6 +20,7 @@ jobs:
             const eventType = "trigger-install-and-build";
 
             try {
+              console.log(`Triggering repository_dispatch event : `, { eventType, repo, owner });
               const response = await github.rest.repos.createDispatchEvent({
                 owner,
                 repo,
