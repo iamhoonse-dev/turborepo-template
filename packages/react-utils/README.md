@@ -1,7 +1,7 @@
 # ⚛️ React Utils
 
 ## 📖 개요
-`react-utils` 패키지는 React 애플리케이션 개발을 위한 유틸리티 함수와 도구를 제공합니다. 이 패키지는 React 컴포넌트와 관련된 공통 작업을 단순화하고, 코드 재사용성을 높이는 데 중점을 둡니다.
+`react-utils` 패키지는 React 애플리케이션 개발을 위한 유틸리티 함수와 도구를 제공해요. 이 패키지는 React 컴포넌트와 관련된 공통 작업을 단순화하고, 코드 재사용성을 높이는 데 중점을 두고 있어요.
 
 ## 📦 제공 기능
 - [Higher-Order Components (HOCs)](src/hocs)
@@ -34,7 +34,7 @@ const MyComponent: React.FC = () => {
 ```
 
 ## 🤝 기여
-이 패키지에 기여하려면, [CONTRIBUTING.md](../CONTRIBUTING.md)를 참조하세요.
+이 패키지에 기여하려면, [CONTRIBUTING.md](../CONTRIBUTING.md)를 참조해 주세요.
 
 ## 📜 라이선스
-이 프로젝트는 MIT 라이선스 하에 배포됩니다.
+이 프로젝트는 MIT 라이선스 하에 배포돼요.
