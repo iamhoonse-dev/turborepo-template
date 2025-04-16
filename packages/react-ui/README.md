@@ -1,54 +1,105 @@
-# React + TypeScript + Vite
+# 🖼️ React UI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📖 개요
+`react-ui` 패키지는 React 컴포넌트 라이브러리로, UI 개발을 단순화하고 재사용 가능한 컴포넌트를 제공해요. 이 패키지는 React 애플리케이션에서 빠르게 UI를 구성할 수 있도록 설계되었어요.
 
-Currently, two official plugins are available:
+## 📦 제공 기능
+- **[ShadCN UI](./shadcn-ui)**: ShadCN UI 관련 모듈을 제공해요.
+- **[Utils](./utils)**: React 애플리케이션에서 사용할 수 있는 UI 관련 유틸리티 함수 모음을 제공해요.
+- **[Components](./components)**: 다양한 React UI 컴포넌트를 제공해요.
+- **[Base CSS](./base.css)**: 기본 스타일 파일을 제공해요.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ⬇️ 설치
 
-## Expanding the ESLint configuration
+### npm 설치
+```bash
+npm install @your-org/react-ui
+```
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### pnpm 설치
+```bash
+pnpm add @your-org/react-ui
+```
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-      tsconfigRootDir: import.meta.dirname,
+## 🧑‍💻 사용법
+
+### shadcn-ui 사용 예시
+```typescript
+import { Button } from '@your-org/react-ui/shadcn-ui';
+
+const App: React.FC = () => {
+  return (
+    <Button className="bg-blue-500 text-white py-2 px-4 rounded">
+      shadcn/ui
+    </Button>
+  );
+};
+
+export default App;
+```
+
+### utils 사용 예시
+```typescript
+import { Button } from '@your-org/react-ui/shadcn-ui';
+import { cn } from '@your-org/react-ui/utils';
+
+const App: React.FC = () => {
+  return (
+    <Button className={cn('bg-red-400')}>
+      shadcn/ui
+    </Button>
+  );
+};
+
+export default App;
+```
+
+### components 사용 예시
+```typescript
+import { SampleButton } from '@your-org/react-ui/components';
+
+const App: React.FC = () => {
+  return <SampleButton />;
+};
+
+export default App;
+```
+
+### base.css 사용 예시
+
+#### Next.js 에서 사용할 때 (`globals.css`)
+```css
+@import "@your-org/react-ui/base.css";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+/* ...이후 생략... */
+```
+
+#### Storybook 에서 사용할 때 (`preview.ts`)
+```typescript
+import type { Preview } from "@storybook/react";
+import "@your-org/react-ui/base.css";
+
+const preview: Preview = {
+  parameters: {
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/i,
+      },
     },
   },
-});
+};
+
+export default preview;
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🤝 기여
+이 패키지에 기여하려면, [CONTRIBUTING.md](../CONTRIBUTING.md)를 참조해 주세요.
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    "react-x": reactX,
-    "react-dom": reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs["recommended-typescript"].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-});
-```
+## 📜 라이선스
+이 프로젝트는 MIT 라이선스 하에 배포돼요.
