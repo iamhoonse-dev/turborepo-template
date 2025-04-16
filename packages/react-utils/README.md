@@ -1,54 +1,40 @@
-# React + TypeScript + Vite
+# ⚛️ React Utils
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📖 개요
+`react-utils` 패키지는 React 애플리케이션 개발을 위한 유틸리티 함수와 도구를 제공합니다. 이 패키지는 React 컴포넌트와 관련된 공통 작업을 단순화하고, 코드 재사용성을 높이는 데 중점을 둡니다.
 
-Currently, two official plugins are available:
+## 📦 제공 기능
+- [Higher-Order Components (HOCs)](src/hocs)
+- [Custom React Hooks](src/hooks)
+- [Provider Components](src/providers)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ⬇️ 설치
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
+### npm 설치
+```bash
+npm install @your-org/react-utils
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    "react-x": reactX,
-    "react-dom": reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs["recommended-typescript"].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-});
+### pnpm 설치
+```bash
+pnpm add @your-org/react-utils
 ```
+
+## 🧑‍💻 사용법
+```typescript
+import { useInterval } from '@your-org/react-utils/hooks';
+
+const MyComponent: React.FC = () => {
+  useInterval(() => {
+    console.log('Interval triggered');
+  }, 1000);
+
+  return <div>Check the console for interval logs!</div>;
+};
+```
+
+## 🤝 기여
+이 패키지에 기여하려면, [CONTRIBUTING.md](../CONTRIBUTING.md)를 참조하세요.
+
+## 📜 라이선스
+이 프로젝트는 MIT 라이선스 하에 배포됩니다.
