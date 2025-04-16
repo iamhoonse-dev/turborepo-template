@@ -81,7 +81,7 @@ export default App;
 
 #### Storybook 에서 사용할 때 (`preview.ts`)
 ```typescript
-import type { Preview } from "@your-org/react";
+import type { Preview } from "@storybook/react";
 import "@your-org/react-ui/base.css";
 
 const preview: Preview = {
