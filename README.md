@@ -1,84 +1,58 @@
-# Turborepo starter
+# 📂 Turborepo Template
 
-This Turborepo starter is maintained by the Turborepo core team.
+## 📖 개요
+`Turborepo Template`은 모노레포 관리 및 빌드를 단순화하기 위해 설계된 템플릿입니다. 이 템플릿은 다양한 앱과 패키지를 포함하며, 팀 협업과 생산성을 극대화할 수 있도록 도와줍니다.
 
-## Using this example
+## 📦 제공 기능
 
-Run the following command:
+### 🖥️ Apps
+- **[Docs](./apps/docs)**: Next.js 기반의 문서화 앱.
+- **[Web](./apps/web)**: Next.js 기반의 웹 애플리케이션.
+- **[Storybook](./apps/storybook)**: 컴포넌트 개발 및 테스트를 위한 Storybook 환경.
 
-```sh
-npx create-turbo@latest
+### 📦 Packages
+- **[Browser Utils](./packages/browser-utils)**: 브라우저 관련 유틸리티 함수 모음.
+- **[ESLint Config](./packages/eslint-config)**: ESLint 설정을 위한 공통 구성.
+- **[ESLint Plugin Sample](./packages/eslint-plugin-sample)**: 샘플 ESLint 플러그인.
+- **[HTTP Clients](./packages/http-clients)**: HTTP 요청을 처리하기 위한 클라이언트 라이브러리.
+- **[Node Utils](./packages/node-utils)**: Node.js 환경에서 사용할 수 있는 유틸리티 함수 모음.
+- **[Playwright Config](./packages/playwright-config)**: Playwright 테스트 설정.
+- **[React UI](./packages/react-ui)**: React 기반 UI 컴포넌트 라이브러리.
+- **[React Utils](./packages/react-utils)**: React 애플리케이션에서 사용할 수 있는 유틸리티 함수 모음.
+- **[TypeScript Config](./packages/typescript-config)**: TypeScript 설정을 위한 공통 구성.
+- **[UI](./packages/ui)**: 공통 UI 컴포넌트 및 스타일.
+- **[Vitest Config](./packages/vitest-config)**: Vitest 테스트 설정.
+
+### 🛠️ Tools
+- **[Playwright Web](./tools/playwright-web)**: Playwright 기반의 웹 테스트 도구.
+
+## ⬇️ 의존성 설치
+
+### pnpm 설치
+```bash
+pnpm install
 ```
 
-## What's inside?
+## 🧑‍💻 사용법
 
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
+### 빌드
+```bash
 pnpm build
 ```
 
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
+### 개발 서버 실행
+```bash
 pnpm dev
 ```
 
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
+### 원격 캐싱 설정
+```bash
 npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
 npx turbo link
 ```
 
-## Useful Links
+## 🤝 기여
+이 템플릿에 기여하려면, [CONTRIBUTING.md](./CONTRIBUTING.md)를 참조해 주세요.
 
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+## 📜 라이선스
+이 프로젝트는 MIT 라이선스 하에 배포돼요.
