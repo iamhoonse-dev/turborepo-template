@@ -1,4 +1,4 @@
-# 🌐 Storybook Application
+# 📚 Storybook Application
 
 ## 📖 개요
 `storybook` 애플리케이션은 UI 컴포넌트를 독립적으로 개발하고 문서화하기 위한 도구인 Storybook을 활용한 애플리케이션이에요. 이 애플리케이션은 Turborepo 환경에서 Storybook을 어떻게 설정하고 사용하는지 보여주는 예시 역할을 해요.
