@@ -67,4 +67,4 @@ USER nextjs
 COPY --from=installer --chown=nextjs:nodejs /app/tools/playwright-web ./
 
 # start e2e tests
-CMD ["pnpm", "run", "test:e2e"]
+CMD ["pnpm", "run", "test:e2e:ci"]
