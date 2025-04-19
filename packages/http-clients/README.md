@@ -12,12 +12,6 @@
 
 ## ⬇️ 설치
 
-### npm 설치
-
-```bash
-npm install @your-org/http-clients
-```
-
 ### pnpm 설치
 
 ```bash
