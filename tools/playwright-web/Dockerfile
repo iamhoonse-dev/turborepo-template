@@ -65,7 +65,7 @@ WORKDIR /app
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=installer --chown=nextjs:nodejs /app/tools/playwright-web ./
+COPY --from=installer /app ./
 
 # start e2e tests
 CMD ["pnpm", "run", "test:e2e:ci"]
