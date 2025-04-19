@@ -30,6 +30,55 @@
 
 - **[Playwright Web](./tools/playwright-web)**: Playwright 기반의 웹 테스트 도구예요.
 
+## 🔗 구성 요소 간 관계도
+
+이 템플릿은 여러 앱과 패키지로 구성돼 있어요. 각 앱과 패키지 간의 관계는 아래의 다이어그램을 참고해 주세요.
+
+```mermaid
+graph TD
+	QHZT("@repo/browser-utils#build") --> ETTT("@repo/eslint-config#build")
+	QHZT("@repo/browser-utils#build") --> JEGP("@repo/typescript-config#build")
+	QHZT("@repo/browser-utils#build") --> EMLE("@repo/vitest-config#build")
+	ETTT("@repo/eslint-config#build") --> LRHC("@repo/eslint-plugin-sample#build")
+	LRHC("@repo/eslint-plugin-sample#build") --> GLAO("___ROOT___")
+	VELR("@repo/http-clients#build") --> ETTT("@repo/eslint-config#build")
+	VELR("@repo/http-clients#build") --> JEGP("@repo/typescript-config#build")
+	TXWC("@repo/node-utils#build") --> ETTT("@repo/eslint-config#build")
+	TXWC("@repo/node-utils#build") --> JEGP("@repo/typescript-config#build")
+	TXWC("@repo/node-utils#build") --> EMLE("@repo/vitest-config#build")
+	WCIN("@repo/playwright-config#build") --> ETTT("@repo/eslint-config#build")
+	WCIN("@repo/playwright-config#build") --> JEGP("@repo/typescript-config#build")
+	TPBW("@repo/react-ui#build") --> ETTT("@repo/eslint-config#build")
+	TPBW("@repo/react-ui#build") --> JEGP("@repo/typescript-config#build")
+	TPBW("@repo/react-ui#build") --> EMLE("@repo/vitest-config#build")
+	BHWE("@repo/react-utils#build") --> QHZT("@repo/browser-utils#build")
+	JEGP("@repo/typescript-config#build") --> GLAO("___ROOT___")
+	MKNG("@repo/ui#build") --> ETTT("@repo/eslint-config#build")
+	MKNG("@repo/ui#build") --> JEGP("@repo/typescript-config#build")
+	EMLE("@repo/vitest-config#build") --> JEGP("@repo/typescript-config#build")
+	IRKD("docs#build") --> ETTT("@repo/eslint-config#build")
+	IRKD("docs#build") --> JEGP("@repo/typescript-config#build")
+	IRKD("docs#build") --> MKNG("@repo/ui#build")
+	UWBQ("playwright-web#build") --> ETTT("@repo/eslint-config#build")
+	UWBQ("playwright-web#build") --> WCIN("@repo/playwright-config#build")
+	UWBQ("playwright-web#build") --> JEGP("@repo/typescript-config#build")
+	UWBQ("playwright-web#build") --> FBWM("web#build")
+	NRTE("storybook#build") --> ETTT("@repo/eslint-config#build")
+	NRTE("storybook#build") --> TPBW("@repo/react-ui#build")
+	FBWM("web#build") --> QHZT("@repo/browser-utils#build")
+	FBWM("web#build") --> ETTT("@repo/eslint-config#build")
+	FBWM("web#build") --> VELR("@repo/http-clients#build")
+	FBWM("web#build") --> TXWC("@repo/node-utils#build")
+	FBWM("web#build") --> TPBW("@repo/react-ui#build")
+	FBWM("web#build") --> BHWE("@repo/react-utils#build")
+	FBWM("web#build") --> JEGP("@repo/typescript-config#build")
+	FBWM("web#build") --> MKNG("@repo/ui#build")
+	FBWM("web#build") --> EMLE("@repo/vitest-config#build")
+```
+
+> 💡 **참고:**  
+> 이 다이어그램은 [Mermaid](https://mermaid-js.github.io/mermaid/#/)를 사용해서 그렸어요. 이 도구는 텍스트 기반으로 다이어그램을 그릴 수 있게 해줘요. 아래의 코드를 복사해서 [Mermaid Live Editor](https://mermaid-js.github.io/mermaid-live-editor/)에 붙여넣으면 다이어그램을 시각적으로 확인할 수 있어요.
+
 ## ⬇️ 의존성 설치
 
 ### pnpm 설치
