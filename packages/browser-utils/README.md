@@ -33,7 +33,7 @@ export default HelloWorldButton;
 
 ## 🤝 기여
 
-이 패키지에 기여하려면, [CONTRIBUTING.md](../CONTRIBUTING.md)를 참조해 주세요.
+이 패키지에 기여하려면, [CONTRIBUTING.md](../../CONTRIBUTING.md)를 참조해 주세요.
 
 ## 📜 라이선스
 
