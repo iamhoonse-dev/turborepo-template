@@ -20,12 +20,12 @@ pnpm add @your-org/react-utils
 
 ## 🧑‍💻 사용법
 
-```typescript
-import { useInterval } from '@your-org/react-utils/hooks';
+```tsx
+import { useInterval } from "@your-org/react-utils/hooks";
 
 const MyComponent: React.FC = () => {
   useInterval(() => {
-    console.log('Interval triggered');
+    console.log("Interval triggered");
   }, 1000);
 
   return <div>Check the console for interval logs!</div>;

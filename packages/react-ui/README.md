@@ -23,8 +23,8 @@ pnpm add @your-org/react-ui
 
 ### shadcn-ui 사용 예시
 
-```typescript
-import { Button } from '@your-org/react-ui/shadcn-ui';
+```tsx
+import { Button } from "@your-org/react-ui/shadcn-ui";
 
 const App: React.FC = () => {
   return (
@@ -39,16 +39,12 @@ export default App;
 
 ### utils 사용 예시
 
-```typescript
-import { Button } from '@your-org/react-ui/shadcn-ui';
-import { cn } from '@your-org/react-ui/utils';
+```tsx
+import { Button } from "@your-org/react-ui/shadcn-ui";
+import { cn } from "@your-org/react-ui/utils";
 
 const App: React.FC = () => {
-  return (
-    <Button className={cn('bg-red-400')}>
-      shadcn/ui
-    </Button>
-  );
+  return <Button className={cn("bg-red-400")}>shadcn/ui</Button>;
 };
 
 export default App;
@@ -56,8 +52,8 @@ export default App;
 
 ### components 사용 예시
 
-```typescript
-import { SampleButton } from '@your-org/react-ui/components';
+```tsx
+import { SampleButton } from "@your-org/react-ui/components";
 
 const App: React.FC = () => {
   return <SampleButton />;

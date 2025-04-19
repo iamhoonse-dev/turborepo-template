@@ -20,16 +20,12 @@ pnpm add @your-org/browser-utils
 
 ## 🧑‍💻 사용법
 
-```typescript
-import React from 'react';
-import { alertHelloWorld } from '@your-org/browser-utils/dom';
+```tsx
+import React from "react";
+import { alertHelloWorld } from "@your-org/browser-utils/dom";
 
 const HelloWorldButton: React.FC = () => {
-  return (
-    <button onClick={alertHelloWorld}>
-      Click me to see Hello World
-    </button>
-  );
+  return <button onClick={alertHelloWorld}>Click me to see Hello World</button>;
 };
 
 export default HelloWorldButton;
