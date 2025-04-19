@@ -1,0 +1,24 @@
+name: e2e-test
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Build
+        uses: actions/setup-node@v4
+
+      - name: Build E2E environment
+        run: |
+          docker compose -f docker-compose.e2e.yaml build
+
+      - name: Run E2E tests
+        run: |
+          docker compose -f docker-compose.e2e.yaml up --exit-code-from playwright-web
