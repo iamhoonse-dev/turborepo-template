@@ -17,6 +17,14 @@
 - `vite.config.ts`: Vite 설정 파일이에요.
 - `tsconfig.json`: TypeScript 설정 파일이에요.
 
+### 🔗 연결된 워크스페이스
+
+`storybook` 애플리케이션은 다음 경로에 정의된 스토리를 포함하고 있어요:
+
+1. `../src/**/*.mdx`
+2. `../src/**/*.stories.@(js|jsx|mjs|ts|tsx)`
+3. `../../../packages/react-ui/src/**/*.stories.@(js|jsx|mjs|ts|tsx)`
+
 ## ⬇️ 설치
 
 ### 의존성 설치
@@ -34,14 +42,6 @@ pnpm storybook
 ```
 
 [http://localhost:6006](http://localhost:6006)에서 Storybook을 확인할 수 있어요.
-
-## 🔗 연결된 워크스페이스
-
-`storybook` 애플리케이션은 다음 경로에 정의된 스토리를 포함하고 있어요:
-
-1. `../src/**/*.mdx`
-2. `../src/**/*.stories.@(js|jsx|mjs|ts|tsx)`
-3. `../../../packages/react-ui/src/**/*.stories.@(js|jsx|mjs|ts|tsx)`
 
 ## 🤝 기여
 
