@@ -15,8 +15,10 @@
 `playwright-config`는 내부 패키지로, Turborepo 환경 내에서만 사용돼요. `package.json` 파일의 `devDependencies` 섹션에 다음과 같이 추가해 주세요:
 
 ```json
-"devDependencies": {
-  "@your-org/playwright-config": "workspace:*"
+{
+  "devDependencies": {
+    "@your-org/playwright-config": "workspace:*"
+  }
 }
 ```
 
