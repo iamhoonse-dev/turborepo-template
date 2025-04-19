@@ -58,9 +58,10 @@ FROM base AS runner
 WORKDIR /app
 
 # Don't run production as root
-RUN addgroup --system --gid 1002 nodejs
-RUN adduser --system --uid 1002 nextjs
-USER nextjs
+# fixme: Error: EACCES: permission denied, mkdir '/nonexistent/.cache/node/corepack/v1' 로 주석 처리
+#RUN addgroup --system --gid 1002 nodejs
+#RUN adduser --system --uid 1002 nextjs
+#USER nextjs
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
