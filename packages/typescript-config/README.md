@@ -12,10 +12,20 @@
 
 ## ⬇️ 설치
 
-### pnpm 설치
+### Turborepo 워크스페이스에서 설치
+
+`typescript-config`는 내부 패키지로, Turborepo 환경 내에서만 사용됩니다. `package.json` 파일의 `devDependencies` 섹션에 다음과 같이 추가하세요:
+
+```json
+"devDependencies": {
+  "@your-org/typescript-config": "workspace:*"
+}
+```
+
+그 후, 다음 명령어를 실행하여 의존성을 설치하세요:
 
 ```bash
-pnpm add @your-org/typescript-config
+pnpm install
 ```
 
 ## 🧑‍💻 사용법
