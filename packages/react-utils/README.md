@@ -6,9 +6,9 @@
 
 ## 📦 제공 기능
 
-- [Higher-Order Components (HOCs)](src/hocs)
-- [Custom React Hooks](src/hooks)
-- [Provider Components](src/providers)
+- **[Hooks](./hooks)**: React 애플리케이션에서 사용할 수 있는 유용한 커스텀 훅 모음을 제공해요.
+- **[HoCs](./hocs)**: React 컴포넌트 개발을 돕는 다양한 고차 컴포넌트들을 제공해요.
+- **[Providers](./providers)**: React Context 를 활용하는 유틸리티를 제공해요.
 
 ## ⬇️ 설치
 
