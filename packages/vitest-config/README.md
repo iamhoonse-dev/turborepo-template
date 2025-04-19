@@ -14,7 +14,7 @@
 
 ### Turborepo 워크스페이스에서 설치
 
-`vitest-config`는 내부 패키지로, Turborepo 환경 내에서만 사용됩니다. `package.json` 파일의 `devDependencies` 섹션에 다음과 같이 추가하세요:
+`vitest-config`는 내부 패키지로, Turborepo 환경 내에서만 사용돼요. `package.json` 파일의 `devDependencies` 섹션에 다음과 같이 추가해 주세요:
 
 ```json
 "devDependencies": {
@@ -22,7 +22,7 @@
 }
 ```
 
-그 후, 다음 명령어를 실행하여 의존성을 설치하세요:
+그 후, 다음 명령어를 실행해서 의존성을 설치해 주세요:
 
 ```bash
 pnpm install
