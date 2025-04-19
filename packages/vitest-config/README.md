@@ -1,4 +1,4 @@
-# 🖼️ Vitest Config
+# ⚙️ Vitest Config
 
 ## 📖 개요
 
