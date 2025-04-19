@@ -1,0 +1,29 @@
+version: "3"
+
+# Define the services that will be run in the containers
+services:
+  # The web service is built from the Dockerfile located in the ./apps/web directory
+  web:
+    build:
+      context: .
+      dockerfile: ./apps/web/Dockerfile
+    ports:
+      - 3000:3000
+    networks:
+      - e2e_network
+
+  # The Playwright service is built from the Dockerfile located in the ./tools/playwright directory
+  playwright-web:
+    build:
+      context: .
+      dockerfile: ./tools/playwright-web/Dockerfile
+    networks:
+      - e2e_network
+    depends_on:
+      - web
+
+# Define a network, which allows containers to communicate
+# with each other, by using their container name as a hostname
+networks:
+  e2e_network:
+    external: true
