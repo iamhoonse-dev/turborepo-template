@@ -10,6 +10,13 @@
 - **문서화**: 각 컴포넌트의 사용 사례를 문서화할 수 있어요.
 - **Turborepo 통합**: Turborepo를 활용한 모노레포 환경에서의 Storybook 통합을 지원해요.
 
+### 주요 파일 구조
+
+- `src/`: Storybook 애플리케이션의 소스 코드를 담고 있어요.
+- `public/`: 정적 자산을 담고 있어요.
+- `vite.config.ts`: Vite 설정 파일이에요.
+- `tsconfig.json`: TypeScript 설정 파일이에요.
+
 ## ⬇️ 설치
 
 ### 의존성 설치
@@ -27,13 +34,6 @@ pnpm storybook
 ```
 
 [http://localhost:6006](http://localhost:6006)에서 Storybook을 확인할 수 있어요.
-
-### 주요 파일 구조
-
-- `src/`: Storybook 애플리케이션의 소스 코드를 담고 있어요.
-- `public/`: 정적 자산을 담고 있어요.
-- `vite.config.ts`: Vite 설정 파일이에요.
-- `tsconfig.json`: TypeScript 설정 파일이에요.
 
 ## 🔗 연결된 워크스페이스
 
