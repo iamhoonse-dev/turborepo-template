@@ -9,13 +9,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      image-tag: ${{ steps.tag.outputs.image-tag }}
+      image-tag: ${{ steps.build.outputs.image-tag }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up Docker Build
         uses: docker/setup-buildx-action@v2
+
+      - name: Create cache directory
+        run: mkdir -p /tmp/docker-cache
 
       - name: Save Docker image
         uses: actions/cache@v4
@@ -31,8 +34,8 @@ jobs:
           IMAGE_TAG=e2e-${{ github.sha }}
           echo "::set-output name=image-tag::${IMAGE_TAG}"
           docker compose -f docker-compose.e2e.yaml build
-          docker images
-          docker tag turborepo-template-playwright-web:latest playwright-web:${IMAGE_TAG}
+          docker save -o /tmp/docker-cache/playwright-web.tar turborepo-template-playwright-web:latest
+          docker save -o /tmp/docker-cache/web.tar turborepo-template-web:latest
 
   run-playwright:
     runs-on: ubuntu-latest
@@ -46,6 +49,11 @@ jobs:
         with:
           path: /tmp/docker-cache
           key: ${{ runner.os }}-docker-${{ needs.build.outputs.image-tag }}
+
+      - name: Load Docker image from tar
+        run: |
+          docker load -i /tmp/docker-cache/playwright-web.tar
+          docker load -i /tmp/docker-cache/web.tar
 
       - name: Prepare docker external network
         run: |
