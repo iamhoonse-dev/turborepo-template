@@ -52,7 +52,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /tmp/docker-cache
-          key: ${{ runner.os }}-e2e-${{ needs.build.outputs.image-tag }}
+          key: ${{ runner.os }}-e2e-${{ needs.cache-key.outputs.image-tag }}
 
       - name: Load Docker image from tar
         run: |
