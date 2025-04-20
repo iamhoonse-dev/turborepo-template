@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      image-tag: ${{ steps.build.outputs.image-tag }}
+      image-tag: ${{ steps.cache-key.outputs.image-tag }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
