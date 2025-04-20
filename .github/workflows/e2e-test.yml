@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      image-tag: ${{ steps.tag.outputs.image-tag }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -16,12 +18,20 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Build E2E environment
+        id: build
         run: |
+          IMAGE_TAG=e2e-${{ github.sha }}
           docker compose -f docker-compose.e2e.yaml build
+          docker tag playwright-web:latest playwright-web:${IMAGE_TAG}
+          echo "::set-output name=image-tag::${IMAGE_TAG}"
 
-      - name: Prepare docker external network
-        run: |
-          docker network create "e2e_network"
+      - name: Save Docker image
+        uses: actions/cache@v4
+        with:
+          path: /tmp/docker-cache
+          key: ${{ runner.os }}-docker-${{ steps.build.outputs.image-tag }}
+          restore-keys: |
+            ${{ runner.os }}-docker-
 
   run-playwright:
     runs-on: ubuntu-latest
@@ -30,6 +40,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Load Docker image
+        uses: actions/cache@v4
+        with:
+          path: /tmp/docker-cache
+          key: ${{ runner.os }}-docker-${{ needs.build.outputs.image-tag }}
+
       - name: Run E2E tests
         run: |
+          IMAGE_TAG=${{ needs.build.outputs.image-tag }}
           docker compose -f docker-compose.e2e.yaml up --exit-code-from playwright-web
