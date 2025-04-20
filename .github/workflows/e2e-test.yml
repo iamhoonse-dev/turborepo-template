@@ -47,6 +47,10 @@ jobs:
           path: /tmp/docker-cache
           key: ${{ runner.os }}-docker-${{ needs.build.outputs.image-tag }}
 
+      - name: Prepare docker external network
+        run: |
+          docker network create "e2e_network"
+
       - name: Run E2E tests
         run: |
           IMAGE_TAG=${{ needs.build.outputs.image-tag }}
