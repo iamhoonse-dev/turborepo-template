@@ -23,7 +23,7 @@ jobs:
       - name: Set Caching Key for Docker image
         id: cache-key
         run: |
-          IMAGE_TAG=e2e-${{ github.sha }}
+          IMAGE_TAG=${{ github.sha }}
           echo "::set-output name=image-tag::${IMAGE_TAG}"
 
       - name: Setup Docker image Caching
