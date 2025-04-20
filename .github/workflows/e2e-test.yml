@@ -17,9 +17,6 @@ jobs:
       - name: Set up Docker Build
         uses: docker/setup-buildx-action@v2
 
-      - name: Create cache directory
-        run: mkdir -p /tmp/docker-cache
-
       - name: Set Caching Key for Docker image
         id: cache-key
         run: |
@@ -33,6 +30,9 @@ jobs:
           key: ${{ runner.os }}-e2e-${{ steps.cache-key.outputs.image-tag }}
           restore-keys: |
             ${{ runner.os }}-e2e-
+
+      - name: Create cache directory
+        run: mkdir -p /tmp/docker-cache
 
       - name: Build E2E environment
         id: build
@@ -52,7 +52,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /tmp/docker-cache
-          key: ${{ runner.os }}-e2e-${{ needs.cache-key.outputs.image-tag }}
+          key: ${{ runner.os }}-e2e-${{ needs.build.outputs.image-tag }}
 
       - name: Load Docker image from tar
         run: |
