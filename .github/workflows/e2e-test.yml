@@ -20,14 +20,6 @@ jobs:
       - name: Create cache directory
         run: mkdir -p /tmp/docker-cache
 
-      - name: Save Docker image
-        uses: actions/cache@v4
-        with:
-          path: /tmp/docker-cache
-          key: ${{ runner.os }}-docker-${{ steps.build.outputs.image-tag }}
-          restore-keys: |
-            ${{ runner.os }}-docker-
-
       - name: Build E2E environment
         id: build
         run: |
@@ -36,6 +28,14 @@ jobs:
           docker compose -f docker-compose.e2e.yaml build
           docker save -o /tmp/docker-cache/playwright-web.tar turborepo-template-playwright-web:latest
           docker save -o /tmp/docker-cache/web.tar turborepo-template-web:latest
+
+      - name: Save Docker image
+        uses: actions/cache@v4
+        with:
+          path: /tmp/docker-cache
+          key: ${{ runner.os }}-e2e-${{ steps.build.outputs.image-tag }}
+          restore-keys: |
+            ${{ runner.os }}-e2e-
 
   run-playwright:
     runs-on: ubuntu-latest
@@ -48,7 +48,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /tmp/docker-cache
-          key: ${{ runner.os }}-docker-${{ needs.build.outputs.image-tag }}
+          key: ${{ runner.os }}-e2e-${{ needs.build.outputs.image-tag }}
 
       - name: Load Docker image from tar
         run: |
