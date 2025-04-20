@@ -20,22 +20,26 @@ jobs:
       - name: Create cache directory
         run: mkdir -p /tmp/docker-cache
 
-      - name: Build E2E environment
-        id: build
+      - name: Set Caching Key for Docker image
+        id: cache-key
         run: |
           IMAGE_TAG=e2e-${{ github.sha }}
           echo "::set-output name=image-tag::${IMAGE_TAG}"
-          docker compose -f docker-compose.e2e.yaml build
-          docker save -o /tmp/docker-cache/playwright-web.tar turborepo-template-playwright-web:latest
-          docker save -o /tmp/docker-cache/web.tar turborepo-template-web:latest
 
-      - name: Save Docker image
+      - name: Setup Docker image Caching
         uses: actions/cache@v4
         with:
           path: /tmp/docker-cache
-          key: ${{ runner.os }}-e2e-${{ steps.build.outputs.image-tag }}
+          key: ${{ runner.os }}-e2e-${{ steps.cache-key.outputs.image-tag }}
           restore-keys: |
             ${{ runner.os }}-e2e-
+
+      - name: Build E2E environment
+        id: build
+        run: |
+          docker compose -f docker-compose.e2e.yaml build
+          docker save -o /tmp/docker-cache/playwright-web.tar turborepo-template-playwright-web:latest
+          docker save -o /tmp/docker-cache/web.tar turborepo-template-web:latest
 
   run-playwright:
     runs-on: ubuntu-latest
