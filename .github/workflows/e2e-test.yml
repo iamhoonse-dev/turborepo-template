@@ -32,7 +32,7 @@ jobs:
           echo "::set-output name=image-tag::${IMAGE_TAG}"
           docker compose -f docker-compose.e2e.yaml build
           docker images
-          docker tag playwright-web:latest playwright-web:${IMAGE_TAG}
+          docker tag turborepo-template-playwright-web:latest playwright-web:${IMAGE_TAG}
 
   run-playwright:
     runs-on: ubuntu-latest
