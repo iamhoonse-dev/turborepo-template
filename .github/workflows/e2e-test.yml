@@ -67,3 +67,13 @@ jobs:
       - name: Run E2E tests
         run: |
           docker compose -f docker-compose.e2e.yaml up --exit-code-from playwright-web
+
+      - name: Copy E2E report from container
+        run: |
+          docker cp $(docker ps -qf "name=playwright-web"):/app/tools/playwright-web/test-results/junit.xml ./junit.xml
+
+      - name: Upload E2E report
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-report
+          path: ./junit.xml
