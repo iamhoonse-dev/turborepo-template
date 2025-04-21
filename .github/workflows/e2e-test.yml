@@ -8,8 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    outputs:
-      image-tag: ${{ steps.cache-key.outputs.image-tag }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -17,17 +15,11 @@ jobs:
       - name: Set up Docker Build
         uses: docker/setup-buildx-action@v2
 
-      - name: Set Caching Key for Docker image
-        id: cache-key
-        run: |
-          IMAGE_TAG=${{ github.sha }}
-          echo "::set-output name=image-tag::${IMAGE_TAG}"
-
       - name: Setup Docker image Caching
         uses: actions/cache@v4
         with:
           path: /tmp/docker-cache
-          key: ${{ runner.os }}-e2e-${{ steps.cache-key.outputs.image-tag }}
+          key: ${{ runner.os }}-e2e-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-e2e-
 
@@ -61,7 +53,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /tmp/docker-cache
-          key: ${{ runner.os }}-e2e-${{ needs.build.outputs.image-tag }}
+          key: ${{ runner.os }}-e2e-${{ github.sha }}
 
       - name: Load Docker image from tar
         run: |
@@ -74,5 +66,4 @@ jobs:
 
       - name: Run E2E tests
         run: |
-          IMAGE_TAG=${{ needs.build.outputs.image-tag }}
           docker compose -f docker-compose.e2e.yaml up --exit-code-from playwright-web
