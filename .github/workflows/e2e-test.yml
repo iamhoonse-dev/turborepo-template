@@ -26,10 +26,9 @@ jobs:
       - name: Build all services in docker-compose.e2e.yaml
         id: build
         run: |
+          mkdir -p /tmp/docker-cache
           docker compose build \
             --build-arg BUILDKIT_INLINE_CACHE=1 \
-            --cache-from=type=local,src=/tmp/docker-cache \
-            --cache-to=type=local,dest=/tmp/docker-cache,mode=max \
             -f docker-compose.e2e.yaml
 
       - name: Save Docker cache
