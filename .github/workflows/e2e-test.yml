@@ -70,7 +70,13 @@ jobs:
 
       - name: Copy E2E report from container
         run: |
-          docker cp $(docker ps -qf "name=playwright-web"):/app/tools/playwright-web/test-results/junit.xml ./junit.xml
+          CONTAINER_ID=$(docker ps -aqf "name=turborepo-template-playwright-web")
+          if [ -n "$CONTAINER_ID" ]; then
+            docker cp $CONTAINER_ID:/app/tools/playwright-web/test-results/junit.xml ./junit.xml
+          else
+            echo "No container found for playwright-web"
+            exit 1
+          fi
 
       - name: Upload E2E report
         uses: actions/upload-artifact@v4
