@@ -31,6 +31,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-e2e-
 
+      - name: Load Docker image from tar
+        run: |
+          if [ -f /tmp/docker-cache/playwright-web.tar ]; then
+            docker load -i /tmp/docker-cache/playwright-web.tar
+          fi
+          if [ -f /tmp/docker-cache/web.tar ]; then
+            docker load -i /tmp/docker-cache/web.tar
+          fi
+
       - name: Create cache directory
         run: mkdir -p /tmp/docker-cache
 
