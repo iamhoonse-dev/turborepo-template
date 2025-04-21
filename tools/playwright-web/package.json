@@ -6,7 +6,7 @@
     "lint": "eslint . --max-warnings 0",
     "check-types": "tsc --noEmit",
     "test:e2e": "npx playwright test",
-    "test:e2e:ci": "npx playwright test --max-failures=1 --reporter=list",
+    "test:e2e:ci": "npx playwright test --max-failures=1",
     "test:e2e:report": "npx playwright show-report",
     "test:e2e:codegen": "npx playwright codegen"
   },
