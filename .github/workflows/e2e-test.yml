@@ -19,7 +19,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /tmp/docker-cache
-          key: ${{ runner.os }}-e2e-${{ github.sha }}
+          key: ${{ runner.os }}-e2e-${{ github.ref_name }}
           restore-keys: |
             ${{ runner.os }}-e2e-
 
@@ -53,7 +53,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /tmp/docker-cache
-          key: ${{ runner.os }}-e2e-${{ github.sha }}
+          key: ${{ runner.os }}-e2e-${{ github.ref_name }}
 
       - name: Load Docker image from tar
         run: |
