@@ -1,9 +1,7 @@
 name: install-and-build
 
 on:
-  push:
-    branches:
-      - '*'
+  workflow_dispatch:
 
 jobs:
   install:

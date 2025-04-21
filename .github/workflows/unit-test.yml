@@ -1,11 +1,9 @@
 name: unit-test
 
 on:
-  workflow_run:
-    workflows:
-      - install-and-build
-    types:
-      - completed
+  push:
+    branches:
+      - '*'
 
 jobs:
   trigger-install-and-build:
