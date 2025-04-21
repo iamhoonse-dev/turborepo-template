@@ -26,18 +26,17 @@ jobs:
       - name: Build E2E environment
         id: build
         run: |
-          docker buildx build \
+          docker compose build \
             --cache-from=type=local,src=/tmp/docker-cache \
             --cache-to=type=local,dest=/tmp/docker-cache,mode=max \
             -f docker-compose.e2e.yaml \
-            -t turborepo-template-playwright-web:latest \
-            .
+            -t turborepo-template-playwright-web:latest
 
-      - name: Save Docker cache as artifact
-        uses: actions/upload-artifact@v4
+      - name: Save Docker cache
+        uses: actions/cache@v4
         with:
-          name: docker-cache
           path: /tmp/docker-cache
+          key: ${{ runner.os }}-docker-cache-${{ github.ref_name }}
 
   run-playwright:
     runs-on: ubuntu-latest
@@ -46,11 +45,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Download Docker cache artifact
-        uses: actions/download-artifact@v4
+      - name: Restore Docker cache
+        uses: actions/cache@v4
         with:
-          name: docker-cache
           path: /tmp/docker-cache
+          key: ${{ runner.os }}-docker-cache-${{ github.ref_name }}
+          restore-keys: |
+            ${{ runner.os }}-docker-cache-
 
       - name: Load Docker image from cache
         run: |
