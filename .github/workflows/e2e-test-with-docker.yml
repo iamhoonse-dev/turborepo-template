@@ -2,7 +2,9 @@ name: e2e-test-with-docker
 
 # This workflow never runs.
 on:
-  never: []
+  push:
+    branches-ignore:
+      - '**'
 
 jobs:
   build:
