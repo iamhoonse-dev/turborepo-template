@@ -32,9 +32,6 @@ jobs:
             docker load -i /tmp/docker-cache/web.tar
           fi
 
-      - name: Create cache directory
-        run: mkdir -p /tmp/docker-cache
-
       - name: Build E2E environment
         id: build
         run: |
