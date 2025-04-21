@@ -12,8 +12,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Enable BuildKit
-        run: echo "DOCKER_BUILDKIT=1" >> $GITHUB_ENV
+      - name: Set up Docker Build
+        uses: docker/setup-buildx-action@v2
 
       - name: Restore Docker cache
         uses: actions/cache@v4
@@ -23,14 +23,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-docker-cache-
 
-      - name: Build all services in docker-compose.e2e.yaml
+      - name: Build E2E environment
         id: build
         run: |
           docker compose build \
-            --build-arg BUILDKIT_INLINE_CACHE=1 \
             --cache-from=type=local,src=/tmp/docker-cache \
             --cache-to=type=local,dest=/tmp/docker-cache,mode=max \
-            -f docker-compose.e2e.yaml
+            -f docker-compose.e2e.yaml \
+            -t turborepo-template-playwright-web:latest
 
       - name: Save Docker cache
         uses: actions/cache@v4
@@ -53,10 +53,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-docker-cache-
 
+      - name: Load Docker image from cache
+        run: |
+          docker load -i /tmp/docker-cache/playwright-web.tar
+          docker load -i /tmp/docker-cache/web.tar
+
       - name: Prepare docker external network
         run: |
           docker network create "e2e_network"
 
       - name: Run E2E tests
         run: |
+          IMAGE_TAG=${{ needs.build.outputs.image-tag }}
           docker compose -f docker-compose.e2e.yaml up --exit-code-from playwright-web
