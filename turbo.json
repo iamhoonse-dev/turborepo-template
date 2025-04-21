@@ -33,6 +33,9 @@
       "dependsOn": ["^build"],
       "passThroughEnv": ["PLAYWRIGHT_*"]
     },
+    "test:e2e:ci": {
+      "passThroughEnv": ["PLAYWRIGHT_*"]
+    },
     "transit": {
       "dependsOn": ["^transit"]
     }

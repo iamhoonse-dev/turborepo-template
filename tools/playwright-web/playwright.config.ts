@@ -14,4 +14,5 @@ import base from "@repo/playwright-config/base";
  */
 export default defineConfig({
   ...base,
+  reporter: [["list"], ["junit", { outputFile: "test-results/junit.xml" }]],
 });
