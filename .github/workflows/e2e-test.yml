@@ -1,7 +1,9 @@
-name: e2e-test-with-docker
+name: e2e-test
 
-# This workflow never runs.
-on: {}
+on:
+  push:
+    branches:
+      - '*'
 
 jobs:
   build:
