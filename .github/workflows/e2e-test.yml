@@ -41,7 +41,7 @@ jobs:
 
       - name: Prepare docker external network
         run: |
-          docker network create "e2e_network"
+          docker network inspect "e2e_network" >/dev/null 2>&1 || docker network create "e2e_network"
 
       - name: Run E2E tests
         run: |
