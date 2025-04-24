@@ -2,7 +2,10 @@
   "name": "cli",
   "private": true,
   "version": "0.0.0",
-  "scripts": {},
+  "scripts": {
+    "check-types": "tsc --noEmit",
+    "build": "npx tsc"
+  },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
