@@ -7,7 +7,7 @@ export default async function listDirContents(filepath: string) {
     const detailedFilesPromises = files.map(async (file: string) => {
       const fileDetails = await fs.promises.lstat(path.resolve(filepath, file));
       const { size, birthtime } = fileDetails;
-      return { filename: file, "size(KB)": size, created_at: birthtime };
+      return { filename: file, "size(KB)": size / 1024, created_at: birthtime };
     });
     // add the following
     const detailedFiles = await Promise.all(detailedFilesPromises);
