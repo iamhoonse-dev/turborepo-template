@@ -1,6 +1,6 @@
 import fs from "fs";
 
 export default function createFile(filepath: string) {
-  fs.openSync(filepath, "w");
+  fs.writeFileSync(filepath, "");
   console.log("An empty file has been created");
 }
