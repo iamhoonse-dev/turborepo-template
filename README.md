@@ -98,9 +98,9 @@ pnpm install
 `pnpm install`을 실행하면 `tools/cli`에 정의된 CLI 명령어들을 바로 사용할 수 있어요.
 
 ```bash
-my-example --ls [directory-path]
-my-example --mkdir <directory-name>
-my-example --touch <file-name>
+example --ls [directory-path]
+example --mkdir <directory-name>
+example --touch <file-name>
 ```
 
 ### 빌드

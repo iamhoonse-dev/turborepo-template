@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "bin": {
-    "my-example": "./dist/example/index.js"
+    "example": "./dist/example/index.js"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
