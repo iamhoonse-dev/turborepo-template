@@ -18,6 +18,6 @@ describe("createDir", () => {
     expect(dirExists).toBe(true);
 
     // Clean up: remove the created directory
-    await fs.promises.rmdir(dirPath);
+    await fs.promises.rmdir(dirPath, { recursive: true });
   });
 });
