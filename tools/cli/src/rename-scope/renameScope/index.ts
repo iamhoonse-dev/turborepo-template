@@ -4,6 +4,9 @@
  * @param name - The new name for the package scope
  */
 export default function renameScope(name: string) {
-  // todo: implement the renameScope function
-  console.log(`renaming to : "${name}"`);
+  // This function is currently a stub and does not perform any operations.
+  // TODO: Implement logic to update package.json files with the new scope name.
+  throw new Error(
+    `renameScope is not implemented. Attempted to rename scope to: "${name}"`,
+  );
 }
