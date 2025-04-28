@@ -3,7 +3,8 @@
   "private": true,
   "version": "0.0.0",
   "bin": {
-    "example": "./dist/example/index.js"
+    "example": "./dist/example/index.js",
+    "rename-scope": "./dist/rename-scope/index.js"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
