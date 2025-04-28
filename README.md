@@ -29,6 +29,7 @@
 ### 🛠️ Tools
 
 - **[Playwright Web](./tools/playwright-web)**: Playwright 기반의 웹 테스트 도구예요.
+- **[CLI](./tools/cli)**: 명령줄 작업을 자동화하고 프로젝트 관리 및 개발을 지원하기 위한 도구예요.
 
 ## 🔗 구성 요소 간 관계도
 
@@ -36,44 +37,47 @@
 
 ```mermaid
 graph TD
-	QHZT("@repo/browser-utils#build") --> ETTT("@repo/eslint-config#build")
-	QHZT("@repo/browser-utils#build") --> JEGP("@repo/typescript-config#build")
-	QHZT("@repo/browser-utils#build") --> EMLE("@repo/vitest-config#build")
-	ETTT("@repo/eslint-config#build") --> LRHC("@repo/eslint-plugin-sample#build")
-	LRHC("@repo/eslint-plugin-sample#build") --> GLAO("___ROOT___")
-	VELR("@repo/http-clients#build") --> ETTT("@repo/eslint-config#build")
-	VELR("@repo/http-clients#build") --> JEGP("@repo/typescript-config#build")
-	TXWC("@repo/node-utils#build") --> ETTT("@repo/eslint-config#build")
-	TXWC("@repo/node-utils#build") --> JEGP("@repo/typescript-config#build")
-	TXWC("@repo/node-utils#build") --> EMLE("@repo/vitest-config#build")
-	WCIN("@repo/playwright-config#build") --> ETTT("@repo/eslint-config#build")
-	WCIN("@repo/playwright-config#build") --> JEGP("@repo/typescript-config#build")
-	TPBW("@repo/react-ui#build") --> ETTT("@repo/eslint-config#build")
-	TPBW("@repo/react-ui#build") --> JEGP("@repo/typescript-config#build")
-	TPBW("@repo/react-ui#build") --> EMLE("@repo/vitest-config#build")
-	BHWE("@repo/react-utils#build") --> QHZT("@repo/browser-utils#build")
-	JEGP("@repo/typescript-config#build") --> GLAO("___ROOT___")
-	MKNG("@repo/ui#build") --> ETTT("@repo/eslint-config#build")
-	MKNG("@repo/ui#build") --> JEGP("@repo/typescript-config#build")
-	EMLE("@repo/vitest-config#build") --> JEGP("@repo/typescript-config#build")
-	IRKD("docs#build") --> ETTT("@repo/eslint-config#build")
-	IRKD("docs#build") --> JEGP("@repo/typescript-config#build")
-	IRKD("docs#build") --> MKNG("@repo/ui#build")
-	UWBQ("playwright-web#build") --> ETTT("@repo/eslint-config#build")
-	UWBQ("playwright-web#build") --> WCIN("@repo/playwright-config#build")
-	UWBQ("playwright-web#build") --> JEGP("@repo/typescript-config#build")
-	UWBQ("playwright-web#build") --> FBWM("web#build")
-	NRTE("storybook#build") --> ETTT("@repo/eslint-config#build")
-	NRTE("storybook#build") --> TPBW("@repo/react-ui#build")
-	FBWM("web#build") --> QHZT("@repo/browser-utils#build")
-	FBWM("web#build") --> ETTT("@repo/eslint-config#build")
-	FBWM("web#build") --> VELR("@repo/http-clients#build")
-	FBWM("web#build") --> TXWC("@repo/node-utils#build")
-	FBWM("web#build") --> TPBW("@repo/react-ui#build")
-	FBWM("web#build") --> BHWE("@repo/react-utils#build")
-	FBWM("web#build") --> JEGP("@repo/typescript-config#build")
-	FBWM("web#build") --> MKNG("@repo/ui#build")
-	FBWM("web#build") --> EMLE("@repo/vitest-config#build")
+    QHZT("@repo/browser-utils#build") --> ETTT("@repo/eslint-config#build")
+    QHZT("@repo/browser-utils#build") --> JEGP("@repo/typescript-config#build")
+    QHZT("@repo/browser-utils#build") --> EMLE("@repo/vitest-config#build")
+    LRHC("@repo/cli#build") --> ETTT("@repo/eslint-config#build")
+    LRHC("@repo/cli#build") --> JEGP("@repo/typescript-config#build")
+    LRHC("@repo/cli#build") --> EMLE("@repo/vitest-config#build")
+    ETTT("@repo/eslint-config#build") --> GLAO("@repo/eslint-plugin-sample#build")
+    GLAO("@repo/eslint-plugin-sample#build") --> VELR("___ROOT___")
+    TXWC("@repo/http-clients#build") --> ETTT("@repo/eslint-config#build")
+    TXWC("@repo/http-clients#build") --> JEGP("@repo/typescript-config#build")
+    WCIN("@repo/node-utils#build") --> ETTT("@repo/eslint-config#build")
+    WCIN("@repo/node-utils#build") --> JEGP("@repo/typescript-config#build")
+    WCIN("@repo/node-utils#build") --> EMLE("@repo/vitest-config#build")
+    TPBW("@repo/playwright-config#build") --> ETTT("@repo/eslint-config#build")
+    TPBW("@repo/playwright-config#build") --> JEGP("@repo/typescript-config#build")
+    BHWE("@repo/react-ui#build") --> ETTT("@repo/eslint-config#build")
+    BHWE("@repo/react-ui#build") --> JEGP("@repo/typescript-config#build")
+    BHWE("@repo/react-ui#build") --> EMLE("@repo/vitest-config#build")
+    MKNG("@repo/react-utils#build") --> QHZT("@repo/browser-utils#build")
+    JEGP("@repo/typescript-config#build") --> VELR("___ROOT___")
+    IRKD("@repo/ui#build") --> ETTT("@repo/eslint-config#build")
+    IRKD("@repo/ui#build") --> JEGP("@repo/typescript-config#build")
+    EMLE("@repo/vitest-config#build") --> JEGP("@repo/typescript-config#build")
+    UWBQ("docs#build") --> ETTT("@repo/eslint-config#build")
+    UWBQ("docs#build") --> JEGP("@repo/typescript-config#build")
+    UWBQ("docs#build") --> IRKD("@repo/ui#build")
+    FBWM("playwright-web#build") --> ETTT("@repo/eslint-config#build")
+    FBWM("playwright-web#build") --> TPBW("@repo/playwright-config#build")
+    FBWM("playwright-web#build") --> JEGP("@repo/typescript-config#build")
+    FBWM("playwright-web#build") --> NRTE("web#build")
+    GVMR("storybook#build") --> ETTT("@repo/eslint-config#build")
+    GVMR("storybook#build") --> BHWE("@repo/react-ui#build")
+    NRTE("web#build") --> QHZT("@repo/browser-utils#build")
+    NRTE("web#build") --> ETTT("@repo/eslint-config#build")
+    NRTE("web#build") --> TXWC("@repo/http-clients#build")
+    NRTE("web#build") --> WCIN("@repo/node-utils#build")
+    NRTE("web#build") --> BHWE("@repo/react-ui#build")
+    NRTE("web#build") --> MKNG("@repo/react-utils#build")
+    NRTE("web#build") --> JEGP("@repo/typescript-config#build")
+    NRTE("web#build") --> IRKD("@repo/ui#build")
+    NRTE("web#build") --> EMLE("@repo/vitest-config#build")
 ```
 
 > 💡 **참고:**  
@@ -88,6 +92,16 @@ pnpm install
 ```
 
 ## 🧑‍💻 사용법
+
+### CLI 사용
+
+`pnpm install`을 실행하면 `tools/cli`에 정의된 CLI 명령어들을 바로 사용할 수 있어요.
+
+```bash
+example --ls [directory-path]
+example --mkdir <directory-name>
+example --touch <file-name>
+```
 
 ### 빌드
 
