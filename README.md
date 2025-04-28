@@ -29,6 +29,7 @@
 ### 🛠️ Tools
 
 - **[Playwright Web](./tools/playwright-web)**: Playwright 기반의 웹 테스트 도구예요.
+- **[CLI](./tools/cli)**: 명령줄 작업을 자동화하고 프로젝트 관리 및 개발을 지원하기 위한 도구예요.
 
 ## 🔗 구성 요소 간 관계도
 
@@ -88,6 +89,16 @@ pnpm install
 ```
 
 ## 🧑‍💻 사용법
+
+### CLI 사용
+
+`pnpm install`을 실행하면 `tools/cli`에 정의된 CLI 명령어들을 바로 사용할 수 있어요.
+
+```bash
+my-example --ls [directory-path]
+my-example --mkdir <directory-name>
+my-example --touch <file-name>
+```
 
 ### 빌드
 
