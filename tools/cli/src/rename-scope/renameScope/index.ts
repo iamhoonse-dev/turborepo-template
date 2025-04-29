@@ -1,12 +1,68 @@
+import fs from "fs";
+import path from "path";
+
 /**
- * Renames the scope of a package name from @repo/ to @<name>/
+ * Renames the scope of a package name in each file with the specified extension
+ */
+const TARGET_EXTENSIONS = ["md", "json", "css", "ts", "tsx", "js", "jsx"];
+
+/**
+ * Directories to exclude from renaming
+ */
+const EXCLUDE_DIRS = [
+  "node_modules",
+  ".git",
+  ".devcontainer",
+  ".github",
+  ".husky",
+  ".idea",
+  ".turbo",
+  ".vscode",
+  ".next",
+  "dist",
+  "build",
+  "out",
+  "storybook-static",
+];
+
+/**
+ * Renames the scope of a package name from @foo/ to @<name>/
  *
  * @param name - The new name for the package scope
  */
 export default function renameScope(name: string) {
-  // This function is currently a stub and does not perform any operations.
-  // TODO: Implement logic to update package.json files with the new scope name.
-  throw new Error(
-    `renameScope is not implemented. Attempted to rename scope to: "${name}"`,
-  );
+  const targetScope = `@${name}/`;
+  const oldScope = "@repo/";
+  const rootDir = path.resolve(__dirname, "../../../../../"); // Adjust based on project structure
+
+  function replaceInFile(filePath: string) {
+    console.log("file : ", filePath);
+    const content = fs.readFileSync(filePath, "utf-8");
+    const updatedContent = content.replace(
+      new RegExp(oldScope, "g"),
+      targetScope,
+    );
+    fs.writeFileSync(filePath, updatedContent, "utf-8");
+  }
+
+  function processDirectory(directory: string) {
+    const entries = fs.readdirSync(directory, { withFileTypes: true });
+    for (const entry of entries) {
+      const fullPath = path.join(directory, entry.name);
+      const ext = path.extname(entry.name);
+      if (entry.isDirectory() && !EXCLUDE_DIRS.includes(entry.name)) {
+        processDirectory(fullPath);
+      } else if (
+        entry.isFile() &&
+        TARGET_EXTENSIONS.some((target) => ext.endsWith(target)) &&
+        fullPath !== __filename
+      ) {
+        replaceInFile(fullPath);
+      }
+    }
+  }
+
+  console.log("file : ", __filename);
+  console.log("rootDir : ", rootDir);
+  processDirectory(rootDir);
 }
