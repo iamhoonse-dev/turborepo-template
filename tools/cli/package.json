@@ -7,6 +7,7 @@
     "rename-scope": "./dist/rename-scope/index.js"
   },
   "scripts": {
+    "preinstall": "npx tsc",
     "lint": "eslint . --max-warnings 0",
     "check-types": "tsc --noEmit",
     "build": "npx tsc",
