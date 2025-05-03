@@ -8,8 +8,10 @@ function pnpmInstall() {
   const updateStdout = getStdoutUpdater();
 
   try {
-    const output = execSync("pnpm install", { stdio: "inherit" });
-    updateStdout(output.toString());
+    const output = execSync("pnpm install");
+    if (output) {
+      updateStdout(output.toString());
+    }
   } catch (error) {
     console.error(`Error: ${error}`);
     throw error;
