@@ -15,15 +15,10 @@ program
   .version("0.0.0")
   .description("A CLI for renaming scopes in each package.json file")
   .option("-n, --name <value>", "New name for package scope")
+  .action(({ name }) => {
+    renameScope(name);
+  })
   .parse(process.argv);
-
-// options is an object that contains the parsed command-line options
-const options = program.opts();
-
-// --name
-if (options.name) {
-  renameScope(options.name);
-}
 
 // If no options are provided, display the help message
 if (!process.argv.slice(2).length) {
