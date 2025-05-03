@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import getStdoutUpdater from "../../utils/getStdoutUpdater";
 
 /**
  * Renames the scope of a package name in each file with the specified extension
@@ -35,8 +36,10 @@ export default function renameScope(name: string) {
   const oldScope = "@repo/";
   const rootDir = path.resolve(__dirname, "../../../../../"); // Adjust based on project structure
 
+  const updateStdout = getStdoutUpdater();
+
   function replaceInFile(filePath: string) {
-    console.log("file : ", filePath);
+    updateStdout("file : ", filePath);
     const content = fs.readFileSync(filePath, "utf-8");
     const updatedContent = content.replace(
       new RegExp(oldScope, "g"),
@@ -62,7 +65,8 @@ export default function renameScope(name: string) {
     }
   }
 
-  console.log("file : ", __filename);
-  console.log("rootDir : ", rootDir);
+  updateStdout("file : ", __filename);
+  updateStdout("rootDir : ", rootDir);
   processDirectory(rootDir);
+  updateStdout.done();
 }

@@ -1,14 +1,19 @@
 import { execSync } from "child_process";
+import getStdoutUpdater from "../getStdoutUpdater";
 
 /**
  * Executes the `pnpm install` command to install dependencies synchronously.
  */
 function pnpmInstall() {
+  const updateStdout = getStdoutUpdater();
+
   try {
     const output = execSync("pnpm install", { stdio: "inherit" });
-    console.log(output.toString());
+    updateStdout(output.toString());
   } catch (error) {
     console.error(`Error: ${error}`);
+  } finally {
+    updateStdout.done();
   }
 }
 export default pnpmInstall;
