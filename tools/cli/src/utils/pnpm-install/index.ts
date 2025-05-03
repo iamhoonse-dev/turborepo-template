@@ -12,6 +12,7 @@ function pnpmInstall() {
     updateStdout(output.toString());
   } catch (error) {
     console.error(`Error: ${error}`);
+    throw error;
   } finally {
     updateStdout.done();
   }
