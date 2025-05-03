@@ -47,7 +47,7 @@ WORKDIR /app
 # First install the dependencies (as they change less often)
 # Add lockfile and package.json's of isolated subworkspace
 COPY --from=builder /app/out/json/ .
-RUN pnpm install
+RUN pnpm install --frozen-lockfile
 
 # Copy the pruned workspace
 COPY --from=builder /app/out/full/ .
