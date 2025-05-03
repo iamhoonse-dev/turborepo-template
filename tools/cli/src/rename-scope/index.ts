@@ -3,6 +3,7 @@
 import { textSync } from "figlet";
 import { Command } from "commander";
 import renameScope from "./renameScope";
+import withSpinner from "../utils/withSpinner";
 
 // program is a command-line interface (CLI) library for Node.js
 const program = new Command();
@@ -15,8 +16,8 @@ program
   .version("0.0.0")
   .description("A CLI for renaming scopes in each package.json file")
   .option("-n, --name <value>", "New name for package scope")
-  .action(({ name }) => {
-    renameScope(name);
+  .action(async ({ name }) => {
+    await withSpinner(() => renameScope(name), "Renaming scope...");
   })
   .parse(process.argv);
 
