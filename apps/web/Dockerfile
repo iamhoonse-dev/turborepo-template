@@ -44,13 +44,14 @@ RUN apk add --no-cache libc6-compat
 # Set working directory
 WORKDIR /app
 
-# First install the dependencies (as they change less often)
 # Add lockfile and package.json's of isolated subworkspace
 COPY --from=builder /app/out/json/ .
-RUN pnpm install
 
 # Copy the pruned workspace
 COPY --from=builder /app/out/full/ .
+
+# First install the dependencies (as they change less often)
+RUN pnpm install --frozen-lockfile
 
 # Uncomment and use build args to enable remote caching
 # ARG TURBO_TEAM
