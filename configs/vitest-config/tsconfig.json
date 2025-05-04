@@ -3,9 +3,10 @@
   "compilerOptions": {
     "outDir": "dist",
     "paths": {
-      "@repo/vitest-config/*": ["./configs/*.ts"],
+      "@repo/vitest-config/*": ["./configs/*.ts"]
     }
   },
-  "include": ["configs", "scripts"],
+  "include": ["configs",
+    "scripts"],
   "exclude": ["node_modules", "dist"]
 }
