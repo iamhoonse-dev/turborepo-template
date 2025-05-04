@@ -62,5 +62,5 @@ WORKDIR /app
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=installer /app ./
 
-# start test:storbook task
-CMD ["pnpm", "run", "test:storybook"]
+# start test:storybook task
+CMD ["pnpm", "run", "test:storybook", "--", "--url", "$TARGET_URL"]

@@ -27,6 +27,7 @@ services:
       - storybook
     environment:
       CI: true
+      TARGET_URL: http://storybook:80
 
 # Define a network, which allows containers to communicate
 # with each other, by using their container name as a hostname
