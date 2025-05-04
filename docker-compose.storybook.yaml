@@ -10,7 +10,7 @@ services:
       cache_from:
         - turborepo-template-storybook:latest
     ports:
-      - 80:6006
+      - 6006:80
     networks:
       - storybook_network
 
