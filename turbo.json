@@ -29,6 +29,9 @@
       "cache": false,
       "persistent": true
     },
+    "test:storybook": {
+      "dependsOn": ["^test:storybook"]
+    },
     "test:e2e": {
       "dependsOn": ["^build"],
       "passThroughEnv": ["PLAYWRIGHT_*"]

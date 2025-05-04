@@ -10,6 +10,7 @@
     "check-types": "turbo run check-types",
     "test": "turbo run test",
     "test:watch": "turbo run test:watch",
+    "test:storybook": "turbo run test:storybook",
     "test:e2e": "turbo run test:e2e",
     "test:e2e:ci": "turbo run test:e2e:ci",
     "view-report": "turbo run view-report",
