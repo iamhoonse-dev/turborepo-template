@@ -50,7 +50,6 @@ jobs:
         run: |
           docker compose -f docker-compose.storybook.yaml up --exit-code-from storybook-test-runner
 
-      # todo: 테스트 리포트 파일 확인
       - name: Copy Storybook report from container
         run: |
           CONTAINER_ID=$(docker ps -aqf "name=turborepo-template-storybook-test-runner")
@@ -61,7 +60,6 @@ jobs:
             exit 1
           fi
 
-      # todo: 테스트 리포트 파일 확인
       - name: Upload Storybook A11y report
         uses: actions/upload-artifact@v4
         with:
