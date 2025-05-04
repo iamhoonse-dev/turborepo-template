@@ -37,7 +37,7 @@ jobs:
             apps/*/node_modules
             tools/*/node_modules
             packages/*/node_modules
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}
           restore-keys: |
             ${{ runner.os }}-node-modules-
       - run: pnpm install --frozen-lockfile
