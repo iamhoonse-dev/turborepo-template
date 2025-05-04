@@ -20,6 +20,7 @@ jobs:
             apps/*/.turbo
             tools/*/.turbo
             packages/*/.turbo
+            configs/*/.turbo
           key: ${{ runner.os }}-turbo-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-turbo-
@@ -37,7 +38,8 @@ jobs:
             apps/*/node_modules
             tools/*/node_modules
             packages/*/node_modules
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
+            configs/*/node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}
           restore-keys: |
             ${{ runner.os }}-node-modules-
       - run: pnpm install --frozen-lockfile
@@ -58,6 +60,7 @@ jobs:
             apps/*/.turbo
             tools/*/.turbo
             packages/*/.turbo
+            configs/*/.turbo
           key: ${{ runner.os }}-turbo-${{ github.sha }}
       - name: Use Node.js 22.x
         uses: actions/setup-node@v4
@@ -71,7 +74,8 @@ jobs:
             apps/*/node_modules
             tools/*/node_modules
             packages/*/node_modules
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
+            configs/*/node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}
       - name: Cache dist directories
         id: cache-dist
         uses: actions/cache@v3
@@ -81,6 +85,7 @@ jobs:
             !apps/*/.next/cache
             apps/*/storybook-static
             packages/*/dist
+            configs/*/dist
           key: ${{ runner.os }}-dist-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-dist-

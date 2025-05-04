@@ -15,21 +15,24 @@
 ### 📦 Packages
 
 - **[Browser Utils](./packages/browser-utils)**: 브라우저 관련 유틸리티 함수 모음이에요.
-- **[ESLint Config](./packages/eslint-config)**: ESLint 설정을 위한 공통 구성이에요.
 - **[ESLint Plugin Sample](./packages/eslint-plugin-sample)**: 샘플 ESLint 플러그인이에요.
 - **[HTTP Clients](./packages/http-clients)**: HTTP 요청을 처리하려고 만든 클라이언트 라이브러리예요.
 - **[Node Utils](./packages/node-utils)**: Node.js 환경에서 쓸 수 있는 유틸리티 함수 모음이에요.
-- **[Playwright Config](./packages/playwright-config)**: Playwright 테스트 설정이에요.
 - **[React UI](./packages/react-ui)**: React 기반 UI 컴포넌트 라이브러리예요.
 - **[React Utils](./packages/react-utils)**: React 애플리케이션에서 쓸 수 있는 유틸리티 함수 모음이에요.
-- **[TypeScript Config](./packages/typescript-config)**: TypeScript 설정을 위한 공통 구성이에요.
 - **[UI](./packages/ui)**: 공통 UI 컴포넌트랑 스타일이에요.
-- **[Vitest Config](./packages/vitest-config)**: Vitest 테스트 설정이에요.
 
 ### 🛠️ Tools
 
 - **[Playwright Web](./tools/playwright-web)**: Playwright 기반의 웹 테스트 도구예요.
 - **[CLI](./tools/cli)**: 명령줄 작업을 자동화하고 프로젝트 관리 및 개발을 지원하기 위한 도구예요.
+
+### ⚙️ Configs
+
+- **[ESLint Config](./configs/eslint-config)**: ESLint 설정을 위한 공통 구성이에요.
+- **[Playwright Config](./configs/playwright-config)**: Playwright 테스트 설정이에요.
+- **[TypeScript Config](./configs/typescript-config)**: TypeScript 설정을 위한 공통 구성이에요.
+- **[Vitest Config](./configs/vitest-config)**: Vitest 테스트 설정을 위한 공통 구성이에요.
 
 ## 🔗 구성 요소 간 관계도
 
