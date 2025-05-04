@@ -6,9 +6,9 @@
 
 ## 📦 제공 기능
 
-- **[Base Config](base.json)**: 기본 TypeScript 설정을 제공해요.
-- **[Next.js Config](nextjs.json)**: Next.js 프로젝트에 최적화된 TypeScript 설정을 제공해요.
-- **[React Library Config](react-library.json)**: React 라이브러리 개발을 위한 TypeScript 설정을 제공해요.
+- **[Base Config](./base.json)**: 기본 TypeScript 설정을 제공해요.
+- **[Next.js Config](./nextjs.json)**: Next.js 프로젝트에 최적화된 TypeScript 설정을 제공해요.
+- **[React Library Config](./react-library.json)**: React 라이브러리 개발을 위한 TypeScript 설정을 제공해요.
 
 ## ⬇️ 설치
 
