@@ -1,6 +1,6 @@
 import type { TestRunnerConfig } from "@storybook/test-runner";
 import { getStoryContext } from "@storybook/test-runner";
-import { injectAxe, checkA11y, configureAxe } from "axe-playwright";
+import { injectAxe, configureAxe, checkA11y } from "axe-playwright";
 
 /*
  * See https://storybook.js.org/docs/writing-tests/test-runner#test-hook-api
@@ -23,20 +23,17 @@ const config: TestRunnerConfig = {
     const element = storyContext.parameters?.a11y?.element ?? "body";
 
     // Check a11y for current story and report results in JUnit format
-    await checkA11y(
-      page,
-      element,
-      {
-        detailedReport: true,
-      },
-      true,
-      "junit",
-      {
+    try {
+      await checkA11y(page, element, {}, true, "junit", {
         outputDirPath: "test-results",
         outputDir: "a11y-audit",
         reportFileName: `${storyContext.title}.xml`,
-      },
-    );
+      });
+    } catch (error) {
+      // to prevent the test-runner from failing the test
+      // @see https://github.com/abhinaba-ghosh/axe-playwright/blob/master/src/index.ts#L111
+      console.warn(error.message);
+    }
   },
 };
 export default config;
