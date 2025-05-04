@@ -55,15 +55,15 @@ jobs:
         run: |
           CONTAINER_ID=$(docker ps -aqf "name=turborepo-template-storybook-test-runner")
           if [ -n "$CONTAINER_ID" ]; then
-            docker cp $CONTAINER_ID:/app/tools/storybook-test-runner/test-results/junit.xml ./junit.xml
+            docker cp $CONTAINER_ID:/app/apps/storybook/test-results/a11y-audit ./
           else
             echo "No container found for storybook-test-runner"
             exit 1
           fi
 
       # todo: 테스트 리포트 파일 확인
-      - name: Upload Storybook report
+      - name: Upload Storybook A11y report
         uses: actions/upload-artifact@v4
         with:
-          name: storybook-report
-          path: ./junit.xml
+          name: storybook-a11y-report
+          path: ./a11y-audit
