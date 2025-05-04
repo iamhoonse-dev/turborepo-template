@@ -1,0 +1,59 @@
+# ---------------------------------------------------------------------------
+# Base image
+# ---------------------------------------------------------------------------
+FROM node:22 AS base
+
+# enable pnpm
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
+
+# ---------------------------------------------------------------------------
+# Builder
+# ---------------------------------------------------------------------------
+FROM base AS builder
+
+# Set working directory
+WORKDIR /app
+
+# enable turbo
+RUN pnpm add -g turbo
+
+# Copy the source code and prune the workspace
+COPY . .
+RUN turbo prune storybook --docker
+
+# ---------------------------------------------------------------------------
+# Installer
+# ---------------------------------------------------------------------------
+FROM base AS installer
+
+# Set working directory
+WORKDIR /app
+
+# Add lockfile and package.json's of isolated subworkspace
+COPY --from=builder /app/out/json/ .
+
+# Copy the pruned workspace
+COPY --from=builder /app/out/full/ .
+
+# First install the dependencies (as they change less often)
+RUN pnpm install --frozen-lockfile
+
+# ---------------------------------------------------------------------------
+# Runner
+# ---------------------------------------------------------------------------
+FROM base AS runner
+
+# Set working directory
+WORKDIR /app
+
+# Automatically leverage output traces to reduce image size
+# https://nextjs.org/docs/advanced-features/output-file-tracing
+COPY --from=installer /app ./
+
+# Install playwright dependencies for running storybook tests
+RUN pnpm dlx playwright@1.51.1 install --with-deps
+
+# start test:storybook task
+CMD ["pnpm", "run", "test:storybook", "--", "--url", "$TARGET_URL"]

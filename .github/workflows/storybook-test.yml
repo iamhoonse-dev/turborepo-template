@@ -1,0 +1,67 @@
+name: storybook-test
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  run-docker-compose-storybook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Ensure Docker cache directory exists
+        run: mkdir -p /tmp/docker-cache
+
+      - name: Set up Docker Build
+        uses: docker/setup-buildx-action@v2
+
+      - name: Setup Docker image Caching
+        uses: actions/cache@v4
+        with:
+          path: /tmp/docker-cache
+          key: ${{ runner.os }}-storybook-${{ github.ref_name }}
+          restore-keys: |
+            ${{ runner.os }}-storybook-
+
+      - name: Load Docker image from tar
+        run: |
+          if [ -f /tmp/docker-cache/storybook-test-runner.tar ]; then
+            docker load -i /tmp/docker-cache/storybook-test-runner.tar
+          fi
+          if [ -f /tmp/docker-cache/storybook.tar ]; then
+            docker load -i /tmp/docker-cache/storybook.tar
+          fi
+
+      - name: Build Storybook test environment
+        id: build
+        run: |
+          docker compose -f docker-compose.storybook.yaml build
+          docker save -o /tmp/docker-cache/storybook-test-runner.tar turborepo-template-storybook-test-runner:latest
+          docker save -o /tmp/docker-cache/storybook.tar turborepo-template-storybook:latest
+
+      - name: Prepare docker external network
+        run: |
+          docker network inspect "storybook_network" >/dev/null 2>&1 || docker network create "storybook_network"
+
+      - name: Run Storybook tests
+        run: |
+          docker compose -f docker-compose.storybook.yaml up --exit-code-from storybook-test-runner
+
+      - name: Copy Storybook report from container
+        run: |
+          CONTAINER_ID=$(docker ps -aqf "name=turborepo-template-storybook-test-runner")
+          if [ -n "$CONTAINER_ID" ]; then
+            docker cp $CONTAINER_ID:/app/apps/storybook/test-results/a11y-audit ./
+          else
+            echo "No container found for storybook-test-runner"
+            exit 1
+          fi
+
+      - name: Upload Storybook A11y report
+        uses: actions/upload-artifact@v4
+        with:
+          name: storybook-a11y-report
+          path: ./a11y-audit
