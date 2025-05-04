@@ -6,7 +6,7 @@
 
 ## 📦 제공 기능
 
-- **[Base Config](./base.js)**: 기본 Playwright 설정을 제공해요.
+- **[Base Config](./configs/base.ts)**: 기본 Playwright 설정을 제공해요.
 
 ## ⬇️ 설치
 

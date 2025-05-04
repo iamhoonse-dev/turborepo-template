@@ -6,9 +6,9 @@
 
 ## 📦 제공 기능
 
-- **[Base Config](./base.js)**: 기본 Vitest 설정을 제공해요.
-- **[UI Config](./ui.js)**: UI 관련 테스트 설정을 제공해요.
-- **[Node Config](./node.js)**: Node.js 환경에 대한 테스트 설정을 제공해요.
+- **[Base Config](./configs/base.ts)**: 기본 Vitest 설정을 제공해요.
+- **[UI Config](./configs/ui.ts)**: UI 관련 테스트 설정을 제공해요.
+- **[Node Config](./configs/node.ts)**: Node.js 환경에 대한 테스트 설정을 제공해요.
 
 ## ⬇️ 설치
 
