@@ -6,9 +6,9 @@
 
 ## 📦 제공 기능
 
-- **[Base Config](./base.js)**: 기본 ESLint 설정을 제공해요.
-- **[Next.js Config](./next.js)**: Next.js 프로젝트에 최적화된 ESLint 설정을 제공해요.
-- **[React Internal Config](./react-internal.js)**: React 내부 프로젝트를 위한 ESLint 설정을 제공해요.
+- **[Base Config](base.js)**: 기본 ESLint 설정을 제공해요.
+- **[Next.js Config](next.js)**: Next.js 프로젝트에 최적화된 ESLint 설정을 제공해요.
+- **[React Internal Config](react-internal.js)**: React 내부 프로젝트를 위한 ESLint 설정을 제공해요.
 
 ## ⬇️ 설치
 
