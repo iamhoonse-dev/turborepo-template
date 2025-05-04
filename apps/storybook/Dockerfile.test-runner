@@ -56,4 +56,4 @@ COPY --from=installer /app ./
 RUN pnpm dlx playwright@1.51.1 install --with-deps
 
 # start test:storybook task
-CMD ["pnpm", "run", "test:storybook", "--", "--url", "$TARGET_URL"]
+CMD ["pnpm", "run", "test:storybook"]
