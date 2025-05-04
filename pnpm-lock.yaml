@@ -50,7 +50,7 @@ importers:
         version: link:../../configs/eslint-config
       '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../../packages/typescript-config
+        version: link:../../configs/typescript-config
       '@types/node':
         specifier: ^22.13.10
         version: 22.13.10
@@ -190,7 +190,7 @@ importers:
         version: link:../../configs/eslint-config
       '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../../packages/typescript-config
+        version: link:../../configs/typescript-config
       '@repo/vitest-config':
         specifier: workspace:*
         version: link:../../configs/vitest-config
@@ -286,7 +286,7 @@ importers:
         version: link:../eslint-config
       '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../../packages/typescript-config
+        version: link:../typescript-config
       '@types/node':
         specifier: ^22.13.10
         version: 22.13.10
@@ -300,11 +300,13 @@ importers:
         specifier: ^8.27.0
         version: 8.27.0(eslint@9.23.0(jiti@2.4.2))(typescript@5.8.2)
 
+  configs/typescript-config: {}
+
   configs/vitest-config:
     devDependencies:
       '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../../packages/typescript-config
+        version: link:../typescript-config
       '@vitest/coverage-v8':
         specifier: ^3.1.1
         version: 3.1.1(@vitest/browser@3.1.1(msw@2.4.3(typescript@5.8.2))(playwright@1.51.1)(vite@6.3.4(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2))(vitest@3.1.1))(vitest@3.1.1(@types/node@22.13.10)(@vitest/browser@3.1.1)(@vitest/ui@3.1.1)(jiti@2.4.2)(jsdom@26.0.0)(lightningcss@1.29.2)(msw@2.4.3(typescript@5.8.2)))
@@ -335,7 +337,7 @@ importers:
         version: link:../../configs/eslint-config
       '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../typescript-config
+        version: link:../../configs/typescript-config
       '@repo/vitest-config':
         specifier: workspace:*
         version: link:../../configs/vitest-config
@@ -418,7 +420,7 @@ importers:
         version: link:../../configs/eslint-config
       '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../typescript-config
+        version: link:../../configs/typescript-config
       '@types/node':
         specifier: ^22.13.10
         version: 22.13.10
@@ -449,7 +451,7 @@ importers:
         version: link:../../configs/eslint-config
       '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../typescript-config
+        version: link:../../configs/typescript-config
       '@repo/vitest-config':
         specifier: workspace:*
         version: link:../../configs/vitest-config
@@ -510,7 +512,7 @@ importers:
         version: link:../../configs/eslint-config
       '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../typescript-config
+        version: link:../../configs/typescript-config
       '@repo/vitest-config':
         specifier: workspace:*
         version: link:../../configs/vitest-config
@@ -589,7 +591,7 @@ importers:
         version: link:../../configs/eslint-config
       '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../typescript-config
+        version: link:../../configs/typescript-config
       '@repo/vitest-config':
         specifier: workspace:*
         version: link:../../configs/vitest-config
@@ -657,8 +659,6 @@ importers:
         specifier: ^3.1.1
         version: 3.1.1(@types/node@22.13.10)(@vitest/browser@3.1.1)(@vitest/ui@3.1.1)(jiti@2.4.2)(jsdom@26.0.0)(lightningcss@1.29.2)(msw@2.4.3(typescript@5.8.2))
 
-  packages/typescript-config: {}
-
   packages/ui:
     dependencies:
       react:
@@ -673,7 +673,7 @@ importers:
         version: link:../../configs/eslint-config
       '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../typescript-config
+        version: link:../../configs/typescript-config
       '@turbo/gen':
         specifier: ^2.4.4
         version: 2.4.4(@types/node@22.13.10)(typescript@5.8.2)
@@ -716,7 +716,7 @@ importers:
         version: link:../../configs/eslint-config
       '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../../packages/typescript-config
+        version: link:../../configs/typescript-config
       '@repo/vitest-config':
         specifier: workspace:*
         version: link:../../configs/vitest-config
@@ -752,7 +752,7 @@ importers:
         version: link:../../configs/playwright-config
       '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../../packages/typescript-config
+        version: link:../../configs/typescript-config
       '@types/node':
         specifier: ^22.13.10
         version: 22.13.10
@@ -7108,7 +7108,7 @@ snapshots:
       sirv: 3.0.1
       tinyglobby: 0.2.13
       tinyrainbow: 2.0.0
-      vitest: 3.1.1(@types/node@22.13.10)(@vitest/browser@3.1.1)(@vitest/ui@3.1.1)(jiti@2.4.2)(jsdom@26.0.0)(lightningcss@1.29.2)(msw@2.4.3(typescript@5.8.2))
+      vitest: 3.1.1(@types/node@22.13.10)(@vitest/browser@3.1.1)(@vitest/ui@3.1.1)(jiti@2.4.2)(jsdom@26.0.0)(lightningcss@1.29.2)(msw@2.4.3(typescript@5.7.3))
 
   '@vitest/utils@2.0.5':
     dependencies:
