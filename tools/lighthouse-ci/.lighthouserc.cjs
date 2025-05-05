@@ -5,6 +5,7 @@ module.exports = {
     collect: {
       url: URLSs,
       startServerCommand: "echo 'Server will be started by docker-compose'",
+      settings: { chromeFlags: "--no-sandbox" },
     },
     assert: {
       preset: "lighthouse:recommended",

@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "lint": "eslint . --max-warnings 0",
-    "test:lighthouse": "lhci autorun --no-sandbox"
+    "test:lighthouse": "lhci autorun"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
