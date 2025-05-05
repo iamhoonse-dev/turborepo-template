@@ -66,4 +66,4 @@ COPY --from=installer /app ./
 RUN echo "LHCI_BUILD_CONTEXT__CURRENT_HASH : $LHCI_BUILD_CONTEXT__CURRENT_HASH"
 
 # start test:lighthouse task
-CMD ["pnpm", "run", "test:lighthouse"]
+CMD ["echo", "\"LHCI_BUILD_CONTEXT__CURRENT_HASH : $LHCI_BUILD_CONTEXT__CURRENT_HASH\"", "&&", "pnpm", "run", "test:lighthouse"]
