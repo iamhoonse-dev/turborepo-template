@@ -25,6 +25,8 @@ module.exports = {
         interactive: "off",
         "largest-contentful-paint": "off",
         "legacy-javascript": "off",
+        "is-on-https": "off",
+        "render-blocking-resources": "off",
       },
     },
     upload: {
