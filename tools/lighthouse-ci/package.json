@@ -8,5 +8,8 @@
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "eslint": "^9.23.0"
+  },
+  "dependencies": {
+    "@lhci/cli": "^0.14.0"
   }
 }
