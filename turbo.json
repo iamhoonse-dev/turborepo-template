@@ -34,7 +34,7 @@
     },
     "test:lighthouse": {
       "dependsOn": ["^test:lighthouse"],
-      "outputs": ["**/lhci-report.json"],
+      "outputs": [".lighthouseci/**"],
       "passThroughEnv": ["WEB_BASE_URL"]
     },
     "test:e2e": {
