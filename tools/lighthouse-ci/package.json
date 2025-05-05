@@ -1,0 +1,10 @@
+{
+  "name": "lighthouse-ci",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {},
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "eslint": "^9.23.0"
+  }
+}
