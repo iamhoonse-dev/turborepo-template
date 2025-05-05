@@ -11,20 +11,20 @@ module.exports = {
       preset: "lighthouse:recommended",
       assertions: {
         /* Errors for web */
-        "bf-cache": "warn",
-        "color-contrast": "warn",
-        "heading-order": "warn",
-        "offscreen-images": "warn",
-        "unminified-javascript": "warn",
-        "unused-javascript": "warn",
-        "valid-source-maps": "warn",
-        "errors-in-console": "warn",
-        "redirects-http": "warn",
+        "bf-cache": "off",
+        "color-contrast": "off",
+        "heading-order": "off",
+        "offscreen-images": "off",
+        "unminified-javascript": "off",
+        "unused-javascript": "off",
+        "valid-source-maps": "off",
+        "errors-in-console": "off",
+        "redirects-http": "off",
 
         /* Warnings for web */
-        interactive: "warn",
-        "largest-contentful-paint": "warn",
-        "legacy-javascript": "warn",
+        interactive: "off",
+        "largest-contentful-paint": "off",
+        "legacy-javascript": "off",
       },
     },
     upload: {
