@@ -62,5 +62,8 @@ WORKDIR /app
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=installer /app ./
 
+# check if the environment variable is set
+RUN echo "LHCI_BUILD_CONTEXT__CURRENT_HASH : $LHCI_BUILD_CONTEXT__CURRENT_HASH"
+
 # start test:lighthouse task
 CMD ["pnpm", "run", "test:lighthouse"]
