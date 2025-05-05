@@ -53,6 +53,7 @@ jobs:
           docker compose -f docker-compose.lighthouse.yaml up --exit-code-from lighthouse-runner
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          LHCI_BUILD_CONTEXT__CURRENT_HASH: ${{ github.sha }}
           GITHUB_SHA: ${{ github.sha }}
 
       - name: Copy Lighthouse report from container
