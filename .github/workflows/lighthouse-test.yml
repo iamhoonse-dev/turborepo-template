@@ -60,7 +60,7 @@ jobs:
         run: |
           CONTAINER_ID=$(docker ps -aqf "name=turborepo-template-lighthouse-runner")
           if [ -n "$CONTAINER_ID" ]; then
-            docker cp $CONTAINER_ID:/app/tools/lighthouse-runner/.lighthouseci ./
+            docker cp $CONTAINER_ID:/app/tools/lighthouse-ci/.lighthouseci ./
           else
             echo "No container found for lighthouse-runner"
             exit 1
