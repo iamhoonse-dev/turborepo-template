@@ -28,6 +28,7 @@ services:
     environment:
       CI: true
       WEB_BASE_URL: http://web:3000
+      LHCI_GITHUB_APP_TOKEN: ${LHCI_GITHUB_APP_TOKEN}
 
 # Define a network, which allows containers to communicate
 # with each other, by using their container name as a hostname
