@@ -8,10 +8,6 @@ ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 
-# Set variable so puppeteer will not try to download chromium
-ENV PUPPETEER_SKIP_DOWNLOAD=true
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable
-
 # ---------------------------------------------------------------------------
 # Builder
 # ---------------------------------------------------------------------------
