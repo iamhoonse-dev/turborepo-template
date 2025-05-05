@@ -22,7 +22,6 @@ module.exports = {
         interactive: "off",
         "largest-contentful-paint": "off",
         "legacy-javascript": "off",
-        "": "off",
       },
     },
     upload: {
