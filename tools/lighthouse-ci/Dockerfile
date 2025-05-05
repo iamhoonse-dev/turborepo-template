@@ -59,6 +59,13 @@ RUN apt-get update \
     && apt-get install -y google-chrome-stable --no-install-recommends \
     && apt-get clean
 
+# Setup a user to avoid doing everything as root
+RUN groupadd --system lhci && \
+  useradd --system --create-home --gid lhci lhci && \
+  mkdir --parents /home/lhci/reports && \
+  chown --recursive lhci:lhci /home/lhci
+USER lhci
+
 # Set working directory
 WORKDIR /app
 
