@@ -56,7 +56,7 @@ jobs:
           if [ -n "$CONTAINER_ID" ]; then
             docker cp $CONTAINER_ID:/app/tools/lighthouse-runner/.lighthouseci ./
           else
-            echo "No container found for lighthouse-runner
+            echo "No container found for lighthouse-runner"
             exit 1
           fi
 
