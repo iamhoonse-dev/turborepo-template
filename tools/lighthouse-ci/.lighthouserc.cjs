@@ -35,4 +35,3 @@ module.exports = {
     },
   },
 };
-// export default config;
