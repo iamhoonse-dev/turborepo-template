@@ -32,11 +32,17 @@ const EXCLUDE_DIRS = [
  * @param rootDir
  * @param oldString
  * @param newString
+ * @param excludeDirs
+ * @param targetExtensions
  */
 export default function replaceAllInDirectory(
   rootDir: string,
   oldString: string,
   newString: string,
+  { excludeDirs, targetExtensions } = {
+    excludeDirs: EXCLUDE_DIRS,
+    targetExtensions: TARGET_EXTENSIONS,
+  },
 ) {
   const updateStdout = getStdoutUpdater();
 
@@ -47,11 +53,11 @@ export default function replaceAllInDirectory(
     for (const entry of entries) {
       const fullPath = path.join(directory, entry.name);
       const ext = path.extname(entry.name);
-      if (entry.isDirectory() && !EXCLUDE_DIRS.includes(entry.name)) {
+      if (entry.isDirectory() && !excludeDirs.includes(entry.name)) {
         processDirectory(fullPath);
       } else if (
         entry.isFile() &&
-        TARGET_EXTENSIONS.some((target) => ext.endsWith(target)) &&
+        targetExtensions.some((target) => ext.endsWith(target)) &&
         fullPath !== __filename
       ) {
         replaceInFile(fullPath, oldString, newString);
