@@ -35,10 +35,16 @@ jobs:
             docker load -i /tmp/docker-cache/web.tar
           fi
 
+      - name: inject LHCI_GITHUB_APP_TOKEN
+        run: |
+          docker compose -f docker-compose.lighthouse.yaml convert > docker-compose.lighthouse.converted.yaml
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
       - name: Build Lighthouse environment
         id: build
         run: |
-          docker compose -f docker-compose.lighthouse.yaml build
+          docker compose -f docker-compose.lighthouse.converted.yaml build
           docker save -o /tmp/docker-cache/lighthouse-runner.tar turborepo-template-lighthouse-runner:latest
           docker save -o /tmp/docker-cache/web.tar turborepo-template-web:latest
         env:
@@ -50,7 +56,7 @@ jobs:
 
       - name: Run Lighthouse tests
         run: |
-          docker compose -f docker-compose.lighthouse.yaml up --exit-code-from lighthouse-runner
+          docker compose -f docker-compose.lighthouse.converted.yaml up --exit-code-from lighthouse-runner
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 

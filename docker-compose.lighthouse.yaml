@@ -13,8 +13,6 @@ services:
       - 3000:3000
     networks:
       - lighthouse_network
-    environment:
-      LHCI_GITHUB_APP_TOKEN: ${LHCI_GITHUB_APP_TOKEN}
 
   # The Lighthouse CI service is built from the Dockerfile located in the ./tools/lighthouse-ci directory
   lighthouse-runner:
