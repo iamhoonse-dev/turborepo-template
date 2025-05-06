@@ -45,16 +45,12 @@ jobs:
       - name: Prepare docker external network
         run: |
           docker network inspect "lighthouse_network" >/dev/null 2>&1 || docker network create "lighthouse_network"
-        env:
-          GITHUB_SHA: ${{ github.sha }}
 
       - name: Run Lighthouse tests
         run: |
           docker compose -f docker-compose.lighthouse.yaml up --exit-code-from lighthouse-runner
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
-          LHCI_BUILD_CONTEXT__CURRENT_HASH: ${{ github.sha }}
-          GITHUB_SHA: ${{ github.sha }}
 
       - name: Copy Lighthouse report from container
         run: |
