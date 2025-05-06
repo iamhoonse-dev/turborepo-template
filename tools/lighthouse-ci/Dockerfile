@@ -37,6 +37,9 @@ COPY --from=builder /app/out/json/ .
 # Copy the pruned workspace
 COPY --from=builder /app/out/full/ .
 
+# Copy the git repository
+COPY --from=builder /app/.git ./
+
 # First install the dependencies (as they change less often)
 RUN pnpm install --frozen-lockfile
 
