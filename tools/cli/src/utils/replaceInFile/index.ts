@@ -1,4 +1,5 @@
 import fs from "fs";
+import escapeRegExp from "../escapeRegExp";
 
 /**
  * Replaces all occurrences of a string in a file with another string
@@ -13,6 +14,10 @@ export default function replaceInFile(
   newString: string,
 ) {
   const content = fs.readFileSync(filePath, "utf-8");
-  const updatedContent = content.replace(new RegExp(oldString, "g"), newString);
+  const escapedOldString = escapeRegExp(oldString);
+  const updatedContent = content.replace(
+    new RegExp(escapedOldString, "g"),
+    newString,
+  );
   fs.writeFileSync(filePath, updatedContent, "utf-8");
 }
