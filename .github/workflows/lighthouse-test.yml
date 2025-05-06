@@ -37,7 +37,6 @@ jobs:
 
       - name: inject LHCI_GITHUB_APP_TOKEN
         run: |
-          echo "LHCI_GITHUB_APP_TOKEN=${LHCI_GITHUB_APP_TOKEN}"
           docker compose -f docker-compose.lighthouse.yaml convert > docker-compose.lighthouse.converted.yaml
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
