@@ -28,12 +28,13 @@ const EXCLUDE_DIRS = [
 ];
 
 /**
+ * Recursively replaces all occurrences of a string in files with the specified extensions
  *
- * @param rootDir
- * @param oldString
- * @param newString
- * @param excludeDirs
- * @param targetExtensions
+ * @param rootDir - The root directory to start the search
+ * @param oldString - The string to be replaced
+ * @param newString - The string to replace with
+ * @param excludeDirs - Directories to exclude from the search
+ * @param targetExtensions - File extensions to target for replacement
  */
 export default function replaceAllInDirectory(
   rootDir: string,
