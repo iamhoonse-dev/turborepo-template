@@ -1,0 +1,16 @@
+{
+  "name": "lighthouse-ci",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "lint": "eslint . --max-warnings 0",
+    "test:lighthouse": "lhci autorun"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "eslint": "^9.23.0"
+  },
+  "dependencies": {
+    "@lhci/cli": "^0.14.0"
+  }
+}

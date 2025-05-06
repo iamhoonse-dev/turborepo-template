@@ -1,0 +1,37 @@
+version: "3"
+
+# Define the services that will be run in the containers
+services:
+  # The web service is built from the Dockerfile located in the ./apps/web directory
+  web:
+    build:
+      context: .
+      dockerfile: ./apps/web/Dockerfile
+      cache_from:
+        - turborepo-template-web:latest
+    ports:
+      - 3000:3000
+    networks:
+      - lighthouse_network
+
+  # The Lighthouse CI service is built from the Dockerfile located in the ./tools/lighthouse-ci directory
+  lighthouse-runner:
+    build:
+      context: .
+      dockerfile: ./tools/lighthouse-ci/Dockerfile
+      cache_from:
+        - turborepo-template-lighthouse-runner:latest
+    networks:
+      - lighthouse_network
+    depends_on:
+      - web
+    environment:
+      CI: true
+      WEB_BASE_URL: http://web:3000
+      LHCI_GITHUB_APP_TOKEN: ${LHCI_GITHUB_APP_TOKEN}
+
+# Define a network, which allows containers to communicate
+# with each other, by using their container name as a hostname
+networks:
+  lighthouse_network:
+    external: true
