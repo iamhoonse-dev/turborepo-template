@@ -59,25 +59,3 @@ jobs:
           docker compose -f docker-compose.lighthouse.converted.yaml up --exit-code-from lighthouse-runner
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
-
-      - name: Copy Lighthouse report from container
-        run: |
-          CONTAINER_ID=$(docker ps -aqf "name=turborepo-template-lighthouse-runner")
-          if [ -n "$CONTAINER_ID" ]; then
-            docker cp $CONTAINER_ID:/app/tools/lighthouse-ci/.lighthouseci ./
-          else
-            echo "No container found for lighthouse-runner"
-            exit 1
-          fi
-
-      - name: Upload converted docker-compose (delete me)
-        uses: actions/upload-artifact@v4
-        with:
-          name: docker-compose-converted
-          path: ./docker-compose.lighthouse.converted.yaml
-
-      - name: Upload Lighthouse report
-        uses: actions/upload-artifact@v4
-        with:
-          name: lighthouse-report
-          path: ./.lighthouseci
