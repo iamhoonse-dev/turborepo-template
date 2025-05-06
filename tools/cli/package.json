@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "bin": {
     "example": "./dist/example/index.js",
-    "rename-scope": "./dist/rename-scope/index.js"
+    "rename-scope": "./dist/rename-scope/index.js",
+    "rename-repository": "./dist/rename-repository/index.js",
+    "change-owner-name": "./dist/change-owner-name/index.js"
   },
   "scripts": {
     "preinstall": "npx tsc -b",
