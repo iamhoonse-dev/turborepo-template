@@ -3,14 +3,14 @@ const { WEB_URLS } = require("./web");
 /**
  * URLs for Lighthouse CI
  */
-const URLSs = [];
+const mergedURLs = [];
 
 /*
   Merge all URLs from different applications into a single array.
  */
-URLSs.push(...WEB_URLS);
+mergedURLs.push(...WEB_URLS);
 
 /*
   export merged URLs for Lighthouse CI.
  */
-module.exports = URLSs;
+module.exports = mergedURLs;
