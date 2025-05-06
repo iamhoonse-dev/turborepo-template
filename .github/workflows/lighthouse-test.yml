@@ -37,6 +37,7 @@ jobs:
 
       - name: inject LHCI_GITHUB_APP_TOKEN
         run: |
+          echo "LHCI_GITHUB_APP_TOKEN=${{ LHCI_GITHUB_APP_TOKEN }}"
           docker compose -f docker-compose.lighthouse.yaml convert > docker-compose.lighthouse.converted.yaml
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
@@ -69,6 +70,12 @@ jobs:
             echo "No container found for lighthouse-runner"
             exit 1
           fi
+
+      - name: Upload converted docker-compose (delete me)
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-compose-converted
+          path: ./docker-compose.lighthouse.converted.yaml
 
       - name: Upload Lighthouse report
         uses: actions/upload-artifact@v4
