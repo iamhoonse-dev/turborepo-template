@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import getStdoutUpdater from "../getStdoutUpdater";
+import replaceInFile from "../replaceInFile";
 
 /**
  * Renames the scope of a package name in each file with the specified extension
@@ -39,15 +40,7 @@ export default function replaceAllInDirectory(
 ) {
   const updateStdout = getStdoutUpdater();
 
-  function replaceInFile(filePath: string) {
-    updateStdout("file : ", filePath);
-    const content = fs.readFileSync(filePath, "utf-8");
-    const updatedContent = content.replace(
-      new RegExp(oldString, "g"),
-      newString,
-    );
-    fs.writeFileSync(filePath, updatedContent, "utf-8");
-  }
+  updateStdout("rootDir : ", rootDir);
 
   function processDirectory(directory: string) {
     const entries = fs.readdirSync(directory, { withFileTypes: true });
@@ -61,12 +54,11 @@ export default function replaceAllInDirectory(
         TARGET_EXTENSIONS.some((target) => ext.endsWith(target)) &&
         fullPath !== __filename
       ) {
-        replaceInFile(fullPath);
+        replaceInFile(fullPath, oldString, newString);
       }
     }
   }
 
-  updateStdout("rootDir : ", rootDir);
   processDirectory(rootDir);
   updateStdout.done();
 }
