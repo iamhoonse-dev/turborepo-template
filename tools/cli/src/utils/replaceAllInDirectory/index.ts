@@ -48,7 +48,7 @@ export default function replaceAllInDirectory(
 
   updateStdout("rootDir : ", rootDir);
 
-  function processDirectory(directory: string) {
+  (function processDirectory(directory: string) {
     const entries = fs.readdirSync(directory, { withFileTypes: true });
     for (const entry of entries) {
       const fullPath = path.join(directory, entry.name);
@@ -63,8 +63,7 @@ export default function replaceAllInDirectory(
         replaceInFile(fullPath, oldString, newString);
       }
     }
-  }
+  })(rootDir);
 
-  processDirectory(rootDir);
   updateStdout.done();
 }
