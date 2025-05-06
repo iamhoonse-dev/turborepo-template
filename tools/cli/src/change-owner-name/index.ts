@@ -18,7 +18,7 @@ program
   .description("A CLI for changing owner of repository")
   .option("-n, --name <value>", "New owner for repository")
   .action(async ({ name }) => {
-    await withSpinner(() => changeOwnerName(name), "Renaming repository...");
+    await withSpinner(() => changeOwnerName(name), "Changing owner...");
     await withSpinner(() => pnpmInstall(), "Updating dependencies...");
   })
   .parse(process.argv);
