@@ -6,7 +6,7 @@
 
 ## 🛠️ 제공 기능
 
-- **[Lighthouse Config](./.lighthouserc.cjs)**: Lighthouse CI 설정 파일로, 테스트 환경 및 옵션을 정의해요.
+- **[Lighthouse Config](./.lighthouserc.cjs)**: Lighthouse CI 설정 파일로, 테스트 환경 및 옵션을 정의해요. 기본 설정은 일반적인 웹 애플리케이션에 적합하며, [공식 문서](https://github.com/GoogleChrome/lighthouse-ci/blob/main/docs/configuration.md)를 참조하여 사용자 정의가 가능해요.
 - **[Dockerfile](./Dockerfile)**: Lighthouse CI를 Docker 환경에서 실행하기 위한 설정 파일이에요.
 - **[Configs](./configs/)**: 추가적인 설정 파일들이 위치한 디렉토리예요.
 
