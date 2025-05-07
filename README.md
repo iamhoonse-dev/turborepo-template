@@ -26,6 +26,7 @@
 
 - **[Playwright Web](./tools/playwright-web)**: Playwright 기반의 웹 테스트 도구예요.
 - **[CLI](./tools/cli)**: 명령줄 작업을 자동화하고 프로젝트 관리 및 개발을 지원하기 위한 도구예요.
+- **[Lighthouse CI](./tools/lighthouse-ci)**: 웹 애플리케이션의 성능, 접근성, SEO 등을 자동으로 측정하고 관리하기 위한 도구예요.
 
 ### ⚙️ Configs
 
