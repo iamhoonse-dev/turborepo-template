@@ -176,7 +176,9 @@ pnpm build
 pnpm dev
 ```
 
-### 원격 캐싱 설정
+### 원격 캐싱 설정 (Optional)
+
+필요에 따라 [Turborepo 공식 문서](https://turborepo.com/docs/core-concepts/remote-caching)를 참고하여 원격 캐싱을 사용하도록 설정할 수 있어요.
 
 ```bash
 npx turbo login
