@@ -21,7 +21,7 @@ export default defineWorkspace([
       storybookTest({ configDir: path.join(dirname, ".storybook") }),
     ],
     test: {
-      name: "storybook",
+      name: "frontend-workshop",
       browser: {
         enabled: true,
         headless: true,
