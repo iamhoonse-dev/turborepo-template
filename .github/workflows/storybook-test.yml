@@ -54,7 +54,7 @@ jobs:
         run: |
           CONTAINER_ID=$(docker ps -aqf "name=turborepo-template-storybook-test-runner")
           if [ -n "$CONTAINER_ID" ]; then
-            docker cp $CONTAINER_ID:/app/apps/storybook/test-results/a11y-audit ./
+            docker cp $CONTAINER_ID:/app/apps/frontend-workshop/test-results/a11y-audit ./
           else
             echo "No container found for storybook-test-runner"
             exit 1
