@@ -16,7 +16,9 @@
     "test:e2e:ci": "turbo run test:e2e:ci",
     "view-report": "turbo run view-report",
     "merge-json-reports": "turbo run merge-json-reports",
-    "prepare": "husky"
+    "prepare": "husky",
+    "version-packages": "turbo run build lint test && changeset version",
+    "publish-packages": "turbo run build lint test && changeset version && changeset publish"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",
