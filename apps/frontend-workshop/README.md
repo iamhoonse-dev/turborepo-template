@@ -38,7 +38,7 @@ pnpm install
 ### Storybook 실행
 
 ```bash
-pnpm storybook
+pnpm run dev
 ```
 
 [http://localhost:6006](http://localhost:6006)에서 Storybook을 확인할 수 있어요.
