@@ -100,8 +100,37 @@ graph TD
   - 🐳 이 Workflow는 [`docker-compose.e2e.yaml`](./docker-compose.e2e.yaml) 파일을 사용해서 E2E 테스트 환경을 설정해요.
 - **[Lighthouse Test](.github/workflows/lighthouse-test.yml)**: `lighthouse-test.yml` 파일에 정의되어 있으며, Lighthouse를 사용해서 웹사이트의 성능, 접근성, SEO 등을 테스트해요.
   - 🐳 이 Workflow는 [`docker-compose.lighthouse.yaml`](./docker-compose.lighthouse.yaml) 파일을 사용해서 Lighthouse 테스트 환경을 설정해요.
+- **[Release](.github/workflows/release.yml)**: `release.yml` 파일에 정의되어 있으며, `changesets`를 사용하여 패키지를 배포하는 과정을 자동화해요.
+  - 🦋 이 Workflow는 `changesets`이라는 패키지 버전 관리와 배포를 간소화하는 도구를 사용해요. 자세한 내용은 [공식 문서](https://github.com/changesets/changesets)를 참고하세요.
+  - 배포를 위해서는 `npm` 인증 토큰을 GitHub Secrets에 `NPM_TOKEN`으로 설정해야 해요.
 
 각 Workflow는 `.github/workflows/` 디렉토리에 위치하고 있어요.
+
+## 🦋 Changesets
+
+이 프로젝트는 [Changesets](https://github.com/changesets/changesets)를 사용하여 패키지 버전 관리와 배포를 간소화하고 있어요. Changesets는 모노레포 환경에서 특히 유용하며, 각 패키지의 변경 사항을 추적하고 이를 기반으로 버전을 업데이트할 수 있도록 도와줘요.
+
+### 기본 사용 방법
+
+1. 새 변경 사항 추가:
+   ```bash
+   pnpm changeset
+   ```
+   명령어를 실행하면 변경 사항에 대한 설명을 작성할 수 있는 프롬프트가 나타나요. 이를 통해 변경 사항을 기록할 수 있어요.
+
+2. 버전 업데이트 및 변경 사항 적용:
+   ```bash
+   pnpm changeset version
+   ```
+   이 명령어는 모든 패키지의 버전을 업데이트하고, `CHANGELOG.md` 파일을 생성하거나 업데이트해요.
+
+3. 배포:
+   ```bash
+   pnpm changeset publish
+   ```
+   이 명령어는 업데이트된 패키지를 npm에 배포해요. 배포를 위해서는 `NPM_TOKEN`이 GitHub Secrets에 설정되어 있어야 해요.
+
+자세한 내용은 [공식 문서](https://github.com/changesets/changesets)를 참고하세요.
 
 ## ⬇️ 의존성 설치
 
