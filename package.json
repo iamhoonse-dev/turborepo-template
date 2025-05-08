@@ -16,12 +16,14 @@
     "test:e2e:ci": "turbo run test:e2e:ci",
     "view-report": "turbo run view-report",
     "merge-json-reports": "turbo run merge-json-reports",
-    "prepare": "husky"
+    "prepare": "husky",
+    "version-packages": "turbo run build lint test && changeset version",
+    "publish-packages": "turbo run build lint test && changeset version && changeset publish"
   },
   "devDependencies": {
-    "@repo/cli": "workspace:*",
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
+    "@repo/cli": "workspace:*",
     "husky": "^9.1.7",
     "prettier": "^3.5.3",
     "turbo": "^2.4.4",
@@ -30,5 +32,8 @@
   "packageManager": "pnpm@9.0.0",
   "engines": {
     "node": ">=22"
+  },
+  "dependencies": {
+    "@changesets/cli": "^2.29.3"
   }
 }
