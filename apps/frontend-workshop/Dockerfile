@@ -73,7 +73,7 @@ WORKDIR /app
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=installer /app/apps/storybook/storybook-static /usr/share/nginx/html
+COPY --from=installer /app/apps/frontend-workshop/storybook-static /usr/share/nginx/html
 
 # start NGINX
 CMD ["nginx", "-g", "daemon off;"]
