@@ -1,8 +1,8 @@
-# 📚 Storybook Application
+# 📚 Frontend Workshop
 
 ## 📖 개요
 
-`storybook` 애플리케이션은 UI 컴포넌트를 독립적으로 개발하고 문서화하기 위한 도구인 Storybook을 활용한 애플리케이션이에요. 이 애플리케이션은 Turborepo 환경에서 Storybook을 어떻게 설정하고 사용하는지 보여주는 예시 역할을 해요.
+`frontend-workshop` 애플리케이션은 UI 컴포넌트를 독립적으로 개발하고 문서화하기 위한 도구인 Storybook을 활용한 애플리케이션이에요. 이 애플리케이션은 Turborepo 환경에서 Storybook을 어떻게 설정하고 사용하는지 보여주는 예시 역할을 해요.
 
 ## 🛠️ 제공 기능
 
@@ -19,7 +19,7 @@
 
 ### 🔗 연결된 워크스페이스
 
-`storybook` 애플리케이션은 다음 경로에 정의된 스토리를 포함하고 있어요:
+`frontend-workshop` 애플리케이션은 다음 경로에 정의된 스토리를 포함하고 있어요:
 
 1. `../src/**/*.mdx`
 2. `../src/**/*.stories.@(js|jsx|mjs|ts|tsx)`
@@ -38,7 +38,7 @@ pnpm install
 ### Storybook 실행
 
 ```bash
-pnpm storybook
+pnpm run dev
 ```
 
 [http://localhost:6006](http://localhost:6006)에서 Storybook을 확인할 수 있어요.

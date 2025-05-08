@@ -10,7 +10,7 @@
 
 - **[Docs](./apps/docs)**: Next.js 기반의 문서화 앱이에요.
 - **[Web](./apps/web)**: Next.js 기반의 웹 애플리케이션이에요.
-- **[Storybook](./apps/storybook)**: 컴포넌트 개발이랑 테스트를 위한 Storybook 환경이에요.
+- **[Frontend Workshop](./apps/frontend-workshop)**: 컴포넌트 개발이랑 테스트를 위한 Storybook 환경이에요.
 
 ### 📦 Packages
 
