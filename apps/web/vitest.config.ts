@@ -12,7 +12,7 @@ export default mergeConfig(
           provider: "v8",
           exclude: [
             "next.config.js",
-            "vitest.config.mts",
+            "vitest.config.ts",
             "eslint.config.js",
             ".next",
             "configs/**",
