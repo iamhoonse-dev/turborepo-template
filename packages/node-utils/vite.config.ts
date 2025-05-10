@@ -6,7 +6,7 @@ import tsConfigPaths from "vite-tsconfig-paths";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [dtsPlugin(), tsConfigPaths()],
+  plugins: [dtsPlugin({ include: ["src"] }), tsConfigPaths()],
   build: {
     ssr: true,
     emptyOutDir: false,

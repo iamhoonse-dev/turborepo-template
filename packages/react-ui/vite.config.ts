@@ -33,7 +33,12 @@ const fileName: Exclude<LibraryOptions["fileName"], string> = (
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [dtsPlugin(), react(), tsConfigPaths(), tailwindcss()],
+  plugins: [
+    dtsPlugin({ include: ["src"] }),
+    react(),
+    tsConfigPaths(),
+    tailwindcss(),
+  ],
   build: {
     emptyOutDir: false,
     lib: {
@@ -60,10 +65,15 @@ export default defineConfig({
          * @param chunkInfo - Information about the chunk being processed.
          */
         assetFileNames: (chunkInfo) => {
-          if (chunkInfo.name === "react-ui.css") {
+          if (chunkInfo.names.includes("react-ui.css")) {
             return "styles/base.css";
           }
-          return chunkInfo.name;
+          if (chunkInfo.names[0]) {
+            return chunkInfo.names[0];
+          }
+          throw new Error(
+            `No name found for chunkInfo. Details: ${JSON.stringify(chunkInfo)}`,
+          );
         },
       },
     },

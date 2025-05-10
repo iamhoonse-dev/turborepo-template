@@ -8,7 +8,12 @@ import { preserveDirective } from "rollup-preserve-directives";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [dtsPlugin(), react(), tsConfigPaths(), preserveDirective()],
+  plugins: [
+    dtsPlugin({ include: ["src"] }),
+    react(),
+    tsConfigPaths(),
+    preserveDirective(),
+  ],
   build: {
     emptyOutDir: false,
     lib: {
