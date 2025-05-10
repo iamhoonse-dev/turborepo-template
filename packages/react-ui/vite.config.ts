@@ -71,7 +71,7 @@ export default defineConfig({
           if (chunkInfo.names[0]) {
             return chunkInfo.names[0];
           }
-          throw new Error("No name found for chunkInfo");
+          throw new Error(`No name found for chunkInfo. Details: names=${JSON.stringify(chunkInfo.names)}, fileName=${chunkInfo.fileName}, type=${chunkInfo.type}`);
         },
       },
     },
