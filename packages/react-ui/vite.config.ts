@@ -33,7 +33,12 @@ const fileName: Exclude<LibraryOptions["fileName"], string> = (
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [dtsPlugin(), react(), tsConfigPaths(), tailwindcss()],
+  plugins: [
+    dtsPlugin({ include: ["src"] }),
+    react(),
+    tsConfigPaths(),
+    tailwindcss(),
+  ],
   build: {
     emptyOutDir: false,
     lib: {
