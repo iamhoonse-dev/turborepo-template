@@ -60,10 +60,13 @@ export default defineConfig({
          * @param chunkInfo - Information about the chunk being processed.
          */
         assetFileNames: (chunkInfo) => {
-          if (chunkInfo.name === "react-ui.css") {
+          if (chunkInfo.names.includes("react-ui.css")) {
             return "styles/base.css";
           }
-          return chunkInfo.name;
+          if (chunkInfo.names[0]) {
+            return chunkInfo.names[0];
+          }
+          throw new Error("No name found for chunkInfo");
         },
       },
     },
