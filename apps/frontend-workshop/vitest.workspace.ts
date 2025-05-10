@@ -8,7 +8,8 @@ import { storybookTest } from "@storybook/experimental-addon-test/vitest-plugin"
 const workspaceDirname =
   typeof __dirname !== "undefined"
     ? __dirname
-    : dirname(fileURLToPath(import.meta.url));
+    : //  @ts-expect-error TS1343 fixme: tsconfig 의 module 속성을 수정하는 방향으로 해결해야 함
+      dirname(fileURLToPath(import.meta.url));
 
 // More info at: https://storybook.js.org/docs/writing-tests/test-addon
 export default defineWorkspace([
