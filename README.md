@@ -1,5 +1,12 @@
 # 🗂️ Turborepo Template
 
+[![install-and-build](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/install-and-build.yml/badge.svg?event=push)](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/install-and-build.yml)
+[![unit-test](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/unit-test.yml/badge.svg?event=push)](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/unit-test.yml)
+[![storybook-test](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/storybook-test.yml/badge.svg?event=push)](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/storybook-test.yml)
+[![e2e-test](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/e2e-test.yml/badge.svg?event=push)](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/e2e-test.yml)
+[![lighthouse-test](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/lighthouse-test.yml/badge.svg?event=push)](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/lighthouse-test.yml)
+[![Release](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/release.yml/badge.svg?event=push)](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/release.yml)
+
 ## 📖 개요
 
 `Turborepo Template`은 모노레포 관리랑 빌드를 단순화하려고 만든 템플릿이에요. 이 템플릿은 다양한 앱과 패키지를 포함하고 있어서, 팀 협업과 생산성을 높이는 데 도움을 줄 거예요.
