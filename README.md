@@ -68,7 +68,15 @@ graph TD
 
 ### Use this template
 
-"Use this template" 버튼을 클릭해서 레포지토리를 생성한 후에, 필요에 따라 아래의 명령어들을 실행해 주세요.
+"Use this template" 버튼을 클릭해서 레포지토리를 생성한 후에, 아래의 명령어들을 실행해 주세요.
+
+### 의존성 설치
+
+이 프로젝트에서 제공하는 모노레포 명령어를 사용하려면 먼저 의존성을 설치해야 해요. 아래 명령어를 실행해 주세요:
+
+```bash
+pnpm install
+```
 
 ### 소유자 ID 변경
 
@@ -109,6 +117,10 @@ rename-scope -n new-scope-name
 
 rename-scope --name new-scope-name
 ```
+
+### 🎉 Enjoy it !
+
+Happy Hacking!
 
 ## 📦 구성 요소
 
