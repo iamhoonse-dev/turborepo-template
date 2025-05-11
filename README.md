@@ -215,7 +215,7 @@ pnpm install
 
 ### CLI 사용
 
-`pnpm install`을 실행하면 `tools/cli`에 정의된 CLI 명령어들을 바로 사용할 수 있어요.
+`pnpm install`을 실행하면 [`tools/cli`](./tools/cli)에 정의된 CLI 명령어들을 바로 사용할 수 있어요.
 
 ```bash
 example --ls [directory-path]
