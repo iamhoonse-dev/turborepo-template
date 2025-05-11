@@ -5,7 +5,9 @@
   "exports": {
     "./*": "./src/*.tsx"
   },
-  "scripts": {},
+  "scripts": {
+    "lint": "eslint . --max-warnings 0"
+  },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
