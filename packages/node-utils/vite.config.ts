@@ -3,6 +3,7 @@ import { defineConfig } from "vite";
 import { resolve } from "path";
 import dtsPlugin from "vite-plugin-dts";
 import tsConfigPaths from "vite-tsconfig-paths";
+import { runWithGlob } from "@repo/helpers/runWithGlob";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -11,11 +12,18 @@ export default defineConfig({
     ssr: true,
     emptyOutDir: false,
     rollupOptions: {
-      input: {
-        fs: resolve(__dirname, "src/fs/index.ts"),
-        msw: resolve(__dirname, "src/msw/index.ts"),
-        misc: resolve(__dirname, "src/misc/index.ts"),
-      },
+      input: Object.fromEntries(
+        runWithGlob(
+          "src/**/*.{ts,tsx}",
+          (file) => [
+            // 엔트리 이름
+            file.replace(/^src\//, "").replace(/index\.(ts|tsx)$/, ""),
+            // 절대 경로
+            resolve(__dirname, file),
+          ],
+          ["src/**/*.{d,spec}.ts"],
+        ),
+      ),
       output: [
         {
           format: "es",
