@@ -84,10 +84,6 @@ pnpm install
 코드에 대한 보다 자세한 내용은 [`tools/cli`의 README](./tools/cli/README.md#-제공-기능)를 참고해 주세요.
 
 ```bash
-change-owner-name -n your-username
-
-# or equivalently
-
 change-owner-name --name your-username
 ```
 
@@ -97,10 +93,6 @@ change-owner-name --name your-username
 코드에 대한 보다 자세한 내용은 [`tools/cli`의 README](./tools/cli/README.md#-제공-기능)를 참고해 주세요.
 
 ```bash
-rename-repository -n new-repository-name
-
-# or equivalently
-
 rename-repository --name new-repository-name
 ```
 
@@ -111,10 +103,6 @@ rename-repository --name new-repository-name
 코드에 대한 보다 자세한 내용은 [`tools/cli`의 README](./tools/cli/README.md#-제공-기능)를 참고해 주세요.
 
 ```bash
-rename-scope -n new-scope-name
-
-# or equivalently
-
 rename-scope --name new-scope-name
 ```
 
@@ -148,7 +136,7 @@ Happy Hacking!
 
 이 섹션은 프로젝트 전반에서 재사용 가능한 내부 패키지를 포함하고 있어요. `shared` 디렉토리에 있는 패키지들은 npm에 배포되지 않고, 내부적으로만 사용돼요.
 
-- **[Helpers](./shared/helpers)**: 프로젝트 전반에서 재사용 가능한 유틸리티 함수와 공통 로직을 제공하는 내부 패키지예요. `shared` 디렉토리에 배치된 패키지들은 npm에 배포되지 않고, 내부 프로젝트에서만 사용되도록 설계되었어요.
+- **[Helpers](./shared/helpers)**: 프로젝트 전반에서 재사용 가능한 유틸리티 함수와 공통 로직을 제공하는 내부 패키지예요.
 
 ### 🛠️ Tools
 
