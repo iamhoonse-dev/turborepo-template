@@ -26,10 +26,14 @@ pnpm add @your-org/helpers
 import { runWithGlob } from "@your-org/helpers/runWithGlob";
 
 // glob 패턴을 사용하여 파일 검색 및 작업 실행
-const results = runWithGlob("src/**/*.ts", (file) => {
-  console.log(`Processing file: ${file}`);
-  return file;
-}, ["**/node_modules/**"]);
+const results = runWithGlob(
+  "src/**/*.ts",
+  (file) => {
+    console.log(`Processing file: ${file}`);
+    return file;
+  },
+  ["**/node_modules/**"],
+);
 
 console.log("처리된 파일 목록:", results);
 ```
