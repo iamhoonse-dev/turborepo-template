@@ -33,6 +33,7 @@ jobs:
             tools/*/.turbo
             packages/*/.turbo
             configs/*/.turbo
+            shared/*/.turbo
           key: ${{ runner.os }}-turbo-${{ github.sha }}
 
       - name: Restore node_modules cache
@@ -44,6 +45,7 @@ jobs:
             tools/*/node_modules
             packages/*/node_modules
             configs/*/node_modules
+            shared/*/node_modules
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}
 
       - name: Cache dist directories
@@ -55,6 +57,7 @@ jobs:
             apps/*/storybook-static
             packages/*/dist
             configs/*/dist
+            shared/*/dist
           key: ${{ runner.os }}-dist-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-dist-

@@ -21,6 +21,7 @@ jobs:
             tools/*/.turbo
             packages/*/.turbo
             configs/*/.turbo
+            shared/*/.turbo
           key: ${{ runner.os }}-turbo-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-turbo-
@@ -39,6 +40,7 @@ jobs:
             tools/*/node_modules
             packages/*/node_modules
             configs/*/node_modules
+            shared/*/node_modules
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}
           restore-keys: |
             ${{ runner.os }}-node-modules-
@@ -61,6 +63,7 @@ jobs:
             tools/*/.turbo
             packages/*/.turbo
             configs/*/.turbo
+            shared/*/.turbo
           key: ${{ runner.os }}-turbo-${{ github.sha }}
       - name: Use Node.js 22.x
         uses: actions/setup-node@v4
@@ -76,6 +79,7 @@ jobs:
             tools/*/node_modules
             packages/*/node_modules
             configs/*/node_modules
+            shared/*/node_modules
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}
       - name: Cache dist directories
         id: cache-dist
@@ -87,6 +91,7 @@ jobs:
             apps/*/storybook-static
             packages/*/dist
             configs/*/dist
+            shared/*/dist
           key: ${{ runner.os }}-dist-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-dist-
