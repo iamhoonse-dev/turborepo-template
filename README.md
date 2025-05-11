@@ -11,6 +11,52 @@
 
 `Turborepo Template`은 모노레포 관리랑 빌드를 단순화하려고 만든 템플릿이에요. 이 템플릿은 다양한 앱과 패키지를 포함하고 있어서, 팀 협업과 생산성을 높이는 데 도움을 줄 거예요.
 
+## 🚀 Quickstart
+
+### Use this template
+
+"Use this template" 버튼을 클릭해서 레포지토리를 생성한 후에, 필요에 따라 아래의 명령어들을 실행해 주세요.
+
+### 소유자 ID 변경
+
+코드베이스 내 모든 파일을 탐색하여 기존의 소유자 ID 가 기록되어 있는 부분을 변경해요. \
+코드에 대한 보다 자세한 내용은 [`tools/cli`의 README](./tools/cli/README.md#-제공-기능)를 참고해 주세요.
+
+```bash
+change-owner-name -n your-username
+
+# or equivalently
+
+change-owner-name --name your-username
+```
+
+### 레포지토리 이름 변경
+
+코드 베이스 내 모든 파일을 탐색하여 기존의 레포지토리 이름이 기록되어 있는 부분을 변경해요. \
+코드에 대한 보다 자세한 내용은 [`tools/cli`의 README](./tools/cli/README.md#-제공-기능)를 참고해 주세요.
+
+```bash
+rename-repository -n new-repository-name
+
+# or equivalently
+
+rename-repository --name new-repository-name
+```
+
+### 스코프 이름 변경
+
+코드 베이스 내 모든 파일을 탐색하여 기존의 스코프 이름이 기록되어 있는 부분을 변경해요. \
+만약 모노레포 내 일부 구성 요소들을 [npm](https://www.npmjs.com/) 의 특정 스코프(e.g. `new-scope-name`)로 배포해야 해서 해당 스코프 이름으로 변경해야 하는 경우에 유용할 거예요. \
+코드에 대한 보다 자세한 내용은 [`tools/cli`의 README](./tools/cli/README.md#-제공-기능)를 참고해 주세요.
+
+```bash
+rename-scope -n new-scope-name
+
+# or equivalently
+
+rename-scope --name new-scope-name
+```
+
 ## 📦 구성 요소
 
 ### 🖥️ Apps
@@ -175,50 +221,6 @@ pnpm install
 example --ls [directory-path]
 example --mkdir <directory-name>
 example --touch <file-name>
-```
-
-### 프로젝트 초기 설정
-
-"Use this template" 버튼을 클릭해서 레포지토리를 생성한 후에, 필요에 따라 아래의 명령어들을 실행해 주세요.
-
-#### 소유자 ID 변경
-
-코드베이스 내 모든 파일을 탐색하여 기존의 소유자 ID 가 기록되어 있는 부분을 변경해요. \
-코드에 대한 보다 자세한 내용은 [`tools/cli`의 README](./tools/cli/README.md#-제공-기능)를 참고해 주세요.
-
-```bash
-change-owner-name -n your-username
-
-# or equivalently
-
-change-owner-name --name your-username
-```
-
-#### 레포지토리 이름 변경
-
-코드 베이스 내 모든 파일을 탐색하여 기존의 레포지토리 이름이 기록되어 있는 부분을 변경해요. \
-코드에 대한 보다 자세한 내용은 [`tools/cli`의 README](./tools/cli/README.md#-제공-기능)를 참고해 주세요.
-
-```bash
-rename-repository -n new-repository-name
-
-# or equivalently
-
-rename-repository --name new-repository-name
-```
-
-#### 스코프 이름 변경
-
-코드 베이스 내 모든 파일을 탐색하여 기존의 스코프 이름이 기록되어 있는 부분을 변경해요. \
-만약 모노레포 내 일부 구성 요소들을 [npm](https://www.npmjs.com/) 의 특정 스코프(e.g. `new-scope-name`)로 배포해야 해서 해당 스코프 이름으로 변경해야 하는 경우에 유용할 거예요. \
-코드에 대한 보다 자세한 내용은 [`tools/cli`의 README](./tools/cli/README.md#-제공-기능)를 참고해 주세요.
-
-```bash
-rename-scope -n new-scope-name
-
-# or equivalently
-
-rename-scope --name new-scope-name
 ```
 
 ### 빌드
