@@ -434,6 +434,9 @@ importers:
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../../configs/eslint-config
+      '@repo/helpers':
+        specifier: workspace:*
+        version: link:../../shared/helpers
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../configs/typescript-config
