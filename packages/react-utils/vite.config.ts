@@ -5,6 +5,7 @@ import react from "@vitejs/plugin-react";
 import dtsPlugin from "vite-plugin-dts";
 import tsConfigPaths from "vite-tsconfig-paths";
 import { preserveDirective } from "rollup-preserve-directives";
+import { runWithGlob } from "@repo/helpers/runWithGlob";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -18,11 +19,18 @@ export default defineConfig({
     emptyOutDir: false,
     lib: {
       name: "react-utils",
-      entry: {
-        hooks: resolve(__dirname, "src/hooks/index.ts"),
-        hocs: resolve(__dirname, "src/hocs/index.ts"),
-        providers: resolve(__dirname, "src/providers/index.ts"),
-      },
+      entry: Object.fromEntries(
+        runWithGlob(
+          "src/**/*.{ts,tsx}",
+          (file) => [
+            // 엔트리 이름
+            file.replace(/^src\//, "").replace(/index\.(ts|tsx)$/, ""),
+            // 절대 경로
+            resolve(__dirname, file),
+          ],
+          ["src/**/*.{d,spec}.{ts,tsx}"],
+        ),
+      ),
       formats: ["es", "cjs"],
       fileName: (format, entryName) => `${entryName}/index.${format}.js`,
     },

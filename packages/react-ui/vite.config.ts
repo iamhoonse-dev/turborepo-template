@@ -5,6 +5,7 @@ import react from "@vitejs/plugin-react";
 import dtsPlugin from "vite-plugin-dts";
 import tsConfigPaths from "vite-tsconfig-paths";
 import tailwindcss from "@tailwindcss/vite";
+import { runWithGlob } from "@repo/helpers/runWithGlob";
 
 /**
  * Generates the file name for the library based on the format and entry name.
@@ -31,6 +32,14 @@ const fileName: Exclude<LibraryOptions["fileName"], string> = (
   }
 };
 
+/**
+ * Predefined mappings for specific entry points to their corresponding names.
+ */
+const predefinedMappings = new Map([
+  ["src/base/shadcn-ui/index.ts", "shadcn-ui"],
+  ["src/lib/utils.ts", "utils"],
+]);
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
@@ -43,12 +52,34 @@ export default defineConfig({
     emptyOutDir: false,
     lib: {
       name: "react-ui",
-      entry: {
-        "shadcn-ui": resolve(__dirname, "src/base/shadcn-ui/index.ts"),
-        utils: resolve(__dirname, "src/lib/utils.ts"),
-        components: resolve(__dirname, "src/components/index.ts"),
-        styles: resolve(__dirname, "src/styles/index.ts"),
-      },
+      entry: Object.fromEntries(
+        runWithGlob(
+          "src/**/*.{ts,tsx}",
+          (file) => [
+            // 엔트리 이름
+            (function nameMapping() {
+              if (predefinedMappings.has(file)) {
+                return predefinedMappings.get(file);
+              }
+
+              const fallbackName = file
+                .replace(/^src\//, "")
+                .replace(/index\.(ts|tsx)$/, "");
+
+              if (!fallbackName) {
+                throw new Error(
+                  `Invalid entry name generated for file: ${file}`,
+                );
+              }
+
+              return fallbackName;
+            })(),
+            // 절대 경로
+            resolve(__dirname, file),
+          ],
+          ["src/**/*.{d,spec,stories}.{ts,tsx}"],
+        ),
+      ),
       formats: ["es", "cjs"],
       fileName,
     },
