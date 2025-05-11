@@ -5,6 +5,7 @@ import react from "@vitejs/plugin-react";
 import dtsPlugin from "vite-plugin-dts";
 import tsConfigPaths from "vite-tsconfig-paths";
 import tailwindcss from "@tailwindcss/vite";
+import { runWithGlob } from "@repo/helpers/runWithGlob";
 
 /**
  * Generates the file name for the library based on the format and entry name.
@@ -43,12 +44,32 @@ export default defineConfig({
     emptyOutDir: false,
     lib: {
       name: "react-ui",
-      entry: {
-        "shadcn-ui": resolve(__dirname, "src/base/shadcn-ui/index.ts"),
-        utils: resolve(__dirname, "src/lib/utils.ts"),
-        components: resolve(__dirname, "src/components/index.ts"),
-        styles: resolve(__dirname, "src/styles/index.ts"),
-      },
+      // entry: {
+      //   "shadcn-ui": resolve(__dirname, "src/base/shadcn-ui/index.ts"),
+      //   utils: resolve(__dirname, "src/lib/utils.ts"),
+      //   components: resolve(__dirname, "src/components/index.ts"),
+      //   styles: resolve(__dirname, "src/styles/index.ts"),
+      // },
+      entry: Object.fromEntries(
+        runWithGlob(
+          "src/**/*.{ts,tsx}",
+          (file) => [
+            // 엔트리 이름
+            (function nameMapping() {
+              if (file === "src/base/shadcn-ui/index.ts") {
+                return "shadcn-ui";
+              }
+              if (file === "src/lib/utils.ts") {
+                return "utils";
+              }
+              return file.replace(/^src\//, "").replace(/index\.(ts|tsx)$/, "");
+            })(),
+            // 절대 경로
+            resolve(__dirname, file),
+          ],
+          ["src/**/*.{d,spec,stories}.{ts,tsx}"],
+        ),
+      ),
       formats: ["es", "cjs"],
       fileName,
     },
