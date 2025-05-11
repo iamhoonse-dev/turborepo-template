@@ -177,7 +177,7 @@ Happy Hacking!
   - 🦋 이 Workflow는 `changesets`이라는 패키지 버전 관리와 배포를 간소화하는 도구를 사용해요. 자세한 내용은 [공식 문서](https://github.com/changesets/changesets)를 참고하세요.
   - 배포를 위해서는 `npm` 인증 토큰을 GitHub Secrets에 `NPM_TOKEN`으로 설정해야 해요.
 
-각 Workflow는 `.github/workflows/` 디렉토리에 위치하고 있어요.
+각 Workflow는 [`.github/workflows/`](.github/workflows/) 디렉토리에 위치하고 있어요.
 
 ## 🦋 패키지 버저닝 및 배포
 
