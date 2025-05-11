@@ -32,6 +32,14 @@ const fileName: Exclude<LibraryOptions["fileName"], string> = (
   }
 };
 
+/**
+ * Predefined mappings for specific entry points to their corresponding names.
+ */
+const predefinedMappings = new Map([
+  ["src/base/shadcn-ui/index.ts", "shadcn-ui"],
+  ["src/lib/utils.ts", "utils"],
+]);
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
@@ -44,25 +52,27 @@ export default defineConfig({
     emptyOutDir: false,
     lib: {
       name: "react-ui",
-      // entry: {
-      //   "shadcn-ui": resolve(__dirname, "src/base/shadcn-ui/index.ts"),
-      //   utils: resolve(__dirname, "src/lib/utils.ts"),
-      //   components: resolve(__dirname, "src/components/index.ts"),
-      //   styles: resolve(__dirname, "src/styles/index.ts"),
-      // },
       entry: Object.fromEntries(
         runWithGlob(
           "src/**/*.{ts,tsx}",
           (file) => [
             // 엔트리 이름
             (function nameMapping() {
-              if (file === "src/base/shadcn-ui/index.ts") {
-                return "shadcn-ui";
+              if (predefinedMappings.has(file)) {
+                return predefinedMappings.get(file);
               }
-              if (file === "src/lib/utils.ts") {
-                return "utils";
+
+              const fallbackName = file
+                .replace(/^src\//, "")
+                .replace(/index\.(ts|tsx)$/, "");
+
+              if (!fallbackName) {
+                throw new Error(
+                  `Invalid entry name generated for file: ${file}`,
+                );
               }
-              return file.replace(/^src\//, "").replace(/index\.(ts|tsx)$/, "");
+
+              return fallbackName;
             })(),
             // 절대 경로
             resolve(__dirname, file),
