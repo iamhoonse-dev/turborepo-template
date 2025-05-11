@@ -707,6 +707,10 @@ importers:
         version: 5.8.2
 
   shared/helpers:
+    dependencies:
+      glob:
+        specifier: ^11.0.1
+        version: 11.0.1
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*

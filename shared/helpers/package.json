@@ -16,6 +16,9 @@
     "eslint": "^9.23.0",
     "typescript": "5.8.2"
   },
+  "dependencies": {
+    "glob": "^11.0.1"
+  },
   "engines": {
     "node": ">=22"
   }
