@@ -706,6 +706,24 @@ importers:
         specifier: 5.8.2
         version: 5.8.2
 
+  shared/helpers:
+    devDependencies:
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../../configs/eslint-config
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../configs/typescript-config
+      '@types/node':
+        specifier: ^22.13.10
+        version: 22.13.10
+      eslint:
+        specifier: ^9.23.0
+        version: 9.23.0(jiti@2.4.2)
+      typescript:
+        specifier: 5.8.2
+        version: 5.8.2
+
   tools/cli:
     dependencies:
       cli-spinners:

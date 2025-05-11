@@ -1,0 +1,19 @@
+{
+  "name": "@repo/helpers",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    "./*": "./src/*.tsx"
+  },
+  "scripts": {},
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "^22.13.10",
+    "eslint": "^9.23.0",
+    "typescript": "5.8.2"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
