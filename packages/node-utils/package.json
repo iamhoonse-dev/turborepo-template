@@ -40,6 +40,7 @@
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@repo/vitest-config": "workspace:*",
+    "@repo/helpers": "workspace:*",
     "@types/node": "^22.13.10",
     "@vitest/coverage-v8": "^3.1.1",
     "eslint": "^9.23.0",
