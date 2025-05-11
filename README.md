@@ -11,15 +11,124 @@
 
 `Turborepo Template`은 모노레포 관리랑 빌드를 단순화하려고 만든 템플릿이에요. 이 템플릿은 다양한 앱과 패키지를 포함하고 있어서, 팀 협업과 생산성을 높이는 데 도움을 줄 거예요.
 
+## 🔗 구성 요소 간 관계도
+
+이 템플릿은 여러 앱과 패키지로 구성돼 있어요. 각 앱과 패키지 간의 관계는 아래의 다이어그램을 참고해 주세요.
+
+```mermaid
+graph TD
+    QHZT("@repo/browser-utils") --> ETTT("@repo/eslint-config")
+    QHZT("@repo/browser-utils") --> JEGP("@repo/helpers")
+    QHZT("@repo/browser-utils") --> EMLE("@repo/typescript-config")
+    QHZT("@repo/browser-utils") --> LRHC("@repo/vitest-config")
+    GLAO("@repo/cli") --> ETTT("@repo/eslint-config")
+    GLAO("@repo/cli") --> EMLE("@repo/typescript-config")
+    GLAO("@repo/cli") --> LRHC("@repo/vitest-config")
+    ETTT("@repo/eslint-config") --> VELR("@repo/eslint-plugin-sample")
+    VELR("@repo/eslint-plugin-sample") --> TXWC("___ROOT___")
+    JEGP("@repo/helpers") --> ETTT("@repo/eslint-config")
+    JEGP("@repo/helpers") --> EMLE("@repo/typescript-config")
+    WCIN("@repo/http-clients") --> ETTT("@repo/eslint-config")
+    WCIN("@repo/http-clients") --> JEGP("@repo/helpers")
+    WCIN("@repo/http-clients") --> EMLE("@repo/typescript-config")
+    TPBW("@repo/node-utils") --> ETTT("@repo/eslint-config")
+    TPBW("@repo/node-utils") --> JEGP("@repo/helpers")
+    TPBW("@repo/node-utils") --> EMLE("@repo/typescript-config")
+    TPBW("@repo/node-utils") --> LRHC("@repo/vitest-config")
+    BHWE("@repo/playwright-config") --> ETTT("@repo/eslint-config")
+    BHWE("@repo/playwright-config") --> EMLE("@repo/typescript-config")
+    MKNG("@repo/react-ui") --> ETTT("@repo/eslint-config")
+    MKNG("@repo/react-ui") --> JEGP("@repo/helpers")
+    MKNG("@repo/react-ui") --> EMLE("@repo/typescript-config")
+    MKNG("@repo/react-ui") --> LRHC("@repo/vitest-config")
+    IRKD("@repo/react-utils") --> QHZT("@repo/browser-utils")
+    EMLE("@repo/typescript-config") --> TXWC("___ROOT___")
+    UWBQ("@repo/ui") --> ETTT("@repo/eslint-config")
+    UWBQ("@repo/ui") --> EMLE("@repo/typescript-config")
+    LRHC("@repo/vitest-config") --> EMLE("@repo/typescript-config")
+    FBWM("docs") --> ETTT("@repo/eslint-config")
+    FBWM("docs") --> EMLE("@repo/typescript-config")
+    FBWM("docs") --> UWBQ("@repo/ui")
+    NRTE("frontend-workshop") --> ETTT("@repo/eslint-config")
+    NRTE("frontend-workshop") --> MKNG("@repo/react-ui")
+    GVMR("lighthouse-ci") --> ETTT("@repo/eslint-config")
+    ITTZ("playwright-web") --> ETTT("@repo/eslint-config")
+    ITTZ("playwright-web") --> BHWE("@repo/playwright-config")
+    ITTZ("playwright-web") --> EMLE("@repo/typescript-config")
+    ITTZ("playwright-web") --> VXGS("web")
+    VXGS("web") --> QHZT("@repo/browser-utils")
+    VXGS("web") --> ETTT("@repo/eslint-config")
+    VXGS("web") --> WCIN("@repo/http-clients")
+    VXGS("web") --> TPBW("@repo/node-utils")
+    VXGS("web") --> MKNG("@repo/react-ui")
+    VXGS("web") --> IRKD("@repo/react-utils")
+    VXGS("web") --> EMLE("@repo/typescript-config")
+    VXGS("web") --> UWBQ("@repo/ui")
+    VXGS("web") --> LRHC("@repo/vitest-config")
+```
+
+> 💡 **참고:**  
+> 이 다이어그램은 [Mermaid](https://mermaid-js.github.io/mermaid/#/)를 사용해서 그렸어요. 이 도구는 텍스트 기반으로 다이어그램을 그릴 수 있게 해줘요. 아래의 코드를 복사해서 [Mermaid Live Editor](https://mermaid-js.github.io/mermaid-live-editor/)에 붙여넣으면 다이어그램을 시각적으로 확인할 수 있어요.
+
+## 🚀 Quickstart
+
+### Use this template
+
+"Use this template" 버튼을 클릭해서 레포지토리를 생성한 후에, 아래의 명령어들을 실행해 주세요.
+
+### 의존성 설치
+
+이 프로젝트에서 제공하는 모노레포 명령어를 사용하려면 먼저 의존성을 설치해야 해요. 아래 명령어를 실행해 주세요:
+
+```bash
+pnpm install
+```
+
+### 소유자 ID 변경
+
+코드베이스 내 모든 파일을 탐색하여 기존의 소유자 ID 가 기록되어 있는 부분을 변경해요. \
+코드에 대한 보다 자세한 내용은 [`tools/cli`의 README](./tools/cli/README.md#-제공-기능)를 참고해 주세요.
+
+```bash
+change-owner-name --name your-username
+```
+
+### 레포지토리 이름 변경
+
+코드 베이스 내 모든 파일을 탐색하여 기존의 레포지토리 이름이 기록되어 있는 부분을 변경해요. \
+코드에 대한 보다 자세한 내용은 [`tools/cli`의 README](./tools/cli/README.md#-제공-기능)를 참고해 주세요.
+
+```bash
+rename-repository --name new-repository-name
+```
+
+### 스코프 이름 변경
+
+코드 베이스 내 모든 파일을 탐색하여 기존의 스코프 이름이 기록되어 있는 부분을 변경해요. \
+만약 모노레포 내 일부 구성 요소들을 [npm](https://www.npmjs.com/) 의 특정 스코프(e.g. `new-scope-name`)로 배포해야 해서 해당 스코프 이름으로 변경해야 하는 경우에 유용할 거예요. \
+코드에 대한 보다 자세한 내용은 [`tools/cli`의 README](./tools/cli/README.md#-제공-기능)를 참고해 주세요.
+
+```bash
+rename-scope --name new-scope-name
+```
+
+### 🎉 Enjoy it !
+
+Happy Hacking!
+
 ## 📦 구성 요소
 
 ### 🖥️ Apps
+
+이 섹션은 다양한 애플리케이션을 포함하고 있어요. 각 앱은 특정 목적을 위해 설계되었으며, Next.js와 같은 최신 기술 스택을 활용하고 있어요.
 
 - **[Docs](./apps/docs)**: Next.js 기반의 문서화 앱이에요.
 - **[Web](./apps/web)**: Next.js 기반의 웹 애플리케이션이에요.
 - **[Frontend Workshop](./apps/frontend-workshop)**: 컴포넌트 개발이랑 테스트를 위한 Storybook 환경이에요.
 
 ### 📦 Packages
+
+이 섹션은 재사용 가능한 패키지 모음을 포함하고 있어요. 각 패키지는 특정 기능을 제공하며, 모노레포 구조에서 독립적으로 관리돼요.
 
 - **[Browser Utils](./packages/browser-utils)**: 브라우저 관련 유틸리티 함수 모음이에요.
 - **[ESLint Plugin Sample](./packages/eslint-plugin-sample)**: 샘플 ESLint 플러그인이에요.
@@ -29,7 +138,15 @@
 - **[React Utils](./packages/react-utils)**: React 애플리케이션에서 쓸 수 있는 유틸리티 함수 모음이에요.
 - **[UI](./packages/ui)**: 공통 UI 컴포넌트랑 스타일이에요.
 
+### 🧩 Shared
+
+이 섹션은 프로젝트 전반에서 재사용 가능한 내부 패키지를 포함하고 있어요. `shared` 디렉토리에 있는 패키지들은 npm에 배포되지 않고, 내부적으로만 사용돼요.
+
+- **[Helpers](./shared/helpers)**: 프로젝트 전반에서 재사용 가능한 유틸리티 함수와 공통 로직을 제공하는 내부 패키지예요.
+
 ### 🛠️ Tools
+
+이 섹션은 개발 및 테스트를 지원하는 도구들을 포함하고 있어요. 각 도구는 특정 작업을 자동화하거나 간소화하는 데 도움을 줘요.
 
 - **[Playwright Web](./tools/playwright-web)**: Playwright 기반의 웹 테스트 도구예요.
 - **[CLI](./tools/cli)**: 명령줄 작업을 자동화하고 프로젝트 관리 및 개발을 지원하기 위한 도구예요.
@@ -37,63 +154,12 @@
 
 ### ⚙️ Configs
 
+이 섹션은 프로젝트 전반에서 사용되는 공통 설정 파일들을 포함하고 있어요. ESLint, TypeScript, Vitest와 같은 도구들의 설정이 포함돼요.
+
 - **[ESLint Config](./configs/eslint-config)**: ESLint 설정을 위한 공통 구성이에요.
 - **[Playwright Config](./configs/playwright-config)**: Playwright 테스트 설정이에요.
 - **[TypeScript Config](./configs/typescript-config)**: TypeScript 설정을 위한 공통 구성이에요.
 - **[Vitest Config](./configs/vitest-config)**: Vitest 테스트 설정을 위한 공통 구성이에요.
-
-## 🔗 구성 요소 간 관계도
-
-이 템플릿은 여러 앱과 패키지로 구성돼 있어요. 각 앱과 패키지 간의 관계는 아래의 다이어그램을 참고해 주세요.
-
-```mermaid
-graph TD
-  QHZT("@repo/browser-utils") --> ETTT("@repo/eslint-config")
-  QHZT("@repo/browser-utils") --> JEGP("@repo/typescript-config")
-  QHZT("@repo/browser-utils") --> EMLE("@repo/vitest-config")
-  LRHC("@repo/cli") --> ETTT("@repo/eslint-config")
-  LRHC("@repo/cli") --> JEGP("@repo/typescript-config")
-  LRHC("@repo/cli") --> EMLE("@repo/vitest-config")
-  ETTT("@repo/eslint-config") --> GLAO("@repo/eslint-plugin-sample")
-  GLAO("@repo/eslint-plugin-sample") --> VELR("___ROOT___")
-  TXWC("@repo/http-clients") --> ETTT("@repo/eslint-config")
-  TXWC("@repo/http-clients") --> JEGP("@repo/typescript-config")
-  WCIN("@repo/node-utils") --> ETTT("@repo/eslint-config")
-  WCIN("@repo/node-utils") --> JEGP("@repo/typescript-config")
-  WCIN("@repo/node-utils") --> EMLE("@repo/vitest-config")
-  TPBW("@repo/playwright-config") --> ETTT("@repo/eslint-config")
-  TPBW("@repo/playwright-config") --> JEGP("@repo/typescript-config")
-  BHWE("@repo/react-ui") --> ETTT("@repo/eslint-config")
-  BHWE("@repo/react-ui") --> JEGP("@repo/typescript-config")
-  BHWE("@repo/react-ui") --> EMLE("@repo/vitest-config")
-  MKNG("@repo/react-utils") --> QHZT("@repo/browser-utils")
-  JEGP("@repo/typescript-config") --> VELR("___ROOT___")
-  IRKD("@repo/ui") --> ETTT("@repo/eslint-config")
-  IRKD("@repo/ui") --> JEGP("@repo/typescript-config")
-  EMLE("@repo/vitest-config") --> JEGP("@repo/typescript-config")
-  UWBQ("docs") --> ETTT("@repo/eslint-config")
-  UWBQ("docs") --> JEGP("@repo/typescript-config")
-  UWBQ("docs") --> IRKD("@repo/ui")
-  FBWM("lighthouse-ci") --> ETTT("@repo/eslint-config")
-  NRTE("playwright-web") --> ETTT("@repo/eslint-config")
-  NRTE("playwright-web") --> TPBW("@repo/playwright-config")
-  NRTE("playwright-web") --> JEGP("@repo/typescript-config")
-  NRTE("playwright-web") --> GVMR("web")
-  ITTZ("storybook") --> ETTT("@repo/eslint-config")
-  ITTZ("storybook") --> BHWE("@repo/react-ui")
-  GVMR("web") --> QHZT("@repo/browser-utils")
-  GVMR("web") --> ETTT("@repo/eslint-config")
-  GVMR("web") --> TXWC("@repo/http-clients")
-  GVMR("web") --> WCIN("@repo/node-utils")
-  GVMR("web") --> BHWE("@repo/react-ui")
-  GVMR("web") --> MKNG("@repo/react-utils")
-  GVMR("web") --> JEGP("@repo/typescript-config")
-  GVMR("web") --> IRKD("@repo/ui")
-  GVMR("web") --> EMLE("@repo/vitest-config")
-```
-
-> 💡 **참고:**  
-> 이 다이어그램은 [Mermaid](https://mermaid-js.github.io/mermaid/#/)를 사용해서 그렸어요. 이 도구는 텍스트 기반으로 다이어그램을 그릴 수 있게 해줘요. 아래의 코드를 복사해서 [Mermaid Live Editor](https://mermaid-js.github.io/mermaid-live-editor/)에 붙여넣으면 다이어그램을 시각적으로 확인할 수 있어요.
 
 ## 🔀 Workflows
 
@@ -111,9 +177,9 @@ graph TD
   - 🦋 이 Workflow는 `changesets`이라는 패키지 버전 관리와 배포를 간소화하는 도구를 사용해요. 자세한 내용은 [공식 문서](https://github.com/changesets/changesets)를 참고하세요.
   - 배포를 위해서는 `npm` 인증 토큰을 GitHub Secrets에 `NPM_TOKEN`으로 설정해야 해요.
 
-각 Workflow는 `.github/workflows/` 디렉토리에 위치하고 있어요.
+각 Workflow는 [`.github/workflows/`](.github/workflows/) 디렉토리에 위치하고 있어요.
 
-## 🦋 Changesets
+## 🦋 패키지 버저닝 및 배포
 
 이 프로젝트는 [Changesets](https://github.com/changesets/changesets)를 사용하여 패키지 버전 관리와 배포를 간소화하고 있어요. Changesets는 모노레포 환경에서 특히 유용하며, 각 패키지의 변경 사항을 추적하고 이를 기반으로 버전을 업데이트할 수 있도록 도와줘요.
 
@@ -155,56 +221,12 @@ pnpm install
 
 ### CLI 사용
 
-`pnpm install`을 실행하면 `tools/cli`에 정의된 CLI 명령어들을 바로 사용할 수 있어요.
+`pnpm install`을 실행하면 [`tools/cli`](./tools/cli)에 정의된 CLI 명령어들을 바로 사용할 수 있어요.
 
 ```bash
 example --ls [directory-path]
 example --mkdir <directory-name>
 example --touch <file-name>
-```
-
-### 프로젝트 초기 설정
-
-"Use this template" 버튼을 클릭해서 레포지토리를 생성한 후에, 필요에 따라 아래의 명령어들을 실행해 주세요.
-
-#### 소유자 ID 변경
-
-코드베이스 내 모든 파일을 탐색하여 기존의 소유자 ID 가 기록되어 있는 부분을 변경해요. \
-코드에 대한 보다 자세한 내용은 [`tools/cli`의 README](./tools/cli/README.md#-제공-기능)를 참고해 주세요.
-
-```bash
-change-owner-name -n your-username
-
-# or equivalently
-
-change-owner-name --name your-username
-```
-
-#### 레포지토리 이름 변경
-
-코드 베이스 내 모든 파일을 탐색하여 기존의 레포지토리 이름이 기록되어 있는 부분을 변경해요. \
-코드에 대한 보다 자세한 내용은 [`tools/cli`의 README](./tools/cli/README.md#-제공-기능)를 참고해 주세요.
-
-```bash
-rename-repository -n new-repository-name
-
-# or equivalently
-
-rename-repository --name new-repository-name
-```
-
-#### 스코프 이름 변경
-
-코드 베이스 내 모든 파일을 탐색하여 기존의 스코프 이름이 기록되어 있는 부분을 변경해요. \
-만약 모노레포 내 일부 구성 요소들을 [npm](https://www.npmjs.com/) 의 특정 스코프(e.g. `new-scope-name`)로 배포해야 해서 해당 스코프 이름으로 변경해야 하는 경우에 유용할 거예요. \
-코드에 대한 보다 자세한 내용은 [`tools/cli`의 README](./tools/cli/README.md#-제공-기능)를 참고해 주세요.
-
-```bash
-rename-scope -n new-scope-name
-
-# or equivalently
-
-rename-scope --name new-scope-name
 ```
 
 ### 빌드
