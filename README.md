@@ -15,11 +15,15 @@
 
 ### 🖥️ Apps
 
+이 섹션은 다양한 애플리케이션을 포함하고 있어요. 각 앱은 특정 목적을 위해 설계되었으며, Next.js와 같은 최신 기술 스택을 활용하고 있어요.
+
 - **[Docs](./apps/docs)**: Next.js 기반의 문서화 앱이에요.
 - **[Web](./apps/web)**: Next.js 기반의 웹 애플리케이션이에요.
 - **[Frontend Workshop](./apps/frontend-workshop)**: 컴포넌트 개발이랑 테스트를 위한 Storybook 환경이에요.
 
 ### 📦 Packages
+
+이 섹션은 재사용 가능한 패키지 모음을 포함하고 있어요. 각 패키지는 특정 기능을 제공하며, 모노레포 구조에서 독립적으로 관리돼요.
 
 - **[Browser Utils](./packages/browser-utils)**: 브라우저 관련 유틸리티 함수 모음이에요.
 - **[ESLint Plugin Sample](./packages/eslint-plugin-sample)**: 샘플 ESLint 플러그인이에요.
@@ -29,13 +33,23 @@
 - **[React Utils](./packages/react-utils)**: React 애플리케이션에서 쓸 수 있는 유틸리티 함수 모음이에요.
 - **[UI](./packages/ui)**: 공통 UI 컴포넌트랑 스타일이에요.
 
+### 🧩 Shared
+
+이 섹션은 프로젝트 전반에서 재사용 가능한 내부 패키지를 포함하고 있어요. `shared` 디렉토리에 있는 패키지들은 npm에 배포되지 않고, 내부적으로만 사용돼요.
+
+- **[Helpers](./shared/helpers)**: 프로젝트 전반에서 재사용 가능한 유틸리티 함수와 공통 로직을 제공하는 내부 패키지예요. `shared` 디렉토리에 배치된 패키지들은 npm에 배포되지 않고, 내부 프로젝트에서만 사용되도록 설계되었어요.
+
 ### 🛠️ Tools
+
+이 섹션은 개발 및 테스트를 지원하는 도구들을 포함하고 있어요. 각 도구는 특정 작업을 자동화하거나 간소화하는 데 도움을 줘요.
 
 - **[Playwright Web](./tools/playwright-web)**: Playwright 기반의 웹 테스트 도구예요.
 - **[CLI](./tools/cli)**: 명령줄 작업을 자동화하고 프로젝트 관리 및 개발을 지원하기 위한 도구예요.
 - **[Lighthouse CI](./tools/lighthouse-ci)**: 웹 애플리케이션의 성능, 접근성, SEO 등을 자동으로 측정하고 관리하기 위한 도구예요.
 
 ### ⚙️ Configs
+
+이 섹션은 프로젝트 전반에서 사용되는 공통 설정 파일들을 포함하고 있어요. ESLint, TypeScript, Vitest와 같은 도구들의 설정이 포함돼요.
 
 - **[ESLint Config](./configs/eslint-config)**: ESLint 설정을 위한 공통 구성이에요.
 - **[Playwright Config](./configs/playwright-config)**: Playwright 테스트 설정이에요.
