@@ -16,7 +16,7 @@ export function runWithGlob<R>(
   // get the files from the glob pattern
   const filesFromGlob = globSync(pattern, {
     ignore: ignore,
-  });
+  }).sort();
 
   // run the job for each file and return the results
   return filesFromGlob.map(job);
