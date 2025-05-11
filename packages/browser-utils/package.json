@@ -35,6 +35,7 @@
   ],
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
+    "@repo/helpers": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@repo/vitest-config": "workspace:*",
     "@testing-library/dom": "^10.4.0",
