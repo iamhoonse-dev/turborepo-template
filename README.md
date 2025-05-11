@@ -11,6 +11,59 @@
 
 `Turborepo Template`은 모노레포 관리랑 빌드를 단순화하려고 만든 템플릿이에요. 이 템플릿은 다양한 앱과 패키지를 포함하고 있어서, 팀 협업과 생산성을 높이는 데 도움을 줄 거예요.
 
+## 🔗 구성 요소 간 관계도
+
+이 템플릿은 여러 앱과 패키지로 구성돼 있어요. 각 앱과 패키지 간의 관계는 아래의 다이어그램을 참고해 주세요.
+
+```mermaid
+graph TD
+  QHZT("@repo/browser-utils") --> ETTT("@repo/eslint-config")
+  QHZT("@repo/browser-utils") --> JEGP("@repo/typescript-config")
+  QHZT("@repo/browser-utils") --> EMLE("@repo/vitest-config")
+  LRHC("@repo/cli") --> ETTT("@repo/eslint-config")
+  LRHC("@repo/cli") --> JEGP("@repo/typescript-config")
+  LRHC("@repo/cli") --> EMLE("@repo/vitest-config")
+  ETTT("@repo/eslint-config") --> GLAO("@repo/eslint-plugin-sample")
+  GLAO("@repo/eslint-plugin-sample") --> VELR("___ROOT___")
+  TXWC("@repo/http-clients") --> ETTT("@repo/eslint-config")
+  TXWC("@repo/http-clients") --> JEGP("@repo/typescript-config")
+  WCIN("@repo/node-utils") --> ETTT("@repo/eslint-config")
+  WCIN("@repo/node-utils") --> JEGP("@repo/typescript-config")
+  WCIN("@repo/node-utils") --> EMLE("@repo/vitest-config")
+  TPBW("@repo/playwright-config") --> ETTT("@repo/eslint-config")
+  TPBW("@repo/playwright-config") --> JEGP("@repo/typescript-config")
+  BHWE("@repo/react-ui") --> ETTT("@repo/eslint-config")
+  BHWE("@repo/react-ui") --> JEGP("@repo/typescript-config")
+  BHWE("@repo/react-ui") --> EMLE("@repo/vitest-config")
+  MKNG("@repo/react-utils") --> QHZT("@repo/browser-utils")
+  JEGP("@repo/typescript-config") --> VELR("___ROOT___")
+  IRKD("@repo/ui") --> ETTT("@repo/eslint-config")
+  IRKD("@repo/ui") --> JEGP("@repo/typescript-config")
+  EMLE("@repo/vitest-config") --> JEGP("@repo/typescript-config")
+  UWBQ("docs") --> ETTT("@repo/eslint-config")
+  UWBQ("docs") --> JEGP("@repo/typescript-config")
+  UWBQ("docs") --> IRKD("@repo/ui")
+  FBWM("lighthouse-ci") --> ETTT("@repo/eslint-config")
+  NRTE("playwright-web") --> ETTT("@repo/eslint-config")
+  NRTE("playwright-web") --> TPBW("@repo/playwright-config")
+  NRTE("playwright-web") --> JEGP("@repo/typescript-config")
+  NRTE("playwright-web") --> GVMR("web")
+  ITTZ("storybook") --> ETTT("@repo/eslint-config")
+  ITTZ("storybook") --> BHWE("@repo/react-ui")
+  GVMR("web") --> QHZT("@repo/browser-utils")
+  GVMR("web") --> ETTT("@repo/eslint-config")
+  GVMR("web") --> TXWC("@repo/http-clients")
+  GVMR("web") --> WCIN("@repo/node-utils")
+  GVMR("web") --> BHWE("@repo/react-ui")
+  GVMR("web") --> MKNG("@repo/react-utils")
+  GVMR("web") --> JEGP("@repo/typescript-config")
+  GVMR("web") --> IRKD("@repo/ui")
+  GVMR("web") --> EMLE("@repo/vitest-config")
+```
+
+> 💡 **참고:**  
+> 이 다이어그램은 [Mermaid](https://mermaid-js.github.io/mermaid/#/)를 사용해서 그렸어요. 이 도구는 텍스트 기반으로 다이어그램을 그릴 수 있게 해줘요. 아래의 코드를 복사해서 [Mermaid Live Editor](https://mermaid-js.github.io/mermaid-live-editor/)에 붙여넣으면 다이어그램을 시각적으로 확인할 수 있어요.
+
 ## 🚀 Quickstart
 
 ### Use this template
@@ -101,59 +154,6 @@ rename-scope --name new-scope-name
 - **[Playwright Config](./configs/playwright-config)**: Playwright 테스트 설정이에요.
 - **[TypeScript Config](./configs/typescript-config)**: TypeScript 설정을 위한 공통 구성이에요.
 - **[Vitest Config](./configs/vitest-config)**: Vitest 테스트 설정을 위한 공통 구성이에요.
-
-## 🔗 구성 요소 간 관계도
-
-이 템플릿은 여러 앱과 패키지로 구성돼 있어요. 각 앱과 패키지 간의 관계는 아래의 다이어그램을 참고해 주세요.
-
-```mermaid
-graph TD
-  QHZT("@repo/browser-utils") --> ETTT("@repo/eslint-config")
-  QHZT("@repo/browser-utils") --> JEGP("@repo/typescript-config")
-  QHZT("@repo/browser-utils") --> EMLE("@repo/vitest-config")
-  LRHC("@repo/cli") --> ETTT("@repo/eslint-config")
-  LRHC("@repo/cli") --> JEGP("@repo/typescript-config")
-  LRHC("@repo/cli") --> EMLE("@repo/vitest-config")
-  ETTT("@repo/eslint-config") --> GLAO("@repo/eslint-plugin-sample")
-  GLAO("@repo/eslint-plugin-sample") --> VELR("___ROOT___")
-  TXWC("@repo/http-clients") --> ETTT("@repo/eslint-config")
-  TXWC("@repo/http-clients") --> JEGP("@repo/typescript-config")
-  WCIN("@repo/node-utils") --> ETTT("@repo/eslint-config")
-  WCIN("@repo/node-utils") --> JEGP("@repo/typescript-config")
-  WCIN("@repo/node-utils") --> EMLE("@repo/vitest-config")
-  TPBW("@repo/playwright-config") --> ETTT("@repo/eslint-config")
-  TPBW("@repo/playwright-config") --> JEGP("@repo/typescript-config")
-  BHWE("@repo/react-ui") --> ETTT("@repo/eslint-config")
-  BHWE("@repo/react-ui") --> JEGP("@repo/typescript-config")
-  BHWE("@repo/react-ui") --> EMLE("@repo/vitest-config")
-  MKNG("@repo/react-utils") --> QHZT("@repo/browser-utils")
-  JEGP("@repo/typescript-config") --> VELR("___ROOT___")
-  IRKD("@repo/ui") --> ETTT("@repo/eslint-config")
-  IRKD("@repo/ui") --> JEGP("@repo/typescript-config")
-  EMLE("@repo/vitest-config") --> JEGP("@repo/typescript-config")
-  UWBQ("docs") --> ETTT("@repo/eslint-config")
-  UWBQ("docs") --> JEGP("@repo/typescript-config")
-  UWBQ("docs") --> IRKD("@repo/ui")
-  FBWM("lighthouse-ci") --> ETTT("@repo/eslint-config")
-  NRTE("playwright-web") --> ETTT("@repo/eslint-config")
-  NRTE("playwright-web") --> TPBW("@repo/playwright-config")
-  NRTE("playwright-web") --> JEGP("@repo/typescript-config")
-  NRTE("playwright-web") --> GVMR("web")
-  ITTZ("storybook") --> ETTT("@repo/eslint-config")
-  ITTZ("storybook") --> BHWE("@repo/react-ui")
-  GVMR("web") --> QHZT("@repo/browser-utils")
-  GVMR("web") --> ETTT("@repo/eslint-config")
-  GVMR("web") --> TXWC("@repo/http-clients")
-  GVMR("web") --> WCIN("@repo/node-utils")
-  GVMR("web") --> BHWE("@repo/react-ui")
-  GVMR("web") --> MKNG("@repo/react-utils")
-  GVMR("web") --> JEGP("@repo/typescript-config")
-  GVMR("web") --> IRKD("@repo/ui")
-  GVMR("web") --> EMLE("@repo/vitest-config")
-```
-
-> 💡 **참고:**  
-> 이 다이어그램은 [Mermaid](https://mermaid-js.github.io/mermaid/#/)를 사용해서 그렸어요. 이 도구는 텍스트 기반으로 다이어그램을 그릴 수 있게 해줘요. 아래의 코드를 복사해서 [Mermaid Live Editor](https://mermaid-js.github.io/mermaid-live-editor/)에 붙여넣으면 다이어그램을 시각적으로 확인할 수 있어요.
 
 ## 🔀 Workflows
 
