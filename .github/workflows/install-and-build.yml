@@ -15,13 +15,9 @@ jobs:
         id: cache-turbo
         uses: actions/cache@v4
         with:
-          path: |
-            .turbo
-            apps/*/.turbo
-            tools/*/.turbo
-            packages/*/.turbo
-            configs/*/.turbo
-            shared/*/.turbo
+          # Consolidating multiple turbo cache paths into a single '.turbo' entry simplifies cache management
+          # and aligns with turbo's caching mechanism.
+          path: .turbo
           key: ${{ runner.os }}-turbo-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-turbo-
@@ -57,13 +53,7 @@ jobs:
       - name: Restore turbo cache
         uses: actions/cache@v4
         with:
-          path: |
-            .turbo
-            apps/*/.turbo
-            tools/*/.turbo
-            packages/*/.turbo
-            configs/*/.turbo
-            shared/*/.turbo
+          path: .turbo
           key: ${{ runner.os }}-turbo-${{ github.sha }}
       - name: Use Node.js 22.x
         uses: actions/setup-node@v4
