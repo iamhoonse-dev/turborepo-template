@@ -30,9 +30,13 @@ jobs:
         run: |
           if [ -f /tmp/docker-cache/playwright-web.tar ]; then
             docker load -i /tmp/docker-cache/playwright-web.tar
+          else
+            echo "No cached image found for playwright-web"
           fi
           if [ -f /tmp/docker-cache/web.tar ]; then
             docker load -i /tmp/docker-cache/web.tar
+          else
+            echo "No cached image found for web"
           fi
 
       - name: Build E2E environment

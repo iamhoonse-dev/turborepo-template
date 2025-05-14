@@ -30,9 +30,13 @@ jobs:
         run: |
           if [ -f /tmp/docker-cache/storybook-test-runner.tar ]; then
             docker load -i /tmp/docker-cache/storybook-test-runner.tar
+          else
+            echo "No cached image found for storybook-test-runner"
           fi
           if [ -f /tmp/docker-cache/storybook.tar ]; then
             docker load -i /tmp/docker-cache/storybook.tar
+          else
+            echo "No cached image found for storybook"
           fi
 
       - name: Build Storybook test environment

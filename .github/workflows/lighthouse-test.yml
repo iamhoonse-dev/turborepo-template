@@ -30,9 +30,13 @@ jobs:
         run: |
           if [ -f /tmp/docker-cache/lighthouse-runner.tar ]; then
             docker load -i /tmp/docker-cache/lighthouse-runner.tar
+          else
+            echo "No cached image found for lighthouse-runner"
           fi
           if [ -f /tmp/docker-cache/web.tar ]; then
             docker load -i /tmp/docker-cache/web.tar
+          else
+            echo "No cached image found for web"
           fi
 
       - name: inject LHCI_GITHUB_APP_TOKEN
