@@ -43,8 +43,6 @@ jobs:
         id: build
         run: |
           docker compose -f docker-compose.e2e.yaml build
-          docker save -o /tmp/docker-cache/playwright-web.tar turborepo-template-playwright-web:latest
-          docker save -o /tmp/docker-cache/web.tar turborepo-template-web:latest
 
       - name: Prepare docker external network
         run: |

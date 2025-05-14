@@ -43,8 +43,6 @@ jobs:
         id: build
         run: |
           docker compose -f docker-compose.storybook.yaml build
-          docker save -o /tmp/docker-cache/storybook-test-runner.tar turborepo-template-storybook-test-runner:latest
-          docker save -o /tmp/docker-cache/storybook.tar turborepo-template-storybook:latest
 
       - name: Prepare docker external network
         run: |

@@ -49,8 +49,6 @@ jobs:
         id: build
         run: |
           docker compose -f docker-compose.lighthouse.converted.yaml build
-          docker save -o /tmp/docker-cache/lighthouse-runner.tar turborepo-template-lighthouse-runner:latest
-          docker save -o /tmp/docker-cache/web.tar turborepo-template-web:latest
 
       - name: Prepare docker external network
         run: |
