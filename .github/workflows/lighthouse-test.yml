@@ -22,7 +22,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /tmp/docker-cache
-          key: ${{ runner.os }}-lighthouse-${{ github.ref_name }}
+          key: ${{ runner.os }}-lighthouse-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-lighthouse-
 

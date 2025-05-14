@@ -22,7 +22,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /tmp/docker-cache
-          key: ${{ runner.os }}-e2e-${{ github.ref_name }}
+          key: ${{ runner.os }}-e2e-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-e2e-
 
