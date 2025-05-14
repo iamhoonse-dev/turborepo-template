@@ -12,13 +12,35 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Ensure Docker cache directory exists
+        run: mkdir -p /tmp/docker-cache
+
       - name: Set up Docker Build
         uses: docker/setup-buildx-action@v2
+
+      - name: Setup Docker image Caching
+        uses: actions/cache@v4
+        with:
+          path: /tmp/docker-cache
+          key: ${{ runner.os }}-storybook-${{ github.ref_name }}
+          restore-keys: |
+            ${{ runner.os }}-storybook-
+
+      - name: Load Docker image from tar
+        run: |
+          if [ -f /tmp/docker-cache/storybook-test-runner.tar ]; then
+            docker load -i /tmp/docker-cache/storybook-test-runner.tar
+          fi
+          if [ -f /tmp/docker-cache/storybook.tar ]; then
+            docker load -i /tmp/docker-cache/storybook.tar
+          fi
 
       - name: Build Storybook test environment
         id: build
         run: |
           docker compose -f docker-compose.storybook.yaml build
+          docker save -o /tmp/docker-cache/storybook-test-runner.tar turborepo-template-storybook-test-runner:latest
+          docker save -o /tmp/docker-cache/storybook.tar turborepo-template-storybook:latest
 
       - name: Prepare docker external network
         run: |
