@@ -10,7 +10,7 @@ services:
       cache_from:
         - turborepo-template-frontend-workshop:latest
       cache_to:
-        - turborepo-template-frontend-workshop:latest
+        - type=local,dest=/tmp/docker-cache
     ports:
       - 6006:80
     networks:
@@ -24,7 +24,7 @@ services:
       cache_from:
         - turborepo-template-frontend-workshop-test-runner:latest
       cache_to:
-        - turborepo-template-frontend-workshop-test-runner:latest
+        - type=local,dest=/tmp/docker-cache
     networks:
       - storybook_network
     depends_on:

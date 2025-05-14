@@ -10,7 +10,7 @@ services:
       cache_from:
         - turborepo-template-web:latest
       cache_to:
-        - turborepo-template-web:latest
+        - type=local,dest=/tmp/docker-cache
     ports:
       - 3000:3000
     networks:
@@ -24,7 +24,7 @@ services:
       cache_from:
         - turborepo-template-playwright-web:latest
       cache_to:
-        - turborepo-template-playwright-web:latest
+        - type=local,dest=/tmp/docker-cache
     networks:
       - e2e_network
     depends_on:
