@@ -8,7 +8,7 @@ services:
       context: .
       dockerfile: apps/frontend-workshop/Dockerfile
       cache_from:
-        - turborepo-template-frontend-workshop:latest
+        - type=local,src=/tmp/docker-cache,ref=turborepo-template-frontend-workshop:latest
       cache_to:
         - type=local,dest=/tmp/docker-cache
     ports:
@@ -22,7 +22,7 @@ services:
       context: .
       dockerfile: apps/frontend-workshop/Dockerfile.test-runner
       cache_from:
-        - turborepo-template-frontend-workshop-test-runner:latest
+        - type=local,src=/tmp/docker-cache,ref=turborepo-template-frontend-workshop-test-runner:latest
       cache_to:
         - type=local,dest=/tmp/docker-cache
     networks:
