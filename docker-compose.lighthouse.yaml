@@ -9,6 +9,8 @@ services:
       dockerfile: ./apps/web/Dockerfile
       cache_from:
         - turborepo-template-web:latest
+      cache_to:
+        - turborepo-template-web:latest
     ports:
       - 3000:3000
     networks:
@@ -20,6 +22,8 @@ services:
       context: .
       dockerfile: ./tools/lighthouse-ci/Dockerfile
       cache_from:
+        - turborepo-template-lighthouse-runner:latest
+      cache_to:
         - turborepo-template-lighthouse-runner:latest
     networks:
       - lighthouse_network

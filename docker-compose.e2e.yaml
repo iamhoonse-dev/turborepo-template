@@ -9,6 +9,8 @@ services:
       dockerfile: ./apps/web/Dockerfile
       cache_from:
         - turborepo-template-web:latest
+      cache_to:
+        - turborepo-template-web:latest
     ports:
       - 3000:3000
     networks:
@@ -20,6 +22,8 @@ services:
       context: .
       dockerfile: ./tools/playwright-web/Dockerfile
       cache_from:
+        - turborepo-template-playwright-web:latest
+      cache_to:
         - turborepo-template-playwright-web:latest
     networks:
       - e2e_network
