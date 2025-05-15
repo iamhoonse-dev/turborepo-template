@@ -7,6 +7,10 @@ services:
     build:
       context: .
       dockerfile: ./apps/web/Dockerfile
+      cache_from:
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/web:cache
+      cache_to:
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/web:cache,mode=max
     ports:
       - 3000:3000
     networks:
@@ -17,6 +21,10 @@ services:
     build:
       context: .
       dockerfile: ./tools/lighthouse-ci/Dockerfile
+      cache_from:
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/lighthouse-runner:cache
+      cache_to:
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/lighthouse-runner:cache,mode=max
     networks:
       - lighthouse_network
     depends_on:

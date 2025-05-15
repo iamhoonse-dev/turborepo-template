@@ -5,6 +5,9 @@ on:
     branches:
       - '*'
 
+env:
+  DOCKER_BUILDKIT: 1
+
 jobs:
   run-docker-compose-e2e:
     runs-on: ubuntu-latest
@@ -15,32 +18,26 @@ jobs:
       - name: Ensure Docker cache directory exists
         run: mkdir -p /tmp/docker-cache
 
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Set up Docker Build
         uses: docker/setup-buildx-action@v2
 
-      - name: Setup Docker image Caching
-        uses: actions/cache@v4
-        with:
-          path: /tmp/docker-cache
-          key: ${{ runner.os }}-e2e-${{ github.ref_name }}
-          restore-keys: |
-            ${{ runner.os }}-e2e-
-
-      - name: Load Docker image from tar
+      - name: inject environment variables
         run: |
-          if [ -f /tmp/docker-cache/playwright-web.tar ]; then
-            docker load -i /tmp/docker-cache/playwright-web.tar
-          fi
-          if [ -f /tmp/docker-cache/web.tar ]; then
-            docker load -i /tmp/docker-cache/web.tar
-          fi
+          docker compose -f docker-compose.ci.e2e.yaml convert > docker-compose.e2e.converted.yaml
+        env:
+          REPOSITORY_OWNER: ${{ github.repository_owner }}
 
       - name: Build E2E environment
         id: build
         run: |
-          docker compose -f docker-compose.e2e.yaml build
-          docker save -o /tmp/docker-cache/playwright-web.tar turborepo-template-playwright-web:latest
-          docker save -o /tmp/docker-cache/web.tar turborepo-template-web:latest
+          docker compose -f docker-compose.e2e.converted.yaml build
 
       - name: Prepare docker external network
         run: |
@@ -48,7 +45,7 @@ jobs:
 
       - name: Run E2E tests
         run: |
-          docker compose -f docker-compose.e2e.yaml up --exit-code-from playwright-web
+          docker compose -f docker-compose.e2e.converted.yaml up --exit-code-from playwright-web
 
       - name: Copy E2E report from container
         run: |
