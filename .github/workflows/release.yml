@@ -31,7 +31,7 @@ jobs:
           key: ${{ runner.os }}-turbo-${{ github.sha }}
 
       - name: Restore node_modules cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             node_modules
@@ -43,7 +43,7 @@ jobs:
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}
 
       - name: Cache dist directories
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             apps/*/.next

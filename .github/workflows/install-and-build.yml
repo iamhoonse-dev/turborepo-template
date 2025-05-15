@@ -28,7 +28,7 @@ jobs:
           cache: 'pnpm'
       - name: Cache node_modules
         id: cache-node-modules
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             node_modules
@@ -61,7 +61,7 @@ jobs:
           node-version-file: .nvmrc
           cache: 'pnpm'
       - name: Restore node_modules cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             node_modules
@@ -73,7 +73,7 @@ jobs:
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}
       - name: Cache dist directories
         id: cache-dist
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             apps/*/.next
