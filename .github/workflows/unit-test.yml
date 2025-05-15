@@ -130,6 +130,11 @@ jobs:
             configs/*/dist
             shared/*/dist
           key: ${{ runner.os }}-dist-${{ github.sha }}
+      - name: Restore unit test cache
+        uses: actions/cache@v3
+        with:
+          path: coverage.json
+          key: ${{ runner.os }}-unittest-${{ github.sha }}
       - run: pnpm run test
       - run: pnpm run merge-json-reports
       - name: Upload coverage reports
