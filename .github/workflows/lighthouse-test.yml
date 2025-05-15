@@ -30,7 +30,7 @@ jobs:
 
       - name: inject environment variables
         run: |
-          docker compose -f docker-compose.lighthouse.yaml convert > docker-compose.lighthouse.converted.yaml
+          docker compose -f docker-compose.ci.lighthouse.yaml convert > docker-compose.lighthouse.converted.yaml
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
           REPOSITORY_OWNER: ${{ github.repository_owner }}

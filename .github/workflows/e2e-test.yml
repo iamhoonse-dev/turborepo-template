@@ -30,7 +30,7 @@ jobs:
 
       - name: inject environment variables
         run: |
-          docker compose -f docker-compose.e2e.yaml convert > docker-compose.e2e.converted.yaml
+          docker compose -f docker-compose.ci.e2e.yaml convert > docker-compose.e2e.converted.yaml
         env:
           REPOSITORY_OWNER: ${{ github.repository_owner }}
 

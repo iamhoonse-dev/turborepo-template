@@ -30,7 +30,7 @@ jobs:
 
       - name: inject environment variables
         run: |
-          docker compose -f docker-compose.storybook.yaml convert > docker-compose.storybook.converted.yaml
+          docker compose -f docker-compose.ci.storybook.yaml convert > docker-compose.storybook.converted.yaml
         env:
           REPOSITORY_OWNER: ${{ github.repository_owner }}
 

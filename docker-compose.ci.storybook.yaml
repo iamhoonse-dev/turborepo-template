@@ -7,6 +7,10 @@ services:
     build:
       context: .
       dockerfile: apps/frontend-workshop/Dockerfile
+      cache_from:
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/storybook:cache
+      cache_to:
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/storybook:cache,mode=max
     ports:
       - 6006:80
     networks:
@@ -17,6 +21,10 @@ services:
     build:
       context: .
       dockerfile: apps/frontend-workshop/Dockerfile.test-runner
+      cache_from:
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/storybook-test-runner:cache
+      cache_to:
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/storybook-test-runner:cache,mode=max
     networks:
       - storybook_network
     depends_on:
