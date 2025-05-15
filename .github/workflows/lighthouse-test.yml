@@ -5,6 +5,9 @@ on:
     branches:
       - '*'
 
+env:
+  DOCKER_BUILDKIT: 1
+
 jobs:
   run-docker-compose-lighthouse:
     runs-on: ubuntu-latest
