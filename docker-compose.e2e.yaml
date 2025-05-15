@@ -8,9 +8,9 @@ services:
       context: .
       dockerfile: ./apps/web/Dockerfile
       cache_from:
-        - type=local,src=/tmp/docker-cache,ref=turborepo-template-web:latest
+        - type=gha
       cache_to:
-        - type=local,dest=/tmp/docker-cache
+        - type=gha
     ports:
       - 3000:3000
     networks:
@@ -22,9 +22,9 @@ services:
       context: .
       dockerfile: ./tools/playwright-web/Dockerfile
       cache_from:
-        - type=local,src=/tmp/docker-cache,ref=turborepo-template-playwright-web:latest
+        - type=gha
       cache_to:
-        - type=local,dest=/tmp/docker-cache
+        - type=gha
     networks:
       - e2e_network
     depends_on:

@@ -8,9 +8,9 @@ services:
       context: .
       dockerfile: apps/frontend-workshop/Dockerfile
       cache_from:
-        - type=local,src=/tmp/docker-cache,ref=turborepo-template-frontend-workshop:latest
+        - type=gha
       cache_to:
-        - type=local,dest=/tmp/docker-cache
+        - type=gha
     ports:
       - 6006:80
     networks:
@@ -22,9 +22,9 @@ services:
       context: .
       dockerfile: apps/frontend-workshop/Dockerfile.test-runner
       cache_from:
-        - type=local,src=/tmp/docker-cache,ref=turborepo-template-frontend-workshop-test-runner:latest
+        - type=gha
       cache_to:
-        - type=local,dest=/tmp/docker-cache
+        - type=gha
     networks:
       - storybook_network
     depends_on:
