@@ -28,12 +28,6 @@ jobs:
       - name: Set up Docker Build
         uses: docker/setup-buildx-action@v2
 
-      - name: Pull cached images
-        run: |
-          docker pull ghcr.io/${{ github.repository_owner }}/storybook:cache || echo "No cached image found for storybook"
-          docker pull ghcr.io/${{ github.repository_owner }}/storybook-test-runner:cache || echo "No cached image found for storybook-test-runner"
-
-
       - name: inject environment variables
         run: |
           docker compose -f docker-compose.storybook.yaml convert > docker-compose.storybook.converted.yaml
@@ -44,11 +38,6 @@ jobs:
         id: build
         run: |
           docker compose -f docker-compose.storybook.converted.yaml build
-
-      - name: Push cached images
-        run: |
-          docker push ghcr.io/${{ github.repository_owner }}/storybook:cache
-          docker push ghcr.io/${{ github.repository_owner }}/storybook-test-runner:cache
 
       - name: Prepare docker external network
         run: |
