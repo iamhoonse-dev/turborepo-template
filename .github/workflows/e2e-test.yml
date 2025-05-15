@@ -33,14 +33,16 @@ jobs:
           docker pull ghcr.io/${{ github.repository_owner }}/web:cache || echo "No cached image found for web"
           docker pull ghcr.io/${{ github.repository_owner }}/playwright-web:cache || echo "No cached image found for playwright-web"
 
+      - name: inject environment variables
+        run: |
+          docker compose -f docker-compose.e2e.yaml convert > docker-compose.e2e.converted.yaml
+        env:
+          REPOSITORY_OWNER: ${{ github.repository_owner }}
+
       - name: Build E2E environment
         id: build
         run: |
-          docker compose -f docker-compose.e2e.yaml build \
-            --cache-from=type=registry,ref=ghcr.io/${{ github.repository_owner }}/web:cache \
-            --cache-to=type=registry,ref=ghcr.io/${{ github.repository_owner }}/web:cache,mode=max \
-            --cache-from=type=registry,ref=ghcr.io/${{ github.repository_owner }}/playwright-web:cache \
-            --cache-to=type=registry,ref=ghcr.io/${{ github.repository_owner }}/playwright-web:cache,mode=max
+          docker compose -f docker-compose.e2e.converted.yaml build
 
       - name: Push cached images
         run: |
@@ -53,7 +55,7 @@ jobs:
 
       - name: Run E2E tests
         run: |
-          docker compose -f docker-compose.e2e.yaml up --exit-code-from playwright-web
+          docker compose -f docker-compose.e2e.converted.yaml up --exit-code-from playwright-web
 
       - name: Copy E2E report from container
         run: |

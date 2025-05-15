@@ -33,14 +33,17 @@ jobs:
           docker pull ghcr.io/${{ github.repository_owner }}/storybook:cache || echo "No cached image found for storybook"
           docker pull ghcr.io/${{ github.repository_owner }}/storybook-test-runner:cache || echo "No cached image found for storybook-test-runner"
 
+
+      - name: inject environment variables
+        run: |
+          docker compose -f docker-compose.storybook.yaml convert > docker-compose.storybook.converted.yaml
+        env:
+          REPOSITORY_OWNER: ${{ github.repository_owner }}
+
       - name: Build Storybook test environment
         id: build
         run: |
-          docker compose -f docker-compose.storybook.yaml build \
-            --cache-from=type=registry,ref=ghcr.io/${{ github.repository_owner }}/storybook:cache \
-            --cache-to=type=registry,ref=ghcr.io/${{ github.repository_owner }}/storybook:cache,mode=max \
-            --cache-from=type=registry,ref=ghcr.io/${{ github.repository_owner }}/storybook-test-runner:cache \
-            --cache-to=type=registry,ref=ghcr.io/${{ github.repository_owner }}/storybook-test-runner:cache,mode=max
+          docker compose -f docker-compose.storybook.converted.yaml build
 
       - name: Push cached images
         run: |
@@ -53,7 +56,7 @@ jobs:
 
       - name: Run Storybook tests
         run: |
-          docker compose -f docker-compose.storybook.yaml up --exit-code-from storybook-test-runner
+          docker compose -f docker-compose.storybook.converted.yaml up --exit-code-from storybook-test-runner
 
       - name: Copy Storybook report from container
         run: |

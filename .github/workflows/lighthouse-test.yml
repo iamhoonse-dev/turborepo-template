@@ -33,20 +33,17 @@ jobs:
           docker pull ghcr.io/${{ github.repository_owner }}/web:cache || echo "No cached image found for web"
           docker pull ghcr.io/${{ github.repository_owner }}/lighthouse-runner:cache || echo "No cached image found for lighthouse-runner"
 
-      - name: inject LHCI_GITHUB_APP_TOKEN
+      - name: inject environment variables
         run: |
           docker compose -f docker-compose.lighthouse.yaml convert > docker-compose.lighthouse.converted.yaml
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          REPOSITORY_OWNER: ${{ github.repository_owner }}
 
       - name: Build Lighthouse environment
         id: build
         run: |
-          docker compose -f docker-compose.lighthouse.converted.yaml build \
-            --cache-from=type=registry,ref=ghcr.io/${{ github.repository_owner }}/web:cache \
-            --cache-to=type=registry,ref=ghcr.io/${{ github.repository_owner }}/web:cache,mode=max \
-            --cache-from=type=registry,ref=ghcr.io/${{ github.repository_owner }}/lighthouse-runner:cache \
-            --cache-to=type=registry,ref=ghcr.io/${{ github.repository_owner }}/lighthouse-runner:cache,mode=max
+          docker compose -f docker-compose.lighthouse.converted.yaml build
 
       - name: Push cached images
         run: |
