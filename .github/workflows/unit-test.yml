@@ -101,13 +101,7 @@ jobs:
       - name: Restore turbo cache
         uses: actions/cache@v4
         with:
-          path: |
-            .turbo
-            apps/*/.turbo
-            tools/*/.turbo
-            packages/*/.turbo
-            configs/*/.turbo
-            shared/*/.turbo
+          path: .turbo
           key: ${{ runner.os }}-turbo-${{ github.sha }}
       - name: Use Node.js 22.x
         uses: actions/setup-node@v4
@@ -115,7 +109,7 @@ jobs:
           node-version-file: .nvmrc
           cache: 'pnpm'
       - name: Restore node_modules cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             node_modules
@@ -126,7 +120,7 @@ jobs:
             shared/*/node_modules
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}
       - name: Restore dist cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             apps/*/.next
@@ -136,10 +130,18 @@ jobs:
             configs/*/dist
             shared/*/dist
           key: ${{ runner.os }}-dist-${{ github.sha }}
+      - name: Restore unit test cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            **/coverage.json
+          key: ${{ runner.os }}-unittest-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-unittest-
       - run: pnpm run test
       - run: pnpm run merge-json-reports
       - name: Upload coverage reports
         uses: actions/upload-artifact@v4
         with:
           name: coverage-reports
-          path: packages/vitest-config/coverage/merged
+          path: configs/vitest-config/coverage/merged
