@@ -133,7 +133,12 @@ jobs:
       - name: Restore unit test cache
         uses: actions/cache@v3
         with:
-          path: coverage.json
+          path: |
+            apps/*/coverage.json
+            tools/*/coverage.json
+            packages/*/coverage.json
+            configs/*/coverage.json
+            shared/*/coverage.json
           key: ${{ runner.os }}-unittest-${{ github.sha }}
       - run: pnpm run test
       - run: pnpm run merge-json-reports
