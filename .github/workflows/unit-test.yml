@@ -134,11 +134,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
-            apps/*/coverage.json
-            tools/*/coverage.json
-            packages/*/coverage.json
-            configs/*/coverage.json
-            shared/*/coverage.json
+            **/coverage.json
           key: ${{ runner.os }}-unittest-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-unittest-
