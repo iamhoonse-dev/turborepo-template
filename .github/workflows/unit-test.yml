@@ -140,6 +140,8 @@ jobs:
             configs/*/coverage.json
             shared/*/coverage.json
           key: ${{ runner.os }}-unittest-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-unittest-
       - run: pnpm run test
       - run: pnpm run merge-json-reports
       - name: Upload coverage reports
