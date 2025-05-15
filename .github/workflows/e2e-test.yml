@@ -28,31 +28,24 @@ jobs:
       - name: Set up Docker Build
         uses: docker/setup-buildx-action@v2
 
-      - name: Setup Docker image Caching
-        uses: actions/cache@v4
-        with:
-          path: /tmp/docker-cache
-          key: ${{ runner.os }}-e2e-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-e2e-
-
-      - name: Load Docker image from tar
+      - name: Pull cached images
         run: |
-          if [ -f /tmp/docker-cache/playwright-web.tar ]; then
-            docker load -i /tmp/docker-cache/playwright-web.tar
-          else
-            echo "No cached image found for playwright-web"
-          fi
-          if [ -f /tmp/docker-cache/web.tar ]; then
-            docker load -i /tmp/docker-cache/web.tar
-          else
-            echo "No cached image found for web"
-          fi
+          docker pull ghcr.io/${{ github.repository_owner }}/web:cache || echo "No cached image found for web"
+          docker pull ghcr.io/${{ github.repository_owner }}/playwright-web:cache || echo "No cached image found for playwright-web"
 
       - name: Build E2E environment
         id: build
         run: |
-          docker compose -f docker-compose.e2e.yaml build
+          docker compose -f docker-compose.e2e.yaml build \
+            --cache-from=type=registry,ref=ghcr.io/${{ github.repository_owner }}/web:cache \
+            --cache-to=type=registry,ref=ghcr.io/${{ github.repository_owner }}/web:cache,mode=max \
+            --cache-from=type=registry,ref=ghcr.io/${{ github.repository_owner }}/playwright-web:cache \
+            --cache-to=type=registry,ref=ghcr.io/${{ github.repository_owner }}/playwright-web:cache,mode=max
+
+      - name: Push cached images
+        run: |
+          docker push ghcr.io/${{ github.repository_owner }}/web:cache
+          docker push ghcr.io/${{ github.repository_owner }}/playwright-web:cache
 
       - name: Prepare docker external network
         run: |

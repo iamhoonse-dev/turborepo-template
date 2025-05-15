@@ -7,10 +7,6 @@ services:
     build:
       context: .
       dockerfile: ./apps/web/Dockerfile
-      cache_from:
-        - type=gha
-      cache_to:
-        - type=gha
     ports:
       - 3000:3000
     networks:
@@ -21,10 +17,6 @@ services:
     build:
       context: .
       dockerfile: ./tools/playwright-web/Dockerfile
-      cache_from:
-        - type=gha
-      cache_to:
-        - type=gha
     networks:
       - e2e_network
     depends_on:

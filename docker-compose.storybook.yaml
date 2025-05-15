@@ -7,10 +7,6 @@ services:
     build:
       context: .
       dockerfile: apps/frontend-workshop/Dockerfile
-      cache_from:
-        - type=gha
-      cache_to:
-        - type=gha
     ports:
       - 6006:80
     networks:
@@ -21,10 +17,6 @@ services:
     build:
       context: .
       dockerfile: apps/frontend-workshop/Dockerfile.test-runner
-      cache_from:
-        - type=gha
-      cache_to:
-        - type=gha
     networks:
       - storybook_network
     depends_on:
