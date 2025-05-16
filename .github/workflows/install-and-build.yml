@@ -18,10 +18,10 @@ jobs:
           path: |
             .turbo
             node_modules/.cache/turbo
-          key: turbo-test-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-${{ github.sha }}
+          key: turbo-cache-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-${{ github.sha }}
           restore-keys: |
-            turbo-test-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-
-            turbo-test-${{ runner.os }}-
+            turbo-cache-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-
+            turbo-cache-${{ runner.os }}-
       - name: Use Node.js 22.x
         uses: actions/setup-node@v4
         with:
@@ -57,10 +57,10 @@ jobs:
           path: |
             .turbo
             node_modules/.cache/turbo
-          key: turbo-test-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-${{ github.sha }}
+          key: turbo-cache-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-${{ github.sha }}
           restore-keys: |
-            turbo-test-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-
-            turbo-test-${{ runner.os }}-
+            turbo-cache-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-
+            turbo-cache-${{ runner.os }}-
       - name: Use Node.js 22.x
         uses: actions/setup-node@v4
         with:
