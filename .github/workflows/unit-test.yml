@@ -149,10 +149,15 @@ jobs:
           restore-keys: |
             unittest-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-
             unittest-${{ runner.os }}-
-      - run: pnpm run test
+      - run: cp $(TURBO_LOG_LEVEL=debug pnpm run test --summarize | tail -n 2 | head -n 1 | sed 's/^Summary:    //' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//') ./turbo-test-summarize.log
       - run: pnpm run merge-json-reports
       - name: Upload coverage reports
         uses: actions/upload-artifact@v4
         with:
           name: coverage-reports
           path: configs/vitest-config/coverage/merged
+      - name: Upload turbo summarize log
+        uses: actions/upload-artifact@v4
+        with:
+          name: turbo-test-summarize
+          path: turbo-test-summarize.log
