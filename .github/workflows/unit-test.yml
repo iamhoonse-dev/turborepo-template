@@ -156,3 +156,12 @@ jobs:
         with:
           name: coverage-reports
           path: configs/vitest-config/coverage/merged
+      - name: Run turbo test with debug log
+        run: TURBO_LOG_LEVEL=debug turbo run test --summarize > turbo-debug.log
+      - name: Upload turbo debug log and summarize
+        uses: actions/upload-artifact@v4
+        with:
+          name: turbo-debug-artifacts
+          path: |
+            turbo-debug.log
+            turbo-summarize.json
