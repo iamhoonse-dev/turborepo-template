@@ -23,7 +23,14 @@
     },
     "test": {
       "dependsOn": ["transit", "@repo/vitest-config#build"],
-      "outputs": ["coverage.json"]
+      "outputs": [
+        "coverage.json",
+        "apps/*/coverage.json",
+        "packages/*/coverage.json",
+        "configs/*/coverage.json",
+        "shared/*/coverage.json",
+        "tools/*/coverage.json"
+      ]
     },
     "test:watch": {
       "cache": false,
