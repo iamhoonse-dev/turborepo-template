@@ -186,6 +186,7 @@ Happy Hacking!
 
 > [!TIP]
 > 관련 설정은 각 워크플로우의 `.yaml` 파일과 `docker-compose.*.yaml` 파일에서 확인할 수 있어요.
+>
 > - [`.github/workflows`](.github/workflows/)
 
 ## 🦋 패키지 버저닝 및 배포
