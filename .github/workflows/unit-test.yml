@@ -145,9 +145,10 @@ jobs:
             configs/*/coverage.json
             shared/*/coverage.json
             tools/*/coverage.json
-          key: ${{ runner.os }}-unittest-${{ github.sha }}
+          key: unittest-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-unittest-
+            unittest-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-
+            unittest-${{ runner.os }}-
       - run: pnpm run test
       - run: pnpm run merge-json-reports
       - name: Upload coverage reports
