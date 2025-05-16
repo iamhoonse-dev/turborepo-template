@@ -177,7 +177,16 @@ Happy Hacking!
   - 🦋 이 Workflow는 `changesets`이라는 패키지 버전 관리와 배포를 간소화하는 도구를 사용해요. 자세한 내용은 [공식 문서](https://github.com/changesets/changesets)를 참고하세요.
   - 배포를 위해서는 `npm` 인증 토큰을 GitHub Secrets에 `NPM_TOKEN`으로 설정해야 해요.
 
-각 Workflow는 [`.github/workflows/`](.github/workflows/) 디렉토리에 위치하고 있어요.
+각 Workflow는 [`.github/workflows`](.github/workflows/) 디렉토리에 위치하고 있어요.
+
+## 🐳 GitHub Container Registry 사용
+
+일부 `docker-compose` 기반 워크플로우(예: Storybook, E2E, Lighthouse 테스트)에서는 Docker 이미지 빌드 시 [GitHub Container Registry(GHCR)](https://ghcr.io/)를 활용해서 이미지 레이어를 캐싱해요.  
+이렇게 하면 워크플로우 실행 속도를 높이고, 불필요한 빌드 비용을 줄일 수 있어요.
+
+> [!TIP]
+> 관련 설정은 각 워크플로우의 `.yaml` 파일과 `docker-compose.*.yaml` 파일에서 확인할 수 있어요.
+> - [`.github/workflows`](.github/workflows/)
 
 ## 🦋 패키지 버저닝 및 배포
 
