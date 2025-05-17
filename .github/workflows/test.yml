@@ -5,6 +5,9 @@ on:
     branches:
       - '*'
 
+env:
+  DOCKER_BUILDKIT: 1
+
 jobs:
   unit-test:
     runs-on: ubuntu-latest
@@ -108,3 +111,88 @@ jobs:
           path: |
             turbo-build-stdout.log
             turbo-build-summarize.log
+
+  build-docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set up Docker Build
+        uses: docker/setup-buildx-action@v2
+      - name: inject environment variables
+        run: |
+          docker compose -f docker-compose.gha.yaml convert > docker-compose.gha.converted.yaml
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          REPOSITORY_OWNER: ${{ github.repository_owner }}
+      - name: Build Lighthouse environment
+        id: build
+        run: |
+          docker compose -f docker-compose.gha.converted.yaml build
+
+  lighthouse-test:
+    needs: build-docker
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare docker external network
+        run: |
+          docker network inspect "test_network" >/dev/null 2>&1 || docker network create "test_network"
+      - name: Run Lighthouse tests
+        run: |
+          docker compose -f docker-compose.gha.converted.yaml up --exit-code-from lighthouse-runner
+
+  e2e-web:
+    needs: build-docker
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare docker external network
+        run: |
+          docker network inspect "test_network" >/dev/null 2>&1 || docker network create "test_network"
+      - name: Run E2E tests for web
+        run: |
+          docker compose -f docker-compose.gha.converted.yaml up --exit-code-from playwright-web
+      - name: Copy E2E report from container
+        run: |
+          CONTAINER_ID=$(docker ps -aqf "name=turborepo-template-playwright-web")
+          if [ -n "$CONTAINER_ID" ]; then
+            docker cp $CONTAINER_ID:/app/tools/playwright-web/test-results/junit.xml ./junit.xml
+          else
+            echo "No container found for playwright-web"
+            exit 1
+          fi
+      - name: Upload E2E report
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-report
+          path: ./junit.xml
+
+  storybook-test:
+    needs: build-docker
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare docker external network
+        run: |
+          docker network inspect "test_network" >/dev/null 2>&1 || docker network create "test_network"
+      - name: Run Storybook tests
+        run: |
+          docker compose -f docker-compose.gha.converted.yaml up --exit-code-from storybook-test-runner
+      - name: Copy Storybook report from container
+        run: |
+          CONTAINER_ID=$(docker ps -aqf "name=turborepo-template-storybook-test-runner")
+          if [ -n "$CONTAINER_ID" ]; then
+            docker cp $CONTAINER_ID:/app/apps/frontend-workshop/test-results/a11y-audit ./
+          else
+            echo "No container found for storybook-test-runner"
+            exit 1
+          fi
+      - name: Upload Storybook A11y report
+        uses: actions/upload-artifact@v4
+        with:
+          name: storybook-a11y-report
+          path: ./a11y-audit
