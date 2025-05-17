@@ -6,8 +6,95 @@ on:
       - '*'
 
 jobs:
+  trigger-install-and-build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: write
+    steps:
+      - name: Trigger install-and-build workflow
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { repo, owner } = context.repo;
+            const workflowName = "install-and-build";
+
+            const workflows = await github.rest.actions.listRepoWorkflows({
+              owner,
+              repo,
+            });
+
+            const workflow = workflows.data.workflows.find(w => w.name === workflowName);
+            if (!workflow) {
+              throw new Error(`Workflow '${workflowName}' not found`);
+            }
+
+            const response = await github.rest.actions.createWorkflowDispatch({
+              owner,
+              repo,
+              workflow_id: workflow.id,
+              ref: context.ref,
+            });
+
+            console.log(`Triggered workflow_dispatch for '${workflowName}'`, response);
+
+  wait-for-install-and-build:
+    runs-on: ubuntu-latest
+    needs: [trigger-install-and-build]
+    steps:
+      - name: Wait for install-and-build workflow
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { repo, owner } = context.repo;
+            const workflows = await github.rest.actions.listRepoWorkflows({
+              owner,
+              repo,
+            });
+
+            const workflowName = "install-and-build";
+            const workflow = workflows.data.workflows.find(w => w.name === workflowName);
+            if (!workflow) {
+              throw new Error("Workflow 'install-and-build' not found");
+            }
+            const workflowId = workflow.id;
+
+            let isWorkflowCompleted = false;
+            do {
+              const allRuns = await github.rest.actions.listWorkflowRuns({
+                owner,
+                repo,
+                workflow_id: workflowId,
+              });
+            
+              if (allRuns.data.total_count === 0) {
+                console.log("Waiting for install-and-build workflow to start...");
+                await new Promise((resolve) => setTimeout(resolve, 30000)); // 30초 대기
+                continue;
+              }
+            
+              const latestRun = allRuns.data.workflow_runs[0];
+              if (!latestRun?.conclusion) continue;
+            
+              if (latestRun.conclusion === "success") {
+                isWorkflowCompleted = true;
+              } else if (latestRun.conclusion === "failure" || latestRun.conclusion === "cancelled") {
+                throw new Error(
+                  `The latest 'install-and-build' workflow run did not succeed. Conclusion: ${latestRun.conclusion}`
+                );
+              } else {
+                console.log("Waiting for install-and-build workflow to complete...");
+                await new Promise((resolve) => setTimeout(resolve, 30000)); // 30초 대기
+              }
+            } while (!isWorkflowCompleted);
+
+            console.log("install-and-build workflow completed.");
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   test:
     runs-on: ubuntu-latest
+    needs: [wait-for-install-and-build]
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -62,30 +149,20 @@ jobs:
           restore-keys: |
             unittest-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-
             unittest-${{ runner.os }}-
-      - run: pnpm install --frozen-lockfile
-      - run: |
-          TURBO_LOG_LEVEL=debug pnpm run build --summarize > turbo-build-stdout.log
-          cp $(cat turbo-build-stdout.log | tail -n 2 | head -n 1 | sed 's/^Summary:    //' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//') ./turbo-build-summarize.log
       - run: |
           TURBO_LOG_LEVEL=debug pnpm run test --summarize > turbo-test-stdout.log
           cp $(cat turbo-test-stdout.log | tail -n 2 | head -n 1 | sed 's/^Summary:    //' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//') ./turbo-test-summarize.log
+
       - run: pnpm run merge-json-reports
       - name: Upload coverage reports
         uses: actions/upload-artifact@v4
         with:
           name: coverage-reports
           path: configs/vitest-config/coverage/merged
-      - name: Upload turbo test summarize log
+      - name: Upload turbo summarize log
         uses: actions/upload-artifact@v4
         with:
           name: turbo-test-summarize
           path: |
             turbo-test-stdout.log
             turbo-test-summarize.log
-      - name: Upload turbo build summarize log
-        uses: actions/upload-artifact@v4
-        with:
-          name: turbo-build-summarize
-          path: |
-            turbo-build-stdout.log
-            turbo-build-summarize.log
