@@ -72,11 +72,21 @@ jobs:
       - name: Build project
         run: |
           TURBO_LOG_LEVEL=debug pnpm run build --summarize > turbo-build-stdout.log
-          cp $(cat turbo-build-stdout.log | tail -n 2 | head -n 1 | sed 's/^Summary:    //' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//') ./turbo-build-summarize.log
+          summary_path=$(cat turbo-build-stdout.log | tail -n 2 | head -n 1 | sed 's/^Summary:    //' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+          if [ -z "$summary_path" ]; then
+            echo "No summary path found in turbo-build-stdout.log"
+            exit 1
+          fi
+          cp $summary_path ./turbo-build-summarize.log
       - name: Run unit tests
         run: |
           TURBO_LOG_LEVEL=debug pnpm run test --summarize > turbo-test-stdout.log
-          cp $(cat turbo-test-stdout.log | tail -n 2 | head -n 1 | sed 's/^Summary:    //' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//') ./turbo-test-summarize.log
+            summary_path=$(cat turbo-test-stdout.log | tail -n 2 | head -n 1 | sed 's/^Summary:    //' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+          if [ -z "$summary_path" ]; then
+            echo "No summary path found in turbo-test-stdout.log"
+            exit 1
+          fi
+          cp $summary_path ./turbo-test-summarize.log
       - name: Generate coverage reports
         run: pnpm run merge-json-reports
       - name: Upload coverage reports
