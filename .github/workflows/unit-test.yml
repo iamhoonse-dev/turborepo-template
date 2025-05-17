@@ -37,6 +37,8 @@ jobs:
             configs/*/node_modules
             shared/*/node_modules
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
       - name: Restore dist cache
         uses: actions/cache@v4
         with:
@@ -47,7 +49,10 @@ jobs:
             packages/*/dist
             configs/*/dist
             shared/*/dist
-          key: ${{ runner.os }}-dist-${{ github.sha }}
+          key: ${{ runner.os }}-dist-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-dist-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-
+            ${{ runner.os }}-dist-
       - name: Restore unit test cache
         uses: actions/cache@v4
         with:
