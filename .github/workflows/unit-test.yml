@@ -150,7 +150,7 @@ jobs:
             unittest-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-
             unittest-${{ runner.os }}-
       - run: |
-          TURBO_FORCE=1 TURBO_LOG_LEVEL=debug pnpm run test --summarize > turbo-test-stdout.log
+          TURBO_LOG_LEVEL=debug pnpm run test --summarize > turbo-test-stdout.log
           cp $(cat turbo-test-stdout.log | tail -n 2 | head -n 1 | sed 's/^Summary:    //' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//') ./turbo-test-summarize.log
 
       - run: pnpm run merge-json-reports
