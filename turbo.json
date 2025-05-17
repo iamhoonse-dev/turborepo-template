@@ -23,7 +23,6 @@
     },
     "test": {
       "dependsOn": ["^test", "@repo/vitest-config#build"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [
         "coverage.json",
         "apps/*/coverage.json",
