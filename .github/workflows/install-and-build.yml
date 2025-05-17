@@ -15,12 +15,13 @@ jobs:
         id: cache-turbo
         uses: actions/cache@v4
         with:
-          # Consolidating multiple turbo cache paths into a single '.turbo' entry simplifies cache management
-          # and aligns with turbo's caching mechanism.
-          path: .turbo
-          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          path: |
+            .turbo
+            node_modules/.cache/turbo
+          key: turbo-cache-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-turbo-
+            turbo-cache-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-
+            turbo-cache-${{ runner.os }}-
       - name: Use Node.js 22.x
         uses: actions/setup-node@v4
         with:
@@ -53,8 +54,13 @@ jobs:
       - name: Restore turbo cache
         uses: actions/cache@v4
         with:
-          path: .turbo
-          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          path: |
+            .turbo
+            node_modules/.cache/turbo
+          key: turbo-cache-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-${{ github.sha }}
+          restore-keys: |
+            turbo-cache-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-
+            turbo-cache-${{ runner.os }}-
       - name: Use Node.js 22.x
         uses: actions/setup-node@v4
         with:
@@ -85,4 +91,13 @@ jobs:
           key: ${{ runner.os }}-dist-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-dist-
-      - run: pnpm run build
+      - run: |
+          TURBO_LOG_LEVEL=debug pnpm run build --summarize > turbo-build-stdout.log
+          cp $(cat turbo-build-stdout.log | tail -n 2 | head -n 1 | sed 's/^Summary:    //' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//') ./turbo-build-summarize.log
+      - name: Upload turbo summarize log
+        uses: actions/upload-artifact@v4
+        with:
+          name: turbo-build-summarize
+          path: |
+            turbo-build-stdout.log
+            turbo-build-summarize.log
