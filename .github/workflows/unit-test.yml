@@ -11,6 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
+      - name: Use Node.js 22.x
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: 'pnpm'
       - name: Restore turbo cache
         uses: actions/cache@v4
         with:
@@ -21,11 +26,6 @@ jobs:
           restore-keys: |
             turbo-cache-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-
             turbo-cache-${{ runner.os }}-
-      - name: Use Node.js 22.x
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: .nvmrc
-          cache: 'pnpm'
       - name: Restore node_modules cache
         uses: actions/cache@v4
         with:
