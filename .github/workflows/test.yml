@@ -146,6 +146,8 @@ jobs:
         id: build
         run: |
           docker compose -f docker-compose.gha.converted.yaml build
+        env:
+          COMPOSE_BAKE: true
 
   lighthouse-test:
     needs: build-docker
