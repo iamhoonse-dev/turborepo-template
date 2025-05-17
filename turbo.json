@@ -22,7 +22,7 @@
       "persistent": true
     },
     "test": {
-      "dependsOn": ["^test", "@repo/vitest-config#build"],
+      "dependsOn": ["build", "^test"],
       "outputs": [
         "coverage.json",
         "apps/*/coverage.json",
