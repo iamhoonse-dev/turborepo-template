@@ -60,7 +60,7 @@ services:
   storybook:
     build:
       context: .
-      dockerfile: apps/frontend-workshop/Dockerfile
+      dockerfile: ./apps/frontend-workshop/Dockerfile
       cache_from:
         - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/storybook:cache
       cache_to:
@@ -74,7 +74,7 @@ services:
   storybook-test-runner:
     build:
       context: .
-      dockerfile: apps/frontend-workshop/Dockerfile.test-runner
+      dockerfile: ./apps/frontend-workshop/Dockerfile.test-runner
       cache_from:
         - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/storybook-test-runner:cache
       cache_to:
