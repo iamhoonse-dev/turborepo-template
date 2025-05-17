@@ -140,6 +140,14 @@ jobs:
     needs: build-docker
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Prepare docker external network
         run: |
           docker network inspect "test_network" >/dev/null 2>&1 || docker network create "test_network"
@@ -151,6 +159,14 @@ jobs:
     needs: build-docker
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Prepare docker external network
         run: |
           docker network inspect "test_network" >/dev/null 2>&1 || docker network create "test_network"
@@ -176,6 +192,14 @@ jobs:
     needs: build-docker
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Prepare docker external network
         run: |
           docker network inspect "test_network" >/dev/null 2>&1 || docker network create "test_network"
