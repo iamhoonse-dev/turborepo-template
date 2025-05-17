@@ -175,7 +175,7 @@ jobs:
           docker network inspect "test_network" >/dev/null 2>&1 || docker network create "test_network"
       - name: Run Lighthouse tests
         run: |
-          docker compose -f docker-compose.gha.converted.yaml up web lighthouse-runner --exit-code-from lighthouse-runner
+          docker compose -f docker-compose.gha.converted.yaml up web lighthouse-runner --no-build --exit-code-from lighthouse-runner
 
   e2e-web:
     needs: build-docker
@@ -204,7 +204,7 @@ jobs:
           docker network inspect "test_network" >/dev/null 2>&1 || docker network create "test_network"
       - name: Run E2E tests for web
         run: |
-          docker compose -f docker-compose.gha.converted.yaml up web playwright-web --exit-code-from playwright-web
+          docker compose -f docker-compose.gha.converted.yaml up web playwright-web --no-build --exit-code-from playwright-web
       - name: Copy E2E report from container
         run: |
           CONTAINER_ID=$(docker ps -aqf "name=turborepo-template-playwright-web")
@@ -247,7 +247,7 @@ jobs:
           docker network inspect "test_network" >/dev/null 2>&1 || docker network create "test_network"
       - name: Run Storybook tests
         run: |
-          docker compose -f docker-compose.gha.converted.yaml up storybook storybook-test-runner --exit-code-from storybook-test-runner
+          docker compose -f docker-compose.gha.converted.yaml up storybook storybook-test-runner --no-build --exit-code-from storybook-test-runner
       - name: Copy Storybook report from container
         run: |
           CONTAINER_ID=$(docker ps -aqf "name=turborepo-template-storybook-test-runner")
