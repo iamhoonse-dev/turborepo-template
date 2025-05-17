@@ -117,6 +117,17 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: Restore converted docker-compose file cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            docker-compose.gha.converted.yaml
+          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}-
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-
+            ${{ runner.os }}-docker-compose-
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
@@ -142,6 +153,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: Restore converted docker-compose file cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            docker-compose.gha.converted.yaml
+          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}-
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
@@ -161,6 +182,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: Restore converted docker-compose file cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            docker-compose.gha.converted.yaml
+          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}-
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
@@ -194,6 +225,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: Restore converted docker-compose file cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            docker-compose.gha.converted.yaml
+          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}-
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
