@@ -81,7 +81,7 @@ jobs:
       - name: Run unit tests
         run: |
           TURBO_LOG_LEVEL=debug pnpm run test --summarize > turbo-test-stdout.log
-            summary_path=$(cat turbo-test-stdout.log | tail -n 2 | head -n 1 | sed 's/^Summary:    //' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+          summary_path=$(cat turbo-test-stdout.log | tail -n 2 | head -n 1 | sed 's/^Summary:    //' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
           if [ -z "$summary_path" ]; then
             echo "No summary path found in turbo-test-stdout.log"
             exit 1
