@@ -131,7 +131,7 @@ jobs:
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
           REPOSITORY_OWNER: ${{ github.repository_owner }}
-      - name: Build Lighthouse environment
+      - name: Build Docker images
         id: build
         run: |
           docker compose -f docker-compose.gha.converted.yaml build
