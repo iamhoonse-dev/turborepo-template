@@ -147,6 +147,9 @@ jobs:
         id: build
         run: |
           docker compose -f docker-compose.gha.converted.yaml build
+      - name: Push Docker images
+        run: |
+          docker compose -f docker-compose.gha.converted.yaml push
 
   lighthouse-test:
     needs: build-docker
