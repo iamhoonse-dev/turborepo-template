@@ -62,14 +62,18 @@ jobs:
           restore-keys: |
             unittest-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-
             unittest-${{ runner.os }}-
-      - run: pnpm install --frozen-lockfile
-      - run: |
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build project
+        run: |
           TURBO_LOG_LEVEL=debug pnpm run build --summarize > turbo-build-stdout.log
           cp $(cat turbo-build-stdout.log | tail -n 2 | head -n 1 | sed 's/^Summary:    //' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//') ./turbo-build-summarize.log
-      - run: |
+      - name: Run unit tests
+        run: |
           TURBO_LOG_LEVEL=debug pnpm run test --summarize > turbo-test-stdout.log
           cp $(cat turbo-test-stdout.log | tail -n 2 | head -n 1 | sed 's/^Summary:    //' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//') ./turbo-test-summarize.log
-      - run: pnpm run merge-json-reports
+      - name: Generate coverage reports
+        run: pnpm run merge-json-reports
       - name: Upload coverage reports
         uses: actions/upload-artifact@v4
         with:
