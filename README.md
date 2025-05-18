@@ -1,10 +1,6 @@
 # 🗂️ Turborepo Template
 
-[![install-and-build](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/install-and-build.yml/badge.svg?event=push)](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/install-and-build.yml)
-[![unit-test](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/unit-test.yml/badge.svg?event=push)](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/unit-test.yml)
-[![storybook-test](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/storybook-test.yml/badge.svg?event=push)](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/storybook-test.yml)
-[![e2e-test](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/e2e-test.yml/badge.svg?event=push)](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/e2e-test.yml)
-[![lighthouse-test](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/lighthouse-test.yml/badge.svg?event=push)](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/lighthouse-test.yml)
+[![test](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/test.yml/badge.svg?event=push)](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/test.yml)
 [![Release](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/release.yml/badge.svg?event=push)](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/release.yml)
 
 ## 📖 개요
