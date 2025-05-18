@@ -25,7 +25,6 @@ const EXCLUDE_DIRS = [
   "node_modules",
   ".git",
   ".devcontainer",
-  ".github",
   ".husky",
   ".idea",
   ".turbo",
