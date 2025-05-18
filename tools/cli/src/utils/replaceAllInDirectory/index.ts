@@ -4,9 +4,24 @@ import getStdoutUpdater from "../getStdoutUpdater";
 import replaceInFile from "../replaceInFile";
 
 /**
+ * Files to include in the renaming process
+ */
+const FILES_TO_INCLUDE = ["LICENSE"];
+
+/**
  * Renames the scope of a package name in each file with the specified extension
  */
-const TARGET_EXTENSIONS = ["md", "json", "css", "ts", "tsx", "js", "jsx"];
+const TARGET_EXTENSIONS = [
+  "md",
+  "yml",
+  "yaml",
+  "json",
+  "css",
+  "ts",
+  "tsx",
+  "js",
+  "jsx",
+];
 
 /**
  * Directories to exclude from renaming
@@ -15,7 +30,6 @@ const EXCLUDE_DIRS = [
   "node_modules",
   ".git",
   ".devcontainer",
-  ".github",
   ".husky",
   ".idea",
   ".turbo",
@@ -35,14 +49,16 @@ const EXCLUDE_DIRS = [
  * @param newString - The string to replace with
  * @param excludeDirs - Directories to exclude from the search
  * @param targetExtensions - File extensions to target for replacement
+ * @param filesToInclude - Files to include in the renaming process
  */
 export default function replaceAllInDirectory(
   rootDir: string,
   oldString: string,
   newString: string,
-  { excludeDirs, targetExtensions } = {
+  { excludeDirs, targetExtensions, filesToInclude } = {
     excludeDirs: EXCLUDE_DIRS,
     targetExtensions: TARGET_EXTENSIONS,
+    filesToInclude: FILES_TO_INCLUDE,
   },
 ) {
   const updateStdout = getStdoutUpdater();
@@ -61,6 +77,8 @@ export default function replaceAllInDirectory(
         targetExtensions.some((target) => ext.endsWith(target)) &&
         fullPath !== __filename
       ) {
+        replaceInFile(fullPath, oldString, newString);
+      } else if (filesToInclude.includes(entry.name)) {
         replaceInFile(fullPath, oldString, newString);
       }
     }
