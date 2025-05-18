@@ -1,0 +1,88 @@
+version: "3"
+
+# Define a network, which allows containers to communicate
+# with each other, by using their container name as a hostname
+networks:
+  test_network:
+    external: true
+
+# Define the services that will be run in the containers
+services:
+  # The web service is built from the Dockerfile located in the ./apps/web directory
+  web:
+    build:
+      context: .
+      dockerfile: ./apps/web/Dockerfile
+      cache_from:
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/web:cache
+      cache_to:
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/web:cache,mode=max
+    ports:
+      - 3000:3000
+    networks:
+      - test_network
+
+  # The Playwright service is built from the Dockerfile located in the ./tools/playwright directory
+  playwright-web:
+    build:
+      context: .
+      dockerfile: ./tools/playwright-web/Dockerfile
+      cache_from:
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/playwright-web:cache
+      cache_to:
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/playwright-web:cache,mode=max
+    networks:
+      - test_network
+    depends_on:
+      - web
+    environment:
+      CI: true
+
+  # The Lighthouse CI service is built from the Dockerfile located in the ./tools/lighthouse-ci directory
+  lighthouse-runner:
+    build:
+      context: .
+      dockerfile: ./tools/lighthouse-ci/Dockerfile
+      cache_from:
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/lighthouse-runner:cache
+      cache_to:
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/lighthouse-runner:cache,mode=max
+    networks:
+      - test_network
+    depends_on:
+      - web
+    environment:
+      CI: true
+      WEB_BASE_URL: http://web:3000
+      LHCI_GITHUB_APP_TOKEN: ${LHCI_GITHUB_APP_TOKEN}
+
+  # The frontend-workshop service is built from the Dockerfile located in the ./apps/frontend-workshop directory
+  storybook:
+    build:
+      context: .
+      dockerfile: ./apps/frontend-workshop/Dockerfile
+      cache_from:
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/storybook:cache
+      cache_to:
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/storybook:cache,mode=max
+    ports:
+      - 6006:80
+    networks:
+      - test_network
+
+  # The frontend-workshop-test-runner service is built from the Dockerfile located in the ./apps/frontend-workshop directory
+  storybook-test-runner:
+    build:
+      context: .
+      dockerfile: ./apps/frontend-workshop/Dockerfile.test-runner
+      cache_from:
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/storybook-test-runner:cache
+      cache_to:
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/storybook-test-runner:cache,mode=max
+    networks:
+      - test_network
+    depends_on:
+      - storybook
+    environment:
+      CI: true
+      TARGET_URL: http://storybook:80

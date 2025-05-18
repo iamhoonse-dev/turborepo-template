@@ -1,0 +1,249 @@
+name: test
+
+on:
+  push:
+    branches:
+      - '*'
+
+env:
+  DOCKER_BUILDKIT: 1
+  COMPOSE_BAKE: true
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - name: Use Node.js 22.x
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: 'pnpm'
+      - name: Restore turbo cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            .turbo
+            node_modules/.cache/turbo
+          key: ${{ runner.os }}-turbo-cache-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-cache-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-
+            ${{ runner.os }}-turbo-cache-
+      - name: Restore node_modules cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            apps/*/node_modules
+            tools/*/node_modules
+            packages/*/node_modules
+            configs/*/node_modules
+            shared/*/node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
+      - name: Restore dist cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            apps/*/.next
+            !apps/*/.next/cache
+            apps/*/storybook-static
+            packages/*/dist
+            configs/*/dist
+            shared/*/dist
+          key: ${{ runner.os }}-dist-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-dist-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-
+            ${{ runner.os }}-dist-
+      - name: Restore unit test cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            coverage.json
+            apps/*/coverage.json
+            packages/*/coverage.json
+            configs/*/coverage.json
+            shared/*/coverage.json
+            tools/*/coverage.json
+          key: ${{ runner.os }}-unittest-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-unittest-${{ hashFiles('**/pnpm-lock.yaml', '**/pnpm-workspace.yaml') }}-
+            ${{ runner.os }}-unittest-
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build project
+        run: |
+          TURBO_LOG_LEVEL=debug pnpm run build --summarize > turbo-build-stdout.log
+          summary_path=$(cat turbo-build-stdout.log | tail -n 2 | head -n 1 | sed 's/^Summary:    //' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+          if [ -z "$summary_path" ]; then
+            echo "No summary path found in turbo-build-stdout.log"
+            exit 1
+          fi
+          cp $summary_path ./turbo-build-summarize.log
+      - name: Run unit tests
+        run: |
+          TURBO_LOG_LEVEL=debug pnpm run test --summarize > turbo-test-stdout.log
+          summary_path=$(cat turbo-test-stdout.log | tail -n 2 | head -n 1 | sed 's/^Summary:    //' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+          if [ -z "$summary_path" ]; then
+            echo "No summary path found in turbo-test-stdout.log"
+            exit 1
+          fi
+          cp $summary_path ./turbo-test-summarize.log
+      - name: Generate coverage reports
+        run: pnpm run merge-json-reports
+      - name: Upload coverage reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-reports
+          path: configs/vitest-config/coverage/merged
+      - name: Upload turbo test summarize log
+        uses: actions/upload-artifact@v4
+        with:
+          name: turbo-test-summarize
+          path: |
+            turbo-test-stdout.log
+            turbo-test-summarize.log
+      - name: Upload turbo build summarize log
+        uses: actions/upload-artifact@v4
+        with:
+          name: turbo-build-summarize
+          path: |
+            turbo-build-stdout.log
+            turbo-build-summarize.log
+
+  set-docker-compose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Restore converted docker-compose file cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            docker-compose.gha.converted.yaml
+          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          restore-keys: |
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-
+            ${{ runner.os }}-docker-compose-
+      - name: Set up Docker Build
+        uses: docker/setup-buildx-action@v2
+      - name: inject environment variables
+        run: |
+          docker compose -f docker-compose.gha.yaml convert > docker-compose.gha.converted.yaml
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          REPOSITORY_OWNER: ${{ github.repository_owner }}
+
+  lighthouse-test:
+    needs: set-docker-compose
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Restore converted docker-compose file cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            docker-compose.gha.converted.yaml
+          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          restore-keys: |
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-
+            ${{ runner.os }}-docker-compose-
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Prepare docker external network
+        run: |
+          docker network inspect "test_network" >/dev/null 2>&1 || docker network create "test_network"
+      - name: Run Lighthouse tests
+        run: |
+          docker compose -f docker-compose.gha.converted.yaml up web lighthouse-runner --exit-code-from lighthouse-runner
+
+  e2e-web:
+    needs: set-docker-compose
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Restore converted docker-compose file cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            docker-compose.gha.converted.yaml
+          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          restore-keys: |
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-
+            ${{ runner.os }}-docker-compose-
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Prepare docker external network
+        run: |
+          docker network inspect "test_network" >/dev/null 2>&1 || docker network create "test_network"
+      - name: Run E2E tests for web
+        run: |
+          docker compose -f docker-compose.gha.converted.yaml up web playwright-web --exit-code-from playwright-web
+      - name: Copy E2E report from container
+        run: |
+          CONTAINER_ID=$(docker ps -aqf "name=turborepo-template-playwright-web")
+          if [ -n "$CONTAINER_ID" ]; then
+            docker cp $CONTAINER_ID:/app/tools/playwright-web/test-results/junit.xml ./junit.xml
+          else
+            echo "No container found for playwright-web"
+            exit 1
+          fi
+      - name: Upload E2E report
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-report
+          path: ./junit.xml
+
+  storybook-test:
+    needs: set-docker-compose
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Restore converted docker-compose file cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            docker-compose.gha.converted.yaml
+          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          restore-keys: |
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-
+            ${{ runner.os }}-docker-compose-
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Prepare docker external network
+        run: |
+          docker network inspect "test_network" >/dev/null 2>&1 || docker network create "test_network"
+      - name: Run Storybook tests
+        run: |
+          docker compose -f docker-compose.gha.converted.yaml up storybook storybook-test-runner --exit-code-from storybook-test-runner
+      - name: Copy Storybook report from container
+        run: |
+          CONTAINER_ID=$(docker ps -aqf "name=turborepo-template-storybook-test-runner")
+          if [ -n "$CONTAINER_ID" ]; then
+            docker cp $CONTAINER_ID:/app/apps/frontend-workshop/test-results/a11y-audit ./
+          else
+            echo "No container found for storybook-test-runner"
+            exit 1
+          fi
+      - name: Upload Storybook A11y report
+        uses: actions/upload-artifact@v4
+        with:
+          name: storybook-a11y-report
+          path: ./a11y-audit
