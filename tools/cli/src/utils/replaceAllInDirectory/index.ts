@@ -6,7 +6,17 @@ import replaceInFile from "../replaceInFile";
 /**
  * Renames the scope of a package name in each file with the specified extension
  */
-const TARGET_EXTENSIONS = ["md", "json", "css", "ts", "tsx", "js", "jsx"];
+const TARGET_EXTENSIONS = [
+  "md",
+  "yml",
+  "yaml",
+  "json",
+  "css",
+  "ts",
+  "tsx",
+  "js",
+  "jsx",
+];
 
 /**
  * Directories to exclude from renaming
