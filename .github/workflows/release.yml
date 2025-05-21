@@ -71,11 +71,11 @@ jobs:
         uses: changesets/action@v1
         with:
           version: pnpm version-packages
-          publish: pnpm publish-packages
+          # publish: pnpm publish-packages # fixme: if you want to publish packages, uncomment this line
           commit: |
             chore(release): 🦋 versioning packages by changesets
           title: |
             🦋 Versioning packages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }} # fixme: if you want to publish packages, set this secret on your repo
