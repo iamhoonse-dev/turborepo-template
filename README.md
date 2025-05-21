@@ -182,6 +182,34 @@ Happy Hacking!
 
 이 프로젝트는 [Changesets](https://github.com/changesets/changesets)를 사용하여 패키지 버전 관리와 배포를 간소화하고 있어요. Changesets는 모노레포 환경에서 특히 유용하며, 각 패키지의 변경 사항을 추적하고 이를 기반으로 버전을 업데이트할 수 있도록 도와줘요.
 
+### changesets 봇 사용을 위한 설정
+
+changesets 봇을 사용하기 위해서는 GitHub 레포지토리의 설정을 변경해야 해요. \
+이 설정은 Changesets 봇이 PR을 생성하고, 변경 사항을 자동으로 추적할 수 있도록 해줘요. \
+이 설정을 통해 Changesets 봇이 PR을 생성하고, 변경 사항을 자동으로 추적할 수 있어요. \
+아래의 단계를 따라 주세요:
+
+1. GitHub 레포지토리 페이지로 이동해요.
+2. `Settings` 탭을 클릭해요.
+3. `Actions` 섹션으로 가요.
+4. `General`을 선택해요.
+5. Workflow Permissions에서 `Read repository contents permission`을 `Read and write permissions`로 변경해요.
+6. 그리고 `Allow GitHub Actions to create and approve pull requests`를 체크해요.
+7. `Save` 버튼을 클릭해요.
+
+### npm 배포를 위한 토큰 설정
+
+프로젝트의 secret 변수에 `NPM_TOKEN`을 설정해야 해요. \
+이 토큰은 npm에 패키지를 배포하는 데 사용돼요. \
+GitHub Secrets에 `NPM_TOKEN`을 추가하려면 아래의 단계를 따라 주세요:
+
+1. GitHub 레포지토리 페이지로 이동해요.
+2. `Settings` 탭을 클릭해요.
+3. `Secrets and variables` 섹션으로 가요.
+4. `Actions`를 선택해요.
+5. `New repository secret` 버튼을 클릭해요.
+6. [npm](https://www.npmjs.com/)에서 발급받은 토큰을 `NPM_TOKEN`이라는 이름으로 추가해요.
+
 ### 기본 사용 방법
 
 1. 새 변경 사항 추가:
