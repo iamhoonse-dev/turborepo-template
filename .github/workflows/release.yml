@@ -71,5 +71,11 @@ jobs:
         uses: changesets/action@v1
         with:
           version: pnpm version-packages
+          publish: pnpm publish-packages
+          commit: |
+            chore(release): 🦋 versioning packages by changesets
+          title: |
+            🦋 Versioning packages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
