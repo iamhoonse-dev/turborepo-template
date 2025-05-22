@@ -178,6 +178,24 @@ Happy Hacking!
 >
 > - [`.github/workflows`](.github/workflows/)
 
+## 🗼 Lighthouse CI GitHub App 사용
+
+Lighthouse 테스트가 정상적으로 동작하려면 GitHub Secrets에 `LHCI_GITHUB_APP_TOKEN` 변수를 반드시 등록해야 해요.
+이 토큰은 Lighthouse CI가 GitHub PR과 연동되어 결과를 보고하거나 상태 체크를 수행할 때 필요해요.
+
+### `LHCI_GITHUB_APP_TOKEN` 등록 방법
+
+1. GitHub 레포지토리 페이지로 이동해요.
+2. `Settings` 탭을 클릭해요.
+3. `Secrets and variables` 섹션으로 가요.
+4. `Actions`를 선택해요.
+5. `New repository secret` 버튼을 클릭해요.
+6. [Lighthouse CI GitHub App](https://github.com/apps/lighthouse-ci)에서 발급받은 토큰을 `LHCI_GITHUB_APP_TOKEN`이라는 이름으로 추가해요.
+
+> [!TIP]
+> 토큰이 없으면 워크플로우의 `lighthouse-test` 작업에서 "github token not set" 경고가 발생할 수 있어요. 
+> 실행 자체에는 문제가 없지만, Lighthouse test 결과를 웹에서 확인할 수 없게 되요.
+
 ## 🦋 패키지 버저닝 및 배포
 
 이 프로젝트는 [Changesets](https://github.com/changesets/changesets)를 사용하여 패키지 버전 관리와 배포를 간소화하고 있어요. Changesets는 모노레포 환경에서 특히 유용하며, 각 패키지의 변경 사항을 추적하고 이를 기반으로 버전을 업데이트할 수 있도록 도와줘요.
