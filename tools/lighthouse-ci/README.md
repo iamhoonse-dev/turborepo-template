@@ -1,4 +1,4 @@
-# 🌟 Lighthouse CI
+# 🗼 Lighthouse CI
 
 ## 📖 개요
 
