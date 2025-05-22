@@ -193,7 +193,7 @@ Lighthouse 테스트가 정상적으로 동작하려면 GitHub Secrets에 `LHCI_
 6. [Lighthouse CI GitHub App](https://github.com/apps/lighthouse-ci)에서 발급받은 토큰을 `LHCI_GITHUB_APP_TOKEN`이라는 이름으로 추가해요.
 
 > [!TIP]
-> 토큰이 없으면 워크플로우의 `lighthouse-test` 작업에서 "github token not set" 경고가 발생할 수 있어요. 
+> 토큰이 없으면 워크플로우의 `lighthouse-test` 작업에서 "github token not set" 경고가 발생할 수 있어요.
 > 실행 자체에는 문제가 없지만, Lighthouse test 결과를 웹에서 확인할 수 없게 되요.
 
 ## 🦋 패키지 버저닝 및 배포
@@ -213,6 +213,7 @@ changesets 봇을 사용하기 위해서는 GitHub 레포지토리의 설정을 
 5. Workflow Permissions에서 `Read repository contents permission`을 `Read and write permissions`로 변경해요.
 6. 그리고 `Allow GitHub Actions to create and approve pull requests`를 체크해요.
 7. `Save` 버튼을 클릭해요.
+8. [Changeset Bot App](https://github.com/apps/changeset-bot)을 사용하도록 설정해요.
 
 ### npm 배포를 위한 토큰 설정
 
