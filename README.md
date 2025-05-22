@@ -161,12 +161,25 @@ Happy Hacking!
 
 이 프로젝트는 다음과 같은 GitHub Actions Workflow를 포함하고 있어요:
 
-- **[Test](.github/workflows/test.yml)**: `test.yml` 파일에 정의되어 있으며, 프로젝트의 주요 테스트(유닛, E2E, Lighthouse, Storybook 등)를 통합적으로 실행해요.
-  - 🐳 이 Workflow는 [`docker-compose.gha.yaml`](./docker-compose.gha.yaml) 파일을 사용해서 통합 테스트 환경을 설정해요.
-  - 다양한 서비스(web, playwright, lighthouse, storybook 등)를 컨테이너로 띄워 실제 서비스 환경과 유사하게 테스트를 수행해요.
-- **[Release](.github/workflows/release.yml)**: `release.yml` 파일에 정의되어 있으며, Changesets를 기반으로 패키지 배포를 자동화해요.
+### 🧪 **[Test](.github/workflows/test.yml)**
 
-각 Workflow는 [`.github/workflows`](.github/workflows/) 디렉토리에 위치하고 있어요.
+[`test.yml`](.github/workflows/test.yml) 파일에 정의되어 있으며, 프로젝트의 주요 테스트(유닛, E2E, Lighthouse, Storybook 등)를 통합적으로 실행해요.
+
+- 이 Workflow는 다음과 같은 테스트를 포함해요:
+  - [unit test](.github/workflows/test.yml#L13)
+  - [e2e test](.github/workflows/test.yml#L167)
+  - [lighthouse test](.github/workflows/test.yml#L139)
+  - [storybook test](.github/workflows/test.yml#L209)
+- 이들 중 e2e, lighthouse, storybook 테스트는 [`docker-compose.gha.yaml`](./docker-compose.gha.yaml) 파일을 사용해서 통합 테스트 환경을 설정해요.
+- 다양한 서비스(web, playwright, lighthouse, storybook 등)를 컨테이너로 띄워 실제 서비스 환경과 유사하게 테스트를 수행해요.
+
+### 🚀 **[Release](.github/workflows/release.yml)**
+
+[`release.yml`](.github/workflows/release.yml) 파일에 정의되어 있으며, Changesets를 기반으로 패키지 배포를 자동화해요.
+
+- 이 Workflow는 Changesets 봇을 사용해서 PR을 생성하고, 변경 사항을 자동으로 추적해요.
+- PR을 승인하면, 변경된 패키지의 버전이 업데이트되고, `CHANGELOG.md` 파일이 생성돼요.
+- 그리고 승인된 PR이 병합되면서 실행되는 Workflow에 의해, `NPM_TOKEN`을 사용하여 npm에 패키지가 배포돼요.
 
 ## 🐳 GitHub Container Registry 사용
 
@@ -193,12 +206,38 @@ Lighthouse 테스트가 정상적으로 동작하려면 GitHub Secrets에 `LHCI_
 6. [Lighthouse CI GitHub App](https://github.com/apps/lighthouse-ci)에서 발급받은 토큰을 `LHCI_GITHUB_APP_TOKEN`이라는 이름으로 추가해요.
 
 > [!TIP]
-> 토큰이 없으면 워크플로우의 `lighthouse-test` 작업에서 "github token not set" 경고가 발생할 수 있어요. 
+> 토큰이 없으면 워크플로우의 `lighthouse-test` 작업에서 "github token not set" 경고가 발생할 수 있어요.
 > 실행 자체에는 문제가 없지만, Lighthouse test 결과를 웹에서 확인할 수 없게 되요.
 
 ## 🦋 패키지 버저닝 및 배포
 
 이 프로젝트는 [Changesets](https://github.com/changesets/changesets)를 사용하여 패키지 버전 관리와 배포를 간소화하고 있어요. Changesets는 모노레포 환경에서 특히 유용하며, 각 패키지의 변경 사항을 추적하고 이를 기반으로 버전을 업데이트할 수 있도록 도와줘요.
+
+### 새 변경 사항 작성하기
+
+패키지의 변경 사항을 작성하려면, 로컬 환경에서 다음과 같은 명령어를 실행해 주세요:
+
+1. 새 변경 사항 추가:  
+   명령어를 실행하면 변경 사항에 대한 설명을 작성할 수 있는 프롬프트가 나타나요. 이를 통해 변경 사항을 기록할 수 있어요.
+
+   ```bash
+   pnpm changeset
+   ```
+
+2. 버전 업데이트 및 변경 사항 적용:  
+   이 명령어는 모든 패키지의 버전을 업데이트하고, `CHANGELOG.md` 파일을 생성하거나 업데이트해요.
+
+   ```bash
+   pnpm changeset version
+   ```
+
+3. 배포:  
+   이 명령어는 업데이트된 패키지를 npm에 배포해요. 배포를 위해서는 `NPM_TOKEN`이 GitHub Secrets에 설정되어 있어야 해요.
+   ```bash
+   pnpm changeset publish
+   ```
+
+자세한 내용은 [공식 문서](https://github.com/changesets/changesets)를 참고해 주세요.
 
 ### changesets 봇 사용을 위한 설정
 
@@ -213,8 +252,9 @@ changesets 봇을 사용하기 위해서는 GitHub 레포지토리의 설정을 
 5. Workflow Permissions에서 `Read repository contents permission`을 `Read and write permissions`로 변경해요.
 6. 그리고 `Allow GitHub Actions to create and approve pull requests`를 체크해요.
 7. `Save` 버튼을 클릭해요.
+8. [Changeset Bot App](https://github.com/apps/changeset-bot)을 사용하도록 설정해요.
 
-### npm 배포를 위한 토큰 설정
+### npm 배포를 위한 토큰 설정 (Optional)
 
 프로젝트의 secret 변수에 `NPM_TOKEN`을 설정해야 해요.
 이 토큰은 npm에 패키지를 배포하는 데 사용돼요.
@@ -227,32 +267,6 @@ GitHub Secrets에 `NPM_TOKEN`을 추가하려면 아래의 단계를 따라 주�
 5. `New repository secret` 버튼을 클릭해요.
 6. [npm](https://www.npmjs.com/)에서 발급받은 토큰을 `NPM_TOKEN`이라는 이름으로 추가해요.
 7. [`release.yml`](.github/workflows/release.yml) 파일에서 마지막의 "Create Release Pull Request" 단계의 `publish`에 주석 처리된 부분을 해제해요.
-
-### 기본 사용 방법
-
-1. 새 변경 사항 추가:
-
-   ```bash
-   pnpm changeset
-   ```
-
-   명령어를 실행하면 변경 사항에 대한 설명을 작성할 수 있는 프롬프트가 나타나요. 이를 통해 변경 사항을 기록할 수 있어요.
-
-2. 버전 업데이트 및 변경 사항 적용:
-
-   ```bash
-   pnpm changeset version
-   ```
-
-   이 명령어는 모든 패키지의 버전을 업데이트하고, `CHANGELOG.md` 파일을 생성하거나 업데이트해요.
-
-3. 배포:
-   ```bash
-   pnpm changeset publish
-   ```
-   이 명령어는 업데이트된 패키지를 npm에 배포해요. 배포를 위해서는 `NPM_TOKEN`이 GitHub Secrets에 설정되어 있어야 해요.
-
-자세한 내용은 [공식 문서](https://github.com/changesets/changesets)를 참고하세요.
 
 ## ⬇️ 의존성 설치
 
