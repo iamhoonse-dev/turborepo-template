@@ -215,7 +215,7 @@ changesets 봇을 사용하기 위해서는 GitHub 레포지토리의 설정을 
 7. `Save` 버튼을 클릭해요.
 8. [Changeset Bot App](https://github.com/apps/changeset-bot)을 사용하도록 설정해요.
 
-### npm 배포를 위한 토큰 설정
+### npm 배포를 위한 토큰 설정 (Optional)
 
 프로젝트의 secret 변수에 `NPM_TOKEN`을 설정해야 해요.
 이 토큰은 npm에 패키지를 배포하는 데 사용돼요.
