@@ -161,12 +161,25 @@ Happy Hacking!
 
 이 프로젝트는 다음과 같은 GitHub Actions Workflow를 포함하고 있어요:
 
-- **[Test](.github/workflows/test.yml)**: `test.yml` 파일에 정의되어 있으며, 프로젝트의 주요 테스트(유닛, E2E, Lighthouse, Storybook 등)를 통합적으로 실행해요.
-  - 🐳 이 Workflow는 [`docker-compose.gha.yaml`](./docker-compose.gha.yaml) 파일을 사용해서 통합 테스트 환경을 설정해요.
-  - 다양한 서비스(web, playwright, lighthouse, storybook 등)를 컨테이너로 띄워 실제 서비스 환경과 유사하게 테스트를 수행해요.
-- **[Release](.github/workflows/release.yml)**: `release.yml` 파일에 정의되어 있으며, Changesets를 기반으로 패키지 배포를 자동화해요.
+### 🧪 **[Test](.github/workflows/test.yml)**
 
-각 Workflow는 [`.github/workflows`](.github/workflows/) 디렉토리에 위치하고 있어요.
+[`test.yml`](.github/workflows/test.yml) 파일에 정의되어 있으며, 프로젝트의 주요 테스트(유닛, E2E, Lighthouse, Storybook 등)를 통합적으로 실행해요.
+
+- 이 Workflow는 다음과 같은 테스트를 포함해요:
+  - [unit test](.github/workflows/test.yml#L13)
+  - [e2e test](.github/workflows/test.yml#L167)
+  - [lighthouse test](.github/workflows/test.yml#L139)
+  - [storybook test](.github/workflows/test.yml#L209)
+- 이들 중 e2e, lighthouse, storybook 테스트는 [`docker-compose.gha.yaml`](./docker-compose.gha.yaml) 파일을 사용해서 통합 테스트 환경을 설정해요.
+- 다양한 서비스(web, playwright, lighthouse, storybook 등)를 컨테이너로 띄워 실제 서비스 환경과 유사하게 테스트를 수행해요.
+
+### 🚀 **[Release](.github/workflows/release.yml)**
+
+[`release.yml`](.github/workflows/release.yml) 파일에 정의되어 있으며, Changesets를 기반으로 패키지 배포를 자동화해요.
+
+- 이 Workflow는 Changesets 봇을 사용해서 PR을 생성하고, 변경 사항을 자동으로 추적해요.
+- PR을 승인하면, 변경된 패키지의 버전이 업데이트되고, `CHANGELOG.md` 파일이 생성돼요.
+- 그리고 승인된 PR이 병합되면서 실행되는 Workflow에 의해, `NPM_TOKEN`을 사용하여 npm에 패키지가 배포돼요.
 
 ## 🐳 GitHub Container Registry 사용
 
