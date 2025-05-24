@@ -1,5 +1,5 @@
 {
-  "name": "@iamhoonse/eslint-plugin-sample",
+  "name": "@repo/eslint-plugin-sample",
   "private": false,
   "publishConfig": {
     "access": "public"
