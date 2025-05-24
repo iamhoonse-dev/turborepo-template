@@ -14,9 +14,9 @@ services:
       context: .
       dockerfile: ./apps/web/Dockerfile
       cache_from:
-        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/web:cache
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}-web:cache
       cache_to:
-        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/web:cache,mode=max
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}-web:cache,mode=max
     ports:
       - 3000:3000
     networks:
@@ -28,9 +28,9 @@ services:
       context: .
       dockerfile: ./tools/playwright-web/Dockerfile
       cache_from:
-        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/playwright-web:cache
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}-playwright-web:cache
       cache_to:
-        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/playwright-web:cache,mode=max
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}-playwright-web:cache,mode=max
     networks:
       - test_network
     depends_on:
@@ -44,9 +44,9 @@ services:
       context: .
       dockerfile: ./tools/lighthouse-ci/Dockerfile
       cache_from:
-        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/lighthouse-runner:cache
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}-lighthouse-runner:cache
       cache_to:
-        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/lighthouse-runner:cache,mode=max
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}-lighthouse-runner:cache,mode=max
     networks:
       - test_network
     depends_on:
@@ -62,9 +62,9 @@ services:
       context: .
       dockerfile: ./apps/frontend-workshop/Dockerfile
       cache_from:
-        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/storybook:cache
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}-storybook:cache
       cache_to:
-        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/storybook:cache,mode=max
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}-storybook:cache,mode=max
     ports:
       - 6006:80
     networks:
@@ -76,9 +76,9 @@ services:
       context: .
       dockerfile: ./apps/frontend-workshop/Dockerfile.test-runner
       cache_from:
-        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/storybook-test-runner:cache
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}-storybook-test-runner:cache
       cache_to:
-        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/storybook-test-runner:cache,mode=max
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}-storybook-test-runner:cache,mode=max
     networks:
       - test_network
     depends_on:
