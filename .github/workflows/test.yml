@@ -123,8 +123,9 @@ jobs:
         with:
           path: |
             docker-compose.gha.converted.yaml
-          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}
           restore-keys: |
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-
             ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-
             ${{ runner.os }}-docker-compose-
       - name: Set up Docker Build
@@ -148,8 +149,9 @@ jobs:
         with:
           path: |
             docker-compose.gha.converted.yaml
-          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}
           restore-keys: |
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-
             ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-
             ${{ runner.os }}-docker-compose-
       - name: Login to GitHub Container Registry
@@ -176,8 +178,9 @@ jobs:
         with:
           path: |
             docker-compose.gha.converted.yaml
-          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}
           restore-keys: |
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-
             ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-
             ${{ runner.os }}-docker-compose-
       - name: Login to GitHub Container Registry
@@ -218,8 +221,9 @@ jobs:
         with:
           path: |
             docker-compose.gha.converted.yaml
-          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}
           restore-keys: |
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-
             ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-
             ${{ runner.os }}-docker-compose-
       - name: Login to GitHub Container Registry
