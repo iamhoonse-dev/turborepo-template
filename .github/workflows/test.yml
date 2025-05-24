@@ -133,6 +133,7 @@ jobs:
       - name: inject environment variables
         run: |
           docker compose -f docker-compose.gha.yaml convert > docker-compose.gha.converted.yaml
+          cat docker-compose.gha.converted.yaml
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
           REPOSITORY_OWNER: ${{ github.repository_owner }}
