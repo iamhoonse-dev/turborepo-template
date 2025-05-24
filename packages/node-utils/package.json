@@ -1,7 +1,25 @@
 {
   "name": "@repo/node-utils",
-  "private": true,
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "version": "0.0.0",
+  "author": "iamhoonse",
+  "license": "MIT",
+  "description": "Node.js utilities for various tasks including file system operations, process management, and more.",
+  "keywords": [
+    "node",
+    "utils",
+    "msw"
+  ],
+  "homepage": "https://github.com/iamhoonse-dev/ecosystem-sample/tree/main/packages/node-utils",
+  "bugs": "https://github.com/iamhoonse-dev/ecosystem-sample/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iamhoonse-dev/ecosystem-sample.git",
+    "directory": "packages/node-utils"
+  },
   "type": "module",
   "scripts": {
     "lint": "eslint . --max-warnings 0",

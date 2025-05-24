@@ -1,13 +1,25 @@
 {
-  "name": "@repo/eslint-plugin-sample",
+  "name": "@iamhoonse/eslint-plugin-sample",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "version": "0.0.0",
+  "author": "iamhoonse",
+  "license": "MIT",
   "description": "This is a sample plugin.",
   "keywords": [
     "eslint",
     "eslintplugin",
     "eslint-plugin"
   ],
-  "author": "username",
+  "homepage": "https://github.com/iamhoonse-dev/ecosystem-sample/tree/main/packages/eslint-plugin-sample",
+  "bugs": "https://github.com/iamhoonse-dev/ecosystem-sample/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iamhoonse-dev/ecosystem-sample.git",
+    "directory": "packages/eslint-plugin-sample"
+  },
   "main": "./lib/index.js",
   "exports": "./lib/index.js",
   "files": [
@@ -35,6 +47,5 @@
   },
   "peerDependencies": {
     "eslint": ">=8.57.0"
-  },
-  "license": "MIT"
+  }
 }
