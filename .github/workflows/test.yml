@@ -123,8 +123,9 @@ jobs:
         with:
           path: |
             docker-compose.gha.converted.yaml
-          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}
           restore-keys: |
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-
             ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-
             ${{ runner.os }}-docker-compose-
       - name: Set up Docker Build
@@ -132,9 +133,11 @@ jobs:
       - name: inject environment variables
         run: |
           docker compose -f docker-compose.gha.yaml convert > docker-compose.gha.converted.yaml
+          cat docker-compose.gha.converted.yaml
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
           REPOSITORY_OWNER: ${{ github.repository_owner }}
+          REPOSITORY_NAME: ${{ github.event.repository.name }}
 
   lighthouse-test:
     needs: set-docker-compose
@@ -147,8 +150,9 @@ jobs:
         with:
           path: |
             docker-compose.gha.converted.yaml
-          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}
           restore-keys: |
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-
             ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-
             ${{ runner.os }}-docker-compose-
       - name: Login to GitHub Container Registry
@@ -175,8 +179,9 @@ jobs:
         with:
           path: |
             docker-compose.gha.converted.yaml
-          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}
           restore-keys: |
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-
             ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-
             ${{ runner.os }}-docker-compose-
       - name: Login to GitHub Container Registry
@@ -217,8 +222,9 @@ jobs:
         with:
           path: |
             docker-compose.gha.converted.yaml
-          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}
           restore-keys: |
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-
             ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-
             ${{ runner.os }}-docker-compose-
       - name: Login to GitHub Container Registry
