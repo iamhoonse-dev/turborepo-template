@@ -5,7 +5,7 @@
     "access": "public"
   },
   "version": "0.0.0",
-  "author": "iamhoonse",
+  "author": "iamhoonse-dev",
   "license": "MIT",
   "description": "React utilities including hooks, higher-order components (HOCs), and providers for various tasks such as state management, event handling, and more.",
   "keywords": [

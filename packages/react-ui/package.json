@@ -5,7 +5,7 @@
     "access": "public"
   },
   "version": "0.0.0",
-  "author": "iamhoonse",
+  "author": "iamhoonse-dev",
   "license": "MIT",
   "description": "React design system components built with shadcn/ui, providing a set of reusable UI components and utilities for building modern web applications.",
   "keywords": [

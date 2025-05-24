@@ -5,7 +5,7 @@
     "access": "public"
   },
   "version": "0.0.0",
-  "author": "iamhoonse",
+  "author": "iamhoonse-dev",
   "license": "MIT",
   "description": "Browser utilities for various tasks including string manipulation, DOM operations, and MSW integration, and more.",
   "keywords": [

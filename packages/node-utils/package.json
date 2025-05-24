@@ -5,7 +5,7 @@
     "access": "public"
   },
   "version": "0.0.0",
-  "author": "iamhoonse",
+  "author": "iamhoonse-dev",
   "license": "MIT",
   "description": "Node.js utilities for various tasks including file system operations, process management, and more.",
   "keywords": [
