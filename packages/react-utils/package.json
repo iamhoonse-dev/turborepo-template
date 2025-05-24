@@ -1,7 +1,27 @@
 {
   "name": "@repo/react-utils",
-  "private": true,
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "version": "0.0.0",
+  "author": "iamhoonse-dev",
+  "license": "MIT",
+  "description": "React utilities including hooks, higher-order components (HOCs), and providers for various tasks such as state management, event handling, and more.",
+  "keywords": [
+    "react",
+    "utils",
+    "hooks",
+    "hocs",
+    "msw"
+  ],
+  "homepage": "https://github.com/iamhoonse-dev/ecosystem-sample/tree/main/packages/react-utils",
+  "bugs": "https://github.com/iamhoonse-dev/ecosystem-sample/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iamhoonse-dev/ecosystem-sample.git",
+    "directory": "packages/react-utils"
+  },
   "type": "module",
   "scripts": {
     "lint": "eslint . --max-warnings 0",
