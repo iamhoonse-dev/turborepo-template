@@ -242,7 +242,7 @@ jobs:
       - name: Prepare docker external network
         run: |
           docker network inspect "test_network" >/dev/null 2>&1 || docker network create "test_network"
-      - name: Build Storybook image
+      - name: Build Storybook images
         run: |
           docker compose -f docker-compose.gha.converted.yaml build storybook storybook-test-runner
       - name: Run Storybook tests
