@@ -10,13 +10,14 @@ networks:
 services:
   # The web service is built from the Dockerfile located in the ./apps/web directory
   web:
+    image: ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}/web:cache
     build:
       context: .
       dockerfile: ./apps/web/Dockerfile
       cache_from:
-        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}-web:cache
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}/web:cache
       cache_to:
-        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}-web:cache,mode=max
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}/web:cache,mode=max
     ports:
       - 3000:3000
     networks:
@@ -24,13 +25,14 @@ services:
 
   # The Playwright service is built from the Dockerfile located in the ./tools/playwright directory
   playwright-web:
+    image: ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}/playwright-web:cache
     build:
       context: .
       dockerfile: ./tools/playwright-web/Dockerfile
       cache_from:
-        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}-playwright-web:cache
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}/playwright-web:cache
       cache_to:
-        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}-playwright-web:cache,mode=max
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}/playwright-web:cache,mode=max
     networks:
       - test_network
     depends_on:
@@ -40,13 +42,14 @@ services:
 
   # The Lighthouse CI service is built from the Dockerfile located in the ./tools/lighthouse-ci directory
   lighthouse-runner:
+    image: ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}/lighthouse-runner:cache
     build:
       context: .
       dockerfile: ./tools/lighthouse-ci/Dockerfile
       cache_from:
-        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}-lighthouse-runner:cache
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}/lighthouse-runner:cache
       cache_to:
-        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}-lighthouse-runner:cache,mode=max
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}/lighthouse-runner:cache,mode=max
     networks:
       - test_network
     depends_on:
@@ -58,13 +61,14 @@ services:
 
   # The frontend-workshop service is built from the Dockerfile located in the ./apps/frontend-workshop directory
   storybook:
+    image: ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}/storybook:cache
     build:
       context: .
       dockerfile: ./apps/frontend-workshop/Dockerfile
       cache_from:
-        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}-storybook:cache
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}/storybook:cache
       cache_to:
-        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}-storybook:cache,mode=max
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}/storybook:cache,mode=max
     ports:
       - 6006:80
     networks:
@@ -72,13 +76,14 @@ services:
 
   # The frontend-workshop-test-runner service is built from the Dockerfile located in the ./apps/frontend-workshop directory
   storybook-test-runner:
+    image: ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}/storybook-test-runner:cache
     build:
       context: .
       dockerfile: ./apps/frontend-workshop/Dockerfile.test-runner
       cache_from:
-        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}-storybook-test-runner:cache
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}/storybook-test-runner:cache
       cache_to:
-        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}-storybook-test-runner:cache,mode=max
+        - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}/storybook-test-runner:cache,mode=max
     networks:
       - test_network
     depends_on:

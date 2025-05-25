@@ -123,8 +123,9 @@ jobs:
         with:
           path: |
             docker-compose.gha.converted.yaml
-          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}-${{ hashFiles('**/docker-compose.gha.yaml') }}
           restore-keys: |
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}-
             ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-
             ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-
             ${{ runner.os }}-docker-compose-
@@ -150,8 +151,9 @@ jobs:
         with:
           path: |
             docker-compose.gha.converted.yaml
-          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}-${{ hashFiles('**/docker-compose.gha.yaml') }}
           restore-keys: |
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}-
             ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-
             ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-
             ${{ runner.os }}-docker-compose-
@@ -164,6 +166,9 @@ jobs:
       - name: Prepare docker external network
         run: |
           docker network inspect "test_network" >/dev/null 2>&1 || docker network create "test_network"
+      - name: Build Lighthouse images
+        run: |
+          docker compose -f docker-compose.gha.converted.yaml build web lighthouse-runner
       - name: Run Lighthouse tests
         run: |
           docker compose -f docker-compose.gha.converted.yaml up web lighthouse-runner --exit-code-from lighthouse-runner
@@ -179,8 +184,9 @@ jobs:
         with:
           path: |
             docker-compose.gha.converted.yaml
-          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}-${{ hashFiles('**/docker-compose.gha.yaml') }}
           restore-keys: |
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}-
             ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-
             ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-
             ${{ runner.os }}-docker-compose-
@@ -193,6 +199,9 @@ jobs:
       - name: Prepare docker external network
         run: |
           docker network inspect "test_network" >/dev/null 2>&1 || docker network create "test_network"
+      - name: Build E2E images
+        run: |
+          docker compose -f docker-compose.gha.converted.yaml build web playwright-web
       - name: Run E2E tests for web
         run: |
           docker compose -f docker-compose.gha.converted.yaml up web playwright-web --exit-code-from playwright-web
@@ -222,8 +231,9 @@ jobs:
         with:
           path: |
             docker-compose.gha.converted.yaml
-          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}-${{ hashFiles('**/docker-compose.gha.yaml') }}
           restore-keys: |
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}-
             ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-
             ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-
             ${{ runner.os }}-docker-compose-
@@ -236,6 +246,9 @@ jobs:
       - name: Prepare docker external network
         run: |
           docker network inspect "test_network" >/dev/null 2>&1 || docker network create "test_network"
+      - name: Build Storybook images
+        run: |
+          docker compose -f docker-compose.gha.converted.yaml build storybook storybook-test-runner
       - name: Run Storybook tests
         run: |
           docker compose -f docker-compose.gha.converted.yaml up storybook storybook-test-runner --exit-code-from storybook-test-runner
