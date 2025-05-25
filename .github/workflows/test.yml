@@ -167,6 +167,9 @@ jobs:
       - name: Build Lighthouse images
         run: |
           docker compose -f docker-compose.gha.converted.yaml build web lighthouse-runner
+      - name: Push Lighthouse images
+        run: |
+          docker compose -f docker-compose.gha.converted.yaml push web lighthouse-runner --ignore-push-failures
       - name: Run Lighthouse tests
         run: |
           docker compose -f docker-compose.gha.converted.yaml up web lighthouse-runner --exit-code-from lighthouse-runner
@@ -199,6 +202,9 @@ jobs:
       - name: Build E2E images
         run: |
           docker compose -f docker-compose.gha.converted.yaml build web playwright-web
+      - name: Push E2E images
+        run: |
+          docker compose -f docker-compose.gha.converted.yaml push web playwright-web --ignore-push-failures
       - name: Run E2E tests for web
         run: |
           docker compose -f docker-compose.gha.converted.yaml up web playwright-web --exit-code-from playwright-web
@@ -245,6 +251,9 @@ jobs:
       - name: Build Storybook images
         run: |
           docker compose -f docker-compose.gha.converted.yaml build storybook storybook-test-runner
+      - name: Push Storybook images
+        run: |
+          docker compose -f docker-compose.gha.converted.yaml push storybook storybook-test-runner --ignore-push-failures
       - name: Run Storybook tests
         run: |
           docker compose -f docker-compose.gha.converted.yaml up storybook storybook-test-runner --exit-code-from storybook-test-runner
