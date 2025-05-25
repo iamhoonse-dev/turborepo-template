@@ -166,7 +166,7 @@ jobs:
           docker network inspect "test_network" >/dev/null 2>&1 || docker network create "test_network"
       - name: Build Lighthouse images
         run: |
-          docker compose -f docker-compose.gha.converted.yaml build web lighthouse-runner
+          docker compose -f docker-compose.gha.converted.yaml build web lighthouse-runner --push
       - name: Run Lighthouse tests
         run: |
           docker compose -f docker-compose.gha.converted.yaml up web lighthouse-runner --exit-code-from lighthouse-runner
@@ -198,7 +198,7 @@ jobs:
           docker network inspect "test_network" >/dev/null 2>&1 || docker network create "test_network"
       - name: Build E2E images
         run: |
-          docker compose -f docker-compose.gha.converted.yaml build web playwright-web
+          docker compose -f docker-compose.gha.converted.yaml build web playwright-web --push
       - name: Run E2E tests for web
         run: |
           docker compose -f docker-compose.gha.converted.yaml up web playwright-web --exit-code-from playwright-web
@@ -244,7 +244,7 @@ jobs:
           docker network inspect "test_network" >/dev/null 2>&1 || docker network create "test_network"
       - name: Build Storybook images
         run: |
-          docker compose -f docker-compose.gha.converted.yaml build storybook storybook-test-runner
+          docker compose -f docker-compose.gha.converted.yaml build storybook storybook-test-runner --push
       - name: Run Storybook tests
         run: |
           docker compose -f docker-compose.gha.converted.yaml up storybook storybook-test-runner --exit-code-from storybook-test-runner
