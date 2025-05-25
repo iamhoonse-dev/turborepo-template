@@ -10,6 +10,7 @@ networks:
 services:
   # The web service is built from the Dockerfile located in the ./apps/web directory
   web:
+    image: ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}-web:cache
     build:
       context: .
       dockerfile: ./apps/web/Dockerfile
@@ -24,6 +25,7 @@ services:
 
   # The Playwright service is built from the Dockerfile located in the ./tools/playwright directory
   playwright-web:
+    image: ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}-playwright-web:cache
     build:
       context: .
       dockerfile: ./tools/playwright-web/Dockerfile
@@ -40,6 +42,7 @@ services:
 
   # The Lighthouse CI service is built from the Dockerfile located in the ./tools/lighthouse-ci directory
   lighthouse-runner:
+    image: ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}-lighthouse-runner:cache
     build:
       context: .
       dockerfile: ./tools/lighthouse-ci/Dockerfile
@@ -58,6 +61,7 @@ services:
 
   # The frontend-workshop service is built from the Dockerfile located in the ./apps/frontend-workshop directory
   storybook:
+    image: ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}-storybook:cache
     build:
       context: .
       dockerfile: ./apps/frontend-workshop/Dockerfile
@@ -72,6 +76,7 @@ services:
 
   # The frontend-workshop-test-runner service is built from the Dockerfile located in the ./apps/frontend-workshop directory
   storybook-test-runner:
+    image: ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}-storybook-test-runner:cache
     build:
       context: .
       dockerfile: ./apps/frontend-workshop/Dockerfile.test-runner
