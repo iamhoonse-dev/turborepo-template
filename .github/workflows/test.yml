@@ -123,8 +123,9 @@ jobs:
         with:
           path: |
             docker-compose.gha.converted.yaml
-          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}-${{ hashFiles('**/docker-compose.gha.yaml') }}
           restore-keys: |
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}-
             ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-
             ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-
             ${{ runner.os }}-docker-compose-
@@ -150,8 +151,9 @@ jobs:
         with:
           path: |
             docker-compose.gha.converted.yaml
-          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}-${{ hashFiles('**/docker-compose.gha.yaml') }}
           restore-keys: |
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}-
             ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-
             ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-
             ${{ runner.os }}-docker-compose-
@@ -185,8 +187,9 @@ jobs:
         with:
           path: |
             docker-compose.gha.converted.yaml
-          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}-${{ hashFiles('**/docker-compose.gha.yaml') }}
           restore-keys: |
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}-
             ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-
             ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-
             ${{ runner.os }}-docker-compose-
@@ -234,8 +237,9 @@ jobs:
         with:
           path: |
             docker-compose.gha.converted.yaml
-          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          key: ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}-${{ hashFiles('**/docker-compose.gha.yaml') }}
           restore-keys: |
+            ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ secrets.LHCI_GITHUB_APP_TOKEN }}-
             ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-${{ github.event.repository.name }}-
             ${{ runner.os }}-docker-compose-${{ github.repository_owner }}-
             ${{ runner.os }}-docker-compose-
