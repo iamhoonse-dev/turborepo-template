@@ -13,11 +13,11 @@
     "eslintplugin",
     "eslint-plugin"
   ],
-  "homepage": "https://github.com/iamhoonse-dev/ecosystem-sample/tree/main/packages/eslint-plugin-sample",
-  "bugs": "https://github.com/iamhoonse-dev/ecosystem-sample/issues",
+  "homepage": "https://github.com/iamhoonse-dev/turborepo-template/tree/main/packages/eslint-plugin-sample",
+  "bugs": "https://github.com/iamhoonse-dev/turborepo-template/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/iamhoonse-dev/ecosystem-sample.git",
+    "url": "https://github.com/iamhoonse-dev/turborepo-template.git",
     "directory": "packages/eslint-plugin-sample"
   },
   "main": "./lib/index.js",
