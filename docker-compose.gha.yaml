@@ -18,8 +18,6 @@ services:
         - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}/web:cache
       cache_to:
         - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}/web:cache,mode=max
-    ports:
-      - 3000:3000
     networks:
       - test_network
 
