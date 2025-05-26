@@ -67,8 +67,6 @@ services:
         - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}/storybook:cache
       cache_to:
         - type=registry,ref=ghcr.io/${REPOSITORY_OWNER}/${REPOSITORY_NAME}/storybook:cache,mode=max
-    ports:
-      - 6006:80
     networks:
       - test_network
 
