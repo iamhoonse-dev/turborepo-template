@@ -47,6 +47,11 @@
       "import": "./dist/components/index.es.js",
       "require": "./dist/components/index.cjs.js"
     },
+    "./constants": {
+      "types": "./dist/constants/index.d.ts",
+      "import": "./dist/constants/index.es.js",
+      "require": "./dist/constants/index.cjs.js"
+    },
     "./base.css": "./dist/styles/base.css"
   },
   "files": [
