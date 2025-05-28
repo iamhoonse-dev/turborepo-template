@@ -112,7 +112,6 @@ Happy Hacking!
 
 이 섹션은 다양한 애플리케이션을 포함하고 있어요. 각 앱은 특정 목적을 위해 설계되었으며, Next.js와 같은 최신 기술 스택을 활용하고 있어요.
 
-- **[Docs](./apps/docs)**: Next.js 기반의 문서화 앱이에요.
 - **[Web](./apps/web)**: Next.js 기반의 웹 애플리케이션이에요.
 - **[Frontend Workshop](./apps/frontend-workshop)**: 컴포넌트 개발이랑 테스트를 위한 Storybook 환경이에요.
 
@@ -133,8 +132,6 @@ Happy Hacking!
   - 🟢 [npm](https://npmjs.org) 에 배포되도록 설정되어 있어요.
 - **[React Utils](./packages/react-utils)**: React 애플리케이션에서 쓸 수 있는 유틸리티 함수 모음이에요.
   - 🟢 [npm](https://npmjs.org) 에 배포되도록 설정되어 있어요.
-- **[UI](./packages/ui)**: 공통 UI 컴포넌트랑 스타일이에요.
-  - 🛑 [npm](https://npmjs.org) 에 배포되지 않도록 설정되어 있어요.
 
 ### 🧩 Shared
 
