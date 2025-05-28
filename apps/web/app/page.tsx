@@ -1,5 +1,4 @@
 import Image, { type ImageProps } from "next/image";
-import { Button } from "@repo/ui/button";
 import { isEmptyString } from "@repo/browser-utils/string";
 import HelloWorldButton from "../components/HelloWorldButton";
 import AutoCounter from "../containers/AutoCounter";
@@ -96,9 +95,6 @@ export default function Home() {
             Read our docs
           </a>
         </div>
-        <Button appName="web" className={styles.secondary}>
-          Open alert
-        </Button>
         <FancyShadcnButton />
         <ButtonFromPackage />
       </main>
