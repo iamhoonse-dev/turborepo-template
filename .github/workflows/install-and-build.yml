@@ -85,6 +85,7 @@ jobs:
             apps/*/.next
             !apps/*/.next/cache
             apps/*/storybook-static
+            apps/*/out
             packages/*/dist
             configs/*/dist
             shared/*/dist

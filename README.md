@@ -7,6 +7,10 @@
 
 `Turborepo Template`은 모노레포 관리랑 빌드를 단순화하려고 만든 템플릿이에요. 이 템플릿은 다양한 앱과 패키지를 포함하고 있어서, 팀 협업과 생산성을 높이는 데 도움을 줄 거예요.
 
+## 📖 상세 가이드
+
+본 프로젝트에 대한 보다 상세한 내용은 GitHub Pages에 배포된 [문서](https://iamhoonse-dev.github.io/turborepo-template/)를 참고해 주세요.
+
 ## 🔗 구성 요소 간 관계도
 
 이 템플릿은 여러 앱과 패키지로 구성돼 있어요. 각 앱과 패키지 간의 관계는 아래의 다이어그램을 참고해 주세요.
@@ -40,21 +44,25 @@ graph TD
     IRKD("@repo/react-utils") --> QHZT("@repo/browser-utils")
     EMLE("@repo/typescript-config") --> TXWC("___ROOT___")
     LRHC("@repo/vitest-config") --> EMLE("@repo/typescript-config")
-    UWBQ("frontend-workshop") --> ETTT("@repo/eslint-config")
-    UWBQ("frontend-workshop") --> MKNG("@repo/react-ui")
-    FBWM("lighthouse-ci") --> ETTT("@repo/eslint-config")
-    NRTE("playwright-web") --> ETTT("@repo/eslint-config")
-    NRTE("playwright-web") --> BHWE("@repo/playwright-config")
-    NRTE("playwright-web") --> EMLE("@repo/typescript-config")
-    NRTE("playwright-web") --> GVMR("web")
-    GVMR("web") --> QHZT("@repo/browser-utils")
-    GVMR("web") --> ETTT("@repo/eslint-config")
-    GVMR("web") --> WCIN("@repo/http-clients")
-    GVMR("web") --> TPBW("@repo/node-utils")
-    GVMR("web") --> MKNG("@repo/react-ui")
-    GVMR("web") --> IRKD("@repo/react-utils")
-    GVMR("web") --> EMLE("@repo/typescript-config")
-    GVMR("web") --> LRHC("@repo/vitest-config")
+    UWBQ("docs") --> ETTT("@repo/eslint-config")
+    UWBQ("docs") --> EMLE("@repo/typescript-config")
+    FBWM("empty-next-app") --> ETTT("@repo/eslint-config")
+    FBWM("empty-next-app") --> EMLE("@repo/typescript-config")
+    NRTE("frontend-workshop") --> ETTT("@repo/eslint-config")
+    NRTE("frontend-workshop") --> MKNG("@repo/react-ui")
+    GVMR("lighthouse-ci") --> ETTT("@repo/eslint-config")
+    ITTZ("playwright-web") --> ETTT("@repo/eslint-config")
+    ITTZ("playwright-web") --> BHWE("@repo/playwright-config")
+    ITTZ("playwright-web") --> EMLE("@repo/typescript-config")
+    ITTZ("playwright-web") --> VXGS("web")
+    VXGS("web") --> QHZT("@repo/browser-utils")
+    VXGS("web") --> ETTT("@repo/eslint-config")
+    VXGS("web") --> WCIN("@repo/http-clients")
+    VXGS("web") --> TPBW("@repo/node-utils")
+    VXGS("web") --> MKNG("@repo/react-ui")
+    VXGS("web") --> IRKD("@repo/react-utils")
+    VXGS("web") --> EMLE("@repo/typescript-config")
+    VXGS("web") --> LRHC("@repo/vitest-config")
 ```
 
 > 💡 **참고:**  
@@ -112,9 +120,10 @@ Happy Hacking!
 
 이 섹션은 다양한 애플리케이션을 포함하고 있어요. 각 앱은 특정 목적을 위해 설계되었으며, Next.js와 같은 최신 기술 스택을 활용하고 있어요.
 
+- **[Empty Next App](./apps/empty-next-app)**: Next.js를 사용한 빈 애플리케이션 템플릿이에요.
 - **[Web](./apps/web)**: Next.js 기반의 웹 애플리케이션이에요.
 - **[Frontend Workshop](./apps/frontend-workshop)**: 컴포넌트 개발이랑 테스트를 위한 Storybook 환경이에요.
-- **[Empty Next App](./apps/empty-next-app)**: Next.js를 사용한 빈 애플리케이션 템플릿이에요.
+- **[Docs](./apps/docs)**: 본 프로젝트에 대한 Next.js 기반의 문서화 프로젝트로, [Nextra](https://nextra.site/)를 사용해서 작성되었어요.
 
 ### 📦 Packages
 
@@ -180,6 +189,17 @@ Happy Hacking!
 - 이 Workflow는 Changesets 봇을 사용해서 PR을 생성하고, 변경 사항을 자동으로 추적해요.
 - PR을 승인하면, 변경된 패키지의 버전이 업데이트되고, `CHANGELOG.md` 파일이 생성돼요.
 - 그리고 승인된 PR이 병합되면서 실행되는 Workflow에 의해, `NPM_TOKEN`을 사용하여 npm에 패키지가 배포돼요.
+
+### 📖 [Publish GitHub Pages](.github/workflows/publish-gh-pages.yml)
+
+[`publish-gh-pages.yml`](.github/workflows/publish-gh-pages.yml) 파일에 정의되어 있으며, [`docs`](./apps/docs) 앱을 GitHub Pages에 배포해요.
+
+## 📖 GitHub Pages 사용
+
+이 프로젝트는 GitHub Pages를 사용해서 [`docs`](./apps/docs) 앱을 배포하고 있어요.
+배포된 문서는 아래 링크에서 확인할 수 있어요.
+
+[GitHub Pages 문서 보러 가기](https://iamhoonse-dev.github.io/turborepo-template/)
 
 ## 🐳 GitHub Container Registry 사용
 
