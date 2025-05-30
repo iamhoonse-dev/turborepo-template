@@ -16,8 +16,11 @@ const navbar = (
   />
 );
 
+// currentYear is used in the footer to display the current year dynamically
 // eslint-disable-next-line sample/no-new-date
-const footer = <Footer>MIT {new Date().getFullYear()} © Nextra.</Footer>;
+const currentYear = new Date().getFullYear();
+
+const footer = <Footer>MIT {currentYear} © Nextra.</Footer>;
 
 export default async function RootLayout({
   children,
