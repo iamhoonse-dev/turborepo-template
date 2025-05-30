@@ -114,6 +114,7 @@ Happy Hacking!
 
 - **[Web](./apps/web)**: Next.js 기반의 웹 애플리케이션이에요.
 - **[Frontend Workshop](./apps/frontend-workshop)**: 컴포넌트 개발이랑 테스트를 위한 Storybook 환경이에요.
+- **[Empty Next App](./apps/empty-next-app)**: Next.js를 사용한 빈 애플리케이션 템플릿이에요.
 
 ### 📦 Packages
 
