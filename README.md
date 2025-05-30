@@ -40,21 +40,25 @@ graph TD
     IRKD("@repo/react-utils") --> QHZT("@repo/browser-utils")
     EMLE("@repo/typescript-config") --> TXWC("___ROOT___")
     LRHC("@repo/vitest-config") --> EMLE("@repo/typescript-config")
-    UWBQ("frontend-workshop") --> ETTT("@repo/eslint-config")
-    UWBQ("frontend-workshop") --> MKNG("@repo/react-ui")
-    FBWM("lighthouse-ci") --> ETTT("@repo/eslint-config")
-    NRTE("playwright-web") --> ETTT("@repo/eslint-config")
-    NRTE("playwright-web") --> BHWE("@repo/playwright-config")
-    NRTE("playwright-web") --> EMLE("@repo/typescript-config")
-    NRTE("playwright-web") --> GVMR("web")
-    GVMR("web") --> QHZT("@repo/browser-utils")
-    GVMR("web") --> ETTT("@repo/eslint-config")
-    GVMR("web") --> WCIN("@repo/http-clients")
-    GVMR("web") --> TPBW("@repo/node-utils")
-    GVMR("web") --> MKNG("@repo/react-ui")
-    GVMR("web") --> IRKD("@repo/react-utils")
-    GVMR("web") --> EMLE("@repo/typescript-config")
-    GVMR("web") --> LRHC("@repo/vitest-config")
+    UWBQ("docs") --> ETTT("@repo/eslint-config")
+    UWBQ("docs") --> EMLE("@repo/typescript-config")
+    FBWM("empty-next-app") --> ETTT("@repo/eslint-config")
+    FBWM("empty-next-app") --> EMLE("@repo/typescript-config")
+    NRTE("frontend-workshop") --> ETTT("@repo/eslint-config")
+    NRTE("frontend-workshop") --> MKNG("@repo/react-ui")
+    GVMR("lighthouse-ci") --> ETTT("@repo/eslint-config")
+    ITTZ("playwright-web") --> ETTT("@repo/eslint-config")
+    ITTZ("playwright-web") --> BHWE("@repo/playwright-config")
+    ITTZ("playwright-web") --> EMLE("@repo/typescript-config")
+    ITTZ("playwright-web") --> VXGS("web")
+    VXGS("web") --> QHZT("@repo/browser-utils")
+    VXGS("web") --> ETTT("@repo/eslint-config")
+    VXGS("web") --> WCIN("@repo/http-clients")
+    VXGS("web") --> TPBW("@repo/node-utils")
+    VXGS("web") --> MKNG("@repo/react-ui")
+    VXGS("web") --> IRKD("@repo/react-utils")
+    VXGS("web") --> EMLE("@repo/typescript-config")
+    VXGS("web") --> LRHC("@repo/vitest-config")
 ```
 
 > 💡 **참고:**  
@@ -112,9 +116,10 @@ Happy Hacking!
 
 이 섹션은 다양한 애플리케이션을 포함하고 있어요. 각 앱은 특정 목적을 위해 설계되었으며, Next.js와 같은 최신 기술 스택을 활용하고 있어요.
 
+- **[Empty Next App](./apps/empty-next-app)**: Next.js를 사용한 빈 애플리케이션 템플릿이에요.
 - **[Web](./apps/web)**: Next.js 기반의 웹 애플리케이션이에요.
 - **[Frontend Workshop](./apps/frontend-workshop)**: 컴포넌트 개발이랑 테스트를 위한 Storybook 환경이에요.
-- **[Empty Next App](./apps/empty-next-app)**: Next.js를 사용한 빈 애플리케이션 템플릿이에요.
+- **[Docs](./apps/docs)**: 본 프로젝트에 대한 Next.js 기반의 문서화 프로젝트로, [Nextra](https://nextra.site/)를 사용해서 작성되었어요.
 
 ### 📦 Packages
 
