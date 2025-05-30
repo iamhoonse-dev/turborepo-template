@@ -2,6 +2,7 @@
 
 [![test](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/test.yml/badge.svg?event=push)](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/test.yml)
 [![Release](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/release.yml/badge.svg?event=push)](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/release.yml)
+[![publish-github-pages](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/publish-github-pages.yml/badge.svg)](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/publish-github-pages.yml)
 
 ## 📖 개요
 
