@@ -4,6 +4,7 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --concurrency 11",
+    "dev:comment": "echo \"The concurrency level is set to 11 to optimize parallel task execution based on typical hardware capabilities and project requirements.\"",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
