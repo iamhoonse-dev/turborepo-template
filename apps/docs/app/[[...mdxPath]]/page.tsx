@@ -1,5 +1,6 @@
 import { generateStaticParamsFor, importPage } from "nextra/pages";
 import { useMDXComponents as getMDXComponents } from "../../mdx-components";
+import GiscusCommentsContainer from "../../containers/GisqusCommentsContainer";
 
 export const generateStaticParams = generateStaticParamsFor("mdxPath");
 
@@ -21,6 +22,12 @@ export default async function Page(props: Props) {
   return (
     <Wrapper toc={toc} metadata={metadata}>
       <MDXContent {...props} params={params} />
+      <GiscusCommentsContainer
+        repo={process.env.GISCUS_REPO}
+        repoId={process.env.GISCUS_REPO_ID}
+        category={process.env.GISCUS_DISCUSSION_CATEGORY}
+        categoryId={process.env.GISCUS_DISCUSSION_CATEGORY_ID}
+      />
     </Wrapper>
   );
 }

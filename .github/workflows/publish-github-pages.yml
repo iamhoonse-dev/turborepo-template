@@ -79,6 +79,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Generate .env file for docs
+        run: |
+          echo "GISCUS_REPO=${{ github.repository }}" > apps/docs/.env.local
+          echo "GISCUS_REPO_ID=${{ secrets.GISCUS_REPO_ID }}" >> apps/docs/.env.local
+          echo "GISCUS_DISCUSSION_CATEGORY=${{ vars.GISCUS_DISCUSSION_CATEGORY }}" >> apps/docs/.env.local
+          echo "GISCUS_DISCUSSION_CATEGORY_ID=${{ secrets.GISCUS_DISCUSSION_CATEGORY_ID }}" >> apps/docs/.env.local
+
       - name: Build docs app
         run: pnpm run build --filter=docs
 
