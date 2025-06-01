@@ -191,16 +191,16 @@ Happy Hacking!
 - PR을 승인하면, 변경된 패키지의 버전이 업데이트되고, `CHANGELOG.md` 파일이 생성돼요.
 - 그리고 승인된 PR이 병합되면서 실행되는 Workflow에 의해, `NPM_TOKEN`을 사용하여 npm에 패키지가 배포돼요.
 
-### 📖 [Publish GitHub Pages](.github/workflows/publish-gh-pages.yml)
+### 📖 [Publish GitHub Pages](.github/workflows/publish-github-pages.yml)
 
-[`publish-gh-pages.yml`](.github/workflows/publish-gh-pages.yml) 파일에 정의되어 있으며, [`docs`](./apps/docs) 앱을 GitHub Pages에 배포해요.
+[`publish-github-pages.yml`](.github/workflows/publish-github-pages.yml) 파일에 정의되어 있으며, [`docs`](./apps/docs) 앱을 GitHub Pages에 배포해요.
 
 - 이 Workflow는 `docs` 앱의 빌드를 수행하고, 빌드된 결과물을 GitHub Pages에 배포해요.
 - GitHub Pages 로의 배포를 위해서는 레포지토리의 Settings 에서 Pages를 활성화해야 해요.
 - 배포된 문서는 [https://<USER_ID>.github.io/<PROJECT_NAME>](https://iamhoonse-dev.github.io/turborepo-template/) 형식의 URL로 접근할 수 있어요.
 
 > [!WARNING]
-> GitHub Pages를 활성화하지 않으면, [`publish-gh-pages.yml`](.github/workflows/publish-gh-pages.yml) 워크플로우가 실패할 수 있어요. \
+> GitHub Pages를 활성화하지 않으면, [`publish-github-pages.yml`](.github/workflows/publish-github-pages.yml) 워크플로우가 실패할 수 있어요. \
 > 따라서 [`docs`](./apps/docs) 앱이 정상적으로 배포되지 않아요. \
 > GitHub Pages를 활성화하려면 아래의 [GitHub Pages 사용](#-github-pages-사용) 섹션의 가이드에 따라 GitHub Pages 를 활성화해 주세요.
 
@@ -249,7 +249,7 @@ Giscus GitHub App을 설치하려면 다음 단계를 따라 주세요:
    - **`data-repo-id`**: Giscus GitHub App을 설치한 레포지토리의 Secrets 의 `GISCUS_REPO_ID` 변수로 등록해요.
    - **`data-category`**: Giscus GitHub App을 설치한 레포지토리의 Variables 의 `GISCUS_DISCUSSION_CATEGORY` 변수로 등록해요.
    - **`data-category-id`**: Giscus GitHub App을 설치한 레포지토리의 Secrets 의 `GISCUS_DISCUSSION_CATEGORY_ID` 변수로 등록해요.
-4. 앞서 설정한 변수들은 `publish-gh-pages.yml` 워크플로우에서 GitHub Pages에 배포할 때 사용돼요.
+4. 앞서 설정한 변수들은 [`publish-github-pages.yml`](.github/workflows/publish-github-pages.yml) 워크플로우에서 GitHub Pages에 배포할 때 사용돼요.
 
 ## 🗼 Lighthouse CI GitHub App 사용
 
