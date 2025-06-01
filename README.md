@@ -209,12 +209,20 @@ Happy Hacking!
 
 이 프로젝트는 GitHub Pages를 사용해서 [`docs`](./apps/docs) 앱을 배포하고 있어요.
 GitHub Pages 배포가 정상적으로 동작하려면 Settings에서 Pages를 활성화해야 해요.
-절차는 다음과 같아요:
+
+> [!WARNING]
+> GitHub Pages를 활성화하지 않으면, publish-gh-pages 워크플로우가 실패할 수 있어요. \
+> 따라서 [`docs`](./apps/docs) 앱이 정상적으로 배포되지 않아요. \
+> GitHub Pages를 활성화하려면 아래의 단계를 따라 주세요.
+
+### GitHub Pages 활성화 방법
 
 1. GitHub 레포지토리 페이지로 이동해요.
 2. `Settings` 탭을 클릭해요.
 3. `Pages` 섹션으로 가요.
 4. `Build and deployment`에서 `Source`를 `GitHub Actions`로 설정해요.
+
+### 배포된 문서 확인
 
 배포된 문서의 URL 은 다음과 같은 구조를 가져요:
 
