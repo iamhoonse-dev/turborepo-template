@@ -191,9 +191,18 @@ Happy Hacking!
 - PR을 승인하면, 변경된 패키지의 버전이 업데이트되고, `CHANGELOG.md` 파일이 생성돼요.
 - 그리고 승인된 PR이 병합되면서 실행되는 Workflow에 의해, `NPM_TOKEN`을 사용하여 npm에 패키지가 배포돼요.
 
-### 📖 [Publish GitHub Pages](.github/workflows/publish-gh-pages.yml)
+### 📖 [Publish GitHub Pages](.github/workflows/publish-github-pages.yml)
 
-[`publish-gh-pages.yml`](.github/workflows/publish-gh-pages.yml) 파일에 정의되어 있으며, [`docs`](./apps/docs) 앱을 GitHub Pages에 배포해요.
+[`publish-github-pages.yml`](.github/workflows/publish-github-pages.yml) 파일에 정의되어 있으며, [`docs`](./apps/docs) 앱을 GitHub Pages에 배포해요.
+
+- 이 Workflow는 `docs` 앱의 빌드를 수행하고, 빌드된 결과물을 GitHub Pages에 배포해요.
+- GitHub Pages 로의 배포를 위해서는 레포지토리의 Settings 에서 Pages를 활성화해야 해요.
+- 배포된 문서는 [https://<USER_ID>.github.io/<PROJECT_NAME>](https://iamhoonse-dev.github.io/turborepo-template/) 형식의 URL로 접근할 수 있어요.
+
+> [!WARNING]
+> GitHub Pages를 활성화하지 않으면, [`publish-github-pages.yml`](.github/workflows/publish-github-pages.yml) 워크플로우가 실패할 수 있어요. \
+> 따라서 [`docs`](./apps/docs) 앱이 정상적으로 배포되지 않아요. \
+> GitHub Pages를 활성화하려면 아래의 [GitHub Pages 사용](#-github-pages-사용) 섹션의 가이드에 따라 GitHub Pages 를 활성화해 주세요.
 
 ## 🐳 GitHub Container Registry 사용
 
@@ -209,34 +218,69 @@ Happy Hacking!
 
 이 프로젝트는 GitHub Pages를 사용해서 [`docs`](./apps/docs) 앱을 배포하고 있어요.
 GitHub Pages 배포가 정상적으로 동작하려면 Settings에서 Pages를 활성화해야 해요.
-절차는 다음과 같아요:
+
+### GitHub Pages 활성화 방법
 
 1. GitHub 레포지토리 페이지로 이동해요.
 2. `Settings` 탭을 클릭해요.
 3. `Pages` 섹션으로 가요.
 4. `Build and deployment`에서 `Source`를 `GitHub Actions`로 설정해요.
 
-배포된 문서의 URL 은 다음과 같은 구조를 가져요:
+## 💬 Giscus GitHub App 사용
 
-> [https://<USER_ID>.github.io/<PROJECT_NAME>](https://iamhoonse-dev.github.io/turborepo-template/)
+이 프로젝트는 Giscus를 사용해서 GitHub Discussions을 문서화 앱에 통합하고 있어요. Giscus는 GitHub Discussions를 기반으로 하는 댓글 시스템으로, 문서에 댓글을 달 수 있게 해줘요.
+
+### Giscus GitHub App 설치
+
+Giscus GitHub App을 설치하려면 다음 단계를 따라 주세요:
+
+1. [Giscus GitHub App](https://github.com/apps/giscus) 페이지로 이동해요.
+2. `Install` 버튼을 클릭해요.
+3. 설치할 레포지토리를 선택해요.
+4. `Install and Authorize` 버튼을 클릭해요.
+
+### Giscus 설정
+
+1. [Giscus 설정 페이지](https://giscus.app/)로 이동해요.
+2. 아래의 "설정" 섹션에서 다음과 같이 필요한 정보들을 입력해요:
+   - **저장소**: 앞 단계에서 Giscus GitHub App을 설치한 레포지토리를 `<USER_NAME>/<REPOSITORY_NAME>` 형식으로 입력해요.
+   - **Discussion 카테고리**: 연결할 GitHub Discussions 카테고리를 선택해요. 만약 카테고리가 없다면, GitHub 레포지토리의 Discussions 탭에서 새 카테고리를 생성해요.
+3. 설정을 완료한 후, 아래의 "giscus 사용" 섹션에서 제공하는 코드에서 아래의 3가지 정보들을 확인하고, 프로젝트 Variables 또는 Secrets에 등록해요:
+   - **`data-repo-id`**: Giscus GitHub App을 설치한 레포지토리의 Secrets 의 `GISCUS_REPO_ID` 변수로 등록해요.
+   - **`data-category`**: Giscus GitHub App을 설치한 레포지토리의 Variables 의 `GISCUS_DISCUSSION_CATEGORY` 변수로 등록해요.
+   - **`data-category-id`**: Giscus GitHub App을 설치한 레포지토리의 Secrets 의 `GISCUS_DISCUSSION_CATEGORY_ID` 변수로 등록해요.
+4. 앞서 설정한 변수들은 [`publish-github-pages.yml`](.github/workflows/publish-github-pages.yml) 워크플로우에서 GitHub Pages에 배포할 때 사용돼요.
 
 ## 🗼 Lighthouse CI GitHub App 사용
 
 Lighthouse 테스트가 정상적으로 동작하려면 GitHub Secrets에 `LHCI_GITHUB_APP_TOKEN` 변수를 반드시 등록해야 해요.
 이 토큰은 Lighthouse CI가 GitHub PR과 연동되어 결과를 보고하거나 상태 체크를 수행할 때 필요해요.
 
+### Lighthouse CI GitHub App 설치
+
+Lighthouse CI GitHub App을 설치하려면 다음 단계를 따라 주세요:
+
+1. [Lighthouse CI GitHub App](https://github.com/apps/lighthouse-ci) 페이지로 이동해요.
+2. `Install` 버튼을 클릭해요.
+3. 설치할 레포지토리를 선택해요.
+4. `Install and Authorize` 버튼을 클릭해요.
+5. 조금 기다리고 나면, `LHCI_GITHUB_APP_TOKEN`이라는 이름으로 새로운 토큰을 사용하라는 화면이 나와요. 여기서 하단에 표시되는 토큰을 복사해요.
+6. 설치한 GitHub 레포지토리의 `Settings` 탭으로 이동해요.
+7. Integrations 그룹 아래에 있는 GitHub Apps 메뉴로 가요.
+8. 목록에 `Lighthouse CI`가 보이면, 레포지토리에 Lighthouse CI App 설치에 성공한 거예요.
+
 ### `LHCI_GITHUB_APP_TOKEN` 등록 방법
 
 1. GitHub 레포지토리 페이지로 이동해요.
 2. `Settings` 탭을 클릭해요.
 3. `Secrets and variables` 섹션으로 가요.
-4. `Actions`를 선택해요.
+4. `Actions` 메뉴를 선택해요.
 5. `New repository secret` 버튼을 클릭해요.
 6. [Lighthouse CI GitHub App](https://github.com/apps/lighthouse-ci)에서 발급받은 토큰을 `LHCI_GITHUB_APP_TOKEN`이라는 이름으로 추가해요.
 
 > [!TIP]
 > 토큰이 없으면 워크플로우의 `lighthouse-test` 작업에서 "github token not set" 경고가 발생할 수 있어요.
-> 실행 자체에는 문제가 없지만, Lighthouse test 결과를 웹에서 확인할 수 없게 되요.
+> 실행 자체에는 문제가 없지만, Lighthouse test 결과를 MR 웹에서 확인할 수 없게 되요.
 
 ## 🦋 패키지 버저닝 및 배포
 
