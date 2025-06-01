@@ -195,6 +195,15 @@ Happy Hacking!
 
 [`publish-gh-pages.yml`](.github/workflows/publish-gh-pages.yml) 파일에 정의되어 있으며, [`docs`](./apps/docs) 앱을 GitHub Pages에 배포해요.
 
+- 이 Workflow는 `docs` 앱의 빌드를 수행하고, 빌드된 결과물을 GitHub Pages에 배포해요.
+- GitHub Pages 로의 배포를 위해서는 레포지토리의 Settings 에서 Pages를 활성화해야 해요.
+- 배포된 문서는 [https://<USER_ID>.github.io/<PROJECT_NAME>](https://iamhoonse-dev.github.io/turborepo-template/) 형식의 URL로 접근할 수 있어요.
+
+> [!WARNING]
+> GitHub Pages를 활성화하지 않으면, [`publish-gh-pages.yml`](.github/workflows/publish-gh-pages.yml) 워크플로우가 실패할 수 있어요. \
+> 따라서 [`docs`](./apps/docs) 앱이 정상적으로 배포되지 않아요. \
+> GitHub Pages를 활성화하려면 아래의 [GitHub Pages 사용](#-github-pages-사용) 섹션의 가이드에 따라 GitHub Pages 를 활성화해 주세요.
+
 ## 🐳 GitHub Container Registry 사용
 
 일부 `docker-compose` 기반 워크플로우(예: Storybook, E2E, Lighthouse 테스트)에서는 Docker 이미지 빌드 시 [GitHub Container Registry(GHCR)](https://ghcr.io/)를 활용해서 이미지 레이어를 캐싱해요.  
@@ -210,23 +219,12 @@ Happy Hacking!
 이 프로젝트는 GitHub Pages를 사용해서 [`docs`](./apps/docs) 앱을 배포하고 있어요.
 GitHub Pages 배포가 정상적으로 동작하려면 Settings에서 Pages를 활성화해야 해요.
 
-> [!WARNING]
-> GitHub Pages를 활성화하지 않으면, publish-gh-pages 워크플로우가 실패할 수 있어요. \
-> 따라서 [`docs`](./apps/docs) 앱이 정상적으로 배포되지 않아요. \
-> GitHub Pages를 활성화하려면 아래의 단계를 따라 주세요.
-
 ### GitHub Pages 활성화 방법
 
 1. GitHub 레포지토리 페이지로 이동해요.
 2. `Settings` 탭을 클릭해요.
 3. `Pages` 섹션으로 가요.
 4. `Build and deployment`에서 `Source`를 `GitHub Actions`로 설정해요.
-
-### 배포된 문서 확인
-
-배포된 문서의 URL 은 다음과 같은 구조를 가져요:
-
-> [https://<USER_ID>.github.io/<PROJECT_NAME>](https://iamhoonse-dev.github.io/turborepo-template/)
 
 ## 🗼 Lighthouse CI GitHub App 사용
 
