@@ -225,18 +225,31 @@ GitHub Pages 배포가 정상적으로 동작하려면 Settings에서 Pages를 �
 Lighthouse 테스트가 정상적으로 동작하려면 GitHub Secrets에 `LHCI_GITHUB_APP_TOKEN` 변수를 반드시 등록해야 해요.
 이 토큰은 Lighthouse CI가 GitHub PR과 연동되어 결과를 보고하거나 상태 체크를 수행할 때 필요해요.
 
+### Lighthouse CI GitHub App 설치
+
+Lighthouse CI GitHub App을 설치하려면 다음 단계를 따라 주세요:
+
+1. [Lighthouse CI GitHub App](https://github.com/apps/lighthouse-ci) 페이지로 이동해요.
+2. `Install` 버튼을 클릭해요.
+3. 설치할 레포지토리를 선택해요.
+4. `Install and Authorize` 버튼을 클릭해요.
+5. 조금 기다리고 나면, `LHCI_GITHUB_APP_TOKEN`이라는 이름으로 새로운 토큰을 사용하라는 화면이 나와요. 여기서 하단에 표시되는 토큰을 복사해요.
+6. 설치한 GitHub 레포지토리의 `Settings` 탭으로 이동해요.
+7. Integrations 그룹 아래에 있는 GitHub Apps 메뉴로 가요.
+8. 목록에 `Lighthouse CI`가 보이면, 레포지토리에 Lighthouse CI App 설치에 성공한 거예요.
+
 ### `LHCI_GITHUB_APP_TOKEN` 등록 방법
 
 1. GitHub 레포지토리 페이지로 이동해요.
 2. `Settings` 탭을 클릭해요.
 3. `Secrets and variables` 섹션으로 가요.
-4. `Actions`를 선택해요.
+4. `Actions` 메뉴를 선택해요.
 5. `New repository secret` 버튼을 클릭해요.
 6. [Lighthouse CI GitHub App](https://github.com/apps/lighthouse-ci)에서 발급받은 토큰을 `LHCI_GITHUB_APP_TOKEN`이라는 이름으로 추가해요.
 
 > [!TIP]
 > 토큰이 없으면 워크플로우의 `lighthouse-test` 작업에서 "github token not set" 경고가 발생할 수 있어요.
-> 실행 자체에는 문제가 없지만, Lighthouse test 결과를 웹에서 확인할 수 없게 되요.
+> 실행 자체에는 문제가 없지만, Lighthouse test 결과를 MR 웹에서 확인할 수 없게 되요.
 
 ## 🦋 패키지 버저닝 및 배포
 
