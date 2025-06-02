@@ -6,7 +6,7 @@ import { nextConfig } from "../../next.config";
 import "nextra-theme-docs/style.css";
 
 /**
- * 이 함수는 Next.js의 `generateStaticParams`를 사용하여 [locale] 경로의 정적 매개변수를 생성합니다.
+ * this function generates static parameters for the internationalization (i18n) locales
  */
 export const generateStaticParams = async () => {
   // Check if i18n locales are defined in next.config.js
@@ -38,7 +38,7 @@ const currentYear = new Date().getFullYear();
 const footer = <Footer>MIT {currentYear} © Nextra.</Footer>;
 
 /**
- * i18nDropdownMenu는 Nextra 레이아웃의 i18n 드롭다운 메뉴에 표시할 목록을 정의합니다.
+ * i18nDropdownMenu is used to generate a dropdown menu for language selection in the Nextra layout.
  */
 const i18nDropdownMenu: ComponentProps<typeof Layout>["i18n"] =
   nextConfig.i18n?.locales.map((locale) => ({
@@ -58,8 +58,9 @@ const i18nDropdownMenu: ComponentProps<typeof Layout>["i18n"] =
   }));
 
 /**
- * RootLayout 컴포넌트는 Nextra 문서 레이아웃의 루트 레이아웃을 정의합니다.
- * [locale] 경로에 대한 레이아웃을 설정합니다.
+ * RootLayout is the root layout component for the Nextra documentation site.
+ * It sets up the HTML structure, head elements, and the main layout with a banner, navbar, footer, and page map.
+ * It also handles internationalization by using the `params` prop to determine the current locale.
  */
 type Props = Readonly<{
   children: ReactNode;
