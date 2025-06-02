@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ComponentProps, ReactNode } from "react";
 import { Footer, Layout, Navbar } from "nextra-theme-docs";
 import { Banner, Head } from "nextra/components";
 import { getPageMap } from "nextra/page-map";
@@ -38,6 +38,26 @@ const currentYear = new Date().getFullYear();
 const footer = <Footer>MIT {currentYear} © Nextra.</Footer>;
 
 /**
+ * i18nDropdownMenu는 Nextra 레이아웃의 i18n 드롭다운 메뉴에 표시할 목록을 정의합니다.
+ */
+const i18nDropdownMenu: ComponentProps<typeof Layout>["i18n"] =
+  nextConfig.i18n?.locales.map((locale) => ({
+    locale,
+    name: (function getLabel(localeString: string) {
+      switch (localeString) {
+        case "en":
+          return "🇺🇸English";
+        case "ko":
+          return "🇰🇷한국어";
+        case "ja":
+          return "🇯🇵日本語";
+        default:
+          return localeString.toUpperCase();
+      }
+    })(locale),
+  }));
+
+/**
  * RootLayout 컴포넌트는 Nextra 문서 레이아웃의 루트 레이아웃을 정의합니다.
  * [locale] 경로에 대한 레이아웃을 설정합니다.
  */
@@ -71,6 +91,7 @@ export default async function RootLayout({ children, params }: Props) {
           docsRepositoryBase="https://github.com/shuding/nextra/tree/main/docs"
           footer={footer}
           // ... Your additional layout options
+          i18n={i18nDropdownMenu}
         >
           {children}
         </Layout>
