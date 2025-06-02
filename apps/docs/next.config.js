@@ -6,11 +6,7 @@ const withNextra = nextra({
 });
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
-
-export default withNextra({
-  ...nextConfig,
-
+export const nextConfig = {
   // Set the output to "export" for static site generation
   output: "export",
 
@@ -21,4 +17,11 @@ export default withNextra({
   images: {
     unoptimized: true,
   },
+};
+
+/**
+ * Next.js 에 Nextra를 통합한 설정 구성을 사용합니다.
+ */
+export default withNextra({
+  ...nextConfig,
 });
