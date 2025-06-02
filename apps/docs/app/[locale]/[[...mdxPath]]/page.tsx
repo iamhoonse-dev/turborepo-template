@@ -1,15 +1,20 @@
 import { generateStaticParamsFor, importPage } from "nextra/pages";
-import { useMDXComponents as getMDXComponents } from "../../mdx-components";
-import GiscusCommentsContainer from "../../containers/GisqusCommentsContainer";
+import { useMDXComponents as getMDXComponents } from "../../../mdx-components";
+import GiscusCommentsContainer from "../../../containers/GisqusCommentsContainer";
 
-export const generateStaticParams = generateStaticParamsFor("mdxPath");
+export const generateStaticParams = generateStaticParamsFor(
+  "mdxPath",
+  "locale",
+);
 
 // This function is used to generate metadata for the page.
-type Props = { params: Promise<{ mdxPath: string[] }> };
+type Props = {
+  params: Promise<{ locale: string; mdxPath: string[] }>;
+};
 
 export async function generateMetadata(props: Props) {
   const params = await props.params;
-  const { metadata } = await importPage(params.mdxPath);
+  const { metadata } = await importPage(params.mdxPath, params.locale);
   return metadata;
 }
 
@@ -17,7 +22,7 @@ const Wrapper = getMDXComponents().wrapper;
 
 export default async function Page(props: Props) {
   const params = await props.params;
-  const result = await importPage(params.mdxPath);
+  const result = await importPage(params.mdxPath, params.locale);
   const { default: MDXContent, toc, metadata } = result;
   return (
     <Wrapper toc={toc} metadata={metadata}>

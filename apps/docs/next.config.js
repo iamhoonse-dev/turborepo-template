@@ -17,6 +17,12 @@ export const nextConfig = {
   images: {
     unoptimized: true,
   },
+
+  // Set the locale configuration for internationalization
+  i18n: {
+    locales: ["en", "ko", "ja"],
+    defaultLocale: "en",
+  },
 };
 
 /**
