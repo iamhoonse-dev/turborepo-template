@@ -9,7 +9,7 @@ export const generateStaticParams = generateStaticParamsFor(
 );
 
 /**
- * LocaleRouteParams is a type that represents the route parameters for the markdown  path.
+ * MdxPathRouteParams is a type that represents the route parameters for the markdown  path.
  */
 export type MdxPathRouteParams = { mdxPath: string[] };
 
