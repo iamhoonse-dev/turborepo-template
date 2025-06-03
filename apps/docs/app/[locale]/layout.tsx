@@ -58,17 +58,30 @@ const i18nDropdownMenu: ComponentProps<typeof Layout>["i18n"] =
   }));
 
 /**
+ * LocaleRouteParams is a type that represents the route parameters for the locale.
+ */
+export type LocaleRouteParams = { locale: string };
+
+/**
  * RootLayout is the root layout component for the Nextra documentation site.
  * It sets up the HTML structure, head elements, and the main layout with a banner, navbar, footer, and page map.
  * It also handles internationalization by using the `params` prop to determine the current locale.
  */
 type Props = Readonly<{
   children: ReactNode;
-  params: Promise<{ locale: string }>;
+  params: Promise<LocaleRouteParams>;
 }>;
 
 export default async function RootLayout({ children, params }: Props) {
   const { locale } = await params;
+
+  const pageMap = await getPageMap(`/${locale}`);
+  const pageMapLocale = pageMap.map((page) => ({
+    ...page,
+    // Ensure the route is prefixed with the locale
+    // @ts-expect-error TS2339
+    route: `/${locale}${page.route}`,
+  }));
 
   return (
     <html
@@ -88,7 +101,7 @@ export default async function RootLayout({ children, params }: Props) {
         <Layout
           banner={banner}
           navbar={navbar}
-          pageMap={await getPageMap(`/${locale}`)}
+          pageMap={pageMapLocale}
           docsRepositoryBase="https://github.com/shuding/nextra/tree/main/docs"
           footer={footer}
           // ... Your additional layout options

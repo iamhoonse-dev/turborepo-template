@@ -1,15 +1,21 @@
 import { generateStaticParamsFor, importPage } from "nextra/pages";
 import { useMDXComponents as getMDXComponents } from "../../../mdx-components";
 import GiscusCommentsContainer from "../../../containers/GisqusCommentsContainer";
+import type { LocaleRouteParams } from "../layout";
 
 export const generateStaticParams = generateStaticParamsFor(
   "mdxPath",
   "locale",
 );
 
+/**
+ * LocaleRouteParams is a type that represents the route parameters for the markdown  path.
+ */
+export type MdxPathRouteParams = { mdxPath: string[] };
+
 // This function is used to generate metadata for the page.
 type Props = {
-  params: Promise<{ locale: string; mdxPath: string[] }>;
+  params: Promise<LocaleRouteParams & MdxPathRouteParams>;
 };
 
 export async function generateMetadata(props: Props) {

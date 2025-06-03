@@ -10,7 +10,7 @@
 
 ## 📖 상세 가이드
 
-본 프로젝트에 대한 보다 상세한 내용은 GitHub Pages에 배포된 [문서](https://iamhoonse-dev.github.io/turborepo-template/)를 참고해 주세요.
+본 프로젝트에 대한 보다 상세한 내용은 GitHub Pages에 배포된 [문서](https://iamhoonse-dev.github.io/turborepo-template/ko)를 참고해 주세요.
 
 ## 🔗 구성 요소 간 관계도
 
