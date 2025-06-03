@@ -8,9 +8,14 @@ export const generateStaticParams = generateStaticParamsFor(
   "locale",
 );
 
+/**
+ * LocaleRouteParams is a type that represents the route parameters for the markdown  path.
+ */
+export type MdxPathRouteParams = { mdxPath: string[] };
+
 // This function is used to generate metadata for the page.
 type Props = {
-  params: Promise<LocaleRouteParams & { mdxPath: string[] }>;
+  params: Promise<LocaleRouteParams & MdxPathRouteParams>;
 };
 
 export async function generateMetadata(props: Props) {
