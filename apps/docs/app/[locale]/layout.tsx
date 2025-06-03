@@ -40,7 +40,7 @@ const footer = <Footer>MIT {currentYear} © Nextra.</Footer>;
 /**
  * getLabelFromLocale is a utility function that returns a localized label for a given locale string.
  *
- * @param locale = The locale string (e.g., "en", "ko", "ja").
+ * @param locale - The locale string (e.g., "en", "ko", "ja").
  */
 function getLabelFromLocale(locale: string) {
   switch (locale) {
