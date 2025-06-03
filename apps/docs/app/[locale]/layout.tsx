@@ -38,23 +38,30 @@ const currentYear = new Date().getFullYear();
 const footer = <Footer>MIT {currentYear} © Nextra.</Footer>;
 
 /**
+ * getLabelFromLocale is a utility function that returns a localized label for a given locale string.
+ *
+ * @param locale - The locale string (e.g., "en", "ko", "ja").
+ */
+function getLabelFromLocale(locale: string) {
+  switch (locale) {
+    case "en":
+      return "🇺🇸English";
+    case "ko":
+      return "🇰🇷한국어";
+    case "ja":
+      return "🇯🇵日本語";
+    default:
+      return locale.toUpperCase();
+  }
+}
+
+/**
  * i18nDropdownMenu is used to generate a dropdown menu for language selection in the Nextra layout.
  */
 const i18nDropdownMenu: ComponentProps<typeof Layout>["i18n"] =
   nextConfig.i18n?.locales.map((locale) => ({
     locale,
-    name: (function getLabel(localeString: string) {
-      switch (localeString) {
-        case "en":
-          return "🇺🇸English";
-        case "ko":
-          return "🇰🇷한국어";
-        case "ja":
-          return "🇯🇵日本語";
-        default:
-          return localeString.toUpperCase();
-      }
-    })(locale),
+    name: getLabelFromLocale(locale),
   }));
 
 /**
@@ -102,7 +109,7 @@ export default async function RootLayout({ children, params }: Props) {
           banner={banner}
           navbar={navbar}
           pageMap={pageMapLocale}
-          docsRepositoryBase="https://github.com/shuding/nextra/tree/main/docs"
+          docsRepositoryBase="https://github.com/iamhoonse-dev/turborepo-template/tree/main/apps/docs"
           footer={footer}
           // ... Your additional layout options
           i18n={i18nDropdownMenu}
