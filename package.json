@@ -18,8 +18,8 @@
     "view-report": "turbo run view-report",
     "merge-json-reports": "turbo run merge-json-reports",
     "prepare": "husky",
-    "version-packages": "turbo run build lint test && changeset version",
-    "publish-packages": "turbo run build lint test && changeset version && changeset publish"
+    "version-packages": "changeset version",
+    "publish-packages": "changeset version && changeset publish"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",
