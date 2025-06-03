@@ -21,7 +21,7 @@ export const nextConfig = {
   // Set the locale configuration for internationalization
   i18n: {
     locales: ["en", "ko", "ja"],
-    defaultLocale: "en",
+    defaultLocale: "ko",
   },
 };
 
