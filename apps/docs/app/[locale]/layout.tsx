@@ -70,6 +70,14 @@ type Props = Readonly<{
 export default async function RootLayout({ children, params }: Props) {
   const { locale } = await params;
 
+  const pageMap = await getPageMap(`/${locale}`);
+  const pageMapLocale = pageMap.map((page) => ({
+    ...page,
+    // Ensure the route is prefixed with the locale
+    // @ts-expect-error TS2339
+    route: `/${locale}${page.route}`,
+  }));
+
   return (
     <html
       // Not required, but good for SEO
@@ -88,7 +96,7 @@ export default async function RootLayout({ children, params }: Props) {
         <Layout
           banner={banner}
           navbar={navbar}
-          pageMap={await getPageMap(`/${locale}`)}
+          pageMap={pageMapLocale}
           docsRepositoryBase="https://github.com/shuding/nextra/tree/main/docs"
           footer={footer}
           // ... Your additional layout options
