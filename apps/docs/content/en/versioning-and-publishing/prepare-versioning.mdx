@@ -1,0 +1,22 @@
+# 🦋 Writing a New Changeset
+
+This document explains how to manage and publish package versions using `pnpm changeset`.
+Specifically, it describes the process for recording changes to update a package's version.
+To write a changeset for a package, run the following commands in your local environment:
+
+1. Add a new changeset: When you run the command, a prompt will appear for you to describe the changes. This allows you to record the changes.
+    ```bash
+    pnpm changeset
+    ```
+
+2. Update versions and apply changes: This command updates the versions of all packages and creates or updates the `CHANGELOG.md` file.
+    ```bash
+    pnpm changeset version
+    ```
+3. Publish: This command publishes the updated packages to npm. To publish, `NPM_TOKEN` must be set in GitHub Secrets.
+    ```bash
+    pnpm changeset publish
+    ```
+
+For more details, refer to the [official documentation](https://github.com/changesets/changesets).
+

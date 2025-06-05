@@ -1,0 +1,25 @@
+# 💬 Giscus
+
+This project integrates GitHub Discussions into the documentation app using Giscus. Giscus is a comment system based on GitHub Discussions, allowing users to leave comments on documentation pages.
+
+## Installing the Giscus GitHub App
+
+To install the Giscus GitHub App, follow these steps:
+
+1. Go to the [Giscus GitHub App](https://github.com/apps/giscus) page.
+2. Click the `Install` button.
+3. Select the repository to install it on.
+4. Click the `Install and Authorize` button.
+
+## Giscus Configuration
+
+1. Go to the [Giscus configuration page](https://giscus.app/).
+2. In the "Configuration" section, enter the required information as follows:
+    - **Repository**: Enter the repository where you installed the Giscus GitHub App in the format `<USER_NAME>/<REPOSITORY_NAME>`.
+    - **Discussion Category**: Select the GitHub Discussions category to link. If there is no category, create a new one in the Discussions tab of your GitHub repository.
+3. After completing the configuration, check the following three pieces of information in the code provided in the "Enable giscus" section, and register them as project Variables or Secrets:
+    - **`data-repo-id`**: Register as the `GISCUS_REPO_ID` secret in your repository.
+    - **`data-category`**: Register as the `GISCUS_DISCUSSION_CATEGORY` variable in your repository.
+    - **`data-category-id`**: Register as the `GISCUS_DISCUSSION_CATEGORY_ID` secret in your repository.
+4. The variables set above are used when deploying to GitHub Pages via the [`publish-github-pages.yml`](.github/workflows/publish-github-pages.yml) workflow.
+

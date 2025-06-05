@@ -1,0 +1,18 @@
+# 📦 NPM
+
+This project is configured to allow some packages to be published to NPM.
+This document explains the basic setup for publishing to NPM.
+
+## Setting up the npm token (Optional)
+
+You need to set the `NPM_TOKEN` as a secret variable in your project.
+This token is used to publish packages to npm.
+To add `NPM_TOKEN` to GitHub Secrets, follow these steps:
+
+1. Go to your GitHub repository page.
+2. Click the `Settings` tab.
+3. Go to the `Secrets and variables` section.
+4. Select `Actions`.
+5. Click the `New repository secret` button.
+6. Add the token issued from [npm](https://www.npmjs.com/) as `NPM_TOKEN`.
+7. In the [`release.yml`](.github/workflows/release.yml) file, uncomment the `publish` step at the end of the "Create Release Pull Request" stage.

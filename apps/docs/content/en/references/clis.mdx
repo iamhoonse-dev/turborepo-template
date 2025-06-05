@@ -1,0 +1,110 @@
+# 🧑‍💻️ Monorepo CLI
+
+## 📖 Overview
+
+This project provides a set of command-line interface (CLI) tools for developers to manage a monorepo codebase.
+These tools mainly help manage directories and files, and perform tasks such as replacing specific strings within the codebase.
+They are designed to simplify maintenance and management tasks, and to help maintain consistency across the codebase.
+
+## 📦 Provided Features
+
+### **[example](./src/example/index.ts)**
+A CLI tool for managing directories and files. Main features:
+- `-l, --ls [value]`: Lists the contents of a directory. If `value` is not specified, lists the current directory.
+- `-m, --mkdir <value>`: Creates a new directory.
+- `-t, --touch <value>`: Creates a new file.
+
+### **[change-owner-name](./src/change-owner-name/index.ts)**
+A CLI tool that traverses all files in the codebase and replaces occurrences of the owner ID.
+- `-n, --name <value>`: Specifies the new owner name.
+
+### **[rename-repository](./src/rename-repository/index.ts)**
+A CLI tool that traverses all files in the codebase and replaces occurrences of the repository name.
+- `-n, --name <value>`: Specifies the new repository name.
+
+### **[rename-scope](./src/rename-scope/index.ts)**
+A CLI tool that traverses all files in the codebase and replaces the scope part (e.g. `@repo/`) before package names.
+- `-n, --name <value>`: Specifies the new scope name.
+
+## ⬇️ Installation
+
+### Install with pnpm
+
+To use the monorepo commands provided by this project, first install dependencies and build the CLI tools.
+Run the following command at the project root:
+
+```bash
+pnpm install
+```
+
+## 🧑‍💻 Usage Examples
+
+### `example` command
+
+#### List directory contents
+
+If you do not specify `[directory-path]`, it lists the contents of the current directory.
+
+```bash
+example --ls [directory-path]
+```
+
+#### Create a directory
+
+Creates a directory named `<directory-name>`.
+
+```bash
+example --mkdir <directory-name>
+```
+
+#### Create a file
+
+Creates a file named `<file-name>`.
+
+```bash
+example --touch <file-name>
+```
+
+### `change-owner-name` command
+
+#### Change owner ID
+
+```bash
+change-owner-name -n your-username
+
+# or equivalently
+
+change-owner-name --name your-username
+```
+
+### `rename-repository` command
+
+#### Change repository name
+
+```bash
+rename-repository -n new-repository-name
+
+# or equivalently
+
+rename-repository --name new-repository-name
+```
+
+### `rename-scope` command
+
+#### Change scope name
+
+```bash
+rename-scope -n new-scope-name
+
+# or equivalently
+
+rename-scope --name new-scope-name
+```
+
+## 🤝 Contributing
+
+To contribute to these tools, please refer to [CONTRIBUTING.md](../../CONTRIBUTING.md).
+
+## 📜 License
+
+This project is distributed under the MIT License.

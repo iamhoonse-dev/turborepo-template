@@ -1,0 +1,53 @@
+# 🚀 Quickstart
+
+## Use this template
+
+After clicking the "Use this template" button to create your repository, run the commands below.
+
+## Install dependencies
+
+To use the monorepo commands provided by this project, you must first install dependencies. Run the following command:
+
+```bash
+pnpm install
+```
+
+## Change owner ID
+
+This command traverses all files in the codebase and replaces occurrences of the existing owner ID.
+For more details, see the [`tools/cli` README](./tools/cli/README.md#-provided-features).
+
+```bash
+change-owner-name --name your-username
+```
+
+## Change repository name
+
+This command traverses all files in the codebase and replaces occurrences of the existing repository name.
+For more details, see the [`tools/cli` README](./tools/cli/README.md#-provided-features).
+
+```bash
+rename-repository --name new-repository-name
+```
+
+## Change scope name
+
+This command traverses all files in the codebase and replaces occurrences of the existing scope name.
+If you need to publish some components in the monorepo to [npm](https://www.npmjs.com/) under a specific scope (e.g. `new-scope-name`), this will be useful.
+For more details, see the [`tools/cli` README](./tools/cli/README.md#-provided-features).
+
+```bash
+rename-scope --name new-scope-name
+```
+
+## Run development server
+
+Now you can run the development server and check the application. Run the following command:
+
+```bash
+pnpm dev
+```
+
+## 🎉 Enjoy it !
+
+Happy Hacking!

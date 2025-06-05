@@ -1,0 +1,31 @@
+# 🗼 Lighthouse CI
+
+To ensure Lighthouse tests work properly, you must register the `LHCI_GITHUB_APP_TOKEN` variable in your GitHub Secrets.
+This token is required for Lighthouse CI to report results or perform status checks in conjunction with GitHub PRs.
+
+## Installing the Lighthouse CI GitHub App
+
+To install the Lighthouse CI GitHub App, follow these steps:
+
+1. Go to the [Lighthouse CI GitHub App](https://github.com/apps/lighthouse-ci) page.
+2. Click the `Install` button.
+3. Select the repository to install it on.
+4. Click the `Install and Authorize` button.
+5. After a short wait, you will see a screen instructing you to use a new token named `LHCI_GITHUB_APP_TOKEN`. Copy the token displayed at the bottom.
+6. Go to the `Settings` tab of your GitHub repository.
+7. Under the Integrations group, go to the GitHub Apps menu.
+8. If you see `Lighthouse CI` in the list, the app has been successfully installed on your repository.
+
+## How to Register `LHCI_GITHUB_APP_TOKEN`
+
+1. Go to your GitHub repository page.
+2. Click the `Settings` tab.
+3. Go to the `Secrets and variables` section.
+4. Select the `Actions` menu.
+5. Click the `New repository secret` button.
+6. Add the token issued from the [Lighthouse CI GitHub App](https://github.com/apps/lighthouse-ci) as `LHCI_GITHUB_APP_TOKEN`.
+
+> [!TIP]
+> If you do not have the token, you may see a "github token not set" warning in the `lighthouse-test` job of your workflow.
+> This does not affect execution, but you will not be able to view Lighthouse test results in the MR web interface.
+

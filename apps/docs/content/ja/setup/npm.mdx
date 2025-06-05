@@ -1,0 +1,18 @@
+# 📦 NPM
+
+このプロジェクトはいくつかのパッケージをNPMに公開できるように設定されています。
+このドキュメントではNPM公開のための基本的な設定方法を説明します。
+
+## npm公開用トークンの設定（オプション）
+
+プロジェクトのシークレット変数に `NPM_TOKEN` を設定する必要があります。
+このトークンはnpmにパッケージを公開する際に使用されます。
+GitHub Secretsに `NPM_TOKEN` を追加するには、以下の手順に従ってください：
+
+1. GitHubリポジトリのページに移動します。
+2. `Settings` タブをクリックします。
+3. `Secrets and variables` セクションに移動します。
+4. `Actions` を選択します。
+5. `New repository secret` ボタンをクリックします。
+6. [npm](https://www.npmjs.com/)で発行したトークンを `NPM_TOKEN` という名前で追加します。
+7. [`release.yml`](.github/workflows/release.yml) ファイルの最後の "Create Release Pull Request" ステップの `publish` のコメントアウトを解除します。
