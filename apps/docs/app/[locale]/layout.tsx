@@ -29,6 +29,7 @@ const navbar = (
   <Navbar
     logo={<b>turborepo-template</b>}
     // ... Your additional navbar options
+    projectLink="https://github.com/iamhoonse-dev/turborepo-template"
   />
 );
 
