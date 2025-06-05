@@ -1,0 +1,107 @@
+# 🧑‍💻️ モノレポCLI
+
+## 📖 概要
+
+このプロジェクトでは、開発者がモノレポ構成のコードベースを管理するためのコマンドラインインターフェース（CLI）ツール群を提供しています。
+主にディレクトリやファイルの管理、コードベース内の特定文字列の変更などの作業を行うためのツールが含まれています。
+これらのツールは、コードベースの保守や管理作業を簡素化し、一貫性を保つために設計されています。
+
+## 📦 提供機能
+
+### **[example](./src/example/index.ts)**
+ディレクトリやファイルを管理するためのCLIツールです。主な機能は以下の通りです：
+- `-l, --ls [value]`：ディレクトリの内容を一覧表示します。`value`を指定しない場合はカレントディレクトリを表示します。
+- `-m, --mkdir <value>`：新しいディレクトリを作成します。
+- `-t, --touch <value>`：新しいファイルを作成します。
+### **[change-owner-name](./src/change-owner-name/index.ts)**
+コードベース内のすべてのファイルを検索し、既存のオーナーIDが記載されている部分を置換するCLIツールです。
+- `-n, --name <value>`：新しいオーナー名を指定します。
+### **[rename-repository](./src/rename-repository/index.ts)**
+コードベース内のすべてのファイルを検索し、リポジトリ名が記載されている部分を置換するCLIツールです。
+- `-n, --name <value>`：新しいリポジトリ名を指定します。
+### **[rename-scope](./src/rename-scope/index.ts)**
+コードベース内のすべてのファイルを検索し、既存のパッケージ名の前に記載されているスコープ部分（例：`@repo/`）を置換するCLIツールです。
+- `-n, --name <value>`：新しいスコープ名を指定します。
+
+## ⬇️ インストール
+
+### pnpmインストール
+
+このプロジェクトで提供されるモノレポコマンドを使うには、まず依存関係をインストールし、CLIツールをビルドする必要があります。
+プロジェクトルートで以下のコマンドを実行してください：
+
+```bash
+pnpm install
+```
+
+## 🧑‍💻 コマンド使用例
+
+### `example` コマンド
+
+#### ディレクトリ内容の一覧表示
+
+`[directory-path]`を指定しない場合はカレントディレクトリの内容を表示します。
+
+```bash
+example --ls [directory-path]
+```
+
+#### ディレクトリ作成
+
+`<directory-name>`に 해당하는 디렉토리를 생성해요.
+
+```bash
+example --mkdir <directory-name>
+```
+
+#### ファイル作成
+
+`<file-name>`に 해당하는 ファイルを 생성해요.
+
+```bash
+example --touch <file-name>
+```
+
+### `change-owner-name` コマンド
+
+#### オーナーIDの変更
+
+```bash
+change-owner-name -n your-username
+
+# または同等のコマンド
+
+change-owner-name --name your-username
+```
+
+### `rename-repository` コマンド
+
+#### リポジトリ名の変更
+
+```bash
+rename-repository -n new-repository-name
+
+# または同等のコマンド
+
+rename-repository --name new-repository-name
+```
+
+### `rename-scope` コマンド
+
+#### スコープ名の変更
+
+```bash
+rename-scope -n new-scope-name
+
+# または同等のコマンド
+
+rename-scope --name new-scope-name
+```
+
+## 🤝 貢献
+
+このツールに貢献するには、[CONTRIBUTING.md](../../CONTRIBUTING.md)を参照してください。
+
+## 📜 ライセンス
+
+このプロジェクトはMITライセンスの下で配布されています。

@@ -1,0 +1,30 @@
+# 🗼 Lighthouse CI
+
+Lighthouseテストを正常に動作させるには、GitHub Secretsに `LHCI_GITHUB_APP_TOKEN` 変数を必ず登録する必要があります。
+このトークンはLighthouse CIがGitHub PRと連携して結果を報告したり、ステータスチェックを行う際に必要です。
+
+## Lighthouse CI GitHub Appのインストール
+
+Lighthouse CI GitHub Appをインストールするには、以下の手順に従ってください：
+
+1. [Lighthouse CI GitHub App](https://github.com/apps/lighthouse-ci) ページにアクセスします。
+2. `Install` ボタンをクリックします。
+3. インストールするリポジトリを選択します。
+4. `Install and Authorize` ボタンをクリックします。
+5. 少し待つと、`LHCI_GITHUB_APP_TOKEN` という名前で新しいトークンを使う画面が表示されます。ここで下部に表示されるトークンをコピーします。
+6. インストールしたGitHubリポジトリの `Settings` タブに移動します。
+7. IntegrationsグループのGitHub Appsメニューに進みます。
+8. 一覧に `Lighthouse CI` が表示されていれば、リポジトリへのLighthouse CI Appのインストールは成功です。
+
+## `LHCI_GITHUB_APP_TOKEN` 登録方法
+
+1. GitHubリポジトリのページに移動します。
+2. `Settings` タブをクリックします。
+3. `Secrets and variables` セクションに移動します。
+4. `Actions` メニューを選択します。
+5. `New repository secret` ボタンをクリックします。
+6. [Lighthouse CI GitHub App](https://github.com/apps/lighthouse-ci) で発行したトークンを `LHCI_GITHUB_APP_TOKEN` という名前で追加します。
+
+> [!TIP]
+> トークンがない場合、ワークフローの `lighthouse-test` ジョブで「github token not set」という警告が出ることがあります。
+> 実行自体には問題ありませんが、Lighthouseテストの結果をMRのWeb上で確認できなくなります。

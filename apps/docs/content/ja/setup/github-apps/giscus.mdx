@@ -1,0 +1,24 @@
+# 💬 Giscus
+
+このプロジェクトはGiscusを使ってGitHub Discussionsをドキュメントアプリに統合しています。GiscusはGitHub Discussionsを基盤としたコメントシステムで、ドキュメントにコメントを付けることができます。
+
+## Giscus GitHub Appのインストール
+
+Giscus GitHub Appをインストールするには、以下の手順に従ってください：
+
+1. [Giscus GitHub App](https://github.com/apps/giscus) ページにアクセスします。
+2. `Install` ボタンをクリックします。
+3. インストールするリポジトリを選択します。
+4. `Install and Authorize` ボタンをクリックします。
+
+## Giscusの設定
+
+1. [Giscus設定ページ](https://giscus.app/)にアクセスします。
+2. 下部の「設定」セクションで、次の情報を入力します：
+    - **リポジトリ**：前の手順でGiscus GitHub Appをインストールしたリポジトリを `<USER_NAME>/<REPOSITORY_NAME>` 形式で入力します。
+    - **Discussionカテゴリ**：連携するGitHub Discussionsカテゴリを選択します。カテゴリがない場合は、GitHubリポジトリのDiscussionsタブで新しいカテゴリを作成してください。
+3. 設定が完了したら、「giscus使用」セクションで表示されるコードから、以下3つの情報を確認し、プロジェクトのVariablesまたはSecretsに登録します：
+    - **`data-repo-id`**：Giscus GitHub AppをインストールしたリポジトリのSecretsに `GISCUS_REPO_ID` という変数名で登録します。
+    - **`data-category`**：Giscus GitHub AppをインストールしたリポジトリのVariablesに `GISCUS_DISCUSSION_CATEGORY` という変数名で登録します。
+    - **`data-category-id`**：Giscus GitHub AppをインストールしたリポジトリのSecretsに `GISCUS_DISCUSSION_CATEGORY_ID` という変数名で登録します。
+4. 上記で設定した変数は、[`publish-github-pages.yml`](.github/workflows/publish-github-pages.yml) ワークフローでGitHub Pagesにデプロイする際に使用されます。
