@@ -25,13 +25,6 @@ export const metadata = {
 };
 
 const banner = <Banner storageKey="some-key">Nextra 4.0 is released 🎉</Banner>;
-const navbar = (
-  <Navbar
-    logo={<b>turborepo-template</b>}
-    // ... Your additional navbar options
-    projectLink="https://github.com/iamhoonse-dev/turborepo-template"
-  />
-);
 
 // currentYear is used in the footer to display the current year dynamically
 // eslint-disable-next-line sample/no-new-date
@@ -121,7 +114,13 @@ export default async function RootLayout({ children, params }: Props) {
       <body>
         <Layout
           banner={banner}
-          navbar={navbar}
+          navbar={
+            <Navbar
+              logo={<b>turborepo-template</b>}
+              logoLink={`/${locale}`}
+              projectLink="https://github.com/iamhoonse-dev/turborepo-template"
+            />
+          }
           pageMap={pageMapLocale}
           docsRepositoryBase="https://github.com/iamhoonse-dev/turborepo-template/tree/main/apps/docs"
           footer={footer}
