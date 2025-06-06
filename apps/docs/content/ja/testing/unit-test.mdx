@@ -1,2 +1,139 @@
 # 🧪 ユニットテスト
 
+## ⚡ Vitest ベース
+
+このプロジェクトは [Vitest](https://vitest.dev/) をテストランナーとして使用しています。
+
+### ⚙️ Vitest 設定
+
+共通テスト設定は `configs/vitest-config/configs` ディレクトリ内の複数の設定ファイルに分割して管理されています。
+各パッケージ/アプリは必要に応じて設定ファイルを拡張または組み合わせて利用できます。
+
+- **`base.ts`**  
+  - Vitest の基本的な設定を定義するファイルです。
+  - テストカバレッジレポート関連の設定など、
+  - すべてのパッケージ/アプリで共通して適用すべきオプションを含みます。
+  - 他の環境別設定ファイル（`ui.ts`, `node.ts` など）のベースとなります。
+
+- **`ui.ts`**  
+  - React など UI 環境でのテストに特化した設定ファイルです。
+  - UI コンポーネントテスト実行のため JSDOM 環境を使うように設定されています。
+
+- **`node.ts`**  
+  - Node.js 環境でのテストに特化した設定ファイルです。
+  - Node 環境で実行されるユーティリティ、サーバーコード、CLI などで使用し、
+  - テスト環境を Node に指定し、Node 関連モジュール/グローバルオブジェクトを利用できるようにします。
+
+### 📊 統合カバレッジ
+
+複数のパッケージ/アプリで生成されたカバレッジレポートを一つにまとめるために、  
+プロジェクトルートの `package.json` と `configs/vitest-config/configs` パッケージに関連コマンドとスクリプトが定義されています。
+
+- **`collect-json-reports`**  
+  - コマンド: `node dist/scripts/collect-json-outputs.js`
+  - 各パッケージ/アプリで生成された個別カバレッジ JSON ファイルを `coverage/raw` ディレクトリに集めます。
+  - 実際の収集ロジックは `configs/vitest-config/scripts/collect-json-output.ts` スクリプトに実装されています。
+  - このスクリプトは glob パターンを使ってワークスペース全体からカバレッジファイルを探し、一箇所にまとめます。
+
+- **`merge-json-reports`**  
+  - コマンド: `nyc merge coverage/raw coverage/merged/merged-coverage.json`
+  - 集めたカバレッジ JSON ファイルをマージし、`coverage/merged/merged-coverage.json` ファイルを作成します。
+
+- **`report`**  
+  - コマンド: `nyc report -t coverage/merged --report-dir coverage/report --reporter=html --exclude-after-remap false`
+  - マージされたカバレッジ結果をもとに HTML カバレッジレポートを生成します。
+
+- **`view-report`**  
+  - コマンド: `open coverage/report/index.html`
+  - 生成された HTML カバレッジレポートをブラウザですぐに確認できます。
+
+## 🌀 turbo 活用
+
+このプロジェクトは変更部分のみを素早くテストし、不要な重複実行を減らすために
+[Turbo](https://turbo.build/) を活用してテスト作業を高速かつ効率的に実行します。
+
+### 🧪 `test` タスク
+
+`turbo.json` の `test` タスクは次のように構成されています:
+
+- **依存関係**: 各パッケージの上位パッケージ（`^test`）と `@repo/vitest-config#build` タスクが先に実行されます。
+- **outputs**: 下記ファイルがテスト実行結果として生成され、キャッシュおよび共有されます。
+    - `coverage.json`,
+    - `apps/*/coverage.json`,
+    - `packages/*/coverage.json`,
+    - `configs/*/coverage.json`,
+    - `shared/*/coverage.json`,
+    - `tools/*/coverage.json`
+- **キャッシュ戦略**: Turbo は outputs に指定されたファイルが変更されていなければ以前のテスト結果を再利用し、実行速度を向上させます。
+- **並列実行**: Turbo は依存関係グラフを解析し、可能なテストを並列で実行します。
+
+### 📊 `merge-json-reports` タスク
+
+`configs/vitest-config/turbo.json` には次のようなカバレッジレポート統合自動化パイプラインが定義されています:
+
+1. **collect-json-reports**
+  - 各パッケージのカバレッジ結果を一箇所（`coverage/raw/`）に集めます。
+2. **merge-json-reports**
+  - 集めたカバレッジファイルをマージし、統合カバレッジ JSON を生成します。
+3. **report**
+  - マージ結果から HTML カバレッジレポートを作成します。
+4. **view-report**
+  - レポートをブラウザで開きます。
+
+この流れでモノレポ全体のテストカバレッジを簡単に統合・可視化できます。
+
+## 🖥️ ローカル環境でのユニットテスト
+
+### pnpm コマンド
+
+このプロジェクトのユニットテストは `pnpm` を使ってローカル環境で実行できます。
+次のコマンドで全パッケージ/アプリのユニットテストを実行できます:
+
+```bash
+# 1回実行
+pnpm run test
+
+# watch モードで実行
+pnpm run test:watch
+
+# 最後に作成された統合カバレッジレポートをブラウザで開く
+pnpm run view-report
+```
+
+## 🤖 GitHub Actions でのユニットテスト
+
+このプロジェクトのユニットテストは GitHub Actions の `unit-test` ジョブで自動実行されます。
+
+### ワークフロー概要
+
+このワークフローは次の作業を行います:
+
+- 📥 **依存関係インストール**: pnpm で全ワークスペースの依存関係をインストールします。
+- 💾 **キャッシュ活用**: Turbo, node_modules, dist, カバレッジなど様々なキャッシュを積極活用しテスト速度を向上させます。
+- 🏗️ **プロジェクトビルド**: 全体をビルドし、ビルドログをサマリーファイルに保存します。
+- 🧪 **ユニットテスト実行**: 全パッケージ/アプリのユニットテストを実行し、テストログをサマリーファイルに保存します。
+- 📊 **カバレッジレポート生成**: 複数パッケージのカバレッジ結果をマージし、統合カバレッジレポートを生成します。
+- ⬆️ **アーティファクトアップロード**: カバレッジレポート、ビルド/テストサマリーログなど主要成果物を GitHub Actions アーティファクトとしてアップロードします。
+
+### 主なステップ
+
+各ステップは次の順で実行されます:
+
+1. 💾 **Turbo/依存/ビルド/テスト/カバレッジキャッシュ復元**
+2. 📥 **依存関係インストール**
+   `pnpm install --frozen-lockfile`
+3. 🏗 **プロジェクトビルド**
+   `pnpm run build`
+4. 🧪 **ユニットテスト実行**
+   `pnpm run test`
+5. 📊 **カバレッジレポートマージ**
+   `pnpm run merge-json-reports`
+6. ⬆️ **アーティファクトアップロード**
+   - カバレッジレポート: `configs/vitest-config/coverage/merged`
+   - ビルド/テストサマリーログ
+
+## 📌 参考
+
+- turbo 設定は `turbo.json` ファイルを参照してください。
+- 詳細なワークフローは `.github/workflows/test.yml` ファイルの `unit-test` ジョブを参照してください。
+- テスト成果物（カバレッジ、ログ等）は GitHub Actions の「Artifacts」で確認できます。

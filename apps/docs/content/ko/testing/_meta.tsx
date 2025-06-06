@@ -1,4 +1,7 @@
 export default {
+  "testing-environment": {
+    // title: ""
+  },
   "unit-test": {
     // title: ""
   },
