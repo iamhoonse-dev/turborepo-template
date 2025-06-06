@@ -1,0 +1,44 @@
+import { Callout } from "nextra/components";
+import LocalizedLink from "../../../components/LocalizedLink";
+
+# 🚀 Publishing Documentation Pages
+
+## Automatic Deployment with GitHub Actions
+
+Documentation pages are automatically deployed via a GitHub Actions workflow defined in the `.github/workflows/publish-github-pages.yml` file.
+
+### Key Features
+
+This workflow builds the `docs` app and deploys the built output to GitHub Pages.
+
+<Callout type="warning">
+  If GitHub Pages is not enabled, the `publish-github-pages.yml` workflow may fail.
+  As a result, the `docs` app will not be deployed properly.
+  To enable GitHub Pages,
+  please follow the guide in the
+  <LocalizedLink href="/setup/github-pages">`Settings > Enable GitHub Pages`</LocalizedLink>
+  documentation to activate GitHub Pages.
+</Callout>
+
+### Deployment URL
+
+Depending on the `publish-github-pages` workflow settings, the deployed documentation pages can be accessed at a URL in the format `https://USER_ID.github.io/PROJECT_NAME`.
+
+### Main Workflow Steps
+
+#### Setup
+
+- **Trigger**: The workflow runs when a push occurs to the `main` branch.
+- **Permission Setup**: Grants the necessary permissions to deploy to GitHub Pages.
+
+#### Build
+
+- **Caching**: Stores `node_modules`, build outputs, and turbo cache to speed up builds.
+- **Environment Variable Generation**: Automatically generates environment variables related to Giscus (comment system) into a `.env.local` file.
+- **Build**: Builds the docs app using the command `pnpm run build --filter=docs`.
+- **Artifact Upload**: Uploads the built static files (`apps/docs/out`) using the `actions/upload-pages-artifact@v3` action.
+
+#### Deployment
+
+- **Deploy**: Uses the `actions/deploy-pages@v4` action to actually deploy to GitHub Pages.
+

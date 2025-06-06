@@ -1,0 +1,43 @@
+import { Callout } from "nextra/components";
+import LocalizedLink from "../../../components/LocalizedLink";
+
+# 🚀 ドキュメントページの公開
+
+## GitHub Actionsによる自動デプロイ
+
+ドキュメントページは、`.github/workflows/publish-github-pages.yml` ファイルで定義されたGitHub Actionsワークフローによって自動的にデプロイされます。
+
+### 主な機能
+
+このワークフローは `docs` アプリをビルドし、ビルドされた成果物をGitHub Pagesにデプロイします。
+
+<Callout type="warning">
+  GitHub Pagesが有効になっていない場合、`publish-github-pages.yml` ワークフローは失敗する可能性があります。
+  そのため、`docs` アプリが正常にデプロイされません。
+  GitHub Pagesを有効にするには、
+  <LocalizedLink href="/setup/github-pages">`設定 > GitHub Pagesを有効化`</LocalizedLink>
+  ドキュメントのガイドに従ってGitHub Pagesを有効にしてください。
+</Callout>
+
+### デプロイURL
+
+`publish-github-pages` ワークフローの設定により、GitHub Pagesにデプロイされたドキュメントページは `https://USER_ID.github.io/PROJECT_NAME` 形式のURLでアクセスできます。
+
+### 主な動作説明
+
+#### 設定
+
+- **トリガー**: `main` ブランチにpushが発生するとワークフローが実行されます。
+- **権限設定**: GitHub Pagesにデプロイできるように必要な権限を付与します。
+
+#### ビルド
+
+- **キャッシュ活用**: `node_modules`、ビルド成果物、turboキャッシュなどを保存し、ビルド速度を向上させます。
+- **環境変数生成**: Giscus（コメントシステム）関連の環境変数を自動的に `.env.local` ファイルとして生成します。
+- **ビルド**: `pnpm run build --filter=docs` コマンドでdocsアプリをビルドします。
+- **アーティファクトのアップロード**: `actions/upload-pages-artifact@v3` アクションを使ってビルドされた静的ファイル（`apps/docs/out`）をアップロードします。
+
+#### デプロイ
+
+- **デプロイ**: `actions/deploy-pages@v4` アクションを使ってGitHub Pagesに実際にデプロイします。
+
