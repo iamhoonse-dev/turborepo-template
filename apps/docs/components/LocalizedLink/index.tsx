@@ -14,14 +14,14 @@ interface Props {
 }
 
 /**
- * LinkLocaled is a component that wraps Next.js Link
+ * LocalizedLink is a component that wraps Next.js Link
  * and automatically prepends the current locale
  *
  * @param children
  * @param href
  * @param target
  */
-const LinkLocaled: FC<Props> = ({ children, href, target = "_blank" }) => {
+const LocalizedLink: FC<Props> = ({ children, href, target = "_blank" }) => {
   // Use Next.js router to get the current locale from the URL parameters
   const { locale } = useParams();
 
@@ -39,4 +39,4 @@ const LinkLocaled: FC<Props> = ({ children, href, target = "_blank" }) => {
     </Link>
   );
 };
-export default LinkLocaled;
+export default LocalizedLink;
