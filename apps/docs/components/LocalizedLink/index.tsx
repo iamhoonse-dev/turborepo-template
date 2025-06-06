@@ -63,7 +63,12 @@ const LocalizedLink: FC<Props> = ({ children, href, target = "_blank" }) => {
   const localizedHref = getLocalizedHref(locale, href);
 
   return (
-    <Link href={localizedHref} target={target}>
+    <Link
+      href={localizedHref}
+      target={target}
+      // for preventing reverse tapnabbing vulnerability
+      rel={target === "_blank" ? "noopener noreferrer" : undefined}
+    >
       {children}
     </Link>
   );
