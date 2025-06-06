@@ -1,1 +1,139 @@
 # 🧪 단위 테스트
+
+## ⚡ Vitest 기반
+
+이 프로젝트는 [Vitest](https://vitest.dev/)를 테스트 러너로 사용합니다.
+
+### ⚙️ Vitest 설정
+
+공통 테스트 설정은 `configs/vitest-config/configs` 디렉토리 내 여러 설정 파일로 분리되어 관리됩니다.
+각 패키지/앱은 필요에 따라 설정 파일을 확장하거나 조합하여 사용할 수 있습니다.
+
+- **`base.ts`**  
+  - Vitest의 가장 기본적인 설정을 정의하는 파일입니다.
+  - 테스트 커버리지 리포트 관련 설정 등과 같이
+  - 모든 패키지/앱에서 공통적으로 적용해야 하는 옵션을 포함합니다.
+  - 다른 환경별 설정 파일(`ui.ts`, `node.ts` 등)의 기반이 됩니다.
+
+- **`ui.ts`**  
+  - React 등 UI 환경에서의 테스트에 특화된 설정 파일입니다.
+  - UI 컴포넌트 테스트 실행을 위해 JSDOM 환경을 사용하도록 설정되어 있습니다.
+
+- **`node.ts`**  
+  - Node.js 환경에서의 테스트에 특화된 설정 파일입니다.
+  - Node 환경에서 실행되는 유틸리티, 서버 코드, CLI 등에서 사용하며
+  - 테스트 환경을 Node로 지정하고, Node 관련 모듈/글로벌 객체를 사용할 수 있도록 설정합니다.
+
+### 📊 통합 커버리지
+
+여러 패키지/앱에서 생성된 커버리지 리포트를 하나로 병합하기 위해  
+프로젝트 루트의 `package.json`과 `configs/vitest-config/configs` 패키지에 관련 명령어와 스크립트가 정의되어 있습니다.
+
+- **`collect-json-reports`**  
+  - 명령어: `node dist/scripts/collect-json-outputs.js`
+  - 각 패키지/앱에서 생성된 개별 커버리지 JSON 파일을 `coverage/raw` 디렉토리로 수집합니다.
+  - 실제 수집 로직은 `configs/vitest-config/scripts/collect-json-output.ts` 스크립트에 구현되어 있습니다.
+  - 이 스크립트는 glob 패턴을 활용해 워크스페이스 전체에서 커버리지 파일을 찾아 한 곳에 모읍니다.
+
+- **`merge-json-reports`**  
+  - 명령어: `nyc merge coverage/raw coverage/merged/merged-coverage.json`
+  - 수집된 커버리지 JSON 파일들을 병합하여 `coverage/merged/merged-coverage.json` 파일로 만듭니다.
+
+- **`report`**  
+  - 명령어: `nyc report -t coverage/merged --report-dir coverage/report --reporter=html --exclude-after-remap false`
+  - 병합된 커버리지 결과를 바탕으로 HTML 커버리지 리포트를 생성합니다.
+
+- **`view-report`**  
+  - 명령어: `open coverage/report/index.html`
+  - 생성된 HTML 커버리지 리포트를 브라우저로 바로 확인할 수 있습니다.
+
+## 🌀 turbo 활용
+
+이 프로젝트는 변경된 부분만 빠르게 테스트하고, 불필요한 중복 실행을 줄이고자
+[Turbo](https://turbo.build/)를 활용하여 테스트 작업을 빠르고 효율적으로 실행합니다.
+
+### 🧪 `test` 태스크
+
+`turbo.json`의 `test` task는 다음과 같이 구성되어 있습니다:
+
+- **의존성**: 각 패키지의 상위 패키지(`^test`)와 `@repo/vitest-config#build` 작업이 먼저 실행됩니다.
+- **outputs**: 아래 파일들이 테스트 실행 결과로 생성되어 캐시 및 공유됩니다.
+    - `coverage.json`,
+    - `apps/*/coverage.json`,
+    - `packages/*/coverage.json`,
+    - `configs/*/coverage.json`,
+    - `shared/*/coverage.json`,
+    - `tools/*/coverage.json`
+- **캐시 전략**: Turbo는 outputs에 명시된 파일이 변경되지 않으면 이전 테스트 결과를 재사용하여 실행 속도를 높입니다.
+- **병렬 실행**: Turbo는 의존성 그래프를 분석하여 가능한 테스트를 병렬로 실행합니다.
+
+### 📊 `merge-json-reports` 태스크
+
+`configs/vitest-config/turbo.json`에는 다음과 같은 커버리지 리포트 통합을 자동화하는 파이프라인이 정의되어 있습니다:
+
+1. **collect-json-reports**
+  - 각 패키지의 커버리지 결과를 한 곳(`coverage/raw/`)에 모읍니다.
+2. **merge-json-reports**
+  - 수집된 커버리지 파일을 병합하여 통합 커버리지 JSON을 생성합니다.
+3. **report**
+  - 병합된 결과로 HTML 커버리지 리포트를 만듭니다.
+4. **view-report**
+  - 리포트를 브라우저로 엽니다.
+
+이 과정을 통해 모노레포 전체의 테스트 커버리지를 손쉽게 통합·시각화할 수 있습니다.
+
+## 🖥️ 로컬 환경에서의 단위 테스트
+
+### pnpm 명령어
+
+이 프로젝트의 단위 테스트는 `pnpm`을 사용하여 로컬 환경에서 실행할 수 있습니다.
+다음 명령어를 통해 모든 패키지/앱의 단위 테스트를 실행할 수 있습니다:
+
+```bash
+# 1회 실행
+pnpm run test
+
+# watch 모드로 실행하려면
+pnpm run test:watch
+
+# 마지막에 작성된 통합 커버리지 리포트를 웹 브라우저로 열려면
+pnpm run view-report
+```
+
+## 🤖 GitHub Actions 에서의 단위 테스트
+
+이 프로젝트의 단위 테스트는 GitHub Actions의 `unit-test` 잡에서 자동으로 실행됩니다.
+
+### 워크플로우 개요
+
+이 워크플로우는 다음과 같은 작업을 수행합니다:
+
+- 📥 **의존성 설치**: pnpm을 사용하여 모든 워크스페이스의 의존성을 설치합니다.
+- 💾 **캐시 활용**: Turbo, node_modules, dist, 커버리지 등 다양한 캐시를 적극적으로 활용하여 테스트 속도를 높입니다.
+- 🏗️ **프로젝트 빌드**: 전체 프로젝트를 빌드하고, 빌드 로그를 요약 파일로 저장합니다.
+- 🧪 **단위 테스트 실행**: 모든 패키지/앱의 단위 테스트를 실행하고, 테스트 로그를 요약 파일로 저장합니다.
+- 📊 **커버리지 리포트 생성**: 여러 패키지의 커버리지 결과를 병합하여 통합 커버리지 리포트를 생성합니다.
+- ⬆️ **아티팩트 업로드**: 커버리지 리포트, 빌드/테스트 요약 로그 등 주요 결과물을 GitHub Actions 아티팩트로 업로드합니다.
+
+### 주요 단계
+
+각 단계는 다음과 같은 순서로 실행됩니다:
+
+1. 💾 **Turbo/의존성/빌드/테스트/커버리지 캐시 복원**
+2. 📥 **의존성 설치**
+   `pnpm install --frozen-lockfile`
+3. 🏗 **프로젝트 빌드**
+   `pnpm run build`
+4. 🧪 **단위 테스트 실행**
+   `pnpm run test`
+5. 📊 **커버리지 리포트 병합**
+   `pnpm run merge-json-reports`
+6. ⬆️ **아티팩트 업로드**
+   - 커버리지 리포트: `configs/vitest-config/coverage/merged`
+   - 빌드/테스트 요약 로그
+
+## 📌 참고
+
+- turbo 설정은 `turbo.json` 파일을 참고하세요.
+- 상세 워크플로우는 `.github/workflows/test.yml` 파일의 `unit-test` job을 참고하세요.
+- 테스트 결과물(커버리지, 로그 등)은 GitHub Actions의 "Artifacts"에서 확인할 수 있습니다.
