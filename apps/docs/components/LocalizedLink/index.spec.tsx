@@ -35,4 +35,17 @@ describe("<LocalizedLink>", () => {
       "_blank",
     );
   });
+
+  it("uses custom target", () => {
+    (useParams as Mock).mockReturnValue({ locale: "en" });
+    const { getByText } = render(
+      <LocalizedLink href="/about" target="_self">
+        About Us
+      </LocalizedLink>,
+    );
+    expect(getByText("About Us").closest("a")).toHaveAttribute(
+      "target",
+      "_self",
+    );
+  });
 });
