@@ -1,11 +1,11 @@
 export default {
-  "prepare-versioning": {
+  "add-new-package": {
     // title: "",
   },
-  versioning: {
+  "enable-npm-publishing": {
     // title: "",
   },
-  publishing: {
+  "versioning-and-publishing": {
     // title: "",
   },
 };

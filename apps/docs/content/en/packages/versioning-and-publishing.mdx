@@ -1,0 +1,112 @@
+import { Callout } from "nextra/components";
+import LocalizedLink from "../../../components/LocalizedLink";
+
+# 🦋 Versioning and Publishing
+
+This project uses [Changesets](https://github.com/changesets/changesets) to simplify package version management and publishing.
+Changesets are especially useful in a monorepo environment, helping you track changes for each package and update versions accordingly.
+
+This document explains how this project is set up to manage and publish package versions using `pnpm` and `Changesets`.
+
+## 🛠️ Prerequisites
+
+To use `Changesets` in this project, some preparation is required. Please follow the steps below.
+
+### Required
+
+- Refer to the <LocalizedLink href="/setup/github-apps/changeset-bot">`Setup > GitHub Apps > changeset-bot`</LocalizedLink> document to set up the Changesets bot.
+- Refer to the <LocalizedLink href="/setup/github-actions/gh-actions-permission">`Setup > GitHub Actions > Repository Permission Settings`</LocalizedLink> document to configure GitHub Actions permissions.
+
+### Optional
+
+- Refer to the <LocalizedLink href="/setup/npm">`Setup > NPM`</LocalizedLink> document to set up the NPM token and enable npm publishing in the workflow.
+
+## 🔄 Versioning and Publishing Process
+
+<Callout type="info">
+  For more details on the changeset-based versioning and publishing process, please refer to the [official documentation](https://github.com/changesets/changesets).
+</Callout>
+
+### (1) ✏️ Add New Changes
+
+Run the following command locally to open a prompt where you can describe your changes.
+
+```bash
+pnpm changeset
+```
+
+After following the prompt and writing your changes,
+
+![CLI prompt](/assets/images/packages/versioning-and-publishing/img-1.png)
+
+Changesets will create a new changeset file and commit it.
+
+|Commit|changeset|
+|-|-|
+|![CLI-created-commit](/assets/images/packages/versioning-and-publishing/img-2.png)|![CLI-created-changeset](/assets/images/packages/versioning-and-publishing/img-2-1.png)|
+
+### (2) 🦋 Create a PR with the New Changeset Commit
+
+#### 1) Create a New Changeset PR
+
+Push the new changeset commit you created locally and open a PR.
+The changeset-bot will automatically detect the new changeset commit in the PR and summarize the changes in a comment like below.
+
+![changeset-bot-reply-to-pr](/assets/images/packages/versioning-and-publishing/img-3.png)
+
+<Callout type="info">
+  **If there is no changeset commit** \
+  The changeset-bot will leave a comment notifying you that no changeset commit was found. \
+  ![changeset-bot-reply-to-pr-2](/assets/images/packages/versioning-and-publishing/img-3-1.png)
+</Callout>
+
+#### 2) Approve the New Changeset PR
+
+When you approve the PR containing the new changeset, the changeset-bot will run the following command in the `release` workflow.
+
+```bash
+pnpm changeset version
+```
+
+![commits-in-pr](/assets/images/packages/versioning-and-publishing/img-4.png)
+
+This command updates the package version (`version` field in `package.json`) based on the changes included in the PR and adds another commit updating the `CHANGELOG.md` file.
+
+![commits-in-pr](/assets/images/packages/versioning-and-publishing/img-5.png)
+
+#### 3) Create a PR to Reflect the New Changeset
+
+Instead of merging this commit directly into the main branch, the changeset-bot creates a new PR so that users can review the changes and approve them manually.
+
+![changeset-bot-create-pr](/assets/images/packages/versioning-and-publishing/img-6.png)
+
+Below is an example of a PR created by the changeset-bot.
+
+![pr-created-by-changeset-bot](/assets/images/packages/versioning-and-publishing/img-7.png)
+
+### (3) 🦋 Approve the PR Reflecting the New Changeset
+
+When you approve the PR created by the changeset-bot in the previous step, the following command will run in the `release` workflow.
+
+```bash
+pnpm changeset publish
+```
+
+![release-workflow-log](/assets/images/packages/versioning-and-publishing/img-8.png)
+
+This command performs the following tasks:
+
+#### 1) 📝 Update Package Versions and Changelog
+
+- The `version` field in `package.json` is updated,
+- The `CHANGELOG.md` file is updated.
+
+#### 2) 🏷 Create Release Tags
+
+When the PR is approved, GitHub Actions automatically runs and creates release tags for each package.
+
+#### 3) 🚀 Publish to npm
+
+The updated package(s) are published to npm. \
+To publish, `NPM_TOKEN` must be set in GitHub Secrets.
+

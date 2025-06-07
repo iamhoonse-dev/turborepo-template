@@ -1,0 +1,112 @@
+import { Callout } from "nextra/components";
+import LocalizedLink from "../../../components/LocalizedLink";
+
+# 🦋 버저닝 및 배포
+
+이 프로젝트는 [Changesets](https://github.com/changesets/changesets)를 사용하여 패키지 버전 관리와 배포를 간소화하고 있어요.
+Changesets는 모노레포 환경에서 특히 유용하며, 각 패키지의 변경 사항을 추적하고 이를 기반으로 버전을 업데이트할 수 있도록 도와줘요.
+
+이 문서에서는 이 프로젝트에서 `pnpm`과 `Changesets`를 사용하여 패키지의 버전을 어떻게 관리하고 배포하도록 설정해 두었는지에 대해 설명할게요.
+
+## 🛠️ 사전 준비
+
+이 프로젝트에서 `Changesets`를 사용하기 위해서는 몇 가지 사전 준비가 필요해요. 아래 단계를 따라 설정해 주세요.
+
+### 필수
+
+- <LocalizedLink href="/setup/github-apps/changeset-bot">`설정 > GitHub Apps > changeset-bot`</LocalizedLink> 문서를 참고하여 Changesets 봇을 설정해야 해요.
+- <LocalizedLink href="/setup/github-actions/gh-actions-permission">`설정 > GitHub Actions > 레포지토리 권한 설정`</LocalizedLink> 문서를 참고하여 GitHub Actions 권한을 설정해야 해요.
+
+### 선택
+
+- <LocalizedLink href="/setup/npm">`설정 > NPM`</LocalizedLink> 문서를 참고하여 NPM 토큰을 설정하고, 워크플로우 내에서 npm 배포를 실행하도록 활성화해야 해요
+
+## 🔄 버저닝 및 배포 프로세스
+
+<Callout type="info">
+  changeset 기반의 버저닝 및 배포 프로세스에 대한 보다 자세한 내용은 [공식 문서](https://github.com/changesets/changesets)를 참고해 주세요.
+</Callout>
+
+### (1) ✏️ 새 변경 사항 추가
+
+로컬에서 아래의 명령어를 실행하면 변경 사항에 대한 설명을 작성할 수 있는 프롬프트가 나타나요.
+
+```bash
+pnpm changeset
+```
+
+프롬프트를 따라 변경 사항을 작성하면,
+
+![CLI prompt](/assets/images/packages/versioning-and-publishing/img-1.png)
+
+Changesets 는 새 changeset 파일을 생성하고, 이를 커밋해요.
+
+|커밋|changeset|
+|-|-|
+|![CLI-created-commit](/assets/images/packages/versioning-and-publishing/img-2.png)|![CLI-created-changeset](/assets/images/packages/versioning-and-publishing/img-2-1.png)|
+
+### (2) 🦋 새 changeset 커밋이 포함된 PR 생성
+
+#### 1) 새 changeset PR 작성
+
+앞서 로컬에서 생성한 새 changeset 추가 커밋을 푸시하여 PR 을 작성해야 해요.
+그러면 changeset-bot 이 PR 에 포함된 새 changeset 커밋을 자동으로 감지하고,
+PR 에 아래와 같이 댓글로 변경 사항을 요약해요.
+
+![changeset-bot-reply-to-pr](/assets/images/packages/versioning-and-publishing/img-3.png)
+
+<Callout type="info">
+  **changeset 포함 커밋이 없는 경우** \
+  changeset-bot 이 changeset 커밋이 포함되지 않았다는 사실을 알려주는 댓글을 남겨요. \
+  ![changeset-bot-reply-to-pr-2](/assets/images/packages/versioning-and-publishing/img-3-1.png)
+</Callout>
+
+#### 2) 새 changeset PR 승인
+
+새 changeset 을 포함하는 PR 을 승인하면 changeset-bot 이 `release` 워크플로우에서 아래의 명령어를 실행해요.
+
+```bash
+pnpm changeset version
+```
+
+![commits-in-pr](/assets/images/packages/versioning-and-publishing/img-4.png)
+
+이 명령어는 PR 에 포함된 변경 사항을 기반으로 패키지 버전(`package.json` 파일의 `version` 필드)을 업데이트하고, `CHANGELOG.md` 파일을 업데이트하는 또 다른 커밋을 추가해요.
+
+![commits-in-pr](/assets/images/packages/versioning-and-publishing/img-5.png)
+
+#### 3) 새 changeset 반영 PR 생성
+
+changeset-bot 은 이 커밋을 바로 main 브랜치에 병합하는 대신, 새 PR 을 생성해서 사용자가 변경 사항을 확인한 후에 수동으로 승인할 수 있도록 하고 있어요.
+
+![changeset-bot-create-pr](/assets/images/packages/versioning-and-publishing/img-6.png)
+
+아래는 changeset-bot 이 생성한 PR 의 예시예요.
+
+![pr-created-by-changeset-bot](/assets/images/packages/versioning-and-publishing/img-7.png)
+
+### (3) 🦋 새 changeset 반영 PR 승인
+
+앞 단계에서 changeset-bot 이 생성한 PR 을 승인하면 `release` 워크플로우에서 아래의 명령어를 실행해요.
+
+```bash
+pnpm changeset publish
+```
+
+![release-workflow-log](/assets/images/packages/versioning-and-publishing/img-8.png)
+
+이 명령어는 다음과 같은 작업들을 수행해요:
+
+#### 1) 📝 패키지별 버전 업데이트 및 업데이트 노트 작성
+
+- `package.json` 에 명시된 `version` 필드가 업데이트되고,
+- `CHANGELOG.md` 파일 업데이트가 적용되요.
+
+#### 2) 🏷 Release 태그 생성
+
+PR이 승인되면, GitHub Actions가 자동으로 실행되어 각 패키지에 대한 Release 태그를 생성해요.
+
+#### 3) 🚀 npm 배포
+
+업데이트된 패키지(들)을 npm에 배포해요. \
+배포를 위해서는 `NPM_TOKEN`이 GitHub Secrets에 설정되어 있어야 해요.

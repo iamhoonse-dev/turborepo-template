@@ -145,15 +145,6 @@ Defined in [`release.yml`](.github/workflows/release.yml), this workflow automat
 
 Defined in [`publish-github-pages.yml`](.github/workflows/publish-github-pages.yml), this workflow deploys the [`docs`](./apps/docs) app to GitHub Pages.
 
-- This workflow builds the `docs` app and deploys the build output to GitHub Pages.
-- To deploy to GitHub Pages, you must enable Pages in the repository Settings.
-- The deployed documentation can be accessed at a URL like [https://(USER_ID).github.io/(PROJECT_NAME)](https://iamhoonse-dev.github.io/turborepo-template/).
-
-> [!WARNING]
-> If you do not enable GitHub Pages, the [`publish-github-pages.yml`](.github/workflows/publish-github-pages.yml) workflow may fail. \
-> As a result, the [`docs`](./apps/docs) app will not be deployed properly. \
-> Please follow the guide in the [Using GitHub Pages](#-github-pages-사용) section below to enable GitHub Pages.
-
 ## 🐳 Using GitHub Container Registry
 
 Some `docker-compose`-based workflows (e.g., Storybook, E2E, Lighthouse tests) use [GitHub Container Registry (GHCR)](https://ghcr.io/) to cache image layers when building Docker images.

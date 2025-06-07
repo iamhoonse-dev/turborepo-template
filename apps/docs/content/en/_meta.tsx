@@ -14,7 +14,7 @@ export default {
   testing: {
     // title: "",
   },
-  "versioning-and-publishing": {
+  packages: {
     // title: "",
   },
   documentation: {

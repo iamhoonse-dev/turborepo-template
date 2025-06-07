@@ -1,0 +1,113 @@
+import { Callout } from "nextra/components";
+import LocalizedLink from "../../../components/LocalizedLink";
+
+# 🦋 バージョニングと公開
+
+このプロジェクトは [Changesets](https://github.com/changesets/changesets) を使用して、パッケージのバージョン管理と公開を簡素化しています。
+Changesets はモノレポ環境で特に有用で、各パッケージの変更を追跡し、それに基づいてバージョンを更新するのに役立ちます。
+
+このドキュメントでは、このプロジェクトで `pnpm` と `Changesets` を使ってパッケージのバージョンをどのように管理し、公開するように設定しているかを説明します。
+
+## 🛠️ 事前準備
+
+このプロジェクトで `Changesets` を使用するには、いくつかの事前準備が必要です。以下の手順に従って設定してください。
+
+### 必須
+
+- <LocalizedLink href="/setup/github-apps/changeset-bot">`設定 > GitHub Apps > changeset-bot`</LocalizedLink> ドキュメントを参照して Changesets ボットを設定してください。
+- <LocalizedLink href="/setup/github-actions/gh-actions-permission">`設定 > GitHub Actions > リポジトリ権限設定`</LocalizedLink> ドキュメントを参照して GitHub Actions の権限を設定してください。
+
+### 任意
+
+- <LocalizedLink href="/setup/npm">`設定 > NPM`</LocalizedLink> ドキュメントを参照して NPM トークンを設定し、ワークフロー内で npm 公開を有効化してください。
+
+## 🔄 バージョニングと公開プロセス
+
+<Callout type="info">
+  changeset ベースのバージョニングと公開プロセスの詳細については、[公式ドキュメント](https://github.com/changesets/changesets) をご参照ください。
+</Callout>
+
+### (1) ✏️ 新しい変更の追加
+
+ローカルで以下のコマンドを実行すると、変更内容を記述できるプロンプトが表示されます。
+
+```bash
+pnpm changeset
+```
+
+プロンプトに従って変更内容を記述すると、
+
+![CLI prompt](/assets/images/packages/versioning-and-publishing/img-1.png)
+
+Changesets は新しい changeset ファイルを作成し、それをコミットします。
+
+|コミット|changeset|
+|-|-|
+|![CLI-created-commit](/assets/images/packages/versioning-and-publishing/img-2.png)|![CLI-created-changeset](/assets/images/packages/versioning-and-publishing/img-2-1.png)|
+
+### (2) 🦋 新しい changeset コミットを含む PR の作成
+
+#### 1) 新しい changeset PR の作成
+
+先ほどローカルで作成した新しい changeset 追加コミットをプッシュして PR を作成します。
+すると、changeset-bot が PR に含まれる新しい changeset コミットを自動的に検出し、
+PR に下記のようなコメントで変更内容を要約します。
+
+![changeset-bot-reply-to-pr](/assets/images/packages/versioning-and-publishing/img-3.png)
+
+<Callout type="info">
+  **changeset コミットが含まれていない場合** \
+  changeset-bot は changeset コミットが含まれていないことを知らせるコメントを残します。 \
+  ![changeset-bot-reply-to-pr-2](/assets/images/packages/versioning-and-publishing/img-3-1.png)
+</Callout>
+
+#### 2) 新しい changeset PR の承認
+
+新しい changeset を含む PR を承認すると、changeset-bot が `release` ワークフローで以下のコマンドを実行します。
+
+```bash
+pnpm changeset version
+```
+
+![commits-in-pr](/assets/images/packages/versioning-and-publishing/img-4.png)
+
+このコマンドは、PR に含まれる変更内容に基づいてパッケージのバージョン（`package.json` ファイルの `version` フィールド）を更新し、`CHANGELOG.md` ファイルを更新する別のコミットを追加します。
+
+![commits-in-pr](/assets/images/packages/versioning-and-publishing/img-5.png)
+
+#### 3) 新しい changeset 反映 PR の作成
+
+changeset-bot はこのコミットをすぐに main ブランチへマージするのではなく、新しい PR を作成し、ユーザーが変更内容を確認して手動で承認できるようにします。
+
+![changeset-bot-create-pr](/assets/images/packages/versioning-and-publishing/img-6.png)
+
+以下は changeset-bot が作成した PR の例です。
+
+![pr-created-by-changeset-bot](/assets/images/packages/versioning-and-publishing/img-7.png)
+
+### (3) 🦋 新しい changeset 反映 PR の承認
+
+前のステップで changeset-bot が作成した PR を承認すると、`release` ワークフローで以下のコマンドが実行されます。
+
+```bash
+pnpm changeset publish
+```
+
+![release-workflow-log](/assets/images/packages/versioning-and-publishing/img-8.png)
+
+このコマンドは次の作業を行います：
+
+#### 1) 📝 パッケージごとのバージョン更新と更新ノート作成
+
+- `package.json` の `version` フィールドが更新され、
+- `CHANGELOG.md` ファイルが更新されます。
+
+#### 2) 🏷 リリースタグの作成
+
+PR が承認されると、GitHub Actions が自動で実行され、各パッケージのリリースタグが作成されます。
+
+#### 3) 🚀 npm への公開
+
+更新されたパッケージを npm に公開します。\
+公開には `NPM_TOKEN` が GitHub Secrets に設定されている必要があります。
+
