@@ -17,9 +17,6 @@ export default {
   packages: {
     // title: "",
   },
-  "versioning-and-publishing": {
-    // title: "",
-  },
   documentation: {
     // title: "",
   },
