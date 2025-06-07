@@ -102,12 +102,17 @@ pnpm changeset publish
 - `package.json` の `version` フィールドが更新され、
 - `CHANGELOG.md` ファイルが更新されます。
 
+![file-changes-by-changesets-versioning](/assets/images/packages/versioning-and-publishing/img-9.png)
+
 #### 2) 🏷 リリースタグの作成
 
 PR が承認されると、GitHub Actions が自動で実行され、各パッケージのリリースタグが作成されます。
+
+![created-release-tag](/assets/images/packages/versioning-and-publishing/img-10.png)
 
 #### 3) 🚀 npm への公開
 
 更新されたパッケージを npm に公開します。\
 公開には `NPM_TOKEN` が GitHub Secrets に設定されている必要があります。
 
+![published-npm-packages](/assets/images/packages/versioning-and-publishing/img-11.png)
