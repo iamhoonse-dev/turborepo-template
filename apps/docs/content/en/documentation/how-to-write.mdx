@@ -1,3 +1,5 @@
+import { Callout } from "nextra/components";
+
 # ✏️ How to Write
 
 This document provides a guide on how to write documentation. Please read this guide before writing documents.
@@ -21,11 +23,20 @@ Here is a correct example:
 
 #### Using the `<LocalizedLink>` Component
 
-By using the `<LocalizedLink>` component, you can automatically generate links that reflect the locale.
+This documentation application provides a `<LocalizedLink>` component.
+By using this component, you can automatically generate links that reflect the locale.
+
 For example, if the current user is viewing the Korean page, writing the code as below
 will automatically convert the link to `/ko/sample`:
 
+<Callout type="info">
+  Absolute path imports are not allowed in the current project. \
+  Therefore, when using the `<LocalizedLink>` component to write links, you must use a relative path.
+</Callout>
+
 ```mdx filename="link-usage.mdx"
+import LocalizedLink from "../../../components/LocalizedLink";
+
 <LocalizedLink href="/sample">Korean Document Sample</LocalizedLink>
 ```
 
