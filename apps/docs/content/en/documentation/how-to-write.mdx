@@ -38,3 +38,18 @@ will automatically convert the link to `/ko/sample`:
   Korean Document Sample
 </a>
 ```
+
+## 🖼️ Image Attachment Guide
+
+### Uploading Images
+
+Images to be used in the documentation should be uploaded to the `apps/docs/public` directory.
+
+### Inserting Images into Documents
+
+For example, if you uploaded an image to `apps/docs/public/assets/images/sample-image.png`,
+insert the image in your document as follows:
+
+```mdx filename="image-usage.mdx"
+![Image description](/assets/images/sample-image.png)
+```
