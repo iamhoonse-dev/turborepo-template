@@ -1,0 +1,73 @@
+import { Callout } from "nextra/components";
+
+# 🤖 自動化された規約チェック環境
+
+このプロジェクトでは [husky](https://typicode.github.io/husky/#/) を使用してGit Hookを設定し、コミット前にコード品質を自動でチェックする環境を構築しています。
+この環境は、コード作成時に発生しうるエラーを事前に防ぎ、一貫したコードスタイルを維持するのに役立ちます。
+
+## ⬇️ インストールと設定
+
+ルートの `package.json` ファイルに定義された `prepare` スクリプトを通じてhuskyをインストール・初期化するよう設定されています。
+つまり、ローカル環境で `pnpm install` コマンドを実行すると自動的にhuskyがインストールされ、Git Hookが設定されます。
+
+```json filename="package.json" {3}
+{
+  "scripts": {
+    "prepare": "husky install"
+  }
+}
+```
+
+## ⚓️ Git Hook
+
+ルートディレクトリの `.husky` フォルダにGit Hookスクリプトが配置されています。
+
+### `pre-commit`
+
+`pre-commit` フックはコミット前に実行され、以下の作業を行います:
+
+- **Linting**: `eslint` を使ってコードスタイルと品質をチェックします。
+- **Formatting**: `prettier` を使ってコードフォーマットを適用します。
+- **Type Checking**: `tsc --noEmit` コマンドでTypeScript型チェックを行います。
+
+<Callout type="info">
+  `pre-commit` フックで実行されるコマンドはすべてTurboタスクとして定義されています。
+  つまり、このフックはTurboのキャッシュや並列実行機能を活用して高速かつ効率的に作業を行います。
+</Callout>
+
+```bash filename=".husky/pre-commit" {3-5}
+echo "🔍 コミット前にlintルールを適用します..."
+if (
+  pnpm run lint &&
+  pnpm run format:check &&
+  pnpm run check-types
+); then
+  echo "✅ すべてのlintルールが正常に適用されました。"
+  exit 0
+else
+  echo "❌ lintルールチェックでエラーが発生しました。"
+  exit 1
+fi
+```
+
+### `commit-msg`
+
+`commit-msg` フックは `commitlint` CLI を使ってコミットメッセージが規約に合っているかをチェックします。
+規約に合わない場合、コミットは拒否されます。
+
+```bash filename=".husky/commit-msg" {6}
+COMMIT_MESSAGE_FILE=$1
+COMMIT_MESSAGE=$(cat "$COMMIT_MESSAGE_FILE")
+
+echo "❤️‍🩹 Commit Message: $COMMIT_MESSAGE"
+
+npx commitlint --edit $1
+
+if [ $? -eq 0 ]; then
+  echo "🔆 Commit message meets the convention 🔆"
+  exit 0
+else
+  echo "❌ Commit message does not meet the convention ❌"
+  exit 1
+fi
+```

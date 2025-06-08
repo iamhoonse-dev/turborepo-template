@@ -1,0 +1,53 @@
+import { Callout } from "nextra/components";
+
+# ✨ Prettier
+
+이 프로젝트에서는 [Prettier](https://prettier.io/)를 사용하여 코드 스타일을 일관되게 유지합니다.
+Prettier는 코드의 형식을 자동으로 정리해 주며, 팀원 간의 코드 스타일 차이를 줄이는 데 도움을 줍니다.
+
+## 실행 방법
+
+코드 포맷팅은 `prettier` CLI를 사용하여 수행합니다.
+이를 위한 스크립트는 루트 디렉토리의 `package.json` 파일에 정의되어 있습니다.
+
+```json filename="package.json" {3-4}
+{
+  "scripts": {
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md}\""
+  }
+}
+```
+
+## 포맷팅 규약 설정
+
+이 프로젝트에서는 별도의 Prettier 설정 파일을 사용하지 않고, 기본 설정을 따르고 있습니다.
+만약 추가적인 설정이 필요하다면, 프로젝트 루트 디렉토리에 `.prettierrc` 등의 파일을 생성하여 원하는 규칙을 정의할 수 있습니다.
+
+<Callout type="info">
+  Prettier 규약 설정 방법에 대한 보다 자세한 내용은 [Prettier 공식 문서](https://prettier.io/docs/configuration)를 참고하세요.
+</Callout>
+
+## ESLint 와의 통합
+
+이 프로젝트에서는 ESLint Config 에 설정된 규칙들 가운데에서 Prettier와 충돌하는 규칙들을 비활성화하고자 [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier) 설정을 적용하고 있습니다.
+해당 설정은 `configs/eslint-config/base.js` 파일에 정의되어 있습니다.
+
+```js filename="configs/eslint-config/base.js" {2,13}
+import js from "@eslint/js";
+import eslintConfigPrettier from "eslint-config-prettier";
+
+// ...
+
+/**
+ * A shared ESLint configuration for the repository.
+ *
+ * @type {import("eslint").Linter.Config[]}
+ * */
+export const config = [
+  js.configs.recommended,
+  eslintConfigPrettier,
+  // ... other rules
+];
+```
+

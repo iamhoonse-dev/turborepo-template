@@ -1,0 +1,116 @@
+import { Callout } from "nextra/components";
+
+# 🛡️ ESLint
+
+このプロジェクトでは [ESLint](https://eslint.org/) を使ってコード品質を維持し、一貫したスタイルを適用しています。
+ESLintはJavaScriptやTypeScriptコードの潜在的なエラーを検出し、コードスタイルをチェックするツールであり、
+チーム開発時にコードスタイルの一貫性を保つのに大きく役立ちます。
+
+## 実行方法
+
+### コマンド
+
+ESLintチェックは `lint` CLIを使って実行します。ただし、コマンドを実行する場所によって方法が異なります。
+
+```bash
+pnpm run lint
+```
+
+#### プロジェクトルートで実行する場合
+
+ルート `package.json` に定義された `lint` コマンドは turboタスクを実行するよう設定されています。
+つまり、ルートディレクトリで `pnpm run lint` を実行すると、Turboが全ワークスペースに対してESLintチェックを並列で行います。
+
+```bash filename="package.json" {3}
+{
+  "scripts": {
+    "lint": "turbo run lint"
+    // ... 다른 스크립트들
+  }
+}
+```
+
+#### 各ワークスペースで実行する場合
+
+各ワークスペースの `package.json` にも `lint` スクリプトが定義されており、直接実行することもできます。
+この場合、turboタスクは使わず、そのワークスペースだけでESLintチェックを行います。
+つまり、Turboの並列実行やキャッシュ機能を使わずにESLintチェックを実行します。
+
+```bash filename="apps/docs/package.json" {3}
+{
+  "scripts": {
+    "lint": "next lint --max-warnings 0"
+    // ... 다른 스크립트들
+  }
+}
+```
+
+### Turboタスク
+
+前述の通り、プロジェクトルートで `pnpm run lint` を実行するとturboタスクで定義された `lint` 作業が実行されます。
+`lint` 作業はプロジェクトルートの `turbo.json` に次のように定義されています。
+
+```json filename="turbo.json" {3-5}
+{
+  "tasks": {
+    "lint": {
+      "dependsOn": ["build", "^lint"]
+    }
+    // ... 다른 작업들
+  }
+}
+```
+
+### ビルド実行が必要
+
+このプロジェクトではパッケージのビルド方式の都合上、ESLintチェック前に必ずビルドを実行する必要があります。
+各パッケージがビルド済みコードをバンドルに含めるため、
+ビルドが完了していないとESLintチェックが正しく行われない場合があります。
+そのため、`lint` タスクの `dependsOn` フィールドで `build` タスクに依存するよう設定されています。
+
+## ESLint Config
+
+### 共通Config
+
+共通のESLint Configは `configs/eslint-config` ディレクトリ配下にあります。
+このディレクトリには複数のESLint Configファイルがあり、それぞれ特定の目的に合わせて設定されています。
+
+- `base.js`: 基本的なESLint設定を含みます。すべてのESLint Configファイルに共通で適用される基本ルールを定義します。
+- `react-internal.js`: Reactを使うワークスペース向けのESLint設定です。React関連ルールを含みます。
+- `next.js`: Next.jsを使うワークスペース向けのESLint設定です。Next.js関連ルールを含みます。
+
+### 共通Configの継承
+
+各ワークスペースでは共通ESLint Configを継承してそのまま使ったり、追加ルールを定義できます。
+
+#### そのまま使う場合
+
+`apps/docs` ワークスペースでは `configs/eslint-config/next.js` のNext.js用ESLint設定をそのまま使っています。
+
+```js filename="apps/docs/.eslintrc.js" {1,4}
+import { nextJsConfig } from "@repo/eslint-config/next-js";
+
+/** @type {import("eslint").Linter.Config} */
+export default nextJsConfig;
+```
+
+#### 拡張する場合
+
+`apps/frontend-workshop` ワークスペースでは `configs/eslint-config/react-internal.js` を拡張してReact用ルールを適用しています。
+
+```js filename="apps/frontend-workshop/eslint.config.js" {3,8}
+import reactRefresh from "eslint-plugin-react-refresh";
+import tseslint from "typescript-eslint";
+import { config } from "@repo/eslint-config/react-internal";
+
+export default tseslint.config(
+  { ignores: ["dist", "storybook-static"] },
+  {
+    extends: [...config],
+    files: ["**/*.{ts,tsx}"],
+
+    // ... 추가적인 규칙들
+  },
+);
+
+```

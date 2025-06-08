@@ -1,0 +1,25 @@
+import { Callout } from "nextra/components";
+
+# 📝 commitlint
+
+이 프로젝트에서는 [`commitlint`](https://commitlint.js.org/)를 사용하여 커밋 메시지의 형식을 검사하여 [Conventional Commits](https://www.conventionalcommits.org/) 규약을 따르고 있는지 확인하는 자동화된 스크립트가 설정되어 있습니다.
+
+## 실행 방법
+
+커밋을 실행하면 Git Hook 의 `commit-msg` 훅에 의해 `commitlint`가 자동으로 실행됩니다.
+즉, 커밋을 실행할 때마다 커밋 메시지가 규약에 맞는지 자동으로 검사됩니다.
+검사 결과 커밋 메세지의 규약 준수 여부에 따라 커밋이 성공적으로 완료되거나 거부됩니다.
+
+## 규약 설정
+
+커밋 메세지의 규약은 루트 디렉토리의 `.commitlintrc.json` 파일에 정의되어 있습니다.
+
+<Callout type="info">
+  Conventional Commits 규약에 대한 보다 자세한 내용은 [Conventional Commits 공식 문서](https://www.conventionalcommits.org/)를 참고하세요.
+</Callout>
+
+```js filename=".commitlint.config.js" {2}
+module.exports = {
+  extends: ['@commitlint/config-conventional'],
+};
+```
