@@ -11,6 +11,9 @@ export default {
   setup: {
     // title: "",
   },
+  conventions: {
+    // title: "",
+  },
   testing: {
     // title: "",
   },

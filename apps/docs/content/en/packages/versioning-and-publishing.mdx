@@ -101,12 +101,17 @@ This command performs the following tasks:
 - The `version` field in `package.json` is updated,
 - The `CHANGELOG.md` file is updated.
 
+![file-changes-by-changesets-versioning](/assets/images/packages/versioning-and-publishing/img-9.png)
+
 #### 2) 🏷 Create Release Tags
 
 When the PR is approved, GitHub Actions automatically runs and creates release tags for each package.
+
+![created-release-tag](/assets/images/packages/versioning-and-publishing/img-10.png)
 
 #### 3) 🚀 Publish to npm
 
 The updated package(s) are published to npm. \
 To publish, `NPM_TOKEN` must be set in GitHub Secrets.
 
+![published-npm-packages](/assets/images/packages/versioning-and-publishing/img-11.png)

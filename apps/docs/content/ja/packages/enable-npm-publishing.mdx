@@ -1,1 +1,28 @@
-# 📦 NPM 配布の有効化
+import LocalizedLink from "../../../components/LocalizedLink";
+
+# 📦 npm公開の有効化
+
+## releaseワークフローでnpm公開を有効化する
+
+releaseワークフローではnpm公開はデフォルトで有効になっていません。\
+npm公開を有効にするには、<LocalizedLink href="/setup/npm">`設定 > NPM`</LocalizedLink> ドキュメントを参照し、
+
+- NPMトークンを設定し、
+- ワークフロー内でnpm公開を有効化してください。
+
+## `package.json`ファイルでnpm公開を設定する
+
+npm公開のためには、各公開対象パッケージの`package.json`ファイルで`publishConfig`フィールドと`private`フィールドを設定する必要があります。
+
+- `publishConfig`フィールドの`access`プロパティは`public`に設定し、
+- `private`フィールドは`false`に設定してください。
+
+```json filename="package.json"
+{
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  // ...
+}
+```

@@ -1,0 +1,63 @@
+import { Callout } from "nextra/components";
+
+# 🌱️ Nodeユーティリティ
+
+<Callout type="info">
+  このパッケージには、NPM公開配布用の設定が `package.json` に含まれています。
+  配布を希望しない場合は、`package.json` から以下の設定を削除してください:
+  ```json filename="package.json"
+  {
+    "private": false,
+    "publishConfig": {
+      "access": "public"
+    },
+  }
+  ```
+</Callout>
+
+## 📖 概要
+
+`node-utils` パッケージは、Node.js環境で利用できる様々なユーティリティ関数を提供するパッケージです。
+
+## 🎯 主な目的
+
+Node.js環境で動作する新しいパッケージを追加したい場合、このパッケージをコピーして開発の出発点とできるように、
+以下のような目的で作成されています:
+
+- os, fs, processなどNode.js環境で提供されるAPIを活用できる基本的なビルド設定
+- コードスプリッティングやツリーシェイキングをサポートするViteベースのビルド設定
+- TypeScript型定義ファイルの提供設定
+- npm公開配布時に必要な各種 `package.json` 関連設定
+
+## 📦 提供機能
+
+- **[fs](./src/fs)**: ファイルシステム関連のユーティリティ関数を提供します。
+- **[msw](./src/msw)**: APIモック用のMSW関連ユーティリティ関数を提供します。
+- **[misc](./src/misc)**: その他便利なユーティリティ関数を提供します。
+
+## 🛠️ ビルド方式および主な設定
+
+このパッケージはViteとTypeScriptをベースにマルチエントリーライブラリ形式でビルドされます。  
+各機能ごとに個別のエントリー（`fs`, `msw`, `misc`）を提供し、ビルド成果物は `dist` フォルダにESモジュール（`.es.js`）とCommonJS（`.cjs.js`）形式で生成されます。
+
+### package.json
+
+- **exports**: 各機能ごとにエントリー（`./fs`, `./msw`, `./misc`）を分離し、型定義（`.d.ts`）、ESモジュール、CJSモジュールをすべて提供します。
+- **publishConfig**: `"access": "public"` でnpm公開配布が可能な設定です。
+- **files**: ビルド成果物（`dist`）のみパッケージに含めるよう指定します。
+- **scripts**: ViteやTypeScriptを活用したビルド、型チェック、テストなど様々な開発スクリプトが定義されています。
+
+### vite.config.ts
+
+- **マルチエントリービルド**: `shared/helpers` の `runWithGlob` ユーティリティを使い、`src` フォルダ内の各エントリーファイルを自動検出してビルドエントリーに登録します。
+- **ライブラリモード**: Viteのライブラリモードを使い、ES/CJSフォーマットでそれぞれビルドします。
+- **型定義**: `vite-plugin-dts` で各エントリーごとに型定義ファイルを自動生成します。
+- **パスエイリアス**: `vite-tsconfig-paths` でTypeScriptのパスエイリアスをサポートします。
+
+### tsconfig.json
+
+- **モジュール解決**: `"moduleResolution": "bundler"` でバンドラー向けのモジュール解決を使用します。
+- **型サポート**: 最新のECMAScriptおよびNode.js型をサポートするよう設定されています。
+- **厳格モード**: 型チェックやリント関連オプションが厳格に適用されています。
+- **パスエイリアス**: `tsconfig.json` で定義されたパスエイリアスを使い、コードの可読性を高めます。
+

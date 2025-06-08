@@ -1,0 +1,48 @@
+# 🌐 HTTPクライアント
+
+## 📖 概要
+
+`http-clients` パッケージは、HTTPリクエストを処理するためのユーティリティやクライアントコードを提供する内部パッケージです。
+
+## 🎯 主な目的
+
+このパッケージは以下の主な目的で作成されています:
+
+- HTTPクライアントインスタンス（`self`, `iamhoonse.dev`）を提供し、一貫したリクエスト処理を実現
+- ウェブブラウザとNode.js環境の両方で使えるHTTPクライアントを提供
+- コードスプリッティングやツリーシェイキングをサポートするViteベースのビルド設定
+- TypeScript型定義ファイルの提供設定
+
+## 📦 提供機能
+
+- **[Instances](src/instances)**: `self` および `iamhoonse.dev` などのHTTPクライアントインスタンスを提供します。
+- **[Mocks](src/mocks)**: `self` および `iamhoonse.dev` に関連するリクエストハンドラをMSW（Mock Service Worker）と共に提供します。
+- **[Types](src/types)**: HTTPリクエストやレスポンスに関連する型を定義します。
+
+## 🛠️ ビルド方式および主な設定
+
+このパッケージはViteとTypeScriptをベースにマルチエントリーライブラリ形式でビルドされます。  
+各機能ごとに個別のエントリー（`instances`, `mocks`, `types`）を提供し、ビルド成果物は `dist` フォルダにESモジュール（`.es.js`）とCommonJS（`.cjs.js`）形式で生成されます。
+
+### package.json
+
+- **exports**: 各機能ごとにエントリー（`./instances`, `./mocks`, `./types`）を分離し、型定義（`.d.ts`）、ESモジュール、CJSモジュールをすべて提供します。
+- **private**: `"private": true` でnpm公開配布をしないよう設定されています。
+- **files**: ビルド成果物（`dist`）のみパッケージに含めるよう指定します。
+- **scripts**: ViteやTypeScriptを活用したビルド、型チェック、テストなど様々な開発スクリプトが定義されています。
+
+### vite.config.ts
+
+- **マルチエントリービルド**: `shared/helpers` の `runWithGlob` ユーティリティを使い、`src` フォルダ内の各エントリーファイルを自動検出してビルドエントリーに登録します。
+- **ライブラリモード**: Viteのライブラリモードを使い、ES/CJSフォーマットでそれぞれビルドします。
+- **型定義**: `vite-plugin-dts` で各エントリーごとに型定義ファイルを自動生成します。
+- **パスエイリアス**: `vite-tsconfig-paths` でTypeScriptのパスエイリアスをサポートします。
+
+### tsconfig.json
+
+- **モジュール解決**: `"moduleResolution": "bundler"` でバンドラー向けのモジュール解決を使用します。
+- **型サポート**: 最新のECMAScript、Node.js、DOM関連型をサポートするよう設定されています。
+- **厳格モード**: 型チェックやリント関連オプションが厳格に適用されています。
+- **パスエイリアス**: `tsconfig.json` で定義されたパスエイリアスを使い、コードの可読性を高めます。
+
+---

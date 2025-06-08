@@ -1,14 +1,14 @@
 export default {
-  "add-new-package": {
+  "automated-checking": {
     // title: "",
   },
-  "enable-npm-publishing": {
+  prettier: {
     // title: "",
   },
-  "versioning-and-publishing": {
+  eslint: {
     // title: "",
   },
-  "default-packages": {
+  "commit-message": {
     // title: "",
   },
 };

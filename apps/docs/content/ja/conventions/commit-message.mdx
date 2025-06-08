@@ -1,0 +1,26 @@
+import { Callout } from "nextra/components";
+
+# 📝 commitlint
+
+このプロジェクトでは [`commitlint`](https://commitlint.js.org/) を使ってコミットメッセージの形式をチェックし、[Conventional Commits](https://www.conventionalcommits.org/) 規約に従っているかを自動で検証するスクリプトが設定されています。
+
+## 実行方法
+
+コミットを実行するとGit Hookの `commit-msg` フックによって `commitlint` が自動で実行されます。
+つまり、コミット時にコミットメッセージが規約に合っているか自動でチェックされます。
+チェック結果により、コミットメッセージが規約を満たしていればコミットが完了し、満たしていなければ拒否されます。
+
+## 規約設定
+
+コミットメッセージの規約はルートディレクトリの `.commitlintrc.json` ファイルで定義されています。
+
+<Callout type="info">
+  Conventional Commits規約の詳細は [Conventional Commits公式ドキュメント](https://www.conventionalcommits.org/) をご参照ください。
+</Callout>
+
+```js filename=".commitlint.config.js" {2}
+module.exports = {
+  extends: ['@commitlint/config-conventional'],
+};
+```
+

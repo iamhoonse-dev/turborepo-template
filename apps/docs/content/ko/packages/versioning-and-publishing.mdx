@@ -102,11 +102,17 @@ pnpm changeset publish
 - `package.json` 에 명시된 `version` 필드가 업데이트되고,
 - `CHANGELOG.md` 파일 업데이트가 적용되요.
 
+![file-changes-by-changesets-versioning](/assets/images/packages/versioning-and-publishing/img-9.png)
+
 #### 2) 🏷 Release 태그 생성
 
 PR이 승인되면, GitHub Actions가 자동으로 실행되어 각 패키지에 대한 Release 태그를 생성해요.
+
+![created-release-tag](/assets/images/packages/versioning-and-publishing/img-10.png)
 
 #### 3) 🚀 npm 배포
 
 업데이트된 패키지(들)을 npm에 배포해요. \
 배포를 위해서는 `NPM_TOKEN`이 GitHub Secrets에 설정되어 있어야 해요.
+
+![published-npm-packages](/assets/images/packages/versioning-and-publishing/img-11.png)

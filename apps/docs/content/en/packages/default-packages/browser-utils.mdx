@@ -1,0 +1,65 @@
+import { Callout } from "nextra/components";
+
+# 🌐 Browser Utils
+
+<Callout type="info">
+  This package includes settings in `package.json` for public NPM distribution.
+  If you do not wish to distribute, please remove the following settings from `package.json`:
+  ```json filename="package.json"
+  {
+    "private": false,
+    "publishConfig": {
+      "access": "public"
+    },
+  }
+  ```
+</Callout>
+
+## 📖 Overview
+
+The `browser-utils` package provides utility functions and tools that are useful in browser environments.
+
+## 🎯 Main Purpose
+
+When you want to add a new package that runs in the browser, you can copy this package as a starting point for development.
+It is designed with the following purposes:
+
+- Basic build settings to utilize APIs provided in browser environments such as DOM
+- Vite-based build settings to support code splitting and tree shaking
+- Settings to provide TypeScript declaration files
+- Various `package.json` settings required for public npm distribution
+
+## 📦 Provided Features
+
+As examples of features that work in the browser environment, the `browser-utils` package includes the following sample features:
+
+- **[DOM](src/dom)**: Provides utility functions for manipulating the browser DOM.
+- **[MSW](src/msw)**: Provides utilities related to Mock Service Worker.
+- **[String](src/string)**: Provides utility functions for string processing.
+
+## 🛠️ Build Method & Main Settings
+
+This package is built as a multi-entry library based on Vite and TypeScript.  
+Each feature is provided as a separate entry (`string`, `dom`, `msw`), and the build outputs are generated in the `dist` folder as ES modules (`.es.js`) and CommonJS (`.cjs.js`) formats.
+
+### package.json
+
+- **exports**: Each feature is separated as an entry (`./string`, `./dom`, `./msw`), and provides type declarations (`.d.ts`), ES modules, and CJS modules.
+- **publishConfig**: Set to `"access": "public"` to allow public npm distribution.
+- **files**: Only build outputs (`dist`) are included in the package.
+- **scripts**: Various development scripts are defined, such as build, type check, test, and MSW initialization using Vite and TypeScript.
+- **msw**: Includes settings to specify the distribution directory for MSW worker files.
+
+### vite.config.ts
+
+- **Multi-entry build**: Uses the `runWithGlob` utility from `shared/helpers` to automatically detect entry files in the `src` folder and register them as build entries.
+- **Library mode**: Uses Vite's library mode to build in both ES/CJS formats.
+- **Type declarations**: Automatically generates type declaration files for each entry using `vite-plugin-dts`.
+- **Path aliases**: Supports TypeScript path aliases with `vite-tsconfig-paths`.
+
+### tsconfig.json
+
+- **Module resolution**: Uses `"moduleResolution": "bundler"` for bundler-friendly module resolution.
+- **Type support**: Configured to support the latest ECMAScript and DOM types.
+- **Strict mode**: Type checking and lint-related options are strictly applied.
+

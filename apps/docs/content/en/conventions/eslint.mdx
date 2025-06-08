@@ -1,0 +1,119 @@
+import { Callout } from "nextra/components";
+
+# 🛡️ ESLint
+
+This project uses [ESLint](https://eslint.org/) to maintain code quality and apply consistent style.
+ESLint is a tool that detects potential errors in JavaScript and TypeScript code and checks code style,
+which is very helpful for maintaining consistency in code style during collaboration.
+
+## How to Run
+
+### Command
+
+ESLint checks are performed using the `lint` CLI. However, the way you run the command depends on where you run it.
+
+```bash
+pnpm run lint
+```
+
+#### Running at the project root
+
+The `lint` command defined in the root `package.json` is set to run a turbo task.
+So, running `pnpm run lint` at the root directory will make Turbo run ESLint checks in parallel for all workspaces.
+
+```bash filename="package.json" {3}
+{
+  "scripts": {
+    "lint": "turbo run lint"
+    // ...existing code...
+  }
+}
+```
+
+#### Running in an individual workspace
+
+Each workspace's `package.json` also defines a `lint` script, which you can run directly.
+In this case, turbo tasks are not used, and ESLint checks are performed only for that workspace.
+That is, ESLint checks are run directly without using Turbo's parallel execution and caching features.
+
+```bash filename="apps/docs/package.json" {3}
+{
+  "scripts": {
+    "lint": "next lint --max-warnings 0"
+    // ...existing code...
+  }
+}
+```
+
+### Turbo Task
+
+As mentioned above, running `pnpm run lint` at the project root executes the `lint` task defined as a turbo task.
+The `lint` task is defined in the `turbo.json` file at the project root as follows:
+
+```json filename="turbo.json" {3-5}
+{
+  "tasks": {
+    "lint": {
+      "dependsOn": ["build", "^lint"]
+    }
+    // ...existing code...
+  }
+}
+```
+
+### Build Required
+
+Due to the way packages are built in this project, you must run the build before running ESLint checks.
+Since each package includes the built code in the bundle,
+ESLint checks may not work correctly if the build is not complete.
+Therefore, the `lint` task's `dependsOn` field is set to depend on the `build` task.
+
+## ESLint Config
+
+### Shared Config
+
+Shared ESLint configs are located under the `configs/eslint-config` directory.
+There are several ESLint config files in this directory, each set for a specific purpose.
+
+- `base.js`: Contains the basic ESLint settings. This defines the base rules applied to all ESLint config files.
+- `react-internal.js`: ESLint settings for workspaces using React. Includes React-related rules.
+- `next.js`: ESLint settings for workspaces using Next.js. Includes Next.js-related rules.
+
+### Inheriting Shared Config
+
+Each workspace can inherit the shared ESLint config as-is or define additional rules.
+
+#### Using as-is
+
+The `apps/docs` workspace uses the Next.js ESLint config defined in `configs/eslint-config/next.js` as-is.
+
+```js filename="apps/docs/.eslintrc.js" {1,4}
+// ...existing code...
+import { nextJsConfig } from "@repo/eslint-config/next-js";
+
+/** @type {import("eslint").Linter.Config} */
+export default nextJsConfig;
+// ...existing code...
+```
+
+#### Extending
+
+The `apps/frontend-workshop` workspace extends the React ESLint config in `configs/eslint-config/react-internal.js` to apply React-related rules.
+
+```js filename="apps/frontend-workshop/eslint.config.js" {3,8}
+// ...existing code...
+import reactRefresh from "eslint-plugin-react-refresh";
+import tseslint from "typescript-eslint";
+import { config } from "@repo/eslint-config/react-internal";
+
+export default tseslint.config(
+  { ignores: ["dist", "storybook-static"] },
+  {
+    extends: [...config],
+    files: ["**/*.{ts,tsx}"],
+
+    // ...existing code...
+  },
+);
+// ...existing code...
+```

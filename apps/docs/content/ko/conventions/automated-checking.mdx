@@ -1,0 +1,73 @@
+import { Callout } from "nextra/components";
+
+# 🤖 자동화된 규약 검사 환경
+
+이 프로젝트는 [husky](https://typicode.github.io/husky/#/)를 사용하여 Git Hook을 설정하고, 커밋 전에 코드 품질을 자동으로 검사하는 환경을 구성하고 있습니다.
+이 환경은 코드 작성 시 발생할 수 있는 오류를 사전에 방지하고, 일관된 코드 스타일을 유지하는 데 도움을 줍니다.
+
+## ⬇️ 설치 및 설정
+
+루트 `package.json` 파일에 정의된 `prepare` 스크립트를 통해 husky를 설치하고 초기화하도록 설정되어 있습니다.
+즉, 로컬 환경에서 `pnpm install` 명령어를 실행하면 자동으로 husky가 설치되고, Git Hook이 설정됩니다.
+
+```json filename="package.json" {3}
+{
+  "scripts": {
+    "prepare": "husky install"
+  }
+}
+```
+
+## ⚓️ Git Hook
+
+루트 디렉토리의 `.husky` 폴더에 Git Hook 스크립트들이 위치하고 있습니다.
+
+### `pre-commit`
+
+`pre-commit` 훅은 커밋 전에 실행되며, 다음 작업을 수행합니다:
+
+- **Linting**: `eslint`를 사용하여 코드 스타일과 품질을 검사합니다.
+- **Formatting**: `prettier`를 사용하여 코드 포맷팅을 적용합니다.
+- **Type Checking**: `tsc --noEmit` 명령어를 사용하여 TypeScript 타입 검사를 수행합니다.
+
+<Callout type="info">
+  `pre-commit` 훅에서 실행하는 명령어들은 모두 Turbo task 로 정의되어 있습니다.
+  즉, 이 훅은 Turbo의 캐싱 및 병렬 실행 기능을 활용하여 빠르고 효율적으로 작업을 수행합니다.
+</Callout>
+
+```bash filename=".husky/pre-commit" {3-5}
+echo "🔍 commit 이전에 lint 규칙을 적용합니다..."
+if (
+  pnpm run lint &&
+  pnpm run format:check &&
+  pnpm run check-types
+); then
+  echo "✅ 모든 lint 규칙이 성공적으로 적용되었습니다."
+  exit 0
+else
+  echo "❌ lint 규칙 검사에서 오류가 발생했습니다."
+  exit 1
+fi
+```
+
+### `commit-msg`
+
+`commit-msg` 훅은 `commitlint` CLI 를 사용하여 커밋 메시지가 규약에 맞는지 검사합니다.
+검사 결과 규약에 맞지 않는 경우, 커밋이 거부됩니다.
+
+```bash filename=".husky/commit-msg" {6}
+COMMIT_MESSAGE_FILE=$1
+COMMIT_MESSAGE=$(cat "$COMMIT_MESSAGE_FILE")
+
+echo "❤️‍🩹 Commit Message: $COMMIT_MESSAGE"
+
+npx commitlint --edit $1
+
+if [ $? -eq 0 ]; then
+  echo "🔆 Commit message meets the convention 🔆"
+  exit 0
+else
+  echo "❌ Commit message does not meet the convention ❌"
+  exit 1
+fi
+```

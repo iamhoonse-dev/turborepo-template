@@ -1,0 +1,73 @@
+import { Callout } from "nextra/components";
+
+# 🤖 Automated Convention Checking Environment
+
+This project uses [husky](https://typicode.github.io/husky/#/) to set up Git Hooks and automatically check code quality before commits.
+This environment helps prevent errors in advance during code writing and helps maintain a consistent code style.
+
+## ⬇️ Installation & Setup
+
+Husky is installed and initialized via the `prepare` script defined in the root `package.json` file.
+That is, when you run the `pnpm install` command in your local environment, husky is automatically installed and Git Hooks are set up.
+
+```json filename="package.json" {3}
+{
+  "scripts": {
+    "prepare": "husky install"
+  }
+}
+```
+
+## ⚓️ Git Hook
+
+Git Hook scripts are located in the `.husky` folder at the root directory.
+
+### `pre-commit`
+
+The `pre-commit` hook runs before a commit and performs the following tasks:
+
+- **Linting**: Checks code style and quality using `eslint`.
+- **Formatting**: Applies code formatting using `prettier`.
+- **Type Checking**: Performs TypeScript type checking using the `tsc --noEmit` command.
+
+<Callout type="info">
+  All commands executed in the `pre-commit` hook are defined as Turbo tasks.
+  This means the hook leverages Turbo's caching and parallel execution features for fast and efficient processing.
+</Callout>
+
+```bash filename=".husky/pre-commit" {3-5}
+echo "🔍 Applying lint rules before commit..."
+if (
+  pnpm run lint &&
+  pnpm run format:check &&
+  pnpm run check-types
+); then
+  echo "✅ All lint rules applied successfully."
+  exit 0
+else
+  echo "❌ An error occurred during lint rule checking."
+  exit 1
+fi
+```
+
+### `commit-msg`
+
+The `commit-msg` hook uses the `commitlint` CLI to check whether the commit message follows the convention.
+If the message does not comply, the commit is rejected.
+
+```bash filename=".husky/commit-msg" {6}
+COMMIT_MESSAGE_FILE=$1
+COMMIT_MESSAGE=$(cat "$COMMIT_MESSAGE_FILE")
+
+echo "❤️‍🩹 Commit Message: $COMMIT_MESSAGE"
+
+npx commitlint --edit $1
+
+if [ $? -eq 0 ]; then
+  echo "🔆 Commit message meets the convention 🔆"
+  exit 0
+else
+  echo "❌ Commit message does not meet the convention ❌"
+  exit 1
+fi
+```

@@ -1,3 +1,5 @@
+import { Callout } from "nextra/components";
+
 # ✏️ 書き方
 
 このドキュメントは、ドキュメントの作成方法に関するガイドを提供します。ドキュメントを作成する前に、このガイドをお読みください。
@@ -21,12 +23,23 @@
 
 #### `<LocalizedLink>` コンポーネントの使用
 
-`<LocalizedLink>` コンポーネントを使用すると、ロケールを自動的に反映したリンクを生成できます。
+このドキュメントアプリケーションでは `<LocalizedLink>` コンポーネントを提供しています。
+このコンポーネントを使用すると、ロケールが自動的に反映されたリンクを生成できます。
+
 例えば、現在ユーザーが日本語ページを見ている場合、以下のようにコードを書くと
 リンクは自動的に `/ja/sample` に変換されます：
 
+<Callout type="info">
+  現在のプロジェクトでは絶対パスでのimportはできません。\
+  そのため、`<LocalizedLink>` コンポーネントでリンクを作成する際は相対パスを使用してください。
+</Callout>
+
 ```mdx filename="link-usage.mdx"
-<LocalizedLink href="/sample">日本語ドキュメントサンプル</LocalizedLink>
+import LocalizedLink from "../../../components/LocalizedLink";
+
+<LocalizedLink href="/setup/github-pages">
+  日本語ドキュメントサンプル
+</LocalizedLink>
 ```
 
 ```html filename="rendered-link.html"
@@ -37,4 +50,19 @@
 >
   日本語ドキュメントサンプル
 </a>
+```
+
+## 🖼️ 画像添付ガイド
+
+### 画像のアップロード
+
+ドキュメントで使用する画像は `apps/docs/public` ディレクトリにアップロードしてください。
+
+### ドキュメントへの画像挿入
+
+例えば `apps/docs/public/assets/images/sample-image.png` に画像をアップロードした場合、
+ドキュメントで画像を挿入するには次のように記述します：
+
+```mdx filename="image-usage.mdx"
+![画像の説明](/assets/images/sample-image.png)
 ```

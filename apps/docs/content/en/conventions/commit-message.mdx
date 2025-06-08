@@ -1,0 +1,26 @@
+import { Callout } from "nextra/components";
+
+# 📝 commitlint
+
+This project uses [`commitlint`](https://commitlint.js.org/) to check the format of commit messages and ensure they follow the [Conventional Commits](https://www.conventionalcommits.org/) convention via an automated script.
+
+## How it works
+
+When you make a commit, the `commit-msg` Git Hook automatically runs `commitlint`.
+That is, every time you commit, the commit message is automatically checked for compliance with the convention.
+Depending on the result, the commit will either succeed or be rejected.
+
+## Convention Configuration
+
+The commit message convention is defined in the `.commitlintrc.json` file at the root directory.
+
+<Callout type="info">
+  For more details on the Conventional Commits convention, see the [official documentation](https://www.conventionalcommits.org/).
+</Callout>
+
+```js filename=".commitlint.config.js" {2}
+module.exports = {
+  extends: ['@commitlint/config-conventional'],
+};
+```
+

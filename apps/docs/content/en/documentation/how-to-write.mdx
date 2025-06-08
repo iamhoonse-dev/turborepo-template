@@ -1,3 +1,5 @@
+import { Callout } from "nextra/components";
+
 # ✏️ How to Write
 
 This document provides a guide on how to write documentation. Please read this guide before writing documents.
@@ -21,12 +23,23 @@ Here is a correct example:
 
 #### Using the `<LocalizedLink>` Component
 
-By using the `<LocalizedLink>` component, you can automatically generate links that reflect the locale.
+This documentation application provides a `<LocalizedLink>` component.
+By using this component, you can automatically generate links that reflect the locale.
+
 For example, if the current user is viewing the Korean page, writing the code as below
 will automatically convert the link to `/ko/sample`:
 
+<Callout type="info">
+  Absolute path imports are not allowed in the current project. \
+  Therefore, when using the `<LocalizedLink>` component to write links, you must use a relative path.
+</Callout>
+
 ```mdx filename="link-usage.mdx"
-<LocalizedLink href="/sample">Korean Document Sample</LocalizedLink>
+import LocalizedLink from "../../../components/LocalizedLink";
+
+<LocalizedLink href="/setup/github-pages">
+  Korean Document Sample
+</LocalizedLink>
 ```
 
 ```html filename="rendered-link.html"
@@ -37,4 +50,19 @@ will automatically convert the link to `/ko/sample`:
 >
   Korean Document Sample
 </a>
+```
+
+## 🖼️ Image Attachment Guide
+
+### Uploading Images
+
+Images to be used in the documentation should be uploaded to the `apps/docs/public` directory.
+
+### Inserting Images into Documents
+
+For example, if you uploaded an image to `apps/docs/public/assets/images/sample-image.png`,
+insert the image in your document as follows:
+
+```mdx filename="image-usage.mdx"
+![Image description](/assets/images/sample-image.png)
 ```

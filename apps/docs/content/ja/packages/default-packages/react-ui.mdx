@@ -1,0 +1,71 @@
+import { Callout } from "nextra/components";
+
+# 🖼️ React UI
+
+<Callout type="info">
+  このパッケージには、NPM公開配布用の設定が `package.json` に含まれています。
+  配布を希望しない場合は、`package.json` から以下の設定を削除してください:
+  ```json filename="package.json"
+  {
+    "private": false,
+    "publishConfig": {
+      "access": "public"
+    },
+  }
+  ```
+</Callout>
+
+## 📖 概要
+
+`react-ui` パッケージは、Reactコンポーネントライブラリであり、UI開発を簡素化し再利用可能なコンポーネントを提供します。
+
+## 🎯 主な目的
+
+Reactコンポーネント形式で利用可能なUIパッケージを新たに追加したい場合、このパッケージをコピーして開発の出発点とできるように、
+以下のような目的で作成されています:
+
+- Tailwind CSSベースのスタイリングをサポートする設定
+- ShadCN UIコンポーネントをベースコンポーネントとして活用できる設定
+- Hooks, Context API, ユーティリティ型などReactが提供するAPIを活用できるようReact, ReactDOMを外部依存として設定
+- JSX変換をサポートするTypeScript設定
+- コードスプリッティングやツリーシェイキングをサポートするViteベースのビルド設定
+- TypeScript型定義ファイルの提供設定
+- npm公開配布時に必要な各種 `package.json` 関連設定
+
+## 📦 提供機能
+
+- **[ShadCN UI](./shadcn-ui)**: ShadCN UI関連モジュールを提供します。
+- **[Utils](./utils)**: Reactアプリケーションで使えるUI関連ユーティリティ関数集を提供します。
+- **[Components](./components)**: 様々なReact UIコンポーネントを提供します。
+- **[Constants](./constants)**: レスポンシブデザイン用のBreakpointsなどスタイル関連定数を提供します。
+- **[Base CSS](./base.css)**: 基本スタイルファイルを提供します。
+
+## 🛠️ ビルド方式および主な設定
+
+このパッケージはViteとTypeScriptをベースにマルチエントリーライブラリ形式でビルドされます。  
+各機能ごとに個別のエントリー（`shadcn-ui`, `utils`, `components`, `constants`, `base.css`）を提供し、ビルド成果物は `dist` フォルダにESモジュール（`.es.js`）とCommonJS（`.cjs.js`）形式で生成されます。
+
+### package.json
+
+- **exports**: 各機能ごとにエントリー（`shadcn-ui`, `utils`, `components`, `constants`, `base.css`）を分離し、型定義（`.d.ts`）、ESモジュール、CJSモジュールをすべて提供します。
+- **publishConfig**: `"access": "public"` でnpm公開配布が可能な設定です。
+- **files**: ビルド成果物（`dist`）のみパッケージに含めるよう指定します。
+- **peerDependencies**: `react`, `react-dom` を外部依存として明記し、プロジェクトで直接インストールするよう要求します。
+- **scripts**: ViteやTypeScriptを活用したビルド、型チェック、テストなど様々な開発スクリプトが定義されています。
+
+### vite.config.ts
+
+- **マルチエントリービルド**: `runWithGlob` ユーティリティを使い、`src` フォルダ内の各エントリーファイルを自動検出してビルドエントリーに登録します。
+- **ライブラリモード**: Viteのライブラリモードを使い、ES/CJSフォーマットでそれぞれビルドします。
+- **型定義**: `vite-plugin-dts` で各エントリーごとに型定義ファイルを自動生成します。
+- **パスエイリアス**: `vite-tsconfig-paths` でTypeScriptのパスエイリアスをサポートします。
+- **外部依存**: `react`, `react-dom`, `react/jsx-runtime` はバンドルに含めず外部依存として扱います。
+
+### tsconfig.json
+
+- **モジュール解決**: `"moduleResolution": "bundler"` でバンドラー向けのモジュール解決を使用します。
+- **型サポート**: 最新のECMAScript、DOM、React関連型をサポートするよう設定されています。
+- **JSX**: `"jsx": "react-jsx"` でReact 17+ JSX変換をサポートします。
+- **厳格モード**: 型チェックやリント関連オプションが厳格に適用されています。
+- **パスエイリアス**: `tsconfig.json` で定義されたパスエイリアスを使い、コードの可読性を高めます。
+

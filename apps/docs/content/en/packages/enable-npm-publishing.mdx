@@ -1,1 +1,28 @@
-# 📦 Enable NPM Publishing
+import LocalizedLink from "../../../components/LocalizedLink";
+
+# 📦 Enabling npm Publishing
+
+## Enabling npm Publishing in the Release Workflow
+
+By default, npm publishing is not enabled in the release workflow. \
+To enable npm publishing, refer to the <LocalizedLink href="/setup/npm">`Setup > NPM`</LocalizedLink> document and
+
+- Set up the NPM token,
+- Enable npm publishing in the workflow.
+
+## Configuring npm Publishing in `package.json`
+
+To publish to npm, you need to configure the `publishConfig` and `private` fields in the `package.json` file of each package to be published.
+
+- The `publishConfig` field should have the `access` property set to `public`,
+- The `private` field should be set to `false`.
+
+```json filename="package.json"
+{
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  // ...
+}
+```

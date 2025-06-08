@@ -8,4 +8,7 @@ export default {
   "versioning-and-publishing": {
     // title: "",
   },
+  "default-packages": {
+    // title: "",
+  },
 };

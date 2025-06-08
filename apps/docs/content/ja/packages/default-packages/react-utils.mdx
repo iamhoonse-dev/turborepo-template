@@ -1,0 +1,66 @@
+import { Callout } from "nextra/components";
+
+# ⚛️ Reactユーティリティ
+
+<Callout type="info">
+  このパッケージには、NPM公開配布用の設定が `package.json` に含まれています。
+  配布を希望しない場合は、`package.json` から以下の設定を削除してください:
+  ```json filename="package.json"
+  {
+    "private": false,
+    "publishConfig": {
+      "access": "public"
+    },
+  }
+  ```
+</Callout>
+
+## 📖 概要
+
+`react-utils` パッケージは、Reactアプリケーション開発のためのユーティリティ関数やツールを提供します。
+
+## 🎯 主な目的
+
+Reactユーティリティパッケージを新たに追加したい場合、このパッケージをコピーして開発の出発点とできるように、
+以下のような目的で作成されています:
+
+- Hooks, Context API, ユーティリティ型などReactが提供するAPIを活用できるようReact, ReactDOMを外部依存として設定
+- JSX変換をサポートするTypeScript設定
+- コードスプリッティングやツリーシェイキングをサポートするViteベースのビルド設定
+- TypeScript型定義ファイルの提供設定
+- npm公開配布時に必要な各種 `package.json` 関連設定
+
+## 📦 提供機能
+
+- **[Hooks](./hooks)**: Reactアプリケーションで使える便利なカスタムフック集を提供します。
+- **[HoCs](./hocs)**: Reactコンポーネント開発を助ける様々な高階コンポーネントを提供します。
+- **[Providers](./providers)**: React Contextを活用するユーティリティを提供します。
+
+## 🛠️ ビルド方式および主な設定
+
+このパッケージはViteとTypeScriptをベースにマルチエントリーライブラリ形式でビルドされます。  
+各機能ごとに個別のエントリー（`hooks`, `hocs`, `providers`）を提供し、ビルド成果物は `dist` フォルダにESモジュール（`.es.js`）とCommonJS（`.cjs.js`）形式で生成されます。
+
+### package.json
+
+- **exports**: 各機能ごとにエントリー（`./hooks`, `./hocs`, `./providers`）を分離し、型定義（`.d.ts`）、ESモジュール、CJSモジュールをすべて提供します。
+- **publishConfig**: `"access": "public"` でnpm公開配布が可能な設定です。
+- **files**: ビルド成果物（`dist`）のみパッケージに含めるよう指定します。
+- **peerDependencies**: `react`, `react-dom` を外部依存として明記し、プロジェクトで直接インストールするよう要求します。
+- **scripts**: ViteやTypeScriptを活用したビルド、型チェック、テストなど様々な開発スクリプトが定義されています。
+
+### vite.config.ts
+
+- **マルチエントリービルド**: `shared/helpers` の `runWithGlob` ユーティリティを使い、`src` フォルダ内の各エントリーファイルを自動検出してビルドエントリーに登録します。
+- **ライブラリモード**: Viteのライブラリモードを使い、ES/CJSフォーマットでそれぞれビルドします。
+- **型定義**: `vite-plugin-dts` で各エントリーごとに型定義ファイルを自動生成します。
+- **パスエイリアス**: `vite-tsconfig-paths` でTypeScriptのパスエイリアスをサポートします。
+- **外部依存**: `react`, `react-dom`, `react/jsx-runtime` はバンドルに含めず外部依存として扱います。
+
+### tsconfig.json
+
+- **モジュール解決**: `"moduleResolution": "bundler"` でバンドラー向けのモジュール解決を使用します。
+- **型サポート**: 最新のECMAScript、DOM、React関連型をサポートするよう設定されています。
+- **JSX**: `"jsx": "react-jsx"` でReact 17+ JSX変換をサポートします。
+- **厳格モード**: 型チェックやリント関連オプションが厳格に適用されています。
+
