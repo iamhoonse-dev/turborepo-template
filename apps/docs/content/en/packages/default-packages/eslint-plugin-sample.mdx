@@ -1,0 +1,59 @@
+import { Callout } from "nextra/components";
+
+# 🛡️ eslint-plugin-sample
+
+<Callout type="info">
+  This package includes settings in `package.json` for public NPM distribution.
+  If you do not wish to distribute, please remove the following settings from `package.json`:
+  ```json filename="package.json"
+  {
+    "private": false,
+    "publishConfig": {
+      "access": "public"
+    },
+  }
+  ```
+</Callout>
+
+## 📖 Overview
+
+The `eslint-plugin-sample` package is a sample package for developing ESLint plugins.
+
+## 🎯 Purpose
+
+When developing your own ESLint plugin within a Turborepo, you can copy this package as a starting point for development.
+It is designed with the following purposes:
+
+- Provides examples of basic settings and structure for ESLint plugin development
+- Provides an example of linking a custom plugin to the project's common ESLint config (`configs/eslint-config`)
+
+## 📦 Provided Features
+
+- **[Rules](./lib/rules)**: Folder for defining ESLint rules, each rule is managed in a separate file.
+- **[docs](./docs/rules)**: Folder for writing documentation for each rule, including usage and examples.
+- **[tests](./tests/lib/rules)**: Folder for writing test cases for rules to verify correct operation.
+
+## ✏️ How was this package created?
+
+This package was generated as a template for starting ESLint plugin development using Yeoman.
+
+<Callout type="info">
+  You can check the official documentation for how to create an ESLint plugin using the yeoman CLI tool: [Official Docs](https://github.com/eslint/generator-eslint)
+</Callout>
+
+```bash
+# Run in the project root directory
+cd path/to/your/repository/root
+
+# Create ESLint plugin package directory
+mkdir packages/eslint-plugin-sample
+
+# Move to the ESLint plugin package directory
+cd packages/eslint-plugin-sample
+
+# Generate ESLint plugin template using Yeoman
+yo eslint:plugin
+```
+
+![foo](/assets/images/packages/eslint-plugin-sample/img-1.png)
+

@@ -1,0 +1,48 @@
+# 🌐 HTTP Clients
+
+## 📖 Overview
+
+The `http-clients` package is an internal package that provides utilities and client code for handling HTTP requests.
+
+## 🎯 Main Purpose
+
+This package is designed with the following main purposes:
+
+- Provides HTTP client instances (`self`, `iamhoonse.dev`) for consistent request handling
+- Provides HTTP clients usable in both web browsers and Node.js environments
+- Vite-based build settings to support code splitting and tree shaking
+- Settings to provide TypeScript declaration files
+
+## 📦 Provided Features
+
+- **[Instances](src/instances)**: Provides HTTP client instances such as `self` and `iamhoonse.dev`.
+- **[Mocks](src/mocks)**: Provides request handlers related to `self` and `iamhoonse.dev` for use with MSW (Mock Service Worker).
+- **[Types](src/types)**: Defines types related to HTTP requests and responses.
+
+## 🛠️ Build Method & Main Settings
+
+This package is built as a multi-entry library based on Vite and TypeScript.  
+Each feature is provided as a separate entry (`instances`, `mocks`, `types`), and the build outputs are generated in the `dist` folder as ES modules (`.es.js`) and CommonJS (`.cjs.js`) formats.
+
+### package.json
+
+- **exports**: Each feature is separated as an entry (`./instances`, `./mocks`, `./types`), and provides type declarations (`.d.ts`), ES modules, and CJS modules.
+- **private**: Set to `"private": true` to prevent public npm distribution.
+- **files**: Only build outputs (`dist`) are included in the package.
+- **scripts**: Various development scripts are defined, such as build, type check, and test using Vite and TypeScript.
+
+### vite.config.ts
+
+- **Multi-entry build**: Uses the `runWithGlob` utility from `shared/helpers` to automatically detect entry files in the `src` folder and register them as build entries.
+- **Library mode**: Uses Vite's library mode to build in both ES/CJS formats.
+- **Type declarations**: Automatically generates type declaration files for each entry using `vite-plugin-dts`.
+- **Path aliases**: Supports TypeScript path aliases with `vite-tsconfig-paths`.
+
+### tsconfig.json
+
+- **Module resolution**: Uses `"moduleResolution": "bundler"` for bundler-friendly module resolution.
+- **Type support**: Configured to support the latest ECMAScript, Node.js, and DOM types.
+- **Strict mode**: Type checking and lint-related options are strictly applied.
+- **Path aliases**: Uses path aliases defined in `tsconfig.json` to improve code readability.
+
+---

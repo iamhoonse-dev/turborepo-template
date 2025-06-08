@@ -1,0 +1,58 @@
+import { Callout } from "nextra/components";
+
+# 🛡️ eslint-plugin-sample
+
+<Callout type="info">
+  이 패키지는 NPM 공개 배포를 위한 설정이 `package.json`에 포함되어 있어요.
+  배포를 원하지 않을 경우, `package.json`에서 아래의 설정들을 제거해주세요:
+  ```json filename="package.json"
+  {
+    "private": false,
+    "publishConfig": {
+      "access": "public"
+    },
+  }
+  ```
+</Callout>
+
+## 📖 개요
+
+`eslint-plugin-sample` 패키지는 ESLint 플러그인 개발을 위한 샘플 패키지예요.
+
+## 🎯 목표
+
+Turborepo 내에서 ESLint 플러그인을 자체적으로 개발할 때, 이 패키지를 복사하여 개발의 시작점으로 삼을 수 있도록,
+아래와 같은 목적들을 가지고 작성되었어요:
+
+- ESLint 플러그인 개발을 위한 기본적인 설정과 구조에 대한 예시 제공
+- 프로젝트 공통 ESLint config(`configs/eslint-config`)에 자체 제작한 플러그인을 연동하는 예시 제공
+
+## 📦 제공 기능
+
+- **[Rules](./lib/rules)**: ESLint 규칙을 정의하는 폴더로, 각 규칙은 별도의 파일로 관리됩니다.
+- **[docs](./docs/rules)**: 각 규칙에 대한 문서를 작성하는 폴더로, 규칙의 사용법과 예제를 포함합니다.
+- **[tests](./tests/lib/rules)**: 규칙에 대한 테스트 케이스를 작성하는 폴더로, 규칙이 올바르게 동작하는지 검증합니다.
+
+## ✏️ 이 패키지는 어떻게 작성되었나요?
+
+이 패키지는 ESLint 플러그인 개발을 시작하기 위한 템플릿으로, Yeoman 을 사용하여 생성되었습니다.
+
+<Callout type="info">
+  yeoman CLI 도구를 사용한 ESLint 플러그인 작성 방법은 [공식 문서](https://github.com/eslint/generator-eslint)에서 확인할 수 있어요.
+</Callout>
+
+```bash
+# 프로젝트 루트 디렉터리에서 실행
+cd path/to/your/repository/root
+
+# ESLint 플러그인 패키지 디렉토리 생성
+mkdir packages/eslint-plugin-sample
+
+# ESLint 플러그인 패키지 디렉토리로 이동
+cd packages/eslint-plugin-sample
+
+# Yeoman 을 사용하여 ESLint 플러그인 템플릿 생성
+yo eslint:plugin
+```
+
+![foo](/assets/images/packages/eslint-plugin-sample/img-1.png)
