@@ -1,4 +1,5 @@
 import { Callout } from "nextra/components";
+import LocalizedLink from "../../../components/LocalizedLink";
 
 # 🛡️ ESLint
 
@@ -112,5 +113,71 @@ export default tseslint.config(
     // ... 추가적인 규칙들
   },
 );
+```
 
+## ESLint Plugins
+
+### 직접 작성하기
+
+이 프로젝트에서는 ESLint 플러그인을 직접 작성하여 사용할 수도 있습니다.
+
+- 새 ESLint 플러그인을 작성하려면 <LocalizedLink href="/packages/add-new-package/eslint-plugin">`패키지 > 새 패키지 추가 > ESLint 플러그인`</LocalizedLink> 문서를 참고해 주세요.
+- `eslint-plugin-sample` 패키지에 대한 자세한 내용은 <LocalizedLink href="/packages/default-packages/eslint-plugin-sample">`패키지 > 샘플 패키지 > eslint-plugin-samples`</LocalizedLink> 문서를 참고해 주세요.
+
+### ESLint Config 에 적용하기
+
+작성한 ESLint 규칙은 ESLint Config 에 적용할 수 있습니다.
+예를 들어, `configs/eslint-config/base.js` 파일을 보면, `eslint-plugin-sample` 패키지에서 작성한 규칙을 다음과 같이 적용하고 있습니다.
+마찬가지로 새로운 ESLint 규칙을 작성한 후, 해당 규칙을 이와 같이 ESLint Config 에 추가하여 사용할 수 있습니다.
+
+#### 의존성 추가하기
+
+작성한 ESLint 플러그인을 ESLint Config 에 적용하기 위해서는 해당 플러그인을 `eslint-config` 패키지의 `devDependencies`에 추가합니다.
+
+```json filename="configs/eslint-config/package.json" {4}
+{
+  // ... 다른 설정들
+  "devDependencies": {
+    "@repo/eslint-plugin-sample": "workspace:*",
+    // ... 다른 devDependencies
+  },
+}
+```
+
+이어서 아래의 명령어를 실행하여 `eslint-plugin-sample` 패키지를 `eslint-config` 패키지 의존성으로 설치합니다.
+
+```bash
+pnpm install --filter @repo/eslint-config
+```
+
+#### Config 에 적용하기
+
+이제 `eslint-config` 패키지의 ESLint Config 파일에 작성한 ESLint 플러그인을 적용할 수 있습니다.
+
+<Callout type="info">
+  이 예시에서는 `base.js` 파일에 ESLint 플러그인을 적용하는 방법을 보여주고 있지만,
+  다른 ESLint Config 파일(e.g. `next.js`, `react-niternal.js`, ...)에서도 동일한 방식으로
+  ESLint 플러그인을 적용할 수 있습니다.
+</Callout>
+
+```js filename="configs/eslint-config/base.js" {2,13}
+// ... 다른 import 문들
+import samplePlugin from "@repo/eslint-plugin-sample";
+
+/**
+ * A shared ESLint configuration for the repository.
+ *
+ * @type {import("eslint").Linter.Config[]}
+ * */
+export const config = [
+  // ... 다른 ESLint Config 들
+  {
+    plugins: {
+      sample: samplePlugin,
+    },
+    rules: {
+      "sample/no-new-date": "warn", // eslint-plugin-sample 패키지에서 작성한 규칙을 적용
+    },
+  },
+];
 ```
