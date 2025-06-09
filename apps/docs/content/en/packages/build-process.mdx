@@ -1,0 +1,123 @@
+import { Callout } from "nextra/components";
+
+# 🏗️ Build Process
+
+This document provides an explanation of how packages are built in this project to help you understand the build process.
+
+## ⚡ Vite-based Build
+
+The packages provided in this project are built using Vite.
+
+|Package|Build Tool|
+|---|---|
+|`browser-utils`|[Vite](https://vitejs.dev/)|
+|`http-clients`|[Vite](https://vitejs.dev/)|
+|`node-utils`|[Vite](https://vitejs.dev/)|
+|`react-utils`|[Vite](https://vitejs.dev/)|
+|`react-ui`|[Vite](https://vitejs.dev/)|
+
+<Callout type="info">
+  ESLint plugin packages such as `eslint-plugin-sample` are designed not to go through a separate build process.
+  Instead, ESLint plugin packages are set to use the `index.js` file in the `lib` directory directly
+  via the `files`, `main`, and `exports` fields in `package.json`.
+</Callout>
+
+### Rationale
+
+The reasons for using Vite to build packages are as follows:
+
+> _"Assuming that each package will be published as an npm package, Vite's build functionality is used to bundle the source code of each package and generate optimized output."_
+
+## Usage in Other Packages and Applications
+
+Other packages and applications that depend on the packages in this project are set up to use the built output (`dist`) of each package.
+This is defined in the `files` and `exports` fields of each package's `package.json`.
+
+For example, the `package.json` file of the `react-ui` package is configured as follows:
+
+<Callout type="info">
+  With this configuration, when other packages or applications that depend on the `react-ui` package install it using `pnpm`,
+  the built output (`dist`) will be used.
+  That is, the `node_modules/@repo/react-ui` directory of the dependent package or application will contain the built output (`dist`).
+</Callout>
+
+```json filename="packages/react-ui/package.json"
+{
+  // ...existing code...
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    "./hooks": {
+      "types": "./dist/hooks/index.d.ts",
+      "import": "./dist/hooks/index.es.js",
+      "require": "./dist/hooks/index.cjs.js"
+    },
+    "./hocs": {
+      "types": "./dist/hocs/index.d.ts",
+      "import": "./dist/hocs/index.es.js",
+      "require": "./dist/hocs/index.cjs.js"
+    },
+    "./providers": {
+      "types": "./dist/providers/index.d.ts",
+      "import": "./dist/providers/index.es.js",
+      "require": "./dist/providers/index.cjs.js"
+    }
+  },
+  // ...existing code...
+}
+```
+
+## HMR Support in Development Environment (`pnpm dev`)
+
+As explained above, other packages or applications that depend on the packages in this project are designed to use the actual built output (`dist`) of those packages.
+
+Therefore, even when running the `pnpm dev` command in the development environment,
+the development server runs using the built output (`dist`) of each package.
+
+To reflect changes in the developing package in real time,
+the `dev` script of each package is set up as follows to use Vite's HMR (Hot Module Replacement) feature.
+
+```json filename="packages/react-ui/package.json"
+{
+  // ...existing code...
+  "scripts": {
+    "dev": "tsc -b && vite build --watch",
+    // ...other scripts...
+  },
+  // ...existing code...
+}
+```
+
+## Linter and TypeScript Checks
+
+Since other packages or applications that depend on the packages in this project are designed to use the actual built output (`dist`),
+
+if the `dist` directory does not exist at the time when linter checks (`pnpm run lint`) or TypeScript checks (`pnpm run check-types`) are run in the dependent packages or applications, errors may occur.
+
+Therefore, it is necessary to ensure that the `dist` directory for all packages has been generated before running linter or TypeScript checks.
+To achieve this, the `lint` and `check-types` tasks in Turborepo are set to depend on the build task as follows:
+
+```json filename="turbo.json"
+{
+  // ...existing code...
+  "tasks": {
+    // ...other tasks...
+    "lint": {
+      "dependsOn": ["build", "^lint"]
+    },
+    "check-types": {
+      "dependsOn": ["build", "^check-types"]
+    },
+    // ...other tasks...
+  },
+  // ...existing code...
+}
+```
+
+## 📌 Reference
+
+For more details on the build process adopted in this project, refer to the following documents:
+
+- [Turborepo Docs > publishing-libraries](https://turborepo.com/docs/guides/publishing-libraries)
+- [Turborepo Docs > creating-an-internal-package](https://turborepo.com/docs/crafting-your-repository/creating-an-internal-package)

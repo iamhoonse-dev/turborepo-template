@@ -1,0 +1,130 @@
+import { Callout } from "nextra/components";
+
+# 🏗️ ビルド方式
+
+このドキュメントは、このプロジェクトでパッケージがどのようにビルドされるかについて説明し、ビルドプロセスの理解を助けるために作成されました。
+
+## ⚡ Viteベースのビルド
+
+このプロジェクトで提供されるパッケージはViteを使ってビルドされます。
+
+|パッケージ|ビルド方式|
+|---|---|
+|`browser-utils`|[Vite](https://vitejs.dev/)|
+|`http-clients`|[Vite](https://vitejs.dev/)|
+|`node-utils`|[Vite](https://vitejs.dev/)|
+|`react-utils`|[Vite](https://vitejs.dev/)|
+|`react-ui`|[Vite](https://vitejs.dev/)|
+
+<Callout type="info">
+  `eslint-plugin-sample` のようなESLintプラグインパッケージは、別途ビルド工程を経ないように設計されています。
+  代わりに、ESLintプラグインパッケージは `lib` ディレクトリ内の `index.js` ファイルをそのまま使用するように
+  `package.json` の `files`, `main`, `exports` フィールドで設定されています。
+</Callout>
+
+### 採用意図
+
+Viteを使ってパッケージをビルドする理由は以下の通りです：
+
+> _"各パッケージをnpmパッケージとして公開することを前提に、Viteのビルド機能を使って
+各パッケージのソースコードをバンドルし、最適化された成果物を生成するためです。"_
+
+## 他のパッケージやアプリケーションでの利用
+
+このプロジェクトのパッケージを依存関係として持つ他のパッケージやアプリケーションでは、各パッケージのビルド済み成果物（`dist`）を利用するように設定されています。
+この設定は各パッケージの `package.json` の `files`, `exports` フィールドで定義されています。
+
+例として、`react-ui` パッケージの `package.json` ファイルは次のように設定されています：
+
+<Callout type="info">
+  この設定により、`pnpm` で `react-ui` パッケージを依存関係に持つ他のパッケージやアプリケーションが
+  `react-ui` をインストールする際、ビルド済み成果物（`dist`）が利用されます。
+  つまり、`react-ui` を利用する他のパッケージやアプリケーションの `node_modules/@repo/react-ui` ディレクトリには
+  ビルド済み成果物（`dist`）が含まれることになります。
+</Callout>
+
+```json filename="packages/react-ui/package.json"
+{
+  // ...existing code...
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    "./hooks": {
+      "types": "./dist/hooks/index.d.ts",
+      "import": "./dist/hooks/index.es.js",
+      "require": "./dist/hooks/index.cjs.js"
+    },
+    "./hocs": {
+      "types": "./dist/hocs/index.d.ts",
+      "import": "./dist/hocs/index.es.js",
+      "require": "./dist/hocs/index.cjs.js"
+    },
+    "./providers": {
+      "types": "./dist/providers/index.d.ts",
+      "import": "./dist/providers/index.es.js",
+      "require": "./dist/providers/index.cjs.js"
+    }
+  },
+  // ...existing code...
+}
+```
+
+## 開発環境（`pnpm dev`）でのHMRサポート
+
+前述の通り、このプロジェクトのパッケージを依存関係として持つ他のパッケージやアプリケーションでは
+実際のビルド済み成果物（`dist`）を利用するように設計されています。
+
+そのため、開発環境で `pnpm dev` コマンドを実行した場合も
+各パッケージのビルド済み成果物（`dist`）を使って開発サーバーが起動します。
+
+このとき、開発中のパッケージの変更をリアルタイムで反映する必要があるため、
+ViteのHMR（Hot Module Replacement）機能を利用し、
+各パッケージの `dev` スクリプトは次のように設定されています。
+
+```json filename="packages/react-ui/package.json"
+{
+  // ...existing code...
+  "scripts": {
+    "dev": "tsc -b && vite build --watch",
+    // ...other scripts...
+  },
+  // ...existing code...
+}
+```
+
+## LinterチェックおよびTypeScriptチェック
+
+このプロジェクトのパッケージを依存関係として持つ他のパッケージやアプリケーションでは
+実際のビルド済み成果物（`dist`）を利用するように設計されているため、
+
+もし依存先のパッケージやアプリケーションでLinterチェック（`pnpm run lint`）やTypeScriptチェック（`pnpm run check-types`）を実行する際に
+`dist` ディレクトリが存在しない場合、エラーが発生する可能性があります。
+
+そのため、LinterチェックやTypeScriptチェックを実行する前に、すべてのパッケージの `dist` ディレクトリが生成されていることを保証する必要があります。
+これを実現するため、Turborepoの `lint` および `check-types` タスクは
+ビルドタスク（`build`）に依存するように次のように設定されています。
+
+```json filename="turbo.json"
+{
+  // ...existing code...
+  "tasks": {
+    // ...other tasks...
+    "lint": {
+      "dependsOn": ["build", "^lint"]
+    },
+    "check-types": {
+      "dependsOn": ["build", "^check-types"]
+    },
+    // ...other tasks...
+  },
+  // ...existing code...
+}
+```
+
+## 📌 参考
+
+このプロジェクトで採用しているビルド方式の詳細は、以下のドキュメントを参照してください：
+
+- [Turborepo公式ドキュメント > publishing-libraries](https://turborepo.com/docs/guides/publishing-libraries)
+- [Turborepo公式ドキュメント > creating-an-internal-package](https://turborepo.com/docs/crafting-your-repository/creating-an-internal-package)
