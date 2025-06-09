@@ -1,0 +1,102 @@
+import { Callout, FileTree } from "nextra/components";
+
+# 🛡 ESLint Plugin
+
+## Adding a New ESLint Plugin
+
+This document explains how to add a new ESLint plugin to your project using the [yeoman](https://yeoman.io/) CLI tool.
+
+<Callout type="info">
+  You can find the official guide for creating an ESLint plugin with the yeoman CLI tool in the [official documentation](https://github.com/eslint/generator-eslint).
+</Callout>
+
+### (0) Install Yeoman CLI
+
+To generate an ESLint plugin using the Yeoman CLI tool, you first need to install the Yeoman CLI and the ESLint template.
+
+#### 1) Install Yeoman CLI
+
+To install the Yeoman CLI tool globally, run the following command:
+
+```bash
+npm i -g yo
+```
+
+#### 2) Install Yeoman ESLint Plugin Template
+
+To install the Yeoman ESLint plugin template globally, run the following command:
+
+```bash
+npm i -g generator-eslint
+```
+
+### (1) Create a New ESLint Plugin Package
+
+#### 1) Create a Directory for the New ESLint Plugin Package
+
+To add a new ESLint plugin package, first create a directory for it at the root of your project.
+
+```bash
+# Run this at the project root directory
+cd path/to/your/repository/root
+
+# Create the ESLint plugin package directory
+mkdir packages/eslint-plugin-sample
+```
+
+#### 2) Scaffold the ESLint Plugin Template with Yeoman CLI
+
+Now, move into the newly created ESLint plugin package directory and use Yeoman to scaffold the ESLint plugin template.
+
+```bash
+# Move to the ESLint plugin package directory
+cd packages/eslint-plugin-sample
+
+# Scaffold the ESLint plugin template using Yeoman
+yo eslint:plugin
+```
+
+![creating-eslint-plugin-with-yeoman](/assets/images/packages/eslint-plugin-sample/img-1.png)
+
+### (2) Add Rules to the ESLint Plugin
+
+#### 1) Scaffold an ESLint Rule Template with Yeoman CLI
+
+To add a new ESLint rule, run the `yo eslint:rule` command in your ESLint plugin package directory.
+
+```bash
+# Move to the ESLint plugin package directory
+cd packages/eslint-plugin-sample
+
+# Scaffold the ESLint rule template using Yeoman
+yo eslint:rule
+```
+
+![creating-eslint-rule-with-yeoman](/assets/images/packages/add-new-package/img-1.png)
+
+### (3) Result
+
+After completing the above steps, your ESLint plugin package directory structure should look like this:
+
+<FileTree>
+  <FileTree.File name="package.json" />
+  <FileTree.File name="README.md" />
+  <FileTree.File name="eslint.config.mjs" />
+  <FileTree.Folder name="docs" defaultOpen>
+    <FileTree.Folder name="rules" defaultOpen>
+      <FileTree.File name="rule-name.md" />
+    </FileTree.Folder>
+  </FileTree.Folder>
+  <FileTree.Folder name="lib" defaultOpen>
+    <FileTree.Folder name="rules" defaultOpen>
+      <FileTree.File name="rule-name.js" />
+    </FileTree.Folder>
+  </FileTree.Folder>
+  <FileTree.Folder name="tests" defaultOpen>
+    <FileTree.Folder name="lib" defaultOpen>
+      <FileTree.Folder name="rules" defaultOpen>
+        <FileTree.File name="rule-name.js" />
+      </FileTree.Folder>
+    </FileTree.Folder>
+  </FileTree.Folder>
+</FileTree>

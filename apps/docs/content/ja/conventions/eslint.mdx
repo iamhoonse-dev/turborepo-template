@@ -1,4 +1,5 @@
 import { Callout } from "nextra/components";
+import LocalizedLink from "../../../components/LocalizedLink";
 
 # 🛡️ ESLint
 
@@ -25,7 +26,7 @@ pnpm run lint
 {
   "scripts": {
     "lint": "turbo run lint"
-    // ... 다른 스크립트들
+    // ...existing code...
   }
 }
 ```
@@ -40,7 +41,7 @@ pnpm run lint
 {
   "scripts": {
     "lint": "next lint --max-warnings 0"
-    // ... 다른 스크립트들
+    // ...existing code...
   }
 }
 ```
@@ -56,7 +57,7 @@ pnpm run lint
     "lint": {
       "dependsOn": ["build", "^lint"]
     }
-    // ... 다른 작업들
+    // ...existing code...
   }
 }
 ```
@@ -67,6 +68,10 @@ pnpm run lint
 各パッケージがビルド済みコードをバンドルに含めるため、
 ビルドが完了していないとESLintチェックが正しく行われない場合があります。
 そのため、`lint` タスクの `dependsOn` フィールドで `build` タスクに依存するよう設定されています。
+
+<Callout type="info">
+  このプロジェクトで採用しているビルド方式の詳細については、<LocalizedLink href="/packages/build-process">`パッケージ > ビルド方式`</LocalizedLink> ドキュメントを参照してください。
+</Callout>
 
 ## ESLint Config
 
@@ -88,10 +93,12 @@ pnpm run lint
 `apps/docs` ワークスペースでは `configs/eslint-config/next.js` のNext.js用ESLint設定をそのまま使っています。
 
 ```js filename="apps/docs/.eslintrc.js" {1,4}
+// ...existing code...
 import { nextJsConfig } from "@repo/eslint-config/next-js";
 
 /** @type {import("eslint").Linter.Config} */
 export default nextJsConfig;
+// ...existing code...
 ```
 
 #### 拡張する場合
@@ -99,6 +106,7 @@ export default nextJsConfig;
 `apps/frontend-workshop` ワークスペースでは `configs/eslint-config/react-internal.js` を拡張してReact用ルールを適用しています。
 
 ```js filename="apps/frontend-workshop/eslint.config.js" {3,8}
+// ...existing code...
 import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
 import { config } from "@repo/eslint-config/react-internal";
@@ -109,8 +117,75 @@ export default tseslint.config(
     extends: [...config],
     files: ["**/*.{ts,tsx}"],
 
-    // ... 추가적인 규칙들
+    // ...existing code...
   },
 );
+// ...existing code...
+```
 
+## ESLintプラグイン
+
+### 独自作成
+
+このプロジェクトではESLintプラグインを独自に作成して利用することもできます。
+
+- 新しいESLintプラグインを作成するには <LocalizedLink href="/packages/add-new-package/eslint-plugin">`パッケージ > 新しいパッケージ追加 > ESLintプラグイン`</LocalizedLink> ドキュメントを参照してください。
+- `eslint-plugin-sample` パッケージの詳細は <LocalizedLink href="/packages/default-packages/eslint-plugin-sample">`パッケージ > サンプルパッケージ > eslint-plugin-samples`</LocalizedLink> ドキュメントを参照してください。
+
+### ESLint Configへの適用
+
+作成したESLintルールはESLint Configに適用できます。
+例えば、`configs/eslint-config/base.js` ファイルでは、`eslint-plugin-sample` パッケージで作成したルールを次のように適用しています。
+同様に新しいESLintルールを作成した後、ESLint Configに追加して利用できます。
+
+#### 依存関係の追加
+
+作成したESLintプラグインをESLint Configに適用するには、そのプラグインを `eslint-config` パッケージの `devDependencies` に追加します。
+
+```json filename="configs/eslint-config/package.json" {4}
+{
+  // ...existing code...
+  "devDependencies": {
+    "@repo/eslint-plugin-sample": "workspace:*",
+    // ...existing code...
+  },
+}
+```
+
+続いて、下記コマンドで `eslint-plugin-sample` パッケージを `eslint-config` パッケージの依存関係としてインストールします。
+
+```bash
+pnpm install --filter @repo/eslint-config
+```
+
+#### Configへの適用
+
+これで `eslint-config` パッケージのESLint Configファイルに作成したESLintプラグインを適用できます。
+
+<Callout type="info">
+  この例では `base.js` ファイルにESLintプラグインを適用する方法を示していますが、
+  他のESLint Configファイル（例: `next.js`, `react-internal.js` など）でも同様の方法で
+  ESLintプラグインを適用できます。
+</Callout>
+
+```js filename="configs/eslint-config/base.js" {2,13}
+// ...existing code...
+import samplePlugin from "@repo/eslint-plugin-sample";
+
+/**
+ * A shared ESLint configuration for the repository.
+ *
+ * @type {import("eslint").Linter.Config[]}
+ * */
+export const config = [
+  // ...existing code...
+  {
+    plugins: {
+      sample: samplePlugin,
+    },
+    rules: {
+      "sample/no-new-date": "warn", // eslint-plugin-sampleパッケージで作成したルールを適用
+    },
+  },
+];
 ```

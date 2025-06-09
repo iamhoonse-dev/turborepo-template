@@ -1,4 +1,7 @@
 export default {
+  "build-process": {
+    // title: "",
+  },
   "add-new-package": {
     // title: "",
   },

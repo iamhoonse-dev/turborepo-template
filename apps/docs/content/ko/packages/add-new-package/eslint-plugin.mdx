@@ -1,0 +1,102 @@
+import { Callout, FileTree } from "nextra/components";
+
+# 🛡 ESLint 플러그인
+
+## 새 ESLint 플러그인 추가하기
+
+이 문서에서는 [yeoman](https://yeoman.io/) CLI 도구를 이용하여 프로젝트에 ESLint 플러그인을 새로 추가하는 방법에 대해 설명합니다.
+
+<Callout type="info">
+  yeoman CLI 도구를 사용한 ESLint 플러그인 작성 방법은 [공식 문서](https://github.com/eslint/generator-eslint)에서 확인할 수 있어요.
+</Callout>
+
+### (0) Yeoman CLI 설치
+
+Yeoman CLI 도구를 사용하여 ESLint 플러그인을 생성하기 위해서는 먼저 Yeoman CLI와 ESLint 템플릿을 설치해야 합니다.
+
+#### 1) Yeoman CLI 설치
+
+Yeoman CLI 도구를 설치하기 위해, 다음 명령어를 실행합니다. 이 명령어는 전역적으로 Yeoman을 설치합니다.
+
+```bash
+npm i -g yo
+```
+
+#### 2) Yeoman ESLint 플러그인 템플릿 설치
+
+Yeoman ESLint 플러그인 템플릿을 설치하기 위해, 다음 명령어를 실행합니다. 이 명령어는 Yeoman ESLint 플러그인 템플릿을 전역적으로 설치합니다.
+
+```bash
+npm i -g generator-eslint
+```
+
+### (1) 새 ESLint 플러그인 패키지 생성
+
+#### 1) 새 ESLint 플러그인 패키지 디렉토리 생성
+
+새 ESLint 플러그인 패키지를 추가하기 위해, 먼저 프로젝트 루트 디렉토리에서 ESLint 플러그인 패키지 디렉토리를 생성합니다.
+
+```bash
+# 프로젝트 루트 디렉터리에서 실행
+cd path/to/your/repository/root
+
+# ESLint 플러그인 패키지 디렉토리 생성
+mkdir packages/eslint-plugin-sample
+```
+
+#### 2) Yeoman CLI 로 ESLint 플러그인 템플릿 스캐폴딩
+
+이제 생성한 ESLint 플러그인 패키지 디렉토리로 이동하여, Yeoman 을 사용하여 ESLint 플러그인 템플릿을 생성합니다.
+
+```bash
+# ESLint 플러그인 패키지 디렉토리로 이동
+cd packages/eslint-plugin-sample
+
+# Yeoman 을 사용하여 ESLint 플러그인 템플릿 스캐폴딩
+yo eslint:plugin
+```
+
+![creating-eslint-plugin-with-yeoman](/assets/images/packages/eslint-plugin-sample/img-1.png)
+
+### (2) ESLint 플러그인에 규칙 추가하기
+
+#### 1) Yeoman CLI 로 ESLint 규칙 템플릿 스캐폴딩
+
+새 ESLint 규칙을 추가하고자 하는 ESLint 플러그인 패키지 디렉토리에서 `yo eslint:rule` 명령어를 실행합니다.
+
+```bash
+# ESLint 플러그인 패키지 디렉토리로 이동
+cd packages/eslint-plugin-sample
+
+# Yeoman 을 사용하여 ESLint 규칙 템플릿 스캐폴딩
+yo eslint:rule
+```
+
+![creating-eslint-rule-with-yeoman](/assets/images/packages/add-new-package/img-1.png)
+
+### (3) 실행 결과
+
+여기까지의 과정을 통해 생성된 ESLint 플러그인 패키지의 디렉토리 구조는 다음과 같습니다:
+
+<FileTree>
+  <FileTree.File name="package.json" />
+  <FileTree.File name="README.md" />
+  <FileTree.File name="eslint.config.mjs" />
+  <FileTree.Folder name="docs" defaultOpen>
+    <FileTree.Folder name="rules" defaultOpen>
+      <FileTree.File name="rule-name.md" />
+    </FileTree.Folder>
+  </FileTree.Folder>
+  <FileTree.Folder name="lib" defaultOpen>
+    <FileTree.Folder name="rules" defaultOpen>
+      <FileTree.File name="rule-name.js" />
+    </FileTree.Folder>
+  </FileTree.Folder>
+  <FileTree.Folder name="tests" defaultOpen>
+    <FileTree.Folder name="lib" defaultOpen>
+      <FileTree.Folder name="rules" defaultOpen>
+        <FileTree.File name="rule-name.js" />
+      </FileTree.Folder>
+    </FileTree.Folder>
+  </FileTree.Folder>
+</FileTree>

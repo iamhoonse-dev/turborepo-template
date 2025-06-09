@@ -1,4 +1,5 @@
 import { Callout } from "nextra/components";
+import LocalizedLink from "../../../components/LocalizedLink";
 
 # 🛡️ ESLint
 
@@ -68,6 +69,10 @@ Since each package includes the built code in the bundle,
 ESLint checks may not work correctly if the build is not complete.
 Therefore, the `lint` task's `dependsOn` field is set to depend on the `build` task.
 
+<Callout type="info">
+  For more details about the build process adopted in this project, please refer to the <LocalizedLink href="/packages/build-process">`Packages > Build Process`</LocalizedLink> document.
+</Callout>
+
 ## ESLint Config
 
 ### Shared Config
@@ -116,4 +121,70 @@ export default tseslint.config(
   },
 );
 // ...existing code...
+```
+
+## ESLint Plugins
+
+### Writing Your Own
+
+You can also write and use your own ESLint plugins in this project.
+
+- To write a new ESLint plugin, refer to the <LocalizedLink href="/packages/add-new-package/eslint-plugin">`Packages > Add New Package > ESLint Plugin`</LocalizedLink> document.
+- For more details about the `eslint-plugin-sample` package, see the <LocalizedLink href="/packages/default-packages/eslint-plugin-sample">`Packages > Sample Package > eslint-plugin-samples`</LocalizedLink> document.
+
+### Applying to ESLint Config
+
+The ESLint rules you write can be applied to your ESLint config.
+For example, in the `configs/eslint-config/base.js` file, you can see that the rules written in the `eslint-plugin-sample` package are applied as follows.
+Similarly, after writing a new ESLint rule, you can add it to your ESLint config in the same way.
+
+#### Adding as a Dependency
+
+To apply your ESLint plugin to the ESLint config, add the plugin to the `devDependencies` of the `eslint-config` package.
+
+```json filename="configs/eslint-config/package.json" {4}
+{
+  // ...existing code...
+  "devDependencies": {
+    "@repo/eslint-plugin-sample": "workspace:*",
+    // ...existing code...
+  },
+}
+```
+
+Then, run the following command to install the `eslint-plugin-sample` package as a dependency of the `eslint-config` package.
+
+```bash
+pnpm install --filter @repo/eslint-config
+```
+
+#### Applying to Config
+
+Now you can apply your ESLint plugin to the ESLint config file in the `eslint-config` package.
+
+<Callout type="info">
+  This example shows how to apply an ESLint plugin in the `base.js` file,
+  but you can apply ESLint plugins in the same way in other ESLint config files (e.g. `next.js`, `react-internal.js`, ...).
+</Callout>
+
+```js filename="configs/eslint-config/base.js" {2,13}
+// ...existing code...
+import samplePlugin from "@repo/eslint-plugin-sample";
+
+/**
+ * A shared ESLint configuration for the repository.
+ *
+ * @type {import("eslint").Linter.Config[]}
+ * */
+export const config = [
+  // ...existing code...
+  {
+    plugins: {
+      sample: samplePlugin,
+    },
+    rules: {
+      "sample/no-new-date": "warn", // Apply the rule written in the eslint-plugin-sample package
+    },
+  },
+];
 ```
