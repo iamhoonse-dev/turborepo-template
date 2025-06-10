@@ -33,15 +33,15 @@ The reasons for using Vite to build packages are as follows:
 Other packages and applications that depend on the packages in this project are set up to use the built output (`dist`) of each package.
 This is defined in the `files` and `exports` fields of each package's `package.json`.
 
-For example, the `package.json` file of the `react-ui` package is configured as follows:
+For example, the `package.json` file of the `react-utils` package is configured as follows:
 
 <Callout type="info">
-  With this configuration, when other packages or applications that depend on the `react-ui` package install it using `pnpm`,
+  With this configuration, when other packages or applications that depend on the `react-utils` package install it using `pnpm`,
   the built output (`dist`) will be used.
-  That is, the `node_modules/@repo/react-ui` directory of the dependent package or application will contain the built output (`dist`).
+  That is, the `node_modules/@repo/react-utils` directory of the dependent package or application will contain the built output (`dist`).
 </Callout>
 
-```json filename="packages/react-ui/package.json"
+```json filename="packages/react-utils/package.json"
 {
   // ...existing code...
   "files": [
@@ -78,7 +78,7 @@ the development server runs using the built output (`dist`) of each package.
 To reflect changes in the developing package in real time,
 the `dev` script of each package is set up as follows to use Vite's HMR (Hot Module Replacement) feature.
 
-```json filename="packages/react-ui/package.json"
+```json filename="packages/react-utils/package.json"
 {
   // ...existing code...
   "scripts": {

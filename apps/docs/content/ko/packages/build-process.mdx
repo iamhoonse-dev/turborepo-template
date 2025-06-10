@@ -35,16 +35,16 @@ Vite 를 사용하여 패키지를 빌드하는 이유는 다음과 같습니다
 이 프로젝트의 패키지들을 의존성으로 갖는 다른 패키지 및 어플리케이션에서는 패키지의 빌드된 결과물(`dist`)을 사용하도록 설정되어 있습니다.
 이러한 설정은 각 패키지마다 `package.json`의 `files`, `exports` 필드에 정의되어 있습니다.
 
-예시로, `react-ui` 패키지의 `package.json` 파일을 살펴보면 다음과 같이 설정되어 있습니다:
+예시로, `react-utils` 패키지의 `package.json` 파일을 살펴보면 다음과 같이 설정되어 있습니다:
 
 <Callout type="info">
-  이러한 설정에 의해 `pnpm`은 `react-ui` 패키지를 의존성으로 갖는 다른 패키지나 어플리케이션에서
-  `react-ui` 패키지를 설치할 때, 빌드된 결과물(`dist`)을 사용하게 됩니다.
-  즉, `react-ui` 패키지를 사용하는 다른 패키지나 어플리케이션의 `node_modules/@repo/react-ui` 디렉토리에는
+  이러한 설정에 의해 `pnpm`은 `react-utils` 패키지를 의존성으로 갖는 다른 패키지나 어플리케이션에서
+  `react-utils` 패키지를 설치할 때, 빌드된 결과물(`dist`)을 사용하게 됩니다.
+  즉, `react-utils` 패키지를 사용하는 다른 패키지나 어플리케이션의 `node_modules/@repo/react-utils` 디렉토리에는
   빌드된 결과물(`dist`)이 포함되어 있게 됩니다.
 </Callout>
 
-```json filename="packages/react-ui/package.json"
+```json filename="packages/react-utils/package.json"
 {
   // ...existing code...
   "files": [
@@ -83,7 +83,7 @@ Vite 를 사용하여 패키지를 빌드하는 이유는 다음과 같습니다
 Vite의 HMR(Hot Module Replacement) 기능을 사용하여
 각 패키지의 `dev` 스크립트가 다음과 같이 설정되어 있습니다.
 
-```json filename="packages/react-ui/package.json"
+```json filename="packages/react-utils/package.json"
 {
   // ...existing code...
   "scripts": {

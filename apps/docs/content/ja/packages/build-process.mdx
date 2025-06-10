@@ -34,16 +34,16 @@ Viteを使ってパッケージをビルドする理由は以下の通りです�
 このプロジェクトのパッケージを依存関係として持つ他のパッケージやアプリケーションでは、各パッケージのビルド済み成果物（`dist`）を利用するように設定されています。
 この設定は各パッケージの `package.json` の `files`, `exports` フィールドで定義されています。
 
-例として、`react-ui` パッケージの `package.json` ファイルは次のように設定されています：
+例として、`react-utils` パッケージの `package.json` ファイルは次のように設定されています：
 
 <Callout type="info">
-  この設定により、`pnpm` で `react-ui` パッケージを依存関係に持つ他のパッケージやアプリケーションが
-  `react-ui` をインストールする際、ビルド済み成果物（`dist`）が利用されます。
-  つまり、`react-ui` を利用する他のパッケージやアプリケーションの `node_modules/@repo/react-ui` ディレクトリには
+  この設定により、`pnpm` で `react-utils` パッケージを依存関係に持つ他のパッケージやアプリケーションが
+  `react-utils` をインストールする際、ビルド済み成果物（`dist`）が利用されます。
+  つまり、`react-utils` を利用する他のパッケージやアプリケーションの `node_modules/@repo/react-utils` ディレクトリには
   ビルド済み成果物（`dist`）が含まれることになります。
 </Callout>
 
-```json filename="packages/react-ui/package.json"
+```json filename="packages/react-utils/package.json"
 {
   // ...existing code...
   "files": [
@@ -82,7 +82,7 @@ Viteを使ってパッケージをビルドする理由は以下の通りです�
 ViteのHMR（Hot Module Replacement）機能を利用し、
 各パッケージの `dev` スクリプトは次のように設定されています。
 
-```json filename="packages/react-ui/package.json"
+```json filename="packages/react-utils/package.json"
 {
   // ...existing code...
   "scripts": {
