@@ -29,6 +29,122 @@ Viteを使ってパッケージをビルドする理由は以下の通りです�
 > _"各パッケージをnpmパッケージとして公開することを前提に、Viteのビルド機能を使って
 各パッケージのソースコードをバンドルし、最適化された成果物を生成するためです。"_
 
+### 特徴
+
+このプロジェクトで提供されるパッケージは共通して次のような特徴を持つように設計されています：
+
+#### 1) ESModuleおよびCommonJSシステムのサポート
+
+各パッケージはESModule（`.es.js`）とCommonJS（`.cjs.js`）形式でビルドされ、さまざまな環境で利用できるようになっています。
+これはViteのビルド設定でライブラリモードを利用し、Rollupの設定を活用して実現されています。
+
+```js filename="packages/browser-utils/vite.config.js" {11}
+/// <reference types="vitest" />
+// ...他のimport文...
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  // ...他の設定...
+  build: {
+    // ...他の設定...
+    lib: {
+      // ...他の設定...
+      formats: ["es", "cjs"], // ESModuleとCommonJS形式でビルド
+      fileName: (format, entryName) => `${entryName}/index.${format}.js`,
+    },
+  },
+});
+
+````
+#### 2) 型定義ファイルの提供
+
+各パッケージはTypeScriptで記述されており、ビルド時に型定義ファイル（`.d.ts`）が自動生成されます。
+これは`vite-plugin-dts`プラグインを使い、各エントリごとに型定義ファイルを生成するように設定することで実現されています。
+
+```js filename="packages/browser-utils/vite.config.js" {3,8}
+/// <reference types="vitest" />
+import { defineConfig } from "vite";
+import dtsPlugin from "vite-plugin-dts";
+// ...他のimport文...
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [dtsPlugin({ include: ["src"] }), tsConfigPaths()],
+  // ...他の設定...
+});
+
+```
+
+#### 3) ツリーシェイキングおよびコードスプリッティングのサポート
+
+各パッケージはViteのツリーシェイキングおよびコードスプリッティング機能を活用し、未使用のコードがビルド成果物に含まれないよう最適化されています。
+
+これは各パッケージの`package.json`で`exports`フィールドを使い、各機能単位をサブモジュールとして分離し、
+
+```json filename="packages/browser-utils/package.json"
+{
+  "exports": {
+    "./dom": {
+      "types": "./dist/dom/index.d.ts",
+      "import": "./dist/dom/index.es.js",
+      "require": "./dist/dom/index.cjs.js"
+    },
+    "./msw": {
+      "types": "./dist/msw/index.d.ts",
+      "import": "./dist/msw/index.es.js",
+      "require": "./dist/msw/index.cjs.js"
+    },
+    "./string": {
+      "types": "./dist/string/index.d.ts",
+      "import": "./dist/string/index.es.js",
+      "require": "./dist/string/index.cjs.js"
+    }
+  },
+  // ...他の設定...
+}
+```
+
+これらを構成するソースコードファイルそれぞれがエントリポイントとしてバンドルされるように設定することで実現されています。
+
+```js filename="packages/browser-utils/vite.config.js" {11-22}
+/// <reference types="vitest" />
+// ...他のimport文...
+import { runWithGlob } from "@repo/helpers/runWithGlob";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  // ...他の設定...
+  build: {
+    lib: {
+      // ...他の設定...
+      entry: Object.fromEntries(
+        runWithGlob(
+          "src/**/*.{ts,tsx}",
+          (file) => [
+            // エントリ名
+            file.replace(/^src\//, "").replace(/index\.(ts|tsx)$/, ""),
+            // 絶対パス
+            resolve(__dirname, file),
+          ],
+          ["src/**/*.{d,spec}.ts"],
+        ),
+      ),
+      fileName: (format, entryName) => `${entryName}/index.${format}.js`,
+    },
+  },
+});
+```
+
+#### 4) 開発の利便性
+
+各パッケージは開発環境での利便性を高めるため、次のような機能を提供しています：
+
+- `pnpm dev`コマンドによるHMR機能をサポート
+- TypeScriptチェックおよびLinterチェック用のスクリプトを提供
+- TypeScriptパスエイリアスをサポートし、ワークスペース内のコードを`import`する際に便利なモジュールパスが利用可能
+- Vitestベースのテスト実行用の基本的な環境とスクリプトを提供
+  - ブラウザDOMやReact関連パッケージの場合、@testing-library/reactおよび@testing-library/jest-domパッケージを使ってテスト環境を構築
+
 ## 他のパッケージやアプリケーションでの利用
 
 このプロジェクトのパッケージを依存関係として持つ他のパッケージやアプリケーションでは、各パッケージのビルド済み成果物（`dist`）を利用するように設定されています。

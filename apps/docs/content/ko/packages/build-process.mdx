@@ -30,6 +30,122 @@ Vite 를 사용하여 패키지를 빌드하는 이유는 다음과 같습니다
 > _"각 패키지들을 npm 패키지로 배포할 것을 전제로 하여, Vite의 빌드 기능을 사용하여
 각 패키지의 소스 코드를 번들링하고, 최적화된 결과물을 생성하기 위함입니다."_
 
+### 특징
+
+이 프로젝트에서 제공하는 패키지들은 공통적으로 다음과 같은 특징을 갖도록 설계되어 있습니다:
+
+#### 1) ESModule 및 CommonJS 시스템 지원
+
+각 패키지는 ESModule(`.es.js`)과 CommonJS(`.cjs.js`) 형식으로 빌드되어, 다양한 환경에서 사용할 수 있도록 지원합니다.
+이는 Vite 빌드 설정에서 라이브러리 모드를 통한 Rollup 설정을 활용하여 구현되었습니다.
+
+```js filename="packages/browser-utils/vite.config.js" {11}
+/// <reference types="vitest" />
+// ... 다른 import 문들
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  // ... 다른 설정들 ...
+  build: {
+    // ... 다른 설정들 ...
+    lib: {
+      // ... 다른 설정들 ...
+      formats: ["es", "cjs"], // ESModule과 CommonJS 형식으로 빌드
+      fileName: (format, entryName) => `${entryName}/index.${format}.js`,
+    },
+  },
+});
+
+````
+#### 2) 타입 선언 파일 제공
+
+각 패키지는 TypeScript로 작성되어 있으며, 빌드 시 타입 선언 파일(`.d.ts`)을 자동으로 생성합니다.
+이는 `vite-plugin-dts` 플러그인을 사용하여 각 엔트리별로 타입 선언 파일을 생성하도록 설정함으로서 구현되었습니다.
+
+```js filename="packages/browser-utils/vite.config.js" {3,8}
+/// <reference types="vitest" />
+import { defineConfig } from "vite";
+import dtsPlugin from "vite-plugin-dts";
+// ... 다른 import 문들
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [dtsPlugin({ include: ["src"] }), tsConfigPaths()],
+  // ... 다른 설정들 ...
+});
+
+```
+
+#### 3) 트리 쉐이킹 및 코드 스플리팅 지원
+
+각 패키지는 Vite의 트리 쉐이킹 및 코드 스플리팅 기능을 활용하여, 사용하지 않는 코드는 빌드 결과물에 포함되지 않도록 최적화되어 있습니다.
+
+이는 각 패키지들의 `package.json`에서 `exports` 필드를 통해 각 기능 단위들을 서브 모듈로 분리함과 동시에,
+
+```json filename="packages/browser-utils/package.json"
+{
+  "exports": {
+    "./dom": {
+      "types": "./dist/dom/index.d.ts",
+      "import": "./dist/dom/index.es.js",
+      "require": "./dist/dom/index.cjs.js"
+    },
+    "./msw": {
+      "types": "./dist/msw/index.d.ts",
+      "import": "./dist/msw/index.es.js",
+      "require": "./dist/msw/index.cjs.js"
+    },
+    "./string": {
+      "types": "./dist/string/index.d.ts",
+      "import": "./dist/string/index.es.js",
+      "require": "./dist/string/index.cjs.js"
+    }
+  },
+  // ... 다른 설정들 ...
+}
+```
+
+이들을 구성하는 소스 코드 파일들 각각이 저마다 엔트리 포인트로서 번들링되도록 설정함으로서 구현되었습니다.
+
+```js filename="packages/browser-utils/vite.config.js" {11-22}
+/// <reference types="vitest" />
+// ... 다른 import 문들
+import { runWithGlob } from "@repo/helpers/runWithGlob";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  // ... 다른 설정들 ...
+  build: {
+    lib: {
+      // ... 다른 설정들 ...
+      entry: Object.fromEntries(
+        runWithGlob(
+          "src/**/*.{ts,tsx}",
+          (file) => [
+            // 엔트리 이름
+            file.replace(/^src\//, "").replace(/index\.(ts|tsx)$/, ""),
+            // 절대 경로
+            resolve(__dirname, file),
+          ],
+          ["src/**/*.{d,spec}.ts"],
+        ),
+      ),
+      fileName: (format, entryName) => `${entryName}/index.${format}.js`,
+    },
+  },
+});
+```
+
+#### 4) 개발 편의성 제공
+
+각 패키지는 개발 환경에서의 편리한 사용을 위해, 다음과 같은 기능들을 제공합니다:
+
+- `pnpm dev` 명령어를 통한 HMR 기능을 지원합니다.
+- TypeScript 검사 및 Linter 검사를 위한 스크립트가 제공됩니다.
+- TypeScript 경로 별칭을 지원하여, 워크스페이스 내 코드를 `import`할 때 편리한 모듈 경로 사용이 가능합니다.
+- Vitest 기반의 Test 실행을 위한 기본적인 환경과 스크립트가 제공됩니다.
+    - 브라우저 DOM 및 React 관련 패키지의 경우, @testing-library/react 및 @testing-library/jest-dom 패키지를 사용하여 테스트 환경을 구성합니다.
+
 ## 다른 패키지 및 어플리케이션에서의 사용
 
 이 프로젝트의 패키지들을 의존성으로 갖는 다른 패키지 및 어플리케이션에서는 패키지의 빌드된 결과물(`dist`)을 사용하도록 설정되어 있습니다.

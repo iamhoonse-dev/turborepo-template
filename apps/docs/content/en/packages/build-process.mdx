@@ -28,6 +28,122 @@ The reasons for using Vite to build packages are as follows:
 
 > _"Assuming that each package will be published as an npm package, Vite's build functionality is used to bundle the source code of each package and generate optimized output."_
 
+### Features
+
+The packages provided in this project are commonly designed with the following features:
+
+#### 1) Support for ESModule and CommonJS Systems
+
+Each package is built in both ESModule (`.es.js`) and CommonJS (`.cjs.js`) formats to support various environments.
+This is implemented using the library mode and Rollup settings in the Vite build configuration.
+
+```js filename="packages/browser-utils/vite.config.js" {11}
+/// <reference types="vitest" />
+// ...other import statements...
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  // ...other settings...
+  build: {
+    // ...other settings...
+    lib: {
+      // ...other settings...
+      formats: ["es", "cjs"], // Build as ESModule and CommonJS
+      fileName: (format, entryName) => `${entryName}/index.${format}.js`,
+    },
+  },
+});
+
+````
+#### 2) Type Declaration File Generation
+
+Each package is written in TypeScript and automatically generates type declaration files (`.d.ts`) during the build.
+This is achieved by using the `vite-plugin-dts` plugin, which is configured to generate type declaration files for each entry.
+
+```js filename="packages/browser-utils/vite.config.js" {3,8}
+/// <reference types="vitest" />
+import { defineConfig } from "vite";
+import dtsPlugin from "vite-plugin-dts";
+// ...other import statements...
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [dtsPlugin({ include: ["src"] }), tsConfigPaths()],
+  // ...other settings...
+});
+
+```
+
+#### 3) Tree Shaking and Code Splitting Support
+
+Each package is optimized so that unused code is not included in the build output by utilizing Vite's tree shaking and code splitting features.
+
+This is achieved by separating each feature into submodules via the `exports` field in each package's `package.json`, and
+
+```json filename="packages/browser-utils/package.json"
+{
+  "exports": {
+    "./dom": {
+      "types": "./dist/dom/index.d.ts",
+      "import": "./dist/dom/index.es.js",
+      "require": "./dist/dom/index.cjs.js"
+    },
+    "./msw": {
+      "types": "./dist/msw/index.d.ts",
+      "import": "./dist/msw/index.es.js",
+      "require": "./dist/msw/index.cjs.js"
+    },
+    "./string": {
+      "types": "./dist/string/index.d.ts",
+      "import": "./dist/string/index.es.js",
+      "require": "./dist/string/index.cjs.js"
+    }
+  },
+  // ...other settings...
+}
+```
+
+by configuring each source file as an entry point for bundling.
+
+```js filename="packages/browser-utils/vite.config.js" {11-22}
+/// <reference types="vitest" />
+// ...other import statements...
+import { runWithGlob } from "@repo/helpers/runWithGlob";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  // ...other settings...
+  build: {
+    lib: {
+      // ...other settings...
+      entry: Object.fromEntries(
+        runWithGlob(
+          "src/**/*.{ts,tsx}",
+          (file) => [
+            // Entry name
+            file.replace(/^src\//, "").replace(/index\.(ts|tsx)$/, ""),
+            // Absolute path
+            resolve(__dirname, file),
+          ],
+          ["src/**/*.{d,spec}.ts"],
+        ),
+      ),
+      fileName: (format, entryName) => `${entryName}/index.${format}.js`,
+    },
+  },
+});
+```
+
+#### 4) Developer Convenience
+
+Each package provides the following features for convenient use in the development environment:
+
+- Supports HMR via the `pnpm dev` command.
+- Provides scripts for TypeScript and linter checks.
+- Supports TypeScript path aliases, allowing convenient module paths when importing code within the workspace.
+- Provides a basic environment and scripts for running tests based on Vitest.
+  - For browser DOM and React-related packages, the test environment is set up using @testing-library/react and @testing-library/jest-dom.
+
 ## Usage in Other Packages and Applications
 
 Other packages and applications that depend on the packages in this project are set up to use the built output (`dist`) of each package.
