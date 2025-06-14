@@ -1,0 +1,58 @@
+import LocalizedLink from "../../../../components/LocalizedLink";
+import { Callout } from "nextra/components";
+
+# 📋 コピーして追加する
+
+本ドキュメントでは、既存のパッケージをコピーして新しいパッケージを追加する方法について説明します。
+
+<Callout type="info">
+  このプロジェクトに含まれているパッケージは、他のパッケージを作成するためのテンプレートとして利用できるように設計されています。
+</Callout>
+
+## 📋 コピー方法
+
+新しいパッケージを追加する最も簡単な方法は、`packages` ディレクトリ内の既存のサンプルパッケージをコピーして新しいパッケージを作成することです。
+これにより、既存パッケージの設定を引き継いだまま新しいパッケージを開始できます。
+
+### 🎯 目的に合ったテンプレートパッケージを選ぶ
+
+新しいパッケージを追加する際は、以下のような目的に合ったテンプレートパッケージを選んでコピーするのがおすすめです：
+
+|項目|テンプレートパッケージ|目的|
+|-|-|-|
+|ブラウザユーティリティ|<LocalizedLink href="packages/default-packages/browser-utils">`packages/browser-utils`</LocalizedLink>|ブラウザ環境で使うユーティリティ関数|
+|Node.jsユーティリティ|<LocalizedLink href="packages/default-packages/node-utils">`packages/node-utils`</LocalizedLink>|Node.js環境で使うユーティリティ関数|
+|Reactユーティリティ|<LocalizedLink href="packages/default-packages/react-utils">`packages/react-utils`</LocalizedLink>|Reactアプリケーションで使うユーティリティ関数|
+|React UIコンポーネント|<LocalizedLink href="packages/default-packages/react-ui">`packages/react-ui`</LocalizedLink>|Reactアプリケーションで使うUIコンポーネント|
+
+<Callout type="info">
+  ESLintプラグインパッケージの場合は、テンプレートパッケージをコピーするのではなく、
+  <LocalizedLink href="packages/add-new-package/eslint-plugin">`新しいパッケージ追加 > ESLintプラグイン`</LocalizedLink> ドキュメントを参考に
+  yeoman CLIで生成することを推奨します。
+</Callout>
+
+## ✅ コピー後に行うこと
+
+コピー後は、以下の作業を行ってください：
+
+### 📝 パッケージメタデータの修正
+
+1. **パッケージディレクトリ名の変更**: パッケージディレクトリの名前を新しいパッケージ名に変更します。
+2. **パッケージ名の変更**: `package.json` の `name` フィールドを新しいパッケージ名に変更します。
+3. **パッケージ説明の変更**: `package.json` の `description` フィールドを新しいパッケージに合った説明に変更します。
+4. **パッケージバージョンの初期化**: `package.json` の `version` フィールドを `0.0.0` に初期化します。
+5. **パッケージライセンスの確認**: `package.json` の `license` フィールドを確認し、必要に応じて修正します。
+
+### 🏗️ パッケージのビルド設定
+
+<Callout type="info">
+  既存パッケージのビルド設定については <LocalizedLink href="packages/build-process">`パッケージ > ビルド方式`</LocalizedLink> ドキュメントを参照してください。
+  このドキュメントで説明しているビルド設定の一部は、新しいパッケージに合わせて必要に応じて修正して利用できます。
+</Callout>
+
+1. **パッケージ依存関係の確認**: `package.json` の依存関係を確認し、必要に応じて追加・削除します。
+2. **exportsフィールドの確認**: `package.json` の `exports` フィールドを確認し、必要に応じて修正します。
+3. **ビルド設定の確認**: `vite.config.js` ファイルを開いてビルド設定を確認し、必要に応じて修正します。
+4. **TypeScript設定の確認**: `tsconfig.json` ファイルを開いてTypeScriptの設定を確認し、必要に応じて修正します。
+5. **テスト設定の確認**: `vitest.config.js` ファイルを開いてテスト設定を確認し、必要に応じて修正します。
+
