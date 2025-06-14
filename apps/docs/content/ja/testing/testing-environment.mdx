@@ -4,11 +4,25 @@
 これはコードがマージされデプロイされるまでの過程で様々なテストを実行し、コードの品質を維持し、
 デプロイ前に問題が発生しないよう事前に検知・解決するためです。
 
----
-
 ## 🔄 ワークフロー構成（`.github/workflows/test.yml`）
 
 このワークフローは様々なテストジョブで構成されており、それぞれのジョブは以下の役割を持ちます。
+
+### 要約
+
+```mermaid
+flowchart TD
+    UT[unit-test]
+    SDC[set-docker-compose]
+    LT[lighthouse-test]
+    E2E[e2e-web]
+    SB[storybook-test]
+
+    UT
+    SDC --> LT
+    SDC --> E2E
+    SDC --> SB
+```
 
 ### 1. `unit-test`
 - **依存関係のインストール、ビルド、ユニットテスト、カバレッジレポート生成**を担当します。
@@ -31,8 +45,6 @@
 - Storybook および Storybook テストランナーイメージを Docker でビルドし、Storybook ベースの UI コンポーネントアクセシビリティ/テストを自動化します。
 - アクセシビリティレポート（a11y-audit）をアーティファクトとしてアップロードします。
 
----
-
 ## 🔁 自動化フローの概要
 
 1. **ユニットテスト**：コード変更時に最初に実行され、素早いフィードバックを提供します。
@@ -40,13 +52,9 @@
 3. **統合テスト**：E2E、Lighthouse、Storybook テストが並列で実行され、実サービス環境に近い形で検証します。
 4. **アーティファクトアップロード**：各テスト成果物（カバレッジ、レポート等）は GitHub Actions のアーティファクトとしてアップロードされ、後から確認できます。
 
----
-
 ## 💾 キャッシュ戦略
 
 - **Turbo、node_modules、dist、テストカバレッジ、docker-compose 変換ファイル** など様々なキャッシュを積極的に活用し、ワークフロー実行速度を最適化します。
-
----
 
 ## 🐳 Dockerベースの統合テスト環境
 
@@ -54,10 +62,7 @@
 - docker-compose ファイル（`docker-compose.gha.yaml`）を使い、必要なサービス（Web、Playwright、Lighthouse、Storybook など）をコンテナで起動します。
 - 各テストコンテナは専用ネットワーク（`test_network`）上で実行され、サービス間通信が円滑に行われます。
 
----
-
 ## 📌 参考
 
 - 各ジョブの詳細スクリプトや設定は `.github/workflows/test.yml` ファイルを参照してください。
 - テスト成果物は GitHub Actions の「Artifacts」からダウンロードできます。
-
