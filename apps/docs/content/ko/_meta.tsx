@@ -14,6 +14,9 @@ export default {
   conventions: {
     // title: "",
   },
+  tools: {
+    // title: "",
+  },
   testing: {
     // title: "",
   },
@@ -21,9 +24,6 @@ export default {
     // title: "",
   },
   documentation: {
-    // title: "",
-  },
-  references: {
     // title: "",
   },
   github_link: {
