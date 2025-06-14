@@ -33,6 +33,7 @@ export default async function Page(props: Props) {
   return (
     <Wrapper toc={toc} metadata={metadata}>
       <MDXContent {...props} params={params} />
+      <hr style={{ margin: "2rem", opacity: "0" }} />
       <GiscusCommentsContainer
         repo={process.env.GISCUS_REPO}
         repoId={process.env.GISCUS_REPO_ID}
