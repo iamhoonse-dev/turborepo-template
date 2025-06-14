@@ -1,0 +1,58 @@
+import { Callout } from "nextra/components";
+import LocalizedLink from "../../../components/LocalizedLink";
+
+# 🎭 Playwright Runner
+
+The `tools/playwright-web` package provides the environment and scripts for automating E2E (End-to-End) tests based on Playwright for this project.
+
+## 🎯 Main Purpose
+
+- Simulates user actions in a real browser environment to verify main flows and features.
+- Runs automatically in CI environments (such as GitHub Actions) to ensure service quality before deployment.
+
+## 📁 Main Components
+
+- **🧪 Test Scripts**:\
+  Playwright test files (`*.spec.ts`) are located in the `tests/` directory.
+- **⚙️ Playwright Configuration**:\
+  The `playwright.config.ts` file configures browsers, test environments, report formats (junit, etc.), and more.
+- **▶️ Run Script**:\
+  You can run Playwright tests using the `test:e2e` script in `package.json`.
+- **🐳 Dockerfile**:\
+  Defines a Docker image for running tests in CI environments.
+
+## 🧑‍💻️ How to Use
+
+### 💻 Run Locally
+
+```bash
+pnpm --filter tools/playwright-web test:e2e
+```
+
+or
+
+```bash
+cd tools/playwright-web
+pnpm test:e2e
+```
+
+### 🤖 Run in CI Environment
+
+- The `e2e-web` job in `.github/workflows/test.yml` automatically runs this in a Docker container.
+- Test results are saved as JUnit XML, etc., and uploaded as GitHub Actions artifacts.
+
+<Callout type="info">
+  For more details on running in CI, see the
+  <LocalizedLink href="/testing/e2e-test">`Testing > End-to-End Test`</LocalizedLink> document.
+</Callout>
+
+## 📊 Test Results
+
+- You can check the test success/failure and detailed reports in the `test-results/junit.xml` file.
+- When run in CI, you can download the result files from GitHub Actions Artifacts.
+
+## 📌 Reference
+
+- Playwright official documentation: [https://playwright.dev/](https://playwright.dev/)
+- For test examples, see the `tests/` directory.
+

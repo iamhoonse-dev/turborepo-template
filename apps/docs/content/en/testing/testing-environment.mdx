@@ -3,11 +3,25 @@
 This project provides an automated test environment using GitHub Actions.
 Various tests are run throughout the process of merging and deploying code to maintain code quality and to detect and resolve issues before deployment.
 
----
-
 ## 🔄 Workflow Structure (`.github/workflows/test.yml`)
 
 This workflow consists of several test jobs, each with the following roles:
+
+### Summary
+
+```mermaid
+flowchart TD
+    UT[unit-test]
+    SDC[set-docker-compose]
+    LT[lighthouse-test]
+    E2E[e2e-web]
+    SB[storybook-test]
+
+    UT
+    SDC --> LT
+    SDC --> E2E
+    SDC --> SB
+```
 
 ### 1. `unit-test`
 - Responsible for **installing dependencies, building, running unit tests, and generating coverage reports**.
@@ -30,8 +44,6 @@ This workflow consists of several test jobs, each with the following roles:
 - Builds Docker images for Storybook and the Storybook test runner, and automates UI component accessibility/testing based on Storybook.
 - Uploads accessibility reports (`a11y-audit`) as artifacts.
 
----
-
 ## 🔁 Automation Flow Summary
 
 1. **Unit Test**: Runs first on code changes to provide quick feedback.
@@ -39,13 +51,9 @@ This workflow consists of several test jobs, each with the following roles:
 3. **Integration Tests**: E2E, Lighthouse, and Storybook tests run in parallel, verifying in an environment similar to production.
 4. **Artifact Upload**: Each test result (coverage, reports, etc.) is uploaded as a GitHub Actions artifact for later review.
 
----
-
 ## 💾 Cache Strategy
 
 - Actively utilizes various caches such as **Turbo, node_modules, dist, test coverage, and docker-compose converted files** to optimize workflow execution speed.
-
----
 
 ## 🐳 Docker-based Integration Test Environment
 
@@ -53,10 +61,7 @@ This workflow consists of several test jobs, each with the following roles:
 - Uses the docker-compose file (`docker-compose.gha.yaml`) to launch required services (web, Playwright, Lighthouse, Storybook, etc.) as containers.
 - Each test container runs on a dedicated network (`test_network`) to ensure smooth communication between services.
 
----
-
 ## 📌 Reference
 
 - For detailed scripts and settings for each job, refer to the `.github/workflows/test.yml` file.
 - Test artifacts can be downloaded from the "Artifacts" section in GitHub Actions.
-

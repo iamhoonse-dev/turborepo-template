@@ -1,0 +1,58 @@
+import LocalizedLink from "../../../../components/LocalizedLink";
+import { Callout } from "nextra/components";
+
+# 📋 Add by Copying
+
+This document explains how to add a new package by copying an existing package.
+
+<Callout type="info">
+  The packages included in this project are originally designed to be used as templates for creating other packages.
+</Callout>
+
+## 📋 Copying
+
+The simplest way to add a new package is to copy an existing sample package in the `packages` directory and create a new package from it.
+By doing this, you can start a new package while inheriting the settings of the existing package.
+
+### 🎯 Select a Package Template for Your Purpose
+
+When adding a new package, it is recommended to select and copy a package template that matches your purpose:
+
+|Item|Template Package|Purpose|
+|-|-|-|
+|Browser Utilities|<LocalizedLink href="packages/default-packages/browser-utils">`packages/browser-utils`</LocalizedLink>|Utility functions for browser environments|
+|Node.js Utilities|<LocalizedLink href="packages/default-packages/node-utils">`packages/node-utils`</LocalizedLink>|Utility functions for Node.js environments|
+|React Utilities|<LocalizedLink href="packages/default-packages/react-utils">`packages/react-utils`</LocalizedLink>|Utility functions for React applications|
+|React UI Components|<LocalizedLink href="packages/default-packages/react-ui">`packages/react-ui`</LocalizedLink>|UI components for React applications|
+
+<Callout type="info">
+  For ESLint plugin packages, instead of copying a template package,
+  it is recommended to refer to the <LocalizedLink href="packages/add-new-package/eslint-plugin">`Add New Package > ESLint Plugin`</LocalizedLink> document
+  and generate it using the yeoman CLI.
+</Callout>
+
+## ✅ What to Do After Copying
+
+After copying, perform the following tasks:
+
+### 📝 Edit Package Metadata
+
+1. **Rename the package directory**: Change the name of the package directory to the new package name.
+2. **Change the package name**: Change the `name` field in the `package.json` file to the new package name.
+3. **Change the package description**: Update the `description` field in the `package.json` file to a description suitable for the new package.
+4. **Initialize the package version**: Set the `version` field in the `package.json` file to `0.0.0`.
+5. **Review the package license**: Check the `license` field in the `package.json` file and modify it if necessary.
+
+### 🏗️ Package Build Settings
+
+<Callout type="info">
+  For the build settings of existing packages, refer to the <LocalizedLink href="packages/build-process">`Packages > Build Process`</LocalizedLink> document.
+  You can modify some of the build settings described in this document as needed for your new package.
+</Callout>
+
+1. **Check package dependencies**: Review the dependencies in the `package.json` file and add or remove them as needed.
+2. **Review the exports field**: Check the `exports` field in the `package.json` file and modify it if necessary.
+3. **Review build settings**: Open the `vite.config.js` file and review or modify the build settings as needed.
+4. **Review TypeScript settings**: Open the `tsconfig.json` file and review or modify the TypeScript settings as needed.
+5. **Review test settings**: Open the `vitest.config.js` file and review or modify the test settings as needed.
+

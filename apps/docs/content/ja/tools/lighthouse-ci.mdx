@@ -1,0 +1,56 @@
+import { Callout } from "nextra/components";
+import LocalizedLink from "../../../components/LocalizedLink";
+
+# 🗼 Lighthouse CI
+
+`tools/lighthouse-ci`パッケージは、LighthouseをベースにWebページの品質（パフォーマンス、アクセシビリティ、SEOなど）を自動分析するための環境とスクリプトを提供します。
+
+## 🎯 主な目的
+
+- Webページのパフォーマンス、アクセシビリティ、SEO、ベストプラクティスなどを自動で分析します。
+- CI環境（GitHub Actionsなど）で自動的に実行され、デプロイ前にサービス品質を数値で検証します。
+
+## 📁 主な構成
+
+- **⚙️ Lighthouse設定**:\
+  Lighthouse CIの実行オプションや環境設定が含まれています。
+- **▶️ 実行スクリプト**:\
+  `package.json`の`test:lighthouse`スクリプトでLighthouse分析を実行できます。
+- **🐳 Dockerfile**:\
+  CI環境で分析を実行するためのDockerイメージが定義されています。
+
+## 🧑‍💻️ 使い方
+
+### 💻 ローカルで実行
+
+```bash
+pnpm --filter tools/lighthouse-ci test:lighthouse
+```
+
+または
+
+```bash
+cd tools/lighthouse-ci
+pnpm test:lighthouse
+```
+
+### 🤖 CI環境で実行
+
+- `.github/workflows/test.yml`の`lighthouse-test`ジョブでDockerコンテナとして自動実行されます。
+- 分析結果レポートはHTMLやJSONなど様々な形式で生成され、Temporary Public Storageなどにアップロードされます。
+
+<Callout type="info">
+  CI環境での実行詳細は
+  <LocalizedLink href="/testing/lighthouse-test">`テスティング > Lighthouseテスト`</LocalizedLink> ドキュメントを参照してください。
+</Callout>
+
+## 📊 分析結果
+
+- 分析結果レポートはHTMLやJSONなど様々な形式で生成され、主要な品質指標（パフォーマンス、アクセシビリティ、SEOなど）を数値で確認できます。
+- CIで実行された場合、レポートはTemporary Public Storageなどにアップロードされ、ダウンロードや共有が可能です。
+
+## 📌 参考
+
+- Lighthouse公式ドキュメント: [https://github.com/GoogleChrome/lighthouse-ci](https://github.com/GoogleChrome/lighthouse-ci)
+- 分析対象や設定例は`lighthouserc.cjs`ファイルを参照してください。
+

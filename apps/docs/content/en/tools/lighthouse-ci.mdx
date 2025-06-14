@@ -1,0 +1,56 @@
+import { Callout } from "nextra/components";
+import LocalizedLink from "../../../components/LocalizedLink";
+
+# 🗼 Lighthouse CI
+
+The `tools/lighthouse-ci` package provides the environment and scripts for automatically analyzing the quality of web pages (performance, accessibility, SEO, etc.) based on Lighthouse.
+
+## 🎯 Main Purpose
+
+- Automatically analyzes web page performance, accessibility, SEO, best practices, and more.
+- Runs automatically in CI environments (such as GitHub Actions) to numerically verify service quality before deployment.
+
+## 📁 Main Components
+
+- **⚙️ Lighthouse Configuration**:\
+  Includes Lighthouse CI run options and environment settings.
+- **▶️ Run Script**:\
+  You can run Lighthouse analysis using the `test:lighthouse` script in `package.json`.
+- **🐳 Dockerfile**:\
+  Defines a Docker image for running analysis in CI environments.
+
+## 🧑‍💻️ How to Use
+
+### 💻 Run Locally
+
+```bash
+pnpm --filter tools/lighthouse-ci test:lighthouse
+```
+
+or
+
+```bash
+cd tools/lighthouse-ci
+pnpm test:lighthouse
+```
+
+### 🤖 Run in CI Environment
+
+- The `lighthouse-test` job in `.github/workflows/test.yml` automatically runs this in a Docker container.
+- Analysis reports are generated in various formats such as HTML and JSON, and are uploaded to Temporary Public Storage.
+
+<Callout type="info">
+  For more details on running in CI, see the
+  <LocalizedLink href="/testing/lighthouse-test">`Testing > Lighthouse Test`</LocalizedLink> document.
+</Callout>
+
+## 📊 Analysis Results
+
+- Analysis reports are generated in various formats such as HTML and JSON, and you can check key quality metrics (performance, accessibility, SEO, etc.) numerically.
+- When run in CI, the reports are uploaded to Temporary Public Storage and can be downloaded and shared.
+
+## 📌 Reference
+
+- Lighthouse official documentation: [https://github.com/GoogleChrome/lighthouse-ci](https://github.com/GoogleChrome/lighthouse-ci)
+- For analysis targets and configuration examples, see the `lighthouserc.cjs` file.
+
