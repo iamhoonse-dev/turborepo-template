@@ -1,0 +1,58 @@
+import { Callout } from "nextra/components";
+import LocalizedLink from "../../../components/LocalizedLink";
+
+# 🎭 Playwright Runner
+
+`tools/playwright-web`パッケージは、プロジェクトのE2E（エンドツーエンド）テストをPlaywrightベースで自動化するための環境とスクリプトを提供します。
+
+## 🎯 主な目的
+
+- 実際のブラウザ環境でユーザーの操作をシミュレートし、主要なフローや機能を検証します。
+- CI環境（GitHub Actionsなど）で自動的に実行され、デプロイ前にサービス品質を保証します。
+
+## 📁 主な構成
+
+- **🧪 テストスクリプト**:\
+  `tests/`ディレクトリ内にPlaywrightテストファイル（`*.spec.ts`）が配置されています。
+- **⚙️ Playwright設定**:\
+  `playwright.config.ts`ファイルでブラウザ、テスト環境、レポート形式（junitなど）を設定します。
+- **▶️ 実行スクリプト**:\
+  `package.json`の`test:e2e`スクリプトでPlaywrightテストを実行できます。
+- **🐳 Dockerfile**:\
+  CI環境でテストを実行するためのDockerイメージが定義されています。
+
+## 🧑‍💻️ 使い方
+
+### 💻 ローカルで実行
+
+```bash
+pnpm --filter tools/playwright-web test:e2e
+```
+
+または
+
+```bash
+cd tools/playwright-web
+pnpm test:e2e
+```
+
+### 🤖 CI環境で実行
+
+- `.github/workflows/test.yml`の`e2e-web`ジョブでDockerコンテナとして自動実行されます。
+- テスト結果はJUnit XMLなどで保存され、GitHub Actionsアーティファクトとしてアップロードされます。
+
+<Callout type="info">
+  CI環境での実行詳細は
+  <LocalizedLink href="/testing/e2e-test">`テスティング > End-to-Endテスト`</LocalizedLink> ドキュメントを参照してください。
+</Callout>
+
+## 📊 テスト結果
+
+- テストの成功/失敗や詳細レポートは`test-results/junit.xml`ファイルで確認できます。
+- CIで実行された場合、GitHub ActionsのArtifactsから結果ファイルをダウンロードできます。
+
+## 📌 参考
+
+- Playwright公式ドキュメント: [https://playwright.dev/](https://playwright.dev/)
+- テスト例は`tests/`ディレクトリを参照してください。
+
