@@ -11,6 +11,9 @@ export default {
   setup: {
     // title: "",
   },
+  configs: {
+    title: "⚙️ 共通設定",
+  },
   conventions: {
     // title: "",
   },

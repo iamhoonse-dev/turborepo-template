@@ -1,0 +1,46 @@
+# 🎭 Playwright設定
+
+`configs/playwright-config`ワークスペースは、モノレポ内の複数のパッケージやアプリで共通して利用できるPlaywrightテスト設定（共有config）を提供します。
+
+## 主な目的
+
+- プロジェクト全体で一貫したE2Eテスト環境とPlaywrightオプションを維持します。
+- 各ワークスペース（アプリ/パッケージ）でこの設定を拡張したり、そのまま利用することができます。
+
+## 主な構成
+
+- **`base.ts`**\
+  すべてのパッケージ/アプリに共通適用される基本Playwrightオプションを定義します。
+
+## 使い方
+
+### 拡張して利用
+
+各ワークスペースの`playwright.config.ts`で`@repo/playwright-config/{config名}`をimportして利用できます。
+
+```ts filename="tools/playwright-web/playwright.config.ts" {2,16}
+import { defineConfig } from "@playwright/test";
+import base from "@repo/playwright-config/base";
+
+/**
+ * Read environment variables from file.
+ * https://github.com/motdotla/dotenv
+ */
+// import dotenv from 'dotenv';
+// import path from 'path';
+// dotenv.config({ path: path.resolve(__dirname, '.env') });
+
+/**
+ * See https://playwright.dev/docs/test-configuration.
+ */
+export default defineConfig({
+  ...base,
+  reporter: [["list"], ["junit", { outputFile: "test-results/junit.xml" }]],
+});
+```
+
+## 参考
+
+- 実際のオプションや詳細設定は`configs/playwright-config`ワークスペースの各configファイルを参照してください。
+- 新しい共通オプションが必要な場合は、このワークスペースに追加してプロジェクト全体に適用できます。
+

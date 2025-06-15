@@ -1,0 +1,59 @@
+# 🧪 Vitest設定
+
+`configs/vitest-config`ワークスペースは、モノレポ内の複数のパッケージやアプリで共通して利用できるVitestテスト設定（共有config）を提供します。
+
+## 主な目的
+
+- プロジェクト全体で一貫したテスト環境とオプションを維持します。
+- 各ワークスペース（アプリ/パッケージ）でこの設定を拡張したり、そのまま利用することができます。
+
+## 主な構成
+
+- **base.ts**  
+  すべてのパッケージ/アプリに共通適用される基本Vitestオプションを定義します。
+- **ui.ts**  
+  React/Next.jsなどUIライブラリやアプリのテストに特化したオプションを含みます。
+- **node.ts**  
+  Node.js環境で動作するパッケージのテストに特化したオプションを含みます。
+
+## 使い方
+
+### 拡張して利用
+
+各ワークスペースの`vitest.config.ts`で`@repo/vitest-config/{config名}`をimportして利用できます。
+
+```ts filename="packages/react-ui/vitest.config.ts" {3,9}
+import { mergeConfig } from "vite";
+import { defineProject } from "vitest/config";
+import uiTestConfig from "@repo/vitest-config/ui";
+import viteConfig from "./vite.config";
+
+export default mergeConfig(
+  viteConfig,
+  mergeConfig(
+    uiTestConfig,
+    defineProject({ test: { setupFiles: ["./src/tests/setup.ts"] } }),
+  ),
+);
+```
+
+## テストカバレッジ収集設定
+
+`configs/vitest-config`ワークスペースはTurboを活用し、複数パッケージのカバレッジレポートを自動でマージし、最終レポートまで生成できるように次のようなタスク（tasks）を提供します。
+
+- **collect-json-reports**  
+  各パッケージのカバレッジ結果（`coverage/raw/**`）を収集します。
+- **merge-json-reports**  
+  収集したカバレッジレポートをマージし、`coverage/merged/**`に保存します。
+- **report**  
+  マージ済みカバレッジデータをもとに最終カバレッジレポート（`coverage/report/**`）を生成します。
+- **view-report**  
+  最終カバレッジレポート生成後、レポートを確認できます。
+
+これらのタスクはTurboタスクとして定義されており、モノレポ全体のテストカバレッジを簡単に集計・管理できます。
+
+## 参考
+
+- 実際のオプションや詳細設定は`configs/vitest-config/configs`ディレクトリの各configファイルを参照してください。
+- 新しい共通テストオプションが必要な場合は、このワークスペースに追加してプロジェクト全体に適用できます。
+

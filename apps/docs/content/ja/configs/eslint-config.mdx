@@ -1,0 +1,59 @@
+import { Callout } from "nextra/components";
+import LocalizedLink from "../../../components/LocalizedLink";
+
+# 🛡️ ESLint設定
+
+`configs/eslint-config`ワークスペースは、モノレポ内の複数のパッケージやアプリで共通して利用できるESLint設定（共有config）を提供します。
+
+## 主な目的
+
+- コードスタイルと品質を一貫して維持するための共通ESLintルールを定義します。
+- 各ワークスペース（アプリ/パッケージ）でこの設定を拡張したり、そのまま利用することができます。
+
+## 主な構成
+
+- **`base.js`**\
+  基本的なESLintルールを定義した設定ファイルです。
+- **`react-internal.js`**\
+  Reactプロジェクト向けの追加ルールを含む設定ファイルです。
+- **`next.js`**\
+  Next.jsプロジェクト向けの追加ルールを含む設定ファイルです。
+
+## 使い方
+
+### そのまま利用
+
+各ワークスペースのESLint設定ファイルで`@repo/eslint-config/{config名}`をimportして利用できます。
+
+```js filename="apps/web/eslint.config.js"
+import { nextJsConfig } from "@repo/eslint-config/next-js";
+
+/** @type {import("eslint").Linter.Config} */
+export default nextJsConfig;
+```
+
+### 拡張して利用
+
+必要に応じてconfigを拡張し、追加ルールを定義することもできます。
+
+<Callout type="info">
+  `apps/frontend-workshop`でも`@repo/eslint-config/react-internal`を拡張して利用しています。
+  該当ワークスペースのESLint設定を参考にすると、共通ルールをどのように拡張して使うかが分かります。
+  詳細は<LocalizedLink href="/conventions/eslint">`コーディング規約 > ESLint`</LocalizedLink>ドキュメントも参照してください。
+</Callout>
+
+```js
+// 例: apps/frontend-workshop/eslint.config.js
+import { config } from "@repo/eslint-config/react-internal";
+
+export default {
+  extends: [...config],
+  // 追加ルールをここで定義可能
+};
+```
+
+## 参考
+
+- 実際のルールや詳細設定は`configs/eslint-config`ワークスペースの各configファイルを参照してください。
+- 新しい共通ルールが必要な場合は、このワークスペースに追加してプロジェクト全体に適用できます。
+
