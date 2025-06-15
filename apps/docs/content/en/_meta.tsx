@@ -14,6 +14,9 @@ export default {
   conventions: {
     // title: "",
   },
+  shared: {
+    title: "🧩 Shared Code",
+  },
   tools: {
     // title: "",
   },

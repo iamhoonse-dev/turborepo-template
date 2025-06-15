@@ -14,6 +14,9 @@ export default {
   conventions: {
     // title: "",
   },
+  shared: {
+    title: "🧩 共有コード",
+  },
   tools: {
     // title: "",
   },

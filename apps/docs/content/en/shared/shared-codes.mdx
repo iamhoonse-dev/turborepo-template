@@ -1,0 +1,70 @@
+# 🧰 Helper Functions
+
+The `shared/helpers` package provides general-purpose utility (helper) functions that can be commonly used across multiple packages and apps.
+
+## 🎯 Main Purpose
+
+- Gathers duplicated logic in one place to increase reusability and improve code quality and maintainability.
+- These helper functions are not published to npm and are only used within the monorepo.
+
+## 📁 Main Components
+
+- **Function Collection**:  
+  Includes helper functions for string processing, array/object manipulation, type checking, path handling, and more for various use cases.
+- **Type Definitions**:  
+  Provides type safety based on TypeScript.
+
+## 🧑‍💻 ️Usage in Other Workspaces
+
+To use these helper functions in another workspace, follow these steps:
+
+### ➕ Add as a Dependency
+
+Add the package as a dependency in your `package.json` file as follows:
+
+```json
+{
+  "dependencies": {
+    "@repo/helpers": "workspace:*"
+  }
+}
+```
+
+### 🧑‍💻️ Usage Example
+
+Now you can import and use the helper functions. For example, here's how to use the `runWithGlob` function provided by the `helpers` package:
+
+```typescript filename="packages/browser-utils/vite.config.ts"
+/// <reference types="vitest" />
+import { defineConfig } from "vite";
+import { runWithGlob } from "@repo/helpers/runWithGlob";
+import { resolve } from "path";
+
+export default defineConfig({
+  // ...existing code...
+  build: {
+    // ...existing code...
+    lib: {
+      entry: Object.fromEntries(
+        runWithGlob(
+          "src/**/*.{ts,tsx}",
+          (file) => [
+            // Entry name
+            file.replace(/^src\//, "").replace(/index\.(ts|tsx)$/, ""),
+            // Absolute path
+            resolve(__dirname, file),
+          ],
+          ["src/**/*.{d,spec}.ts"],
+        ),
+      ),
+      // ...existing code...
+    },
+  },
+  // ...existing code...
+});
+```
+
+## 📌 Reference
+
+- For the actual list of functions and usage, refer to the source and README of the `shared/helpers` package.
+- If you have logic that is commonly needed, add it to this package so it can be reused in multiple places.

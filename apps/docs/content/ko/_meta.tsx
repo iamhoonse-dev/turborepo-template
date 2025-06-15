@@ -14,6 +14,9 @@ export default {
   conventions: {
     // title: "",
   },
+  shared: {
+    title: "🧩 공유 코드",
+  },
   tools: {
     // title: "",
   },
