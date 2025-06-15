@@ -11,8 +11,14 @@ export default {
   setup: {
     // title: "",
   },
+  configs: {
+    title: "⚙️ 共通設定",
+  },
   conventions: {
     // title: "",
+  },
+  shared: {
+    title: "🧩 共有コード",
   },
   tools: {
     // title: "",

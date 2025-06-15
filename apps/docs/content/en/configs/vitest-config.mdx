@@ -1,0 +1,59 @@
+# 🧪 Vitest Config
+
+The `configs/vitest-config` workspace provides shared Vitest test configuration that can be used across multiple packages and apps in the monorepo.
+
+## Main Purpose
+
+- Maintains a consistent test environment and options across the project.
+- Each workspace (app/package) can extend or use this configuration as-is.
+
+## Main Components
+
+- **base.ts**  
+  The base Vitest options applied to all packages/apps.
+- **ui.ts**  
+  Options specialized for testing React/Next.js UI libraries and apps.
+- **node.ts**  
+  Options specialized for testing packages running in Node.js environments.
+
+## How to Use
+
+### Extending
+
+In each workspace's `vitest.config.ts`, you can import and use `@repo/vitest-config/{configName}`.
+
+```ts filename="packages/react-ui/vitest.config.ts" {3,9}
+import { mergeConfig } from "vite";
+import { defineProject } from "vitest/config";
+import uiTestConfig from "@repo/vitest-config/ui";
+import viteConfig from "./vite.config";
+
+export default mergeConfig(
+  viteConfig,
+  mergeConfig(
+    uiTestConfig,
+    defineProject({ test: { setupFiles: ["./src/tests/setup.ts"] } }),
+  ),
+);
+```
+
+## Test Coverage Collection Settings
+
+The `configs/vitest-config` workspace uses Turbo to automatically collect and merge coverage reports from multiple packages and generate a final report, providing the following tasks:
+
+- **collect-json-reports**  
+  Collects coverage results (`coverage/raw/**`) from each package.
+- **merge-json-reports**  
+  Merges the collected coverage reports and stores them in `coverage/merged/**`.
+- **report**  
+  Generates the final coverage report (`coverage/report/**`) based on the merged coverage data.
+- **view-report**  
+  Allows you to view the report after the final coverage report is generated.
+
+These tasks are defined as Turbo tasks, making it easy to aggregate and manage test coverage across the entire monorepo.
+
+## Reference
+
+- For actual options and detailed settings, refer to each config file in the `configs/vitest-config/configs` directory.
+- If you need new shared test options, add them to this workspace to apply them to the entire project.
+

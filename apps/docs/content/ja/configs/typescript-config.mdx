@@ -1,0 +1,38 @@
+# 🟦 TypeScript設定
+
+`configs/typescript-config`ワークスペースは、モノレポ内の複数のパッケージやアプリで共通して利用できるTypeScript設定（共有tsconfig）を提供します。
+
+## 主な目的
+
+- プロジェクト全体で一貫したTypeScriptコンパイルオプションとコードスタイルを維持します。
+- 各ワークスペース（アプリ/パッケージ）でこの設定を拡張したり、そのまま利用することができます。
+
+## 主な構成
+
+- **`base.json`**\
+  すべてのパッケージ/アプリに共通適用される基本TypeScriptオプションを定義します。
+- **`react-library.json`**\
+  Reactライブラリ開発向けの追加オプションを含みます。
+- **`nextjs.json`**\
+  Next.jsプロジェクト向けの追加オプションを含みます。
+
+## 使い方
+
+### 継承して利用
+
+各ワークスペースの`tsconfig.json`で`@repo/typescript-config/{config名}`を`extends`で指定して利用できます。
+
+```jsonc filename="apps/docs/tsconfig.json"
+{
+  "extends": "@repo/typescript-config/nextjs.json",
+  "compilerOptions": {
+    // ワークスペースごとの追加/上書きオプション
+  }
+}
+```
+
+## 参考
+
+- 実際のオプションや詳細設定は`configs/typescript-config`ワークスペースの各configファイルを参照してください。
+- 新しい共通オプションが必要な場合は、このワークスペースに追加してプロジェクト全体に適用できます。
+

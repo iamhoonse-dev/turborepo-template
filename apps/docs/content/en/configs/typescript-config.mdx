@@ -1,0 +1,38 @@
+# 🟦 TypeScript Config
+
+The `configs/typescript-config` workspace provides shared TypeScript configuration (`tsconfig`) that can be used across multiple packages and apps in the monorepo.
+
+## Main Purpose
+
+- Maintains consistent TypeScript compiler options and code style across the project.
+- Each workspace (app/package) can extend or use this configuration as-is.
+
+## Main Components
+
+- **`base.json`**\
+  The base TypeScript options applied to all packages/apps.
+- **`react-library.json`**\
+  Additional options specialized for React library development.
+- **`nextjs.json`**\
+  Additional options specialized for Next.js projects.
+
+## How to Use
+
+### Extending
+
+In each workspace's `tsconfig.json`, you can specify `@repo/typescript-config/{configName}` as the `extends` value.
+
+```jsonc filename="apps/docs/tsconfig.json"
+{
+  "extends": "@repo/typescript-config/nextjs.json",
+  "compilerOptions": {
+    // Additional or overridden options for the workspace
+  }
+}
+```
+
+## Reference
+
+- For actual options and detailed settings, refer to each config file in the `configs/typescript-config` workspace.
+- If you need new shared options, add them to this workspace to apply them to the entire project.
+

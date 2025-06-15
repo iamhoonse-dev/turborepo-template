@@ -1,0 +1,70 @@
+# 🧰 ヘルパー関数
+
+`shared/helpers`パッケージは、複数のパッケージやアプリで共通して利用できる汎用ユーティリティ関数（ヘルパー関数）を提供します。
+
+## 🎯 主な目的
+
+- 重複するロジックを一箇所にまとめて再利用性を高め、コード品質と保守性を向上させます。
+- これらのヘルパー関数はnpmには公開されておらず、モノレポ内でのみ使用されます
+
+## 📁 主な構成
+
+- **関数コレクション**:  
+  文字列処理、配列・オブジェクト操作、型チェック、パス処理など、さまざまな場面で使えるヘルパー関数が含まれています。
+- **型定義**:  
+  TypeScriptベースで型安全性を提供します。
+
+## 🧑‍💻 ️他ワークスペースでの利用
+
+他のワークスペースでこれらのヘルパー関数を使うには、以下の手順を踏んでください。
+
+### ➕ 依存関係の追加
+
+`package.json`ファイルに次のように記述して依存関係として追加します。
+
+```json
+{
+  "dependencies": {
+    "@repo/helpers": "workspace:*"
+  }
+}
+```
+
+### 🧑‍💻️ 使用例
+
+ヘルパー関数をインポートして利用できます。例えば、`helpers`パッケージが提供する`runWithGlob`関数の使用例は以下の通りです。
+
+```typescript filename="packages/browser-utils/vite.config.ts"
+/// <reference types="vitest" />
+import { defineConfig } from "vite";
+import { runWithGlob } from "@repo/helpers/runWithGlob";
+import { resolve } from "path";
+
+export default defineConfig({
+  // ...existing code...
+  build: {
+    // ...existing code...
+    lib: {
+      entry: Object.fromEntries(
+        runWithGlob(
+          "src/**/*.{ts,tsx}",
+          (file) => [
+            // エントリ名
+            file.replace(/^src\//, "").replace(/index\.(ts|tsx)$/, ""),
+            // 絶対パス
+            resolve(__dirname, file),
+          ],
+          ["src/**/*.{d,spec}.ts"],
+        ),
+      ),
+      // ...existing code...
+    },
+  },
+  // ...existing code...
+});
+```
+
+## 📌 参考
+
+- 実際の関数一覧や使い方は`shared/helpers`パッケージのソースやREADMEを参照してください。
+- 共通で必要なロジックがあれば、このパッケージに追加して複数箇所で再利用できます。

@@ -5,6 +5,9 @@ export default {
   "add-new-package": {
     // title: "",
   },
+  "using-in-other-workspaces": {
+    // title: "",
+  },
   "enable-npm-publishing": {
     // title: "",
   },
