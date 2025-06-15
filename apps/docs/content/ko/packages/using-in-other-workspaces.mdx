@@ -1,0 +1,43 @@
+# 🧑‍💻 패키지 사용하기
+
+다른 워크스페이스에서 패키지를 사용하려면, 다음과 같은 단계를 따르세요:
+
+## ➕ 의존성 추가
+
+먼저 해당 워크스페이스의 `package.json` 파일에 의존성을 추가해야 합니다.
+예를 들어, `@repo/react-utils` 패키지를 사용하려면 다음과 같이 작성합니다:
+
+```json
+{
+  "dependencies": {
+    "@repo/react-utils": "workspace:*"
+  }
+}
+```
+
+그리고 의존성을 설치합니다:
+
+```bash
+cd path/to/project/root
+pnpm install
+```
+
+## 🧑‍💻️ 사용 예시
+
+이제 패키지를 임포트하여 사용할 수 있습니다. 예를 들어, `@repo/react-utils` 패키지에서 제공하는 `useInterval` 훅을 사용하는 예시는 다음과 같습니다:
+
+```typescript filename="apps/web/containers/AutoCounter/index.tsx" {4,9}
+"use client";
+
+import { type FC, useReducer } from "react";
+import { useInterval } from "@repo/react-utils/hooks";
+
+const AutoCounter: FC = () => {
+  const [counter, increase] = useReducer((state: number) => state + 1, 0);
+
+  useInterval(increase, 1_000);
+
+  return <>{counter}</>;
+};
+export default AutoCounter;
+```

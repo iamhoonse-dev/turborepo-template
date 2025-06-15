@@ -1,0 +1,43 @@
+# 🧑‍💻 Using a Package
+
+To use a package in another workspace, follow these steps:
+
+## ➕ Add as a Dependency
+
+First, add the dependency to the `package.json` file of the target workspace.
+For example, to use the `@repo/react-utils` package, add the following:
+
+```json
+{
+  "dependencies": {
+    "@repo/react-utils": "workspace:*"
+  }
+}
+```
+
+Then, install the dependencies:
+
+```bash
+cd path/to/project/root
+pnpm install
+```
+
+## 🧑‍💻️ Usage Example
+
+Now you can import and use the package. For example, here is how to use the `useInterval` hook provided by the `@repo/react-utils` package:
+
+```typescript filename="apps/web/containers/AutoCounter/index.tsx" {4,9}
+"use client";
+
+import { type FC, useReducer } from "react";
+import { useInterval } from "@repo/react-utils/hooks";
+
+const AutoCounter: FC = () => {
+  const [counter, increase] = useReducer((state: number) => state + 1, 0);
+
+  useInterval(increase, 1_000);
+
+  return <>{counter}</>;
+};
+export default AutoCounter;
+```
