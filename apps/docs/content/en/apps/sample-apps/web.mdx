@@ -1,0 +1,76 @@
+import { Callout } from "nextra/components";
+import LocalizedLink from "../../../../components/LocalizedLink";
+
+# 🌐 Web App
+
+## Overview
+
+`apps/web` is a Next.js-based web application that serves as an example project utilizing various internal packages (`@repo/*`) in a Turborepo environment. It features a component-based structure, utility functions, and a Vitest-based testing environment.
+
+<Callout type="info">
+  This workspace is based on the default Next.js app included in the [Turborepo template](https://github.com/vercel/turborepo/tree/main/examples/basic). \
+  It extends the provided features and serves as an example for structuring a real application by integrating internal packages of this monorepo project. \
+  **Reference**: [Turborepo Next.js Template > apps > web](https://github.com/vercel/turborepo/tree/main/examples/basic/apps/web)
+</Callout>
+
+## 🛠️ Features
+
+- **Next.js-based SSR/CSR**: Supports both server-side rendering (SSR) and client-side rendering (CSR).
+- **Internal Package Integration**: Integrates various internal packages (`@repo/*`) from Turborepo for UI, utilities, API clients, etc.
+- **Component-based Structure**: Adopts a reusable component and container structure for better maintainability and scalability.
+- **Environment-specific Configs**: Separates configuration files for development/production environments.
+- **Automated Testing**: Provides a Vitest-based unit/integration testing environment.
+- **Docker Support**: Easily set up deployment and testing environments via Dockerfile.
+
+## 📂 Main Directory Structure
+
+- **`app/`**: Next.js 13+ App Router-based pages and layout files.
+- **`components/`**: Shared UI components.
+- **`containers/`**: Main container components for each page.
+- **`configs/`**: Environment-specific and shared config files.
+- **`utils/`**: Utility function collection.
+- **`tests/`**: Vitest-based test code.
+- **`public/`**: Static assets (images, fonts, etc.).
+- **`next.config.js`**: Next.js config file
+- **`tsconfig.json`**: TypeScript config file
+- **`vitest.config.ts`**: Vitest test environment config file
+
+## ⚙️ Next.js & Turborepo Configuration
+
+- **`next.config.js`**: Configures aliases for internal packages (`@repo/*`) in the Turborepo environment. You can also customize various Next.js options such as environment variables, image optimization, external API proxy, etc.
+- **`tsconfig.json`**: Inherits Turborepo's base TypeScript config, applies path aliases and strict options.
+
+## 🧪 Vitest Test Environment
+
+- **`vitest.config.ts`**: Vitest config file tailored for Next.js, supporting integration tests with internal packages, custom setup files, and coverage reports.
+- **`tests/`**: Actual test code and test utilities.
+
+## 🐳 Dockerfile Provided
+
+- **Dockerfile**: Provides a multi-stage Dockerfile for building the Next.js app for production and running it in a Node.js environment. Separates dependency installation, build, and run stages for optimization.
+
+<Callout type="info">
+  Using the Dockerfile, you can easily build, deploy, or test the Next.js app in your CI/CD pipeline. \
+  For usage examples in actual testing, see the following two documents:
+  - <LocalizedLink href="/testing/e2e-test">`Testing > End-to-end Test`</LocalizedLink>
+  - <LocalizedLink href="/testing/lighthouse-test">`Testing > Lighthouse Test`</LocalizedLink>
+</Callout>
+
+## 🔗 Linked Internal Packages
+
+This application is integrated with the following Turborepo internal packages:
+
+### dependencies
+
+- <LocalizedLink href="/packages/default-packages/node-utils">`@repo/node-utils`</LocalizedLink>: Node.js utility functions
+- <LocalizedLink href="/packages/default-packages/browser-utils">`@repo/browser-utils`</LocalizedLink>: Browser utilities
+- <LocalizedLink href="/packages/default-packages/react-utils">`@repo/react-utils`</LocalizedLink>: React utility functions
+- <LocalizedLink href="/packages/default-packages/react-ui">`@repo/react-ui`</LocalizedLink>: Common UI component library
+- <LocalizedLink href="/packages/default-packages/http-clients">`@repo/http-clients`</LocalizedLink>: API clients
+
+### devDependencies
+
+- <LocalizedLink href="/configs/eslint-config">`@repo/eslint-config`</LocalizedLink>: Shared ESLint config
+- <LocalizedLink href="/configs/typescript-config">`@repo/typescript-config`</LocalizedLink>: Shared TypeScript config
+- <LocalizedLink href="/configs/vitest-config">`@repo/vitest-config`</LocalizedLink>: Shared Vitest config
+

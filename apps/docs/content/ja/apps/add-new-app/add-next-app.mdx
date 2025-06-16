@@ -1,0 +1,37 @@
+import LocalizedLink from "../../../../components/LocalizedLink";
+
+# Nextアプリを新規追加する
+
+## 📋 コピーして追加
+
+1. ターミナルでプロジェクトのルートに移動し、`apps/empty-next-app` フォルダをコピーして新しいアプリのフォルダを作成します。
+
+   例:
+   ```bash
+   cp -R apps/empty-next-app apps/新しいアプリ名
+   ```
+
+2. コピーしたフォルダ名や内部の `package.json` などでアプリ名を希望の名前に変更します。
+
+3. パッケージをインストール:
+   ```bash
+   pnpm install
+   ```
+
+4. アプリを実行:
+   ```bash
+   pnpm --filter 新しいアプリ名 dev
+   ```
+
+## 🛠️ 追加設定
+
+テンプレート（`apps/empty-next-app`）は最小限の設定のみ含まれているため、プロジェクトに合わせて自由にカスタマイズしてください。
+
+- 必要に応じて `next.config.js`、`tsconfig.json` などの設定ファイルを修正してください。
+- モノレポ内の他のアプリとの依存関係を追加したい場合は、<LocalizedLink href="/packages/using-in-other-workspaces">`パッケージ > パッケージの利用`</LocalizedLink> ドキュメントを参照してください。
+
+## 💡 注意
+
+-
+- 問題が発生した場合は、既存のアプリ（`apps/web` など）の設定やREADMEを参考にしてください。
+

@@ -20,6 +20,9 @@ export default {
   shared: {
     title: "🧩 공유 코드",
   },
+  apps: {
+    title: "🖥️ 애플리케이션",
+  },
   tools: {
     // title: "",
   },

@@ -1,0 +1,37 @@
+import LocalizedLink from "../../../../components/LocalizedLink";
+
+# Add a New Next App
+
+## 📋 Copy and Add
+
+1. In your terminal, navigate to the project root and copy the `apps/empty-next-app` folder to create a new app folder.
+
+   Example:
+   ```bash
+   cp -R apps/empty-next-app apps/your-new-app-name
+   ```
+
+2. Change the folder name and update the app name in files like `package.json` inside the copied folder as desired.
+
+3. Install packages:
+   ```bash
+   pnpm install
+   ```
+
+4. Run the app:
+   ```bash
+   pnpm --filter your-new-app-name dev
+   ```
+
+## 🛠️ Additional Configuration
+
+The template (`apps/empty-next-app`) includes only minimal settings, so feel free to customize it as needed for your project.
+
+- Edit configuration files like `next.config.js`, `tsconfig.json`, etc. as necessary.
+- To add dependencies on other apps in the monorepo, refer to the <LocalizedLink href="/packages/using-in-other-workspaces">`Packages > Using Packages in Other Workspaces`</LocalizedLink> document.
+
+## 💡 Notes
+
+-
+- If you encounter issues, refer to the settings of existing apps (such as `apps/web`) or check the README.
+

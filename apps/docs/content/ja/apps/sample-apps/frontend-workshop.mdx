@@ -1,0 +1,80 @@
+import { Callout } from "nextra/components";
+import LocalizedLink from "../../../../components/LocalizedLink";
+
+# 📚 Frontend Workshop
+
+## 📖 概要
+
+`frontend-workshop` ワークスペースは UI コンポーネントを独立して開発・ドキュメント化するための Storybook ベースのアプリケーションです。Turborepo モノレポ環境で Storybook をどのように設定・活用するかを示すサンプルプロジェクトです。
+
+## 🛠️ 提供機能
+
+- **UIコンポーネント開発**: 独立した環境でUIコンポーネントを開発できます。
+- **ドキュメント化**: 各コンポーネントの使用例をドキュメント化できます。
+- **Turborepo統合**: Turborepoベースのモノレポ環境でStorybook統合をサポートします。
+- **テスト自動化**: アクセシビリティ(a11y)テストやE2Eテストのための設定が含まれています。
+- **Docker対応**: StorybookをDockerコンテナとしてデプロイできます。
+
+## 📂 主なディレクトリ構成
+
+- **`src/`**: Storybookアプリのソースコード、コンポーネント、ストーリーファイル
+  - **`stories/`**: Storybookストーリーファイル
+  - **`assets/`**: 静的アセット（画像、フォントなど）
+- **`public/`**: 静的アセット
+- **`vite.config.ts`**: Vite設定ファイル
+- **`tsconfig.json`**: TypeScript設定ファイル
+
+## ⚙️ Storybook設定
+
+- **`.storybook/main.ts`**: Storybookのコア設定ファイル。ストーリーファイルのパス、アドオン、フレームワーク設定を管理します。
+- **`.storybook/preview.ts`**: Storybookのグローバルパラメータを設定します。コントロールマッチャー、Tailwindベースのカスタムビューポート、a11yテストモードなどを指定します。
+- **`.storybook/test-runner.ts`**: Storybookテストランナーの動作をカスタマイズします。各ストーリーのa11yチェックを自動化し、結果をJUnit形式で保存します。
+- **`.storybook/vitest.setup.ts`**: StorybookとVitest統合時に必要なプロジェクトアノテーションを設定します。
+
+## 🐳 Dockerfile提供
+
+- **Dockerfile**: Storybookを静的サイトとしてビルドし、NGINXで配信するプロダクション用Dockerイメージです。マルチステージビルドで依存インストール、ビルド、デプロイイメージを分離し最適化します。
+- **Dockerfile.test-runner**: Storybookのa11y・E2Eテスト用環境を構築するDockerイメージです。Playwrightなどのテストツールを含み、test:storybookスクリプトを実行してCI環境でStorybookテストを自動化できます。
+
+<Callout type="info">
+  提供されている2つのDockerfileは、それぞれStorybookをプロダクション環境で配信するものと、テストランナー用のものです。
+  これらをCI/CDパイプラインで活用し、Storybookを自動でビルド・テストできます。
+  実際のテストでの利用例は <LocalizedLink href="/testing/storybook-test">`テスト > Storybookテスト`</LocalizedLink> ドキュメントを参照してください。
+</Callout>
+
+## 🔗 連携ワークスペース
+
+このアプリケーションは以下のパスのストーリーを含みます:
+
+1. `../src/**/*.mdx`
+2. `../src/**/*.stories.@(js|jsx|mjs|ts|tsx)`
+3. `../../../packages/react-ui/src/**/*.stories.@(js|jsx|mjs|ts|tsx)`
+
+## ⬇️ インストール方法
+
+```bash
+pnpm install
+```
+
+## ▶️ Storybook実行
+
+下記コマンド実行後、[http://localhost:6006](http://localhost:6006) でStorybookを確認できます。
+
+```bash
+pnpm run dev
+```
+
+## 📦 ビルド・デプロイ
+
+```bash
+pnpm run build
+```
+ビルド後、`storybook-static` ディレクトリに静的ファイルが生成されます。このディレクトリをNGINXなどのWebサーバーにデプロイできます。
+
+## 🧪 テスト実行
+
+```bash
+pnpm run test:storybook
+```
+このコマンドはStorybookのa11yテストを実行します。テスト結果はJUnit形式で `test-results/` ディレクトリに保存されます。
+

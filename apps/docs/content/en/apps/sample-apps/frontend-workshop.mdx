@@ -1,0 +1,80 @@
+import { Callout } from "nextra/components";
+import LocalizedLink from "../../../../components/LocalizedLink";
+
+# 📚 Frontend Workshop
+
+## 📖 Overview
+
+The `frontend-workshop` workspace is a Storybook-based application for developing and documenting UI components independently. It is an example project showing how to set up and use Storybook in a Turborepo monorepo environment.
+
+## 🛠️ Features
+
+- **UI Component Development**: Develop UI components in an isolated environment.
+- **Documentation**: Document usage examples for each component.
+- **Turborepo Integration**: Supports Storybook integration in a Turborepo-based monorepo environment.
+- **Automated Testing**: Includes setup for accessibility (a11y) and E2E testing.
+- **Docker Support**: Can deploy Storybook as a Docker container.
+
+## 📂 Main Directory Structure
+
+- **`src/`**: Source code, components, and story files for the Storybook app.
+  - **`stories/`**: Storybook story files.
+  - **`assets/`**: Static assets (images, fonts, etc.).
+- **`public/`**: Static assets
+- **`vite.config.ts`**: Vite config file
+- **`tsconfig.json`**: TypeScript config file
+
+## ⚙️ Storybook Configuration
+
+- **`.storybook/main.ts`**: Core Storybook config file, manages story file paths, addons, and framework settings.
+- **`.storybook/preview.ts`**: Sets global parameters for Storybook, such as control matchers, custom viewports based on Tailwind, and a11y test mode.
+- **`.storybook/test-runner.ts`**: Customizes Storybook test runner behavior. Automates a11y checks for each story and saves results in JUnit format.
+- **`.storybook/vitest.setup.ts`**: Sets up project annotations for Storybook and Vitest integration.
+
+## 🐳 Dockerfile Provided
+
+- **Dockerfile**: Production Docker image that builds Storybook as a static site and serves it with NGINX. Uses multi-stage builds for optimized dependency installation, build, and deployment.
+- **Dockerfile.test-runner**: Docker image for Storybook accessibility and E2E testing. Includes Playwright and other test tools, and runs the test:storybook script to automate Storybook tests in CI environments.
+
+<Callout type="info">
+  The two provided Dockerfiles are for serving Storybook in production and for the test runner, respectively.
+  You can use them in your CI/CD pipeline to automatically build and test Storybook.
+  For usage examples in actual testing, see the <LocalizedLink href="/testing/storybook-test">`Testing > Storybook Test`</LocalizedLink> document.
+</Callout>
+
+## 🔗 Linked Workspaces
+
+This application includes stories from the following paths:
+
+1. `../src/**/*.mdx`
+2. `../src/**/*.stories.@(js|jsx|mjs|ts|tsx)`
+3. `../../../packages/react-ui/src/**/*.stories.@(js|jsx|mjs|ts|tsx)`
+
+## ⬇️ Installation
+
+```bash
+pnpm install
+```
+
+## ▶️ Run Storybook
+
+After running the following command, you can view Storybook at [http://localhost:6006](http://localhost:6006).
+
+```bash
+pnpm run dev
+```
+
+## 📦 Build & Deploy
+
+```bash
+pnpm run build
+```
+After building, static files are generated in the `storybook-static` directory. You can deploy this directory to a web server like NGINX.
+
+## 🧪 Run Tests
+
+```bash
+pnpm run test:storybook
+```
+This command runs accessibility (a11y) tests for Storybook. Test results are saved in JUnit format in the `test-results/` directory.
+
