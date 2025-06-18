@@ -6,9 +6,9 @@ export default {
     // title: "",
   },
   "github-apps": {
-    // title: "",
+    title: "🐙 GitHub Apps",
   },
   "github-actions": {
-    // title: "",
+    title: "🤖 GitHub Actions",
   },
 };

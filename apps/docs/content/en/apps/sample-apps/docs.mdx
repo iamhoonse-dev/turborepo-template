@@ -1,0 +1,106 @@
+import { Callout } from "nextra/components";
+import LocalizedLink from "../../../../components/LocalizedLink";
+
+# 📖 Docs App
+
+## 📝 Introduction
+
+The `apps/docs` workspace is a Next.js-based application responsible for documentation (Docs) within the monorepo.
+It leverages Nextra and the Nextra Docs theme to help you build fast and efficient documentation sites.
+It provides documentation, guides, and examples for various packages, modules, and components in the project, making it easy for both developers and users to find information.
+
+## 🚀 Nextra-based Documentation System
+
+This app is built on **Nextra** and the **Nextra Docs theme**. Nextra is a powerful documentation site framework running on Next.js, offering the following advantages:
+
+### Benefits of Next.js
+
+- **Based on Next.js**: Uses the latest Next.js framework to provide fast and efficient static/dynamic documentation pages.
+- **MDX Support**: Supports the MDX format, combining Markdown and JSX, so you can use React components within your docs.
+- **Monorepo Integration**: Integrated with other apps/packages in the Turborepo environment, making it easy to reference shared components and utilities.
+- **Custom Components**: Define custom components for use in docs via `mdx-components.ts`.
+
+### Benefits of Nextra
+
+- **Rapid Documentation**: Easily build documentation sites using just folder structure and MDX files.
+- **Theme Support**: Offers stylish documentation themes and various customization options via `nextra-theme-docs`.
+- **Built-in Search**: Integrates with Pagefind for fast full-document search even after static builds.
+- **Versioning & i18n**: Easily manage documentation versions and multiple languages via Nextra settings.
+
+## ⚙️ Main Configuration & Customization
+
+- Set Nextra theme and options in `next.config.js`.
+- Define custom components for MDX in `mdx-components.ts`.
+- Adding MDX files in the `content/` folder automatically creates documentation pages.
+
+## 📂 Directory Structure
+
+- `app/` : Next.js routes and page components
+- `components/` : UI components used in docs
+- `containers/` : Documentation layout and container components
+- `content/` : Actual documentation (MDX) files
+    - `ko/` : Korean docs
+    - `en/` : English docs
+    - `ja/` : Japanese docs
+- `public/` : Static files (images, fonts, etc.)
+- `tests/` : Test code
+
+## 💡 Usage Example
+
+To add documentation, create MDX files in the language-specific folders (e.g., `ko/`, `en/`, `ja/`) under `content/`. \
+You can use custom components in MDX files as shown below:
+
+<Callout type="info">
+  For more details on writing documentation, see the <LocalizedLink href="/documentation/how-to-write">`Documentation > How to Write Docs`</LocalizedLink> page.
+</Callout>
+
+```mdx filename="content/ko/example.mdx"
+import CustomComponent from "../../components/CustomComponent";
+
+---
+title: Example Document
+description: Example of writing documentation.
+---
+
+# Example Document
+
+<CustomComponent />
+```
+
+## 📦 Install Dependencies
+
+```bash
+pnpm install --filter apps/docs
+```
+
+## 🛠️ Development & Run
+
+To run the documentation site in development mode:
+
+```bash
+pnpm run dev --filter apps/docs
+```
+
+## 🏗️ Build
+
+The documentation site is built as a static site for deployment. Build it with:
+
+```bash
+pnpm run build --filter apps/docs
+```
+
+## 🚢 Deployment
+Since the documentation site is built as static files, you can deploy the generated files to any web server.
+For example, you can use Vercel, Netlify, GitHub Pages, and more.
+
+<Callout type="info">
+  In this project, the docs app is set up to deploy to GitHub Pages via a GitHub Actions workflow.
+  For details, see the <LocalizedLink href="/documentation/publishing-pages">`Documentation > Publishing Pages`</LocalizedLink> page.
+</Callout>
+
+## 🔗 References
+- [Next.js Documentation](https://nextjs.org/docs)
+- [MDX Documentation](https://mdxjs.com/)
+- [Nextra Documentation](https://nextra.site/docs)
+- [Nextra Docs Theme](https://nextra.site/docs/docs-theme/start)
+

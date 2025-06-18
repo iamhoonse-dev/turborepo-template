@@ -3,7 +3,7 @@ export default {
     // title: "",
   },
   "add-new-package": {
-    // title: "",
+    title: "➕ 새 패키지 추가",
   },
   "using-in-other-workspaces": {
     // title: "",
@@ -15,6 +15,6 @@ export default {
     // title: "",
   },
   "default-packages": {
-    // title: "",
+    title: "🗃️ 샘플 패키지",
   },
 };

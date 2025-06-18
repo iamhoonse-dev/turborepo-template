@@ -1,0 +1,76 @@
+import { Callout } from "nextra/components";
+import LocalizedLink from "../../../../components/LocalizedLink";
+
+# 🌐 Web App
+
+## 概要
+
+`apps/web` は Next.js ベースのウェブアプリケーションで、Turborepo 環境で様々な内部パッケージ（`@repo/*`）を活用するサンプルプロジェクトです。コンポーネントベースの構成、ユーティリティ関数、Vitestベースのテスト環境を備えています。
+
+<Callout type="info">
+  このワークスペースは [Turborepo テンプレート](https://github.com/vercel/turborepo/tree/main/examples/basic) にデフォルトで含まれている Next.js アプリをベースに作成されています。\
+  ここで提供される機能を拡張し、このモノレポプロジェクトの内部パッケージを統合して実際のアプリケーション開発に必要な構成例となっています。\
+  **参考** : [Turborepo Next.js テンプレート > apps > web](https://github.com/vercel/turborepo/tree/main/examples/basic/apps/web)
+</Callout>
+
+## 🛠️ 提供機能
+
+- **Next.jsベースのSSR/CSR**: サーバーサイドレンダリング（SSR）とクライアントサイドレンダリング（CSR）の両方をサポートします。
+- **内部パッケージ統合**: Turborepoの様々な内部パッケージ（`@repo/*`）を活用し、UI、ユーティリティ、APIクライアントなどを統合します。
+- **コンポーネントベース構成**: 再利用可能なコンポーネントとコンテナ構成を採用し、保守性と拡張性を高めています。
+- **環境別設定分離**: 開発/本番環境ごとに設定ファイルを分離して管理します。
+- **テスト自動化**: Vitestベースのユニット/統合テスト環境を提供します。
+- **Docker対応**: Dockerfileで簡単にデプロイ・テスト環境を構築できます。
+
+## 📂 主なディレクトリ構成
+
+- **`app/`**: Next.js 13+ App Routerベースのページ・レイアウトファイル
+- **`components/`**: 共通UIコンポーネント
+- **`containers/`**: ページごとの主要コンテナコンポーネント
+- **`configs/`**: 環境別・共通設定ファイル
+- **`utils/`**: ユーティリティ関数集
+- **`tests/`**: Vitestベースのテストコード
+- **`public/`**: 静的アセット（画像、フォントなど）
+- **`next.config.js`**: Next.js設定ファイル
+- **`tsconfig.json`**: TypeScript設定ファイル
+- **`vitest.config.ts`**: Vitestテスト環境設定ファイル
+
+## ⚙️ Next.js・Turborepo設定
+
+- **`next.config.js`**: Turborepo環境で内部パッケージ（`@repo/*`）をaliasで利用できるように設定します。環境変数、画像最適化、外部APIプロキシなど様々なNext.jsオプションもカスタマイズ可能です。
+- **`tsconfig.json`**: TurborepoのTypeScriptベース設定を継承し、パスエイリアスやstrictオプションを適用します。
+
+## 🧪 Vitestテスト環境
+
+- **`vitest.config.ts`**: Next.js環境に合わせたVitest設定ファイルで、内部パッケージとの統合テストやカスタムsetupファイル、カバレッジレポートなどをサポートします。
+- **`tests/`**: 実際のテストコードやテストユーティリティ
+
+## 🐳 Dockerfile提供
+
+- **Dockerfile**: Next.jsアプリを本番ビルド後、Node.js環境で実行するマルチステージDockerfileを提供します。依存インストール、ビルド、実行ステージを分離し最適化します。
+
+<Callout type="info">
+  Dockerfileを活用すれば、CI/CDパイプラインでNext.jsアプリを簡単にビルド・デプロイ・テストできます。\
+  Dockerfileを使った実際のテスト例は下記2つのドキュメントを参照してください:
+  - <LocalizedLink href="/testing/e2e-test">`テスト > End-to-endテスト`</LocalizedLink>
+  - <LocalizedLink href="/testing/lighthouse-test">`テスト > Lighthouseテスト`</LocalizedLink>
+</Callout>
+
+## 🔗 連携内部パッケージ
+
+このアプリケーションは以下のTurborepo内部パッケージと連携しています:
+
+### dependencies
+
+- <LocalizedLink href="/packages/default-packages/node-utils">`@repo/node-utils`</LocalizedLink>: Node.jsユーティリティ関数
+- <LocalizedLink href="/packages/default-packages/browser-utils">`@repo/browser-utils`</LocalizedLink>: ブラウザユーティリティ
+- <LocalizedLink href="/packages/default-packages/react-utils">`@repo/react-utils`</LocalizedLink>: Reactユーティリティ関数集
+- <LocalizedLink href="/packages/default-packages/react-ui">`@repo/react-ui`</LocalizedLink>: 共通UIコンポーネントライブラリ
+- <LocalizedLink href="/packages/default-packages/http-clients">`@repo/http-clients`</LocalizedLink>: APIクライアント
+
+### devDependencies
+
+- <LocalizedLink href="/configs/eslint-config">`@repo/eslint-config`</LocalizedLink>: ESLint共通設定
+- <LocalizedLink href="/configs/typescript-config">`@repo/typescript-config`</LocalizedLink>: TypeScript共通設定
+- <LocalizedLink href="/configs/vitest-config">`@repo/vitest-config`</LocalizedLink>: Vitest共通設定
+

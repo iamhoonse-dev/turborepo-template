@@ -1,0 +1,106 @@
+import { Callout } from "nextra/components";
+import LocalizedLink from "../../../../components/LocalizedLink";
+
+# 📖 Docsアプリ
+
+## 📝 紹介
+
+`apps/docs` ワークスペースは、モノレポ内でドキュメント機能を担当する Next.js ベースのアプリケーションです。
+このアプリは Nextra と Nextra Docs テーマを活用し、素早く効率的なドキュメントサイトを構築できます。
+また、プロジェクトの様々なパッケージ、モジュール、コンポーネントに関するドキュメントやガイド、サンプルなどを提供し、開発者やユーザーが簡単に情報を得られるよう設計されています。
+
+## 🚀 Nextraベースのドキュメントシステム
+
+このアプリは **Nextra** と **Nextra Docs テーマ** をベースに構築されています。Nextraは Next.js 上で動作する強力なドキュメントサイトフレームワークで、以下のような利点があります:
+
+### Next.js の利点
+
+- **Next.jsベース**: 最新の Next.js フレームワークを使い、素早く効率的な静的/動的ドキュメントページを提供します。
+- **MDX対応**: Markdown と JSX を組み合わせた MDX フォーマットをサポートし、ドキュメント内で React コンポーネントを利用できます。
+- **モノレポ統合**: Turborepo 環境で他のアプリやパッケージと連携し、共通コンポーネントやユーティリティを簡単に参照できます。
+- **カスタムコンポーネント**: `mdx-components.ts` でドキュメント内で使うカスタムコンポーネントを定義できます。
+
+### Nextra の利点
+
+- **素早いドキュメント化**: フォルダ構成とMDXファイルだけで簡単にドキュメントサイトを構築できます。
+- **テーマ対応**: `nextra-theme-docs` で洗練されたドキュメントテーマや様々なカスタムオプションを提供します。
+- **内蔵検索**: Pagefindと連携し、静的ビルド後も高速な全文検索が可能です。
+- **バージョン管理・多言語対応**: Nextraの設定でドキュメントのバージョン管理や多言語対応が容易です。
+
+## ⚙️ 主な設定とカスタマイズ
+
+- `next.config.js` で Nextra テーマやオプションを設定できます。
+- `mdx-components.ts` でMDXで使うカスタムコンポーネントを定義できます。
+- `content/` フォルダにMDXファイルを追加すると自動的にドキュメントページが生成されます。
+
+## 📂 ディレクトリ構成
+
+- `app/` : Next.js のルートやページコンポーネント
+- `components/` : ドキュメントで使うUIコンポーネント
+- `containers/` : ドキュメントレイアウトやコンテナコンポーネント
+- `content/` : 実際のドキュメント（MDX）ファイル
+    - `ko/` : 韓国語ドキュメント
+    - `en/` : 英語ドキュメント
+    - `ja/` : 日本語ドキュメント
+- `public/` : 静的ファイル（画像、フォントなど）
+- `tests/` : テストコード
+
+## 💡 利用例
+
+ドキュメントを追加する場合は、`content/` フォルダ内の各言語フォルダ（例: `ko/`, `en/`, `ja/`）にMDXファイルを作成してください。\
+MDXファイルを作成し、必要に応じて下記のようにカスタムコンポーネントを利用できます:
+
+<Callout type="info">
+  ドキュメント執筆の詳細なガイドは <LocalizedLink href="/documentation/how-to-write">`ドキュメント > ドキュメント執筆方法`</LocalizedLink> を参照してください。
+</Callout>
+
+```mdx filename="content/ko/example.mdx"
+import CustomComponent from "../../components/CustomComponent";
+
+---
+title: サンプルドキュメント
+description: ドキュメント執筆例です。
+---
+
+# サンプルドキュメント
+
+<CustomComponent />
+```
+
+## 📦 依存関係のインストール
+
+```bash
+pnpm install --filter apps/docs
+```
+
+## 🛠️ 開発・実行
+
+ドキュメントサイトを開発モードで実行するには、以下のコマンドを使います:
+
+```bash
+pnpm run dev --filter apps/docs
+```
+
+## 🏗️ ビルド
+
+ドキュメントサイトは静的サイトとしてビルドされ、デプロイされます。以下のコマンドでビルドできます:
+
+```bash
+pnpm run build --filter apps/docs
+```
+
+## 🚢 デプロイ
+ドキュメントサイトは静的ファイルとしてビルドされるため、ビルド後に生成されたファイルをWebサーバーにデプロイしてください。
+例えば、Vercel、Netlify、GitHub Pagesなど様々なホスティングサービスにデプロイできます。
+
+<Callout type="info">
+  このプロジェクトでは docs アプリを GitHub Pages にデプロイするよう GitHub Actions ワークフローが設定されています。
+  詳細は <LocalizedLink href="/documentation/publishing-pages">`ドキュメント > ドキュメントページの公開`</LocalizedLink> を参照してください。
+</Callout>
+
+## 🔗 参考
+- [Next.js 公式ドキュメント](https://nextjs.org/docs)
+- [MDX 公式ドキュメント](https://mdxjs.com/)
+- [Nextra 公式ドキュメント](https://nextra.site/docs)
+- [Nextra Docs テーマ](https://nextra.site/docs/docs-theme/start)
+

@@ -1,0 +1,75 @@
+import { Callout } from "nextra/components";
+import LocalizedLink from "../../../../components/LocalizedLink";
+
+# 🌐 Web App
+
+## 개요
+
+`apps/web`은 Next.js 기반의 웹 애플리케이션으로, Turborepo 환경에서 다양한 내부 패키지(`@repo/*`)를 활용하는 예시 프로젝트입니다. 컴포넌트 기반 구조, 유틸리티 함수, Vitest 기반 테스트 환경을 갖추고 있습니다.
+
+<Callout type="info">
+  이 워크스페이스는 [Turborepo 템플릿](https://github.com/vercel/turborepo/tree/main/examples/basic)에 기본적으로 포함되어 있는 Next.js 앱을 기반으로 작성되었습니다. \
+  여기서 제공하는 기능을 확장하고, 이 모노레포 프로젝트의 내부 패키지들을 통합하여 실제 애플리케이션 개발에 필요한 구조를 갖추기 위한 예시의 역할을 합니다. \
+  **참고** : [Turborepo Next.js 템플릿 > apps > web](https://github.com/vercel/turborepo/tree/main/examples/basic/apps/web)
+</Callout>
+
+## 🛠️ 제공 기능
+
+- **Next.js 기반 SSR/CSR**: 서버 사이드 렌더링(SSR)과 클라이언트 사이드 렌더링(CSR)을 모두 지원합니다.
+- **내부 패키지 통합**: Turborepo의 다양한 내부 패키지(`@repo/*`)를 활용하여 UI, 유틸리티, API 클라이언트 등을 통합합니다.
+- **컴포넌트 기반 구조**: 재사용 가능한 컴포넌트와 컨테이너 구조를 채택하여 유지보수성과 확장성을 높였습니다.
+- **환경별 설정 분리**: 개발/운영 환경에 따라 설정 파일을 분리하여 관리합니다.
+- **테스트 자동화**: Vitest 기반의 유닛/통합 테스트 환경을 제공합니다.
+- **Docker 지원**: Dockerfile을 통해 손쉽게 배포 및 테스트 환경을 구성할 수 있습니다.
+
+## 📂 주요 디렉토리 구조
+
+- **`app/`**: Next.js 13+ App Router 기반의 페이지 및 레이아웃 파일이 위치합니다.
+- **`components/`**: 공통 UI 컴포넌트가 위치합니다.
+- **`containers/`**: 페이지별 주요 컨테이너 컴포넌트가 위치합니다.
+- **`configs/`**: 환경별 설정 및 공통 설정 파일이 위치합니다.
+- **`utils/`**: 유틸리티 함수 모음입니다.
+- **`tests/`**: Vitest 기반 테스트 코드가 위치합니다.
+- **`public/`**: 정적 자산(이미지, 폰트 등)이 위치합니다.
+- **`next.config.js`**: Next.js 설정 파일
+- **`tsconfig.json`**: TypeScript 설정 파일
+- **`vitest.config.ts`**: Vitest 테스트 환경 설정 파일
+
+## ⚙️ Next.js 및 Turborepo 설정
+
+- **`next.config.js`**: Turborepo 환경에서 내부 패키지(`@repo/*`)를 alias로 연결하여 사용할 수 있도록 설정합니다. 환경 변수, 이미지 최적화, 외부 API 프록시 등 다양한 Next.js 옵션을 커스터마이즈할 수 있습니다.
+- **`tsconfig.json`**: Turborepo의 타입스크립트 베이스 설정을 상속받아, 경로 alias 및 strict 옵션을 적용합니다.
+
+## 🧪 Vitest 테스트 환경
+
+- **`vitest.config.ts`**: Next.js 환경에 맞춘 Vitest 설정 파일로, 내부 패키지와의 통합 테스트, 커스텀 setup 파일, 커버리지 리포트 등을 지원합니다.
+- **`tests/`**: 실제 테스트 코드와 테스트 유틸리티가 위치합니다.
+
+## 🐳 Dockerfile 제공
+
+- **Dockerfile**: Next.js 앱을 프로덕션 빌드 후, Node.js 환경에서 실행하는 멀티스테이지 Dockerfile을 제공합니다. 의존성 설치, 빌드, 실행 단계를 분리하여 최적화합니다.
+
+<Callout type="info">
+  Dockerfile을 활용하면 CI/CD 파이프라인에서 손쉽게 Next.js 앱을 빌드하고 배포 또는 테스트할 수 있습니다. \
+  Dockerfile 을 이용한 실제 테스트 에서의 사용 예시는 아래의 2 개 문서를 참고하세요:
+  - <LocalizedLink href="/testing/e2e-test">`테스팅 > End-to-end 테스트`</LocalizedLink>
+  - <LocalizedLink href="/testing/lighthouse-test">`테스팅 > Lighthouse 테스트`</LocalizedLink>
+</Callout>
+
+## 🔗 연결된 내부 패키지
+
+이 애플리케이션은 다음 Turborepo 내부 패키지와 연동됩니다:
+
+### dependencies
+
+- <LocalizedLink href="/packages/default-packages/node-utils">`@repo/node-utils`</LocalizedLink>: Node.js 유틸리티 함수
+- <LocalizedLink href="/packages/default-packages/browser-utils">`@repo/browser-utils`</LocalizedLink>: 브라우저 환경 유틸리티
+- <LocalizedLink href="/packages/default-packages/react-utils">`@repo/react-utils`</LocalizedLink>: React 유틸리티 함수 모음
+- <LocalizedLink href="/packages/default-packages/react-ui">`@repo/react-ui`</LocalizedLink>: 공통 UI 컴포넌트 라이브러리
+- <LocalizedLink href="/packages/default-packages/http-clients">`@repo/http-clients`</LocalizedLink>: API 클라이언트
+
+### devDependencies
+
+- <LocalizedLink href="/configs/eslint-config">`@repo/eslint-config`</LocalizedLink>: ESLint 공통 설정
+- <LocalizedLink href="/configs/typescript-config">`@repo/typescript-config`</LocalizedLink>: TypeScript 공통 설정
+- <LocalizedLink href="/configs/vitest-config">`@repo/vitest-config`</LocalizedLink>: Vitest 공통 설정

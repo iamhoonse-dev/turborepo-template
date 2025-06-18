@@ -1,0 +1,79 @@
+import { Callout } from "nextra/components";
+import LocalizedLink from "../../../../components/LocalizedLink";
+
+# 📚 Frontend Workshop
+
+## 📖 개요
+
+`frontend-workshop` 워크스페이스는 UI 컴포넌트를 독립적으로 개발하고 문서화하기 위한 Storybook 기반의 애플리케이션입니다. Turborepo 모노레포 환경에서 Storybook을 어떻게 설정하고 활용하는지 보여주는 예시 프로젝트입니다.
+
+## 🛠️ 제공 기능
+
+- **UI 컴포넌트 개발**: 독립적인 환경에서 UI 컴포넌트를 개발할 수 있습니다.
+- **문서화**: 각 컴포넌트의 사용 사례를 문서화할 수 있습니다.
+- **Turborepo 통합**: Turborepo 기반 모노레포 환경에서 Storybook 통합을 지원합니다.
+- **테스트 자동화**: 접근성(a11y) 테스트 및 E2E 테스트를 위한 설정이 포함되어 있습니다.
+- **Docker 지원**: Storybook을 Docker 컨테이너로 배포할 수 있습니다.
+
+## 📂 주요 디렉토리 구조
+
+- **`src/`**: Storybook 애플리케이션의 소스 코드, 컴포넌트 및 스토리 파일이 위치합니다.
+  - **`stories/`**: Storybook 스토리 파일이 위치합니다.
+  - **`assets/`**: 정적 자산(이미지, 폰트 등)이 위치합니다.
+- **`public/`**: 정적 자산
+- **`vite.config.ts`**: Vite 설정 파일
+- **`tsconfig.json`**: TypeScript 설정 파일
+
+## ⚙️ Storybook 설정
+
+- **`.storybook/main.ts`**: Storybook의 핵심 설정 파일로, 스토리 파일 경로(stories), 애드온(addons), 프레임워크 설정을 담당합니다.
+- **`.storybook/preview.ts`**: Storybook의 글로벌 파라미터를 설정합니다. 컨트롤 매처, Tailwind 기반의 커스텀 뷰포트, 접근성(a11y) 테스트 모드 등을 지정합니다.
+- **`.storybook/test-runner.ts`**: Storybook 테스트 러너의 동작을 커스터마이즈합니다. 각 스토리의 접근성(a11y) 검사를 자동화하고, 결과를 JUnit 포맷으로 저장합니다.
+- **`.storybook/vitest.setup.ts`**: Storybook과 Vitest 통합 시 필요한 프로젝트 어노테이션을 설정합니다.
+
+## 🐳 Dockerfile 제공
+
+- **Dockerfile**: Storybook을 정적 사이트로 빌드하여 NGINX로 서빙하는 프로덕션용 Docker 이미지입니다. 멀티스테이지 빌드로 의존성 설치, 빌드, 배포 이미지를 분리하여 최적화합니다.
+- **Dockerfile.test-runner**: Storybook 접근성 및 E2E 테스트를 위한 환경을 구성하는 Docker 이미지입니다. Playwright 등 테스트 도구를 포함하며, test:storybook 스크립트를 실행해 CI 환경에서 Storybook 테스트를 자동화할 수 있습니다.
+
+<Callout type="info">
+  제공되는 2개의 Dockerfile 은 각각 Storybook 을 프로덕션 환경에서 서빙하기 위한 Dockerfile 과, 테스트 러너를 위한 Dockerfile 입니다.
+  이들을 실제 CI/CD 파이프라인에서 활용하여, Storybook을 자동으로 빌드하고 테스트할 수 있습니다.
+  실제 테스트에서의 사용 예시는 <LocalizedLink href="/testing/storybook-test">`테스팅 > Storybook 테스트`</LocalizedLink> 문서를 참고하세요.
+</Callout>
+
+## 🔗 연결된 워크스페이스
+
+이 애플리케이션은 다음 경로의 스토리를 포함합니다:
+
+1. `../src/**/*.mdx`
+2. `../src/**/*.stories.@(js|jsx|mjs|ts|tsx)`
+3. `../../../packages/react-ui/src/**/*.stories.@(js|jsx|mjs|ts|tsx)`
+
+## ⬇️ 설치 방법
+
+```bash
+pnpm install
+```
+
+## ▶️ Storybook 실행
+
+아래의 명령어를 실행한 후에 [http://localhost:6006](http://localhost:6006)에서 Storybook을 확인할 수 있습니다.
+
+```bash
+pnpm run dev
+```
+
+## 📦 빌드 및 배포
+
+```bash
+pnpm run build
+```
+빌드 후, `storybook-static` 디렉토리에 정적 파일이 생성됩니다. 이 디렉토리를 NGINX 등 웹 서버에 배포할 수 있습니다.
+
+## 🧪 테스트 실행
+
+```bash
+pnpm run test:storybook
+```
+이 명령어는 Storybook의 접근성(a11y) 테스트를 실행합니다. 테스트 결과는 JUnit 포맷으로 `test-results/` 디렉토리에 저장됩니다.

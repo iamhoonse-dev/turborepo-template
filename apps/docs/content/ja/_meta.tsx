@@ -9,28 +9,31 @@ export default {
     // title: "",
   },
   setup: {
-    // title: "",
+    title: "🛠️ 自動化設定",
   },
   configs: {
     title: "⚙️ 共通設定",
   },
   conventions: {
-    // title: "",
+    title: "📏 コーディング規約",
   },
   shared: {
     title: "🧩 共有コード",
   },
+  packages: {
+    title: "📦 パッケージ",
+  },
+  apps: {
+    title: "🖥️ アプリケーション",
+  },
   tools: {
-    // title: "",
+    title: "📚 ツール",
   },
   testing: {
-    // title: "",
-  },
-  packages: {
-    // title: "",
+    title: "🧪 テスト",
   },
   documentation: {
-    // title: "",
+    title: "📖 ドキュメント",
   },
   github_link: {
     title: "Nextra",
