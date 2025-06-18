@@ -9,31 +9,31 @@ export default {
     // title: "",
   },
   setup: {
-    // title: "",
+    title: "🛠️ Automation Setup",
   },
   configs: {
-    title: "⚙️ Common Configs",
+    title: "⚙️ Common Configuration",
   },
   conventions: {
-    // title: "",
+    title: "📏 Coding Conventions",
   },
   shared: {
     title: "🧩 Shared Code",
   },
   packages: {
-    // title: "",
+    title: "📦 Packages",
   },
   apps: {
-    title: "🖥️ Application",
+    title: "🖥️ Applications",
   },
   tools: {
-    // title: "",
+    title: "📚 Tools",
   },
   testing: {
-    // title: "",
+    title: "🧪 Testing",
   },
   documentation: {
-    // title: "",
+    title: "📖 Documentation",
   },
   github_link: {
     title: "Nextra",
