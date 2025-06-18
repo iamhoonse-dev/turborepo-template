@@ -20,6 +20,9 @@ export default {
   shared: {
     title: "🧩 共有コード",
   },
+  packages: {
+    // title: "",
+  },
   apps: {
     title: "🖥️ アプリケーション",
   },
@@ -27,9 +30,6 @@ export default {
     // title: "",
   },
   testing: {
-    // title: "",
-  },
-  packages: {
     // title: "",
   },
   documentation: {
