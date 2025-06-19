@@ -35,6 +35,9 @@ export default {
   documentation: {
     title: "📖 ドキュメント",
   },
+  cicd: {
+    title: "🔄 CI/CD",
+  },
   github_link: {
     title: "Nextra",
     href: "https://github.com/shuding/nextra",
