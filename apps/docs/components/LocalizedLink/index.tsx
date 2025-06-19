@@ -2,9 +2,7 @@
 
 import type { ComponentProps, FC, ReactNode } from "react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
-import type { LocaleRouteParams } from "../../app/[locale]/layout";
-import { getLocalizedHref } from "../../utils/getLocalizedHref";
+import useLocalizedHref from "../../hooks/useLocalizedHref";
 
 interface Props {
   // The children to render inside the link
@@ -24,11 +22,8 @@ interface Props {
  * @param target
  */
 const LocalizedLink: FC<Props> = ({ children, href, target = "_blank" }) => {
-  // Use Next.js router to get the current locale from the URL parameters
-  const { locale } = useParams<LocaleRouteParams>();
-
-  // If the href is a string, we can safely append the locale
-  const localizedHref = getLocalizedHref(locale, href);
+  // Use the custom hook to get the localized href based on the current locale
+  const localizedHref = useLocalizedHref(href);
 
   return (
     <Link
