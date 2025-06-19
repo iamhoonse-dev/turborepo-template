@@ -8,13 +8,10 @@ import type { LocaleRouteParams } from "../../app/[locale]/layout";
  */
 export function getLocalizedHref(
   locale: LocaleRouteParams["locale"],
-  href?: string,
+  href: string,
 ) {
   // locale root path is the base path for the locale
   const localeRootPath = `/${locale}`;
-
-  // if no href is provided, we return the locale root path
-  if (!href) return localeRootPath;
 
   // if href is an absolute path, we return it as is
   if (href.startsWith("http://") || href.startsWith("https://")) {
