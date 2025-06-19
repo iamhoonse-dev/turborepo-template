@@ -1,37 +1,10 @@
 "use client";
 
-import type { FC, ReactNode, ComponentProps } from "react";
+import type { ComponentProps, FC, ReactNode } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import type { LocaleRouteParams } from "../../app/[locale]/layout";
-
-/**
- * getLocalizedHref is a utility function that takes a locale and an href
- *
- * @param locale
- * @param href
- */
-function getLocalizedHref(
-  locale: LocaleRouteParams["locale"],
-  href?: Props["href"],
-) {
-  // locale root path is the base path for the locale
-  const localeRootPath = `/${locale}`;
-
-  // if no href is provided, we return the locale root path
-  if (!href) return localeRootPath;
-
-  // if href is an absolute path, we return it as is
-  if (href.startsWith("http://") || href.startsWith("https://")) {
-    return href;
-  }
-
-  // If href is already a full path, we return it as is
-  if (href.startsWith("/")) return `${localeRootPath}${href}`;
-
-  // If href is not a full path, we prepend the locale root path
-  return `${localeRootPath}/${href}`;
-}
+import { getLocalizedHref } from "../../utils/getLocalizedHref";
 
 interface Props {
   // The children to render inside the link
