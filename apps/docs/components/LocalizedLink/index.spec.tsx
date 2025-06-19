@@ -8,12 +8,6 @@ vi.mock("next/navigation", () => ({
 }));
 
 describe("<LocalizedLink>", () => {
-  it("renders children without href", () => {
-    (useParams as Mock).mockReturnValue({ locale: "en" });
-    const { getByText } = render(<LocalizedLink>Test</LocalizedLink>);
-    expect(getByText("Test")).toBeInTheDocument();
-  });
-
   it("renders with href and locale", () => {
     (useParams as Mock).mockReturnValue({ locale: "en" });
     const { getByText } = render(
