@@ -1,0 +1,37 @@
+import { Cards } from "nextra/components";
+import LocalizedCard from "../../../components/LocalizedCard";
+
+# 🤖 GitHub Actions
+
+このプロジェクトでは、GitHub Actions を活用して自動化された CI/CD パイプラインを構築しています。
+コード品質の検証、テスト、ビルド、デプロイなど、主要な開発および運用プロセスを自動化することで、開発効率を高め、コード品質を維持します。
+
+## 主なワークフロー
+
+- **Test**
+  コードが push されるたびに自動で実行され、ユニットテスト、E2E テスト、Storybook テストなど様々な検証を行います。
+
+- **Release**
+  `main` ブランチに変更が検知されると実行され、パッケージのバージョン管理や Changesets によるリリース PR の作成を自動化します。
+
+- **Publish Github Pages**
+  ドキュメントサイトを静的にビルドし、`gh-pages` ブランチへデプロイ、GitHub Pages を通じて最新のドキュメントを自動で提供します。
+
+## 次のドキュメント
+
+下記のカードをクリックして、各ワークフローの詳細をご覧ください。
+
+<Cards>
+  <LocalizedCard
+    title="🧪 Test"
+    href="/cicd/test"
+  />
+  <LocalizedCard
+    title=" Release"
+    href="/cicd/release"
+  />
+  <LocalizedCard
+    title="📖 Publish Github Pages"
+    href="/cicd/publish-github-pages"
+  />
+</Cards>
