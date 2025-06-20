@@ -5,6 +5,7 @@ import { Banner, Head } from "nextra/components";
 import { getPageMap } from "nextra/page-map";
 import { nextConfig } from "../../next.config";
 import "nextra-theme-docs/style.css";
+import "@repo/react-ui/base.css";
 
 /**
  * this function generates static parameters for the internationalization (i18n) locales
