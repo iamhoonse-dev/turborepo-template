@@ -1,12 +1,31 @@
-# 🧭 Overview
+import LocalizedLink from "../../components/LocalizedLink";
 
-[![test](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/test.yml/badge.svg?event=push)](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/test.yml)
-[![Release](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/release.yml/badge.svg?event=push)](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/release.yml)
-[![publish-github-pages](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/publish-github-pages.yml/badge.svg)](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/publish-github-pages.yml)
+# 🧭 Overview
 
 ## 📖 Overview
 
-`turborepo-template` is a template designed to simplify monorepo management and builds. This template includes various apps and packages to help improve team collaboration and productivity.
+`turborepo-template` is a template created to simplify monorepo management and builds. This template includes various apps and packages, helping to enhance team collaboration and productivity.
+
+## 🗃️ Main External Packages/Tools Dependencies
+
+This template relies on several external packages and tools to simplify the development environment setup and build process. Below is a list of the main dependencies:
+
+| Category         | Package/Tool Name & Description |
+|------------------|-------------------------------|
+| **Package Manager** | pnpm                        |
+| **Monorepo Management** | turborepo (turbo)       |
+| **Language/Transpiler** | typescript              |
+| **Formatter**       | prettier                    |
+| **Commit/Hooks**    | husky, @commitlint/cli, @commitlint/config-conventional |
+| **Linter**          | eslint                      |
+| **Testing**         | vitest, @testing-library/react, @testing-library/dom, @testing-library/jest-dom, @testing-library/user-event, jsdom |
+| **Build/Bundler**   | next, @vitejs/plugin-react, vite-tsconfig-paths |
+| **UI Framework**    | react, react-dom            |
+| **E2E/Performance Testing** | playwright, lighthouse, lighthouse-ci |
+| **Versioning**      | changesets                  |
+| **Documentation**   | nextra, mdx                 |
+
+---
 
 ## 🔗 Component Relationship Diagram
 
@@ -63,114 +82,112 @@ graph TD
 ```
 
 > 💡 **Note:**
-> This diagram is drawn using [Mermaid](https://mermaid-js.github.io/mermaid/#/). This tool allows you to create diagrams based on text. You can copy the code below and paste it into the [Mermaid Live Editor](https://mermaid-js.github.io/mermaid-live-editor/) to view the diagram visually.
+> This diagram was created using [Mermaid](https://mermaid-js.github.io/mermaid/#/). This tool allows you to draw diagrams based on text. You can copy the code below and paste it into the [Mermaid Live Editor](https://mermaid-js.github.io/mermaid-live-editor/) to visually check the diagram.
 
 ## 📦 Components
 
 ### 🖥️ Apps
 
-This section includes various applications. Each app is designed for a specific purpose and utilizes modern tech stacks such as Next.js.
+This section includes various applications. Each app is designed for a specific purpose and utilizes modern tech stacks like Next.js.
 
-- **[Empty Next App](./apps/empty-next-app)**: A blank application template using Next.js.
-- **[Web](./apps/web)**: A web application based on Next.js.
-- **[Frontend Workshop](./apps/frontend-workshop)**: A Storybook environment for component development and testing.
-- **[Docs](./apps/docs)**: A Next.js-based documentation project for this repository, written using [Nextra](https://nextra.site/).
+- <LocalizedLink href="/apps/sample-apps/empty-next-app">`Empty Next App`</LocalizedLink>: A blank application template using Next.js.
+- <LocalizedLink href="/apps/sample-apps/web">`Web`</LocalizedLink>: A web application based on Next.js.
+- <LocalizedLink href="/apps/sample-apps/frontend-workshop">`Frontend Workshop`</LocalizedLink>: A Storybook environment for component development and testing.
+- <LocalizedLink href="/apps/sample-apps/docs">`Docs`</LocalizedLink>: A Next.js-based documentation project for this repository, written using Nextra.
 
 ### 📦 Packages
 
-This section includes a collection of reusable packages. Each package provides specific functionality and is managed independently in the monorepo structure.
-Some of the packages here are configured to be published to [npm](https://npmjs.org).
+This section contains a collection of reusable packages. Each package provides specific functionality and is managed independently within the monorepo structure.
+Some of the packages here are configured to be published to [npm](https://npmjs.org). \
+(🟢: Packages set to be published to npm, 🛑: Packages not set to be published to npm)
 
-- **[Browser Utils](./packages/browser-utils)**: A collection of browser-related utility functions.
-- 🟢 Configured to be published to [npm](https://npmjs.org).
-- **[ESLint Plugin Sample](./packages/eslint-plugin-sample)**: A sample ESLint plugin.
-- 🟢 Configured to be published to [npm](https://npmjs.org).
-- **[HTTP Clients](./packages/http-clients)**: A client library for handling HTTP requests.
-- 🛑 Not configured to be published to [npm](https://npmjs.org).
-- **[Node Utils](./packages/node-utils)**: Utility functions for Node.js environments.
-- 🟢 Configured to be published to [npm](https://npmjs.org).
-- **[React UI](./packages/react-ui)**: A React-based UI component library.
-- 🟢 Configured to be published to [npm](https://npmjs.org).
-- **[React Utils](./packages/react-utils)**: Utility functions for React applications.
-- 🟢 Configured to be published to [npm](https://npmjs.org).
+- <LocalizedLink href="/packages/default-packages/browser-utils">🟢 `Browser Utils`</LocalizedLink>: A collection of browser-related utility functions.
+- <LocalizedLink href="/packages/default-packages/eslint-plugin-sample">🟢 `ESLint Plugin Sample`</LocalizedLink>: A sample ESLint plugin.
+- <LocalizedLink href="/packages/default-packages/http-clients">🛑 `HTTP Clients`</LocalizedLink>: A client library for handling HTTP requests.
+- <LocalizedLink href="/packages/default-packages/node-utils">🟢 `Node Utils`</LocalizedLink>: A collection of utility functions for Node.js environments.
+- <LocalizedLink href="/packages/default-packages/react-ui">🟢 `React UI`</LocalizedLink>: A React-based UI component library.
+- <LocalizedLink href="/packages/default-packages/react-utils">🟢 `React Utils`</LocalizedLink>: A collection of utility functions for React applications.
 
 ### 🧩 Shared
 
-This section includes internal packages that are reusable throughout the project. Packages in the `shared` directory are not published to npm and are used internally only.
+This section contains internal packages that are reusable throughout the project. Packages in the `shared` directory are not published to npm and are used internally only.
 
-- **[Helpers](./shared/helpers)**: An internal package providing reusable utility functions and common logic across the project.
+- <LocalizedLink href="/shared/shared-codes">`Helpers`</LocalizedLink>: An internal package providing reusable utility functions and common logic across the project.
 
 ### 🛠️ Tools
 
 This section includes tools that support development and testing. Each tool helps automate or simplify specific tasks.
 
-- **[Playwright Web](./tools/playwright-web)**: A web testing tool based on Playwright.
-- **[CLI](./tools/cli)**: Tools for automating command-line tasks and supporting project management and development.
-- **[Lighthouse CI](./tools/lighthouse-ci)**: Tools for automatically measuring and managing web application performance, accessibility, SEO, etc.
+- <LocalizedLink href="/tools/playwright-web">`Playwright Web`</LocalizedLink>: A web testing tool based on Playwright.
+- <LocalizedLink href="/tools/clis">`CLI`</LocalizedLink>: Tools for automating command-line tasks and supporting project management and development.
+- <LocalizedLink href="/tools/lighthouse-ci">`Lighthouse CI`</LocalizedLink>: A tool for automatically measuring and managing web application performance, accessibility, SEO, etc.
 
 ### ⚙️ Configs
 
-This section includes common configuration files used throughout the project. It includes settings for tools such as ESLint, TypeScript, and Vitest.
+This section contains common configuration files used throughout the project, including settings for tools like ESLint, TypeScript, and Vitest.
 
-- **[ESLint Config](./configs/eslint-config)**: Common configuration for ESLint.
-- **[Playwright Config](./configs/playwright-config)**: Playwright test configuration.
-- **[TypeScript Config](./configs/typescript-config)**: Common configuration for TypeScript.
-- **[Vitest Config](./configs/vitest-config)**: Common configuration for Vitest tests.
+- <LocalizedLink href="/configs/eslint-config">`ESLint Config`</LocalizedLink>: Common configuration for ESLint.
+- <LocalizedLink href="/configs/playwright-config">`Playwright Config`</LocalizedLink>: Configuration for Playwright tests.
+- <LocalizedLink href="/configs/typescript-config">`TypeScript Config`</LocalizedLink>: Common configuration for TypeScript.
+- <LocalizedLink href="/configs/vitest-config">`Vitest Config`</LocalizedLink>: Common configuration for Vitest tests.
 
 ## 🔀 Workflows
 
-This project includes the following GitHub Actions workflows:
+This project includes the following GitHub Actions Workflows:
 
-### 🧪 **[Test](.github/workflows/test.yml)**
+### 🧪 Test
 
-Defined in [`test.yml`](.github/workflows/test.yml), this workflow runs the main tests (unit, E2E, Lighthouse, Storybook, etc.) for the project.
+Defined in the <LocalizedLink href="/cicd/test">`test.yml`</LocalizedLink> file, this workflow runs the main tests of the project (unit, E2E, Lighthouse, Storybook, etc.) in an integrated manner.
+This workflow includes the following tests: \
+(🐳 means tests run in Docker containers on GitHub Actions)
 
-- This workflow includes the following tests:
-- [unit test](.github/workflows/test.yml#L13)
-- [e2e test](.github/workflows/test.yml#L167)
-- [lighthouse test](.github/workflows/test.yml#L139)
-- [storybook test](.github/workflows/test.yml#L209)
-- Among these, e2e, lighthouse, and storybook tests use the [`docker-compose.gha.yaml`](./docker-compose.gha.yaml) file to set up an integrated test environment.
-- Various services (web, playwright, lighthouse, storybook, etc.) are run as containers to test in an environment similar to production.
+- <LocalizedLink href="/testing/unit-test">`unit test`</LocalizedLink>
+- <LocalizedLink href="/testing/e2e-test">🐳 `e2e test`</LocalizedLink>
+- <LocalizedLink href="/testing/lighthouse-test">🐳 `lighthouse test`</LocalizedLink>
+- <LocalizedLink href="/testing/storybook-test">🐳 `storybook test`</LocalizedLink>
 
-### 🚀 **[Release](.github/workflows/release.yml)**
+### 🚀 Release
 
-Defined in [`release.yml`](.github/workflows/release.yml), this workflow automates package publishing based on Changesets.
+Defined in the <LocalizedLink href="/cicd/release">`release.yml`</LocalizedLink> file, this workflow automates package publishing based on Changesets.
 
 - This workflow uses the Changesets bot to create PRs and automatically track changes.
-- When a PR is approved, the version of the changed package is updated and a `CHANGELOG.md` file is generated.
-- When the approved PR is merged, the workflow uses `NPM_TOKEN` to publish the package to npm.
+- When the PR is approved, the version of the changed package is updated and a CHANGELOG.md file is generated.
+- When the approved PR is merged, the workflow uses NPM_TOKEN to publish the package to npm.
 
-### 📖 [Publish GitHub Pages](.github/workflows/publish-github-pages.yml)
+### 📖 Publish GitHub Pages
 
-Defined in [`publish-github-pages.yml`](.github/workflows/publish-github-pages.yml), this workflow deploys the [`docs`](./apps/docs) app to GitHub Pages.
+Defined in the <LocalizedLink href="/cicd/publish-github-pages">`publish-github-pages.yml`</LocalizedLink> file, this workflow deploys the <LocalizedLink href="/docs/apps/docs">docs</LocalizedLink> app to GitHub Pages.
 
-## 🐳 Using GitHub Container Registry
+## 🐙 CI/CD with GitHub
+
+This project utilizes various GitHub features to automate deployment and testing. Below are the main features and setup methods:
+
+### 🐳 GitHub Container Registry
 
 Some `docker-compose`-based workflows (e.g., Storybook, E2E, Lighthouse tests) use [GitHub Container Registry (GHCR)](https://ghcr.io/) to cache image layers when building Docker images.
 This speeds up workflow execution and reduces unnecessary build costs.
 
-## 📖 Using GitHub Pages
+### 📖 GitHub Pages
 
-This project uses GitHub Pages to deploy the [`docs`](./apps/docs) app.
-To ensure GitHub Pages deployment works properly, you need to enable Pages in the Settings.
+This project deploys the <LocalizedLink href="/apps/sample-apps/docs">`docs`</LocalizedLink> app using GitHub Pages.
+To ensure GitHub Pages deployment works properly, you must enable Pages in the repository Settings.
 
-## 💬 Using Giscus GitHub App
+### 💬 Giscus GitHub App
 
-This project integrates GitHub Discussions into the documentation app using Giscus. Giscus is a comment system based on GitHub Discussions, allowing users to leave comments on documentation pages.
+This project integrates GitHub Discussions into the documentation app using Giscus. Giscus is a comment system based on GitHub Discussions, allowing you to leave comments on documentation.
 
-## 🗼 Using Lighthouse CI GitHub App
+### 🗼 Lighthouse CI GitHub App
 
-To ensure Lighthouse tests work properly, you must register the `LHCI_GITHUB_APP_TOKEN` variable in your GitHub Secrets.
+To ensure Lighthouse tests work properly, you must register the `LHCI_GITHUB_APP_TOKEN` variable in GitHub Secrets.
 This token is required for Lighthouse CI to report results or perform status checks in conjunction with GitHub PRs.
 
-## 🦋 Package Versioning and Publishing
+### 🦋 Package Versioning and Publishing
 
-This project uses [Changesets](https://github.com/changesets/changesets) to simplify package version management and publishing. Changesets are especially useful in a monorepo environment, helping you track changes for each package and update versions accordingly.
+This project uses [Changesets](https://github.com/changesets/changesets) to simplify package version management and publishing. Changesets are especially useful in monorepo environments, helping you track changes for each package and update versions accordingly.
 
 ## ⬇️ Installing Dependencies
 
-### Install with pnpm
+### Install pnpm
 
 ```bash
 pnpm install
@@ -180,7 +197,7 @@ pnpm install
 
 ### Using the CLI
 
-After running `pnpm install`, you can use the CLI commands defined in [`tools/cli`](./tools/cli) right away.
+After running `pnpm install`, you can use the CLI commands defined in <LocalizedLink href="/tools/clis">`tools/cli`</LocalizedLink> right away.
 
 ```bash
 example --ls [directory-path]
@@ -202,7 +219,7 @@ pnpm dev
 
 ### Remote Caching Setup (Optional)
 
-If needed, refer to the [Turborepo documentation](https://turborepo.com/docs/core-concepts/remote-caching) to set up remote caching.
+If needed, refer to the [Turborepo official documentation](https://turborepo.com/docs/core-concepts/remote-caching) to enable remote caching.
 
 ```bash
 npx turbo login

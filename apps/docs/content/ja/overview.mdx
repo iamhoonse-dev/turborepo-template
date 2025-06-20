@@ -1,16 +1,35 @@
-# 🧭 概要
+import LocalizedLink from "../../components/LocalizedLink";
 
-[![test](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/test.yml/badge.svg?event=push)](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/test.yml)
-[![Release](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/release.yml/badge.svg?event=push)](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/release.yml)
-[![publish-github-pages](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/publish-github-pages.yml/badge.svg)](https://github.com/iamhoonse-dev/turborepo-template/actions/workflows/publish-github-pages.yml)
+# 🧭 概要
 
 ## 📖 概要
 
-`turborepo-template`はモノレポの管理とビルドを簡素化するために作られたテンプレートです。このテンプレートには様々なアプリとパッケージが含まれており、チームのコラボレーションと生産性向上に役立ちます。
+`turborepo-template`はモノレポ管理とビルドを簡素化するために作成されたテンプレートです。このテンプレートには様々なアプリとパッケージが含まれており、チームのコラボレーションと生産性向上に役立ちます。
+
+## 🗃️ 主な外部パッケージ・ツール依存
+
+このテンプレートは、開発環境の構築やビルドプロセスを簡素化するために、いくつかの外部パッケージやツールに依存しています。主な依存関係は以下の通りです。
+
+| カテゴリ         | パッケージ／ツール名・説明 |
+|------------------|---------------------------|
+| **パッケージマネージャー** | pnpm                      |
+| **モノレポ管理**         | turborepo（turbo）         |
+| **言語／トランスパイラ** | typescript                |
+| **フォーマッター**       | prettier                  |
+| **コミット／フック**     | husky, @commitlint/cli, @commitlint/config-conventional |
+| **リンター**             | eslint                    |
+| **テスト**               | vitest, @testing-library/react, @testing-library/dom, @testing-library/jest-dom, @testing-library/user-event, jsdom |
+| **ビルド／バンドラー**   | next, @vitejs/plugin-react, vite-tsconfig-paths |
+| **UIフレームワーク**     | react, react-dom          |
+| **E2E／パフォーマンステスト** | playwright, lighthouse, lighthouse-ci |
+| **バージョニング**       | changesets                |
+| **ドキュメンテーション** | nextra, mdx               |
+
+---
 
 ## 🔗 コンポーネント間の関係図
 
-このテンプレートは複数のアプリとパッケージで構成されています。各アプリとパッケージ間の関係は、以下のダイアグラムを参照してください。
+このテンプレートは複数のアプリとパッケージで構成されています。各アプリとパッケージ間の関係は下記のダイアグラムを参照してください。
 
 ```mermaid
 graph TD
@@ -48,127 +67,137 @@ graph TD
     NRTE("frontend-workshop") --> ETTT("@repo/eslint-config")
     NRTE("frontend-workshop") --> MKNG("@repo/react-ui")
     GVMR("lighthouse-ci") --> ETTT("@repo/eslint-config")
+    ITTZ("playwright-web") --> ETTT("@repo/eslint-config")
+    ITTZ("playwright-web") --> BHWE("@repo/playwright-config")
+    ITTZ("playwright-web") --> EMLE("@repo/typescript-config")
+    ITTZ("playwright-web") --> VXGS("web")
+    VXGS("web") --> QHZT("@repo/browser-utils")
+    VXGS("web") --> ETTT("@repo/eslint-config")
+    VXGS("web") --> WCIN("@repo/http-clients")
+    VXGS("web") --> TPBW("@repo/node-utils")
+    VXGS("web") --> MKNG("@repo/react-ui")
+    VXGS("web") --> IRKD("@repo/react-utils")
+    VXGS("web") --> EMLE("@repo/typescript-config")
+    VXGS("web") --> LRHC("@repo/vitest-config")
 ```
 
 > 💡 **参考:**
-> このダイアグラムは [Mermaid](https://mermaid-js.github.io/mermaid/#/) を使用して描かれています。このツールを使うと、テキストベースでダイアグラムを描くことができます。以下のコードをコピーして [Mermaid Live Editor](https://mermaid-js.github.io/mermaid-live-editor/) に貼り付けると、ダイアグラムを視覚的に確認できます。
+> このダイアグラムは [Mermaid](https://mermaid-js.github.io/mermaid/#/) を使って描かれています。このツールはテキストベースでダイアグラムを作成できます。下記のコードをコピーして [Mermaid Live Editor](https://mermaid-js.github.io/mermaid-live-editor/) に貼り付けると、ダイアグラムを視覚的に確認できます。
 
-## 📦 구성 요소
+## 📦 コンポーネント
 
-### 🖥️ Apps
+### 🖥️ アプリ
 
-이 섹션은 다양한 애플리케이션을 포함하고 있어요. 각 앱은 특정 목적을 위해 설계되었으며, Next.js와 같은 최신 기술 스택을 활용하고 있어요.
+このセクションには様々なアプリケーションが含まれています。各アプリは特定の目的のために設計されており、Next.js などの最新技術スタックを活用しています。
 
-- **[Empty Next App](./apps/empty-next-app)**: Next.js를 사용한 빈 애플리케이션 템플릿이에요.
-- **[Web](./apps/web)**: Next.js 기반의 웹 애플리케이션이에요.
-- **[Frontend Workshop](./apps/frontend-workshop)**: 컴포넌트 개발이랑 테스트를 위한 Storybook 환경이에요.
-- **[Docs](./apps/docs)**: 본 프로젝트에 대한 Next.js 기반의 문서화 프로젝트로, [Nextra](https://nextra.site/)를 사용해서 작성되었어요.
+- <LocalizedLink href="/apps/sample-apps/empty-next-app">`Empty Next App`</LocalizedLink>: Next.js を使った空のアプリケーションテンプレートです。
+- <LocalizedLink href="/apps/sample-apps/web">`Web`</LocalizedLink>: Next.js ベースのウェブアプリケーションです。
+- <LocalizedLink href="/apps/sample-apps/frontend-workshop">`Frontend Workshop`</LocalizedLink>: コンポーネント開発とテストのための Storybook 環境です。
+- <LocalizedLink href="/apps/sample-apps/docs">`Docs`</LocalizedLink>: 本プロジェクトの Next.js ベースのドキュメントプロジェクトで、Nextra を使って作成されています。
 
-### 📦 Packages
+### 📦 パッケージ
 
-이 섹션은 재사용 가능한 패키지 모음을 포함하고 있어요. 각 패키지는 특정 기능을 제공하며, 모노레포 구조에서 독립적으로 관리돼요.
-또한, 이곳에 있는 패키지들 중 일부는 [npm](https://npmjs.org)에 배포될 수 있도록 설정되어 있어요.
+このセクションには再利用可能なパッケージのコレクションが含まれています。各パッケージは特定の機能を提供し、モノレポ構造内で独立して管理されます。
+また、ここにあるパッケージの一部は [npm](https://npmjs.org) へ公開できるように設定されています。\
+(🟢: npm に公開されるパッケージ, 🛑: npm に公開されないパッケージ)
 
-- **[Browser Utils](./packages/browser-utils)**: 브라우저 관련 유틸리티 함수 모음이에요.
-- 🟢 [npm](https://npmjs.org) 에 배포되도록 설정되어 있어요.
-- **[ESLint Plugin Sample](./packages/eslint-plugin-sample)**: 샘플 ESLint 플러그인이에요.
-- 🟢 [npm](https://npmjs.org) 에 배포되도록 설정되어 있어요.
-- **[HTTP Clients](./packages/http-clients)**: HTTP 요청을 처리하려고 만든 클라이언트 라이브러리예요.
-- 🛑 [npm](https://npmjs.org) 에 배포되지 않도록 설정되어 있어요.
-- **[Node Utils](./packages/node-utils)**: Node.js 환경에서 쓸 수 있는 유틸리티 함수 모음이에요.
-- 🟢 [npm](https://npmjs.org) 에 배포되도록 설정되어 있어요.
-- **[React UI](./packages/react-ui)**: React 기반 UI 컴포넌트 라이브러리예요.
-- 🟢 [npm](https://npmjs.org) 에 배포되도록 설정되어 있어요.
-- **[React Utils](./packages/react-utils)**: React 애플리케이션에서 쓸 수 있는 유틸리티 함수 모음이에요.
-- 🟢 [npm](https://npmjs.org) 에 배포되도록 설정되어 있어요.
+- <LocalizedLink href="/packages/default-packages/browser-utils">🟢 `Browser Utils`</LocalizedLink>: ブラウザ関連のユーティリティ関数集です。
+- <LocalizedLink href="/packages/default-packages/eslint-plugin-sample">🟢 `ESLint Plugin Sample`</LocalizedLink>: サンプル ESLint プラグインです。
+- <LocalizedLink href="/packages/default-packages/http-clients">🛑 `HTTP Clients`</LocalizedLink>: HTTP リクエストを処理するためのクライアントライブラリです。
+- <LocalizedLink href="/packages/default-packages/node-utils">🟢 `Node Utils`</LocalizedLink>: Node.js 環境で使えるユーティリティ関数集です。
+- <LocalizedLink href="/packages/default-packages/react-ui">🟢 `React UI`</LocalizedLink>: React ベースの UI コンポーネントライブラリです。
+- <LocalizedLink href="/packages/default-packages/react-utils">🟢 `React Utils`</LocalizedLink>: React アプリケーションで使えるユーティリティ関数集です。
 
 ### 🧩 Shared
 
-이 섹션은 프로젝트 전반에서 재사용 가능한 내부 패키지를 포함하고 있어요. `shared` 디렉토리에 있는 패키지들은 npm에 배포되지 않고, 내부적으로만 사용돼요.
+このセクションにはプロジェクト全体で再利用可能な内部パッケージが含まれています。`shared` ディレクトリ内のパッケージは npm には公開されず、内部利用のみです。
 
-- **[Helpers](./shared/helpers)**: 프로젝트 전반에서 재사용 가능한 유틸리티 함수와 공통 로직을 제공하는 내부 패키지예요.
+- <LocalizedLink href="/shared/shared-codes">`Helpers`</LocalizedLink>: プロジェクト全体で再利用できるユーティリティ関数や共通ロジックを提供する内部パッケージです。
 
-### 🛠️ Tools
+### 🛠️ ツール
 
-이 섹션은 개발 및 테스트를 지원하는 도구들을 포함하고 있어요. 각 도구는 특정 작업을 자동화하거나 간소화하는 데 도움을 줘요.
+このセクションには開発やテストを支援するツールが含まれています。各ツールは特定の作業を自動化または簡素化するのに役立ちます。
 
-- **[Playwright Web](./tools/playwright-web)**: Playwright 기반의 웹 테스트 도구예요.
-- **[CLI](./tools/cli)**: 명령줄 작업을 자동화하고 프로젝트 관리 및 개발을 지원하기 위한 도구예요.
-- **[Lighthouse CI](./tools/lighthouse-ci)**: 웹 애플리케이션의 성능, 접근성, SEO 등을 자동으로 측정하고 관리하기 위한 도구예요.
+- <LocalizedLink href="/tools/playwright-web">`Playwright Web`</LocalizedLink>: Playwright ベースのウェブテストツールです。
+- <LocalizedLink href="/tools/clis">`CLI`</LocalizedLink>: コマンドライン作業を自動化し、プロジェクト管理や開発を支援するツールです。
+- <LocalizedLink href="/tools/lighthouse-ci">`Lighthouse CI`</LocalizedLink>: ウェブアプリケーションのパフォーマンス、アクセシビリティ、SEO などを自動で測定・管理するツールです。
 
-### ⚙️ Configs
+### ⚙️ 設定
 
-이 섹션은 프로젝트 전반에서 사용되는 공통 설정 파일들을 포함하고 있어요. ESLint, TypeScript, Vitest와 같은 도구들의 설정이 포함돼요.
+このセクションにはプロジェクト全体で使われる共通設定ファイルが含まれています。ESLint、TypeScript、Vitest などのツールの設定が含まれます。
 
-- **[ESLint Config](./configs/eslint-config)**: ESLint 설정을 위한 공통 구성이에요.
-- **[Playwright Config](./configs/playwright-config)**: Playwright 테스트 설정이에요.
-- **[TypeScript Config](./configs/typescript-config)**: TypeScript 설정을 위한 공통 구성이에요.
-- **[Vitest Config](./configs/vitest-config)**: Vitest 테스트 설정을 위한 공통 구성이에요.
+- <LocalizedLink href="/configs/eslint-config">`ESLint Config`</LocalizedLink>: ESLint 用の共通設定です。
+- <LocalizedLink href="/configs/playwright-config">`Playwright Config`</LocalizedLink>: Playwright テストの設定です。
+- <LocalizedLink href="/configs/typescript-config">`TypeScript Config`</LocalizedLink>: TypeScript 用の共通設定です。
+- <LocalizedLink href="/configs/vitest-config">`Vitest Config`</LocalizedLink>: Vitest テスト用の共通設定です。
 
-## 🔀 Workflows
+## 🔀 ワークフロー
 
-이 프로젝트는 다음과 같은 GitHub Actions Workflow를 포함하고 있어요:
+このプロジェクトには以下の GitHub Actions ワークフローが含まれています:
 
-### 🧪 **[Test](.github/workflows/test.yml)**
+### 🧪 Test
 
-[`test.yml`](.github/workflows/test.yml) 파일에 정의되어 있으며, 프로젝트의 주요 테스트(유닛, E2E, Lighthouse, Storybook 등)를 통합적으로 실행해요.
+<LocalizedLink href="/cicd/test">`test.yml`</LocalizedLink> ファイルで定義されており、プロジェクトの主なテスト（ユニット、E2E、Lighthouse、Storybook など）を統合的に実行します。
+このワークフローには以下のテストが含まれます:\
+(🐳は GitHub Actions で Docker コンテナを使って実行されるテストを意味します)
 
-- 이 Workflow는 다음과 같은 테스트를 포함해요:
-- [unit test](.github/workflows/test.yml#L13)
-- [e2e test](.github/workflows/test.yml#L167)
-- [lighthouse test](.github/workflows/test.yml#L139)
-- [storybook test](.github/workflows/test.yml#L209)
-- 이들 중 e2e, lighthouse, storybook 테스트는 [`docker-compose.gha.yaml`](./docker-compose.gha.yaml) 파일을 사용해서 통합 테스트 환경을 설정해요.
-- 다양한 서비스(web, playwright, lighthouse, storybook 등)를 컨테이너로 띄워 실제 서비스 환경과 유사하게 테스트를 수행해요.
+- <LocalizedLink href="/testing/unit-test">`unit test`</LocalizedLink>
+- <LocalizedLink href="/testing/e2e-test">🐳 `e2e test`</LocalizedLink>
+- <LocalizedLink href="/testing/lighthouse-test">🐳 `lighthouse test`</LocalizedLink>
+- <LocalizedLink href="/testing/storybook-test">🐳 `storybook test`</LocalizedLink>
 
-### 🚀 **[Release](.github/workflows/release.yml)**
+### 🚀 Release
 
-[`release.yml`](.github/workflows/release.yml) 파일에 정의되어 있으며, Changesets를 기반으로 패키지 배포를 자동화해요.
+<LocalizedLink href="/cicd/release">`release.yml`</LocalizedLink> ファイルで定義されており、Changesets をベースにパッケージの公開を自動化します。
 
-- 이 Workflow는 Changesets 봇을 사용해서 PR을 생성하고, 변경 사항을 자동으로 추적해요.
-- PR을 승인하면, 변경된 패키지의 버전이 업데이트되고, `CHANGELOG.md` 파일이 생성돼요.
-- 그리고 승인된 PR이 병합되면서 실행되는 Workflow에 의해, `NPM_TOKEN`을 사용하여 npm에 패키지가 배포돼요.
+- このワークフローは Changesets ボットを使って PR を作成し、変更内容を自動で追跡します。
+- PR が承認されると、変更されたパッケージのバージョンが更新され、CHANGELOG.md ファイルが生成されます。
+- 承認された PR がマージされると、NPM_TOKEN を使って npm へパッケージが公開されます。
 
-### 📖 [Publish GitHub Pages](.github/workflows/publish-github-pages.yml)
+### 📖 Publish GitHub Pages
 
-[`publish-github-pages.yml`](.github/workflows/publish-github-pages.yml) 파일에 정의되어 있으며, [`docs`](./apps/docs) 앱을 GitHub Pages에 배포해요.
+<LocalizedLink href="/cicd/publish-github-pages">`publish-github-pages.yml`</LocalizedLink> ファイルで定義されており、<LocalizedLink href="/docs/apps/docs">docs</LocalizedLink> アプリを GitHub Pages へデプロイします。
 
-## 🐳 GitHub Container Registry 사용
+## 🐙 GitHub での CI/CD
 
-일부 `docker-compose` 기반 워크플로우(예: Storybook, E2E, Lighthouse 테스트)에서는 Docker 이미지 빌드 시 [GitHub Container Registry(GHCR)](https://ghcr.io/)를 활용해서 이미지 레이어를 캐싱해요.
-이렇게 하면 워크플로우 실행 속도를 높이고, 불필요한 빌드 비용을 줄일 수 있어요.
+このプロジェクトはデプロイやテストを自動化するために GitHub の様々な機能を活用しています。主な機能と設定方法は以下の通りです。
 
-## 📖 GitHub Pages 사용
+### 🐳 GitHub Container Registry
 
-이 프로젝트는 GitHub Pages를 사용해서 [`docs`](./apps/docs) 앱을 배포하고 있어요.
-GitHub Pages 배포가 정상적으로 동작하려면 Settings에서 Pages를 활성화해야 해요.
+一部の `docker-compose` ベースのワークフロー（例: Storybook、E2E、Lighthouse テスト）では、Docker イメージのビルド時に [GitHub Container Registry(GHCR)](https://ghcr.io/) を利用してイメージレイヤーをキャッシュします。
+これによりワークフローの実行速度が向上し、不要なビルドコストを削減できます。
 
-## 💬 Giscus GitHub App 사용
+### 📖 GitHub Pages
 
-이 프로젝트는 Giscus를 사용해서 GitHub Discussions을 문서화 앱에 통합하고 있어요. Giscus는 GitHub Discussions를 기반으로 하는 댓글 시스템으로, 문서에 댓글을 달 수 있게 해줘요.
+このプロジェクトは GitHub Pages を使って <LocalizedLink href="/apps/sample-apps/docs">`docs`</LocalizedLink> アプリをデプロイしています。
+GitHub Pages のデプロイが正常に動作するには、リポジトリの Settings で Pages を有効にする必要があります。
 
-## 🗼 Lighthouse CI GitHub App 사용
+### 💬 Giscus GitHub App
 
-Lighthouse 테스트가 정상적으로 동작하려면 GitHub Secrets에 `LHCI_GITHUB_APP_TOKEN` 변수를 반드시 등록해야 해요.
-이 토큰은 Lighthouse CI가 GitHub PR과 연동되어 결과를 보고하거나 상태 체크를 수행할 때 필요해요.
+このプロジェクトは Giscus を使って GitHub Discussions をドキュメントアプリに統合しています。Giscus は GitHub Discussions をベースにしたコメントシステムで、ドキュメントにコメントを残すことができます。
 
-## 🦋 패키지 버저닝 및 배포
+### 🗼 Lighthouse CI GitHub App
 
-이 프로젝트는 [Changesets](https://github.com/changesets/changesets)를 사용하여 패키지 버전 관리와 배포를 간소화하고 있어요. Changesets는 모노레포 환경에서 특히 유용하며, 각 패키지의 변경 사항을 추적하고 이를 기반으로 버전을 업데이트할 수 있도록 도와줘요.
+Lighthouse テストを正常に動作させるには、GitHub Secrets に `LHCI_GITHUB_APP_TOKEN` 変数を必ず登録してください。
+このトークンは Lighthouse CI が GitHub PR と連携して結果を報告したり、ステータスチェックを行う際に必要です。
 
-## ⬇️ 의존성 설치
+### 🦋 パッケージのバージョニングと公開
 
-### pnpm 설치
+このプロジェクトは [Changesets](https://github.com/changesets/changesets) を使ってパッケージのバージョン管理と公開を簡素化しています。Changesets はモノレポ環境で特に有用で、各パッケージの変更内容を追跡し、それに基づいてバージョンを更新できます。
+
+## ⬇️ 依存関係のインストール
+
+### pnpm のインストール
 
 ```bash
 pnpm install
 ```
 
-## 🧑‍💻 사용법
+## 🧑‍💻 使い方
 
-### CLI 사용
+### CLI の利用
 
-`pnpm install`을 실행하면 [`tools/cli`](./tools/cli)에 정의된 CLI 명령어들을 바로 사용할 수 있어요.
+`pnpm install` を実行すると、<LocalizedLink href="/tools/clis">`tools/cli`</LocalizedLink> で定義された CLI コマンドをすぐに利用できます。
 
 ```bash
 example --ls [directory-path]
@@ -176,31 +205,31 @@ example --mkdir <directory-name>
 example --touch <file-name>
 ```
 
-### 빌드
+### ビルド
 
 ```bash
 pnpm build
 ```
 
-### 개발 서버 실행
+### 開発サーバーの起動
 
 ```bash
 pnpm dev
 ```
 
-### 원격 캐싱 설정 (Optional)
+### リモートキャッシュの設定（オプション）
 
-필요에 따라 [Turborepo 공식 문서](https://turborepo.com/docs/core-concepts/remote-caching)를 참고하여 원격 캐싱을 사용하도록 설정할 수 있어요.
+必要に応じて [Turborepo 公式ドキュメント](https://turborepo.com/docs/core-concepts/remote-caching) を参照し、リモートキャッシュを有効化できます。
 
 ```bash
 npx turbo login
 npx turbo link
 ```
 
-## 🤝 기여
+## 🤝 コントリビュート
 
-이 템플릿에 기여하려면, [CONTRIBUTING.md](./CONTRIBUTING.md)를 참고해 주세요.
+このテンプレートに貢献する場合は、[CONTRIBUTING.md](./CONTRIBUTING.md) をご参照ください。
 
-## 📜 라이선스
+## 📜 ライセンス
 
-이 프로젝트는 MIT 라이선스 하에 배포돼요.
+このプロジェクトは MIT ライセンスの下で配布されています。
