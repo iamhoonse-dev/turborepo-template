@@ -2,6 +2,7 @@
 
 import type { ComponentProps, FC, ReactNode } from "react";
 import Link from "next/link";
+import { Button } from "@repo/react-ui/shadcn-ui";
 import useLocalizedHref from "../../hooks/useLocalizedHref";
 
 interface Props {
@@ -26,14 +27,16 @@ const LocalizedLink: FC<Props> = ({ children, href, target = "_blank" }) => {
   const localizedHref = useLocalizedHref(href);
 
   return (
-    <Link
-      href={localizedHref}
-      target={target}
-      // for preventing reverse tapnabbing vulnerability
-      rel={target === "_blank" ? "noopener noreferrer" : undefined}
-    >
-      {children}
-    </Link>
+    <Button asChild variant="link" className="px-0">
+      <Link
+        href={localizedHref}
+        target={target}
+        // for preventing reverse tapnabbing vulnerability
+        rel={target === "_blank" ? "noopener noreferrer" : undefined}
+      >
+        {children}
+      </Link>
+    </Button>
   );
 };
 export default LocalizedLink;
