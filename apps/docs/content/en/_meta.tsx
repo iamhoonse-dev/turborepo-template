@@ -2,9 +2,6 @@ export default {
   index: {
     // title: "",
   },
-  overview: {
-    // title: "",
-  },
   quickstart: {
     // title: "",
   },

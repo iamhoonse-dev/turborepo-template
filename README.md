@@ -8,9 +8,24 @@
 
 `turborepo-template`은 모노레포 관리랑 빌드를 단순화하려고 만든 템플릿이에요. 이 템플릿은 다양한 앱과 패키지를 포함하고 있어서, 팀 협업과 생산성을 높이는 데 도움을 줄 거예요.
 
-## 📖 상세 가이드
+## 🗃️ 주요 외부 패키지/도구 의존성
 
-본 프로젝트에 대한 보다 상세한 내용은 GitHub Pages에 배포된 [문서](https://iamhoonse-dev.github.io/turborepo-template/ko)를 참고해 주세요.
+이 템플릿은 개발 환경 구성과 빌드 프로세스를 간소화하기 위해 여러 외부 패키지와 도구에 의존하고 있어요. 아래는 주요 의존성 목록이에요:
+
+| 카테고리              | 패키지/도구 이름 및 설명                                                                                            |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| **패키지 매니저**     | pnpm                                                                                                                |
+| **모노레포 관리**     | turborepo (turbo)                                                                                                   |
+| **언어/트랜스파일러** | typescript                                                                                                          |
+| **포맷터**            | prettier                                                                                                            |
+| **커밋/훅**           | husky, @commitlint/cli, @commitlint/config-conventional                                                             |
+| **린터**              | eslint                                                                                                              |
+| **테스팅**            | vitest, @testing-library/react, @testing-library/dom, @testing-library/jest-dom, @testing-library/user-event, jsdom |
+| **빌드/번들러**       | next, @vitejs/plugin-react, vite-tsconfig-paths                                                                     |
+| **UI 프레임워크**     | react, react-dom                                                                                                    |
+| **E2E/성능테스트**    | playwright, lighthouse, lighthouse-ci                                                                               |
+| **버저닝**            | changesets                                                                                                          |
+| **문서화**            | nextra, mdx                                                                                                         |
 
 ## 🔗 구성 요소 간 관계도
 
@@ -66,54 +81,8 @@ graph TD
     VXGS("web") --> LRHC("@repo/vitest-config")
 ```
 
-> 💡 **참고:**  
+> 💡 **참고:**
 > 이 다이어그램은 [Mermaid](https://mermaid-js.github.io/mermaid/#/)를 사용해서 그렸어요. 이 도구는 텍스트 기반으로 다이어그램을 그릴 수 있게 해줘요. 아래의 코드를 복사해서 [Mermaid Live Editor](https://mermaid-js.github.io/mermaid-live-editor/)에 붙여넣으면 다이어그램을 시각적으로 확인할 수 있어요.
-
-## 🚀 Quickstart
-
-### Use this template
-
-"Use this template" 버튼을 클릭해서 레포지토리를 생성한 후에, 아래의 명령어들을 실행해 주세요.
-
-### 의존성 설치
-
-이 프로젝트에서 제공하는 모노레포 명령어를 사용하려면 먼저 의존성을 설치해야 해요. 아래 명령어를 실행해 주세요:
-
-```bash
-pnpm install
-```
-
-### 소유자 ID 변경
-
-코드베이스 내 모든 파일을 탐색하여 기존의 소유자 ID 가 기록되어 있는 부분을 변경해요.
-코드에 대한 보다 자세한 내용은 [`tools/cli`의 README](./tools/cli/README.md#-제공-기능)를 참고해 주세요.
-
-```bash
-change-owner-name --name your-username
-```
-
-### 레포지토리 이름 변경
-
-코드 베이스 내 모든 파일을 탐색하여 기존의 레포지토리 이름이 기록되어 있는 부분을 변경해요.
-코드에 대한 보다 자세한 내용은 [`tools/cli`의 README](./tools/cli/README.md#-제공-기능)를 참고해 주세요.
-
-```bash
-rename-repository --name new-repository-name
-```
-
-### 스코프 이름 변경
-
-코드 베이스 내 모든 파일을 탐색하여 기존의 스코프 이름이 기록되어 있는 부분을 변경해요.
-만약 모노레포 내 일부 구성 요소들을 [npm](https://www.npmjs.com/) 의 특정 스코프(e.g. `new-scope-name`)로 배포해야 해서 해당 스코프 이름으로 변경해야 하는 경우에 유용할 거예요.
-코드에 대한 보다 자세한 내용은 [`tools/cli`의 README](./tools/cli/README.md#-제공-기능)를 참고해 주세요.
-
-```bash
-rename-scope --name new-scope-name
-```
-
-### 🎉 Enjoy it !
-
-Happy Hacking!
 
 ## 📦 구성 요소
 
@@ -121,225 +90,100 @@ Happy Hacking!
 
 이 섹션은 다양한 애플리케이션을 포함하고 있어요. 각 앱은 특정 목적을 위해 설계되었으며, Next.js와 같은 최신 기술 스택을 활용하고 있어요.
 
-- **[Empty Next App](./apps/empty-next-app)**: Next.js를 사용한 빈 애플리케이션 템플릿이에요.
-- **[Web](./apps/web)**: Next.js 기반의 웹 애플리케이션이에요.
-- **[Frontend Workshop](./apps/frontend-workshop)**: 컴포넌트 개발이랑 테스트를 위한 Storybook 환경이에요.
-- **[Docs](./apps/docs)**: 본 프로젝트에 대한 Next.js 기반의 문서화 프로젝트로, [Nextra](https://nextra.site/)를 사용해서 작성되었어요.
+- [`Empty Next App`](https://iamhoonse-dev.github.io/turborepo-template/ko/apps/sample-apps/empty-next-app): Next.js를 사용한 빈 애플리케이션 템플릿이에요.
+- [`Web`](https://iamhoonse-dev.github.io/turborepo-template/ko/apps/sample-apps/web): Next.js 기반의 웹 애플리케이션이에요.
+- [`Frontend Workshop`](https://iamhoonse-dev.github.io/turborepo-template/ko/apps/sample-apps/frontend-workshop): 컴포넌트 개발이랑 테스트를 위한 Storybook 환경이에요.
+- [`Docs`](https://iamhoonse-dev.github.io/turborepo-template/ko/apps/sample-apps/docs): 본 프로젝트에 대한 Next.js 기반의 문서화 프로젝트로, Nextra를 사용해서 작성되었어요.
 
 ### 📦 Packages
 
 이 섹션은 재사용 가능한 패키지 모음을 포함하고 있어요. 각 패키지는 특정 기능을 제공하며, 모노레포 구조에서 독립적으로 관리돼요.
-또한, 이곳에 있는 패키지들 중 일부는 [npm](https://npmjs.org)에 배포될 수 있도록 설정되어 있어요.
+또한, 이곳에 있는 패키지들 중 일부는 [npm](https://npmjs.org)에 배포될 수 있도록 설정되어 있어요. \
+(🟢: npm에 배포되도록 설정된 패키지, 🛑: npm에 배포되지 않도록 설정된 패키지)
 
-- **[Browser Utils](./packages/browser-utils)**: 브라우저 관련 유틸리티 함수 모음이에요.
-  - 🟢 [npm](https://npmjs.org) 에 배포되도록 설정되어 있어요.
-- **[ESLint Plugin Sample](./packages/eslint-plugin-sample)**: 샘플 ESLint 플러그인이에요.
-  - 🟢 [npm](https://npmjs.org) 에 배포되도록 설정되어 있어요.
-- **[HTTP Clients](./packages/http-clients)**: HTTP 요청을 처리하려고 만든 클라이언트 라이브러리예요.
-  - 🛑 [npm](https://npmjs.org) 에 배포되지 않도록 설정되어 있어요.
-- **[Node Utils](./packages/node-utils)**: Node.js 환경에서 쓸 수 있는 유틸리티 함수 모음이에요.
-  - 🟢 [npm](https://npmjs.org) 에 배포되도록 설정되어 있어요.
-- **[React UI](./packages/react-ui)**: React 기반 UI 컴포넌트 라이브러리예요.
-  - 🟢 [npm](https://npmjs.org) 에 배포되도록 설정되어 있어요.
-- **[React Utils](./packages/react-utils)**: React 애플리케이션에서 쓸 수 있는 유틸리티 함수 모음이에요.
-  - 🟢 [npm](https://npmjs.org) 에 배포되도록 설정되어 있어요.
+- 🟢 [`Browser Utils`](https://iamhoonse-dev.github.io/turborepo-template/ko/packages/default-packages/browser-utils): 브라우저 관련 유틸리티 함수 모음이에요.
+- 🟢 [`ESLint Plugin Sample`](https://iamhoonse-dev.github.io/turborepo-template/ko/packages/default-packages/eslint-plugin-sample): 샘플 ESLint 플러그인이에요.
+- 🛑 [`HTTP Clients`](https://iamhoonse-dev.github.io/turborepo-template/ko/packages/default-packages/http-clients): HTTP 요청을 처리하려고 만든 클라이언트 라이브러리예요.
+- 🟢 [`Node Utils`](https://iamhoonse-dev.github.io/turborepo-template/ko/packages/default-packages/node-utils): Node.js 환경에서 쓸 수 있는 유틸리티 함수 모음이에요.
+- 🟢 [`React UI`](https://iamhoonse-dev.github.io/turborepo-template/ko/packages/default-packages/react-ui): React 기반 UI 컴포넌트 라이브러리예요.
+- 🟢 [`React Utils`](https://iamhoonse-dev.github.io/turborepo-template/ko/packages/default-packages/react-utils): React 애플리케이션에서 쓸 수 있는 유틸리티 함수 모음이에요.
 
 ### 🧩 Shared
 
 이 섹션은 프로젝트 전반에서 재사용 가능한 내부 패키지를 포함하고 있어요. `shared` 디렉토리에 있는 패키지들은 npm에 배포되지 않고, 내부적으로만 사용돼요.
 
-- **[Helpers](./shared/helpers)**: 프로젝트 전반에서 재사용 가능한 유틸리티 함수와 공통 로직을 제공하는 내부 패키지예요.
+- [`Helpers`](https://iamhoonse-dev.github.io/turborepo-template/ko/shared/shared-codes): 프로젝트 전반에서 재사용 가능한 유틸리티 함수와 공통 로직을 제공하는 내부 패키지예요.
 
 ### 🛠️ Tools
 
 이 섹션은 개발 및 테스트를 지원하는 도구들을 포함하고 있어요. 각 도구는 특정 작업을 자동화하거나 간소화하는 데 도움을 줘요.
 
-- **[Playwright Web](./tools/playwright-web)**: Playwright 기반의 웹 테스트 도구예요.
-- **[CLI](./tools/cli)**: 명령줄 작업을 자동화하고 프로젝트 관리 및 개발을 지원하기 위한 도구예요.
-- **[Lighthouse CI](./tools/lighthouse-ci)**: 웹 애플리케이션의 성능, 접근성, SEO 등을 자동으로 측정하고 관리하기 위한 도구예요.
+- [`Playwright Web`](https://iamhoonse-dev.github.io/turborepo-template/ko/tools/playwright-web): Playwright 기반의 웹 테스트 도구예요.
+- [`CLI`](https://iamhoonse-dev.github.io/turborepo-template/ko/tools/clis): 명령줄 작업을 자동화하고 프로젝트 관리 및 개발을 지원하기 위한 도구예요.
+- [`Lighthouse CI`](https://iamhoonse-dev.github.io/turborepo-template/ko/tools/lighthouse-ci): 웹 애플리케이션의 성능, 접근성, SEO 등을 자동으로 측정하고 관리하기 위한 도구예요.
 
 ### ⚙️ Configs
 
 이 섹션은 프로젝트 전반에서 사용되는 공통 설정 파일들을 포함하고 있어요. ESLint, TypeScript, Vitest와 같은 도구들의 설정이 포함돼요.
 
-- **[ESLint Config](./configs/eslint-config)**: ESLint 설정을 위한 공통 구성이에요.
-- **[Playwright Config](./configs/playwright-config)**: Playwright 테스트 설정이에요.
-- **[TypeScript Config](./configs/typescript-config)**: TypeScript 설정을 위한 공통 구성이에요.
-- **[Vitest Config](./configs/vitest-config)**: Vitest 테스트 설정을 위한 공통 구성이에요.
+- [`ESLint Config`](https://iamhoonse-dev.github.io/turborepo-template/ko/configs/eslint-config): ESLint 설정을 위한 공통 구성이에요.
+- [`Playwright Config`](https://iamhoonse-dev.github.io/turborepo-template/ko/configs/playwright-config): Playwright 테스트 설정이에요.
+- [`TypeScript Config`](https://iamhoonse-dev.github.io/turborepo-template/ko/configs/typescript-config): TypeScript 설정을 위한 공통 구성이에요.
+- [`Vitest Config`](https://iamhoonse-dev.github.io/turborepo-template/ko/configs/vitest-config): Vitest 테스트 설정을 위한 공통 구성이에요.
 
 ## 🔀 Workflows
 
 이 프로젝트는 다음과 같은 GitHub Actions Workflow를 포함하고 있어요:
 
-### 🧪 **[Test](.github/workflows/test.yml)**
+### 🧪 Test
 
-[`test.yml`](.github/workflows/test.yml) 파일에 정의되어 있으며, 프로젝트의 주요 테스트(유닛, E2E, Lighthouse, Storybook 등)를 통합적으로 실행해요.
+[`test.yml`](https://iamhoonse-dev.github.io/turborepo-template/ko/cicd/test) 파일에 정의되어 있으며, 프로젝트의 주요 테스트(유닛, E2E, Lighthouse, Storybook 등)를 통합적으로 실행해요.
+이 Workflow는 다음과 같은 테스트를 포함해요: \
+(🐳는 GitHub Actions에서 Docker 컨테이너를 사용해서 실행되는 테스트를 의미해요)
 
-- 이 Workflow는 다음과 같은 테스트를 포함해요:
-  - [unit test](.github/workflows/test.yml#L13)
-  - [e2e test](.github/workflows/test.yml#L167)
-  - [lighthouse test](.github/workflows/test.yml#L139)
-  - [storybook test](.github/workflows/test.yml#L209)
-- 이들 중 e2e, lighthouse, storybook 테스트는 [`docker-compose.gha.yaml`](./docker-compose.gha.yaml) 파일을 사용해서 통합 테스트 환경을 설정해요.
-- 다양한 서비스(web, playwright, lighthouse, storybook 등)를 컨테이너로 띄워 실제 서비스 환경과 유사하게 테스트를 수행해요.
+- [`unit test`](https://iamhoonse-dev.github.io/turborepo-template/ko/testing/unit-test)
+- 🐳 [`e2e test`](https://iamhoonse-dev.github.io/turborepo-template/ko/testing/e2e-test)
+- 🐳 [`lighthouse test`](https://iamhoonse-dev.github.io/turborepo-template/ko/testing/lighthouse-test)
+- 🐳 [`storybook test`](https://iamhoonse-dev.github.io/turborepo-template/ko/testing/storybook-test)
 
-### 🚀 **[Release](.github/workflows/release.yml)**
+### 🚀 Release
 
-[`release.yml`](.github/workflows/release.yml) 파일에 정의되어 있으며, Changesets를 기반으로 패키지 배포를 자동화해요.
+[`release.yml`](https://iamhoonse-dev.github.io/turborepo-template/ko/cicd/release) 파일에 정의되어 있으며, Changesets를 기반으로 패키지 배포를 자동화해요.
 
 - 이 Workflow는 Changesets 봇을 사용해서 PR을 생성하고, 변경 사항을 자동으로 추적해요.
-- PR을 승인하면, 변경된 패키지의 버전이 업데이트되고, `CHANGELOG.md` 파일이 생성돼요.
-- 그리고 승인된 PR이 병합되면서 실행되는 Workflow에 의해, `NPM_TOKEN`을 사용하여 npm에 패키지가 배포돼요.
+- PR을 승인하면, 변경된 패키지의 버전이 업데이트되고, CHANGELOG.md 파일이 생성돼요.
+- 그리고 승인된 PR이 병합되면서 실행되는 Workflow에 의해, NPM_TOKEN을 사용하여 npm에 패키지가 배포돼요.
 
-### 📖 [Publish GitHub Pages](.github/workflows/publish-github-pages.yml)
+### 📖 Publish GitHub Pages
 
-[`publish-github-pages.yml`](.github/workflows/publish-github-pages.yml) 파일에 정의되어 있으며, [`docs`](./apps/docs) 앱을 GitHub Pages에 배포해요.
+[`publish-github-pages.yml`](https://iamhoonse-dev.github.io/turborepo-template/ko/cicd/publish-github-pages) 파일에 정의되어 있으며, [`docs`](https://iamhoonse-dev.github.io/turborepo-template/ko/docs/apps/docs) 앱을 GitHub Pages에 배포해요.
 
-- 이 Workflow는 `docs` 앱의 빌드를 수행하고, 빌드된 결과물을 GitHub Pages에 배포해요.
-- GitHub Pages 로의 배포를 위해서는 레포지토리의 Settings 에서 Pages를 활성화해야 해요.
-- 배포된 문서는 [https://<USER_ID>.github.io/<PROJECT_NAME>](https://iamhoonse-dev.github.io/turborepo-template/) 형식의 URL로 접근할 수 있어요.
+## 🐙 CI/CD with GitHub
 
-> [!WARNING]
-> GitHub Pages를 활성화하지 않으면, [`publish-github-pages.yml`](.github/workflows/publish-github-pages.yml) 워크플로우가 실패할 수 있어요. \
-> 따라서 [`docs`](./apps/docs) 앱이 정상적으로 배포되지 않아요. \
-> GitHub Pages를 활성화하려면 아래의 [GitHub Pages 사용](#-github-pages-사용) 섹션의 가이드에 따라 GitHub Pages 를 활성화해 주세요.
+이 프로젝트는 배포 및 테스트를 자동화하기 위해 GitHub의 여러 기능을 활용하고 있어요. 아래는 주요 기능과 설정 방법이에요:
 
-## 🐳 GitHub Container Registry 사용
+### 🐳 GitHub Container Registry
 
-일부 `docker-compose` 기반 워크플로우(예: Storybook, E2E, Lighthouse 테스트)에서는 Docker 이미지 빌드 시 [GitHub Container Registry(GHCR)](https://ghcr.io/)를 활용해서 이미지 레이어를 캐싱해요.  
+일부 `docker-compose` 기반 워크플로우(예: Storybook, E2E, Lighthouse 테스트)에서는 Docker 이미지 빌드 시 [GitHub Container Registry(GHCR)](https://ghcr.io/)를 활용해서 이미지 레이어를 캐싱해요.
 이렇게 하면 워크플로우 실행 속도를 높이고, 불필요한 빌드 비용을 줄일 수 있어요.
 
-> [!TIP]
-> 관련 설정은 각 워크플로우의 `.yaml` 파일과 `docker-compose.*.yaml` 파일에서 확인할 수 있어요.
->
-> - [`.github/workflows`](.github/workflows/)
+### 📖 GitHub Pages
 
-## 📖 GitHub Pages 사용
-
-이 프로젝트는 GitHub Pages를 사용해서 [`docs`](./apps/docs) 앱을 배포하고 있어요.
+이 프로젝트는 GitHub Pages를 사용해서 [`docs`](https://iamhoonse-dev.github.io/turborepo-template/ko/apps/sample-apps/docs) 앱을 배포하고 있어요.
 GitHub Pages 배포가 정상적으로 동작하려면 Settings에서 Pages를 활성화해야 해요.
 
-### GitHub Pages 활성화 방법
-
-1. GitHub 레포지토리 페이지로 이동해요.
-2. `Settings` 탭을 클릭해요.
-3. `Pages` 섹션으로 가요.
-4. `Build and deployment`에서 `Source`를 `GitHub Actions`로 설정해요.
-
-## 💬 Giscus GitHub App 사용
+### 💬 Giscus GitHub App
 
 이 프로젝트는 Giscus를 사용해서 GitHub Discussions을 문서화 앱에 통합하고 있어요. Giscus는 GitHub Discussions를 기반으로 하는 댓글 시스템으로, 문서에 댓글을 달 수 있게 해줘요.
 
-### Giscus GitHub App 설치
-
-Giscus GitHub App을 설치하려면 다음 단계를 따라 주세요:
-
-1. [Giscus GitHub App](https://github.com/apps/giscus) 페이지로 이동해요.
-2. `Install` 버튼을 클릭해요.
-3. 설치할 레포지토리를 선택해요.
-4. `Install and Authorize` 버튼을 클릭해요.
-
-### Giscus 설정
-
-1. [Giscus 설정 페이지](https://giscus.app/)로 이동해요.
-2. 아래의 "설정" 섹션에서 다음과 같이 필요한 정보들을 입력해요:
-   - **저장소**: 앞 단계에서 Giscus GitHub App을 설치한 레포지토리를 `<USER_NAME>/<REPOSITORY_NAME>` 형식으로 입력해요.
-   - **Discussion 카테고리**: 연결할 GitHub Discussions 카테고리를 선택해요. 만약 카테고리가 없다면, GitHub 레포지토리의 Discussions 탭에서 새 카테고리를 생성해요.
-3. 설정을 완료한 후, 아래의 "giscus 사용" 섹션에서 제공하는 코드에서 아래의 3가지 정보들을 확인하고, 프로젝트 Variables 또는 Secrets에 등록해요:
-   - **`data-repo-id`**: Giscus GitHub App을 설치한 레포지토리의 Secrets 의 `GISCUS_REPO_ID` 변수로 등록해요.
-   - **`data-category`**: Giscus GitHub App을 설치한 레포지토리의 Variables 의 `GISCUS_DISCUSSION_CATEGORY` 변수로 등록해요.
-   - **`data-category-id`**: Giscus GitHub App을 설치한 레포지토리의 Secrets 의 `GISCUS_DISCUSSION_CATEGORY_ID` 변수로 등록해요.
-4. 앞서 설정한 변수들은 [`publish-github-pages.yml`](.github/workflows/publish-github-pages.yml) 워크플로우에서 GitHub Pages에 배포할 때 사용돼요.
-
-## 🗼 Lighthouse CI GitHub App 사용
+### 🗼 Lighthouse CI GitHub App
 
 Lighthouse 테스트가 정상적으로 동작하려면 GitHub Secrets에 `LHCI_GITHUB_APP_TOKEN` 변수를 반드시 등록해야 해요.
 이 토큰은 Lighthouse CI가 GitHub PR과 연동되어 결과를 보고하거나 상태 체크를 수행할 때 필요해요.
 
-### Lighthouse CI GitHub App 설치
-
-Lighthouse CI GitHub App을 설치하려면 다음 단계를 따라 주세요:
-
-1. [Lighthouse CI GitHub App](https://github.com/apps/lighthouse-ci) 페이지로 이동해요.
-2. `Install` 버튼을 클릭해요.
-3. 설치할 레포지토리를 선택해요.
-4. `Install and Authorize` 버튼을 클릭해요.
-5. 조금 기다리고 나면, `LHCI_GITHUB_APP_TOKEN`이라는 이름으로 새로운 토큰을 사용하라는 화면이 나와요. 여기서 하단에 표시되는 토큰을 복사해요.
-6. 설치한 GitHub 레포지토리의 `Settings` 탭으로 이동해요.
-7. Integrations 그룹 아래에 있는 GitHub Apps 메뉴로 가요.
-8. 목록에 `Lighthouse CI`가 보이면, 레포지토리에 Lighthouse CI App 설치에 성공한 거예요.
-
-### `LHCI_GITHUB_APP_TOKEN` 등록 방법
-
-1. GitHub 레포지토리 페이지로 이동해요.
-2. `Settings` 탭을 클릭해요.
-3. `Secrets and variables` 섹션으로 가요.
-4. `Actions` 메뉴를 선택해요.
-5. `New repository secret` 버튼을 클릭해요.
-6. [Lighthouse CI GitHub App](https://github.com/apps/lighthouse-ci)에서 발급받은 토큰을 `LHCI_GITHUB_APP_TOKEN`이라는 이름으로 추가해요.
-
-> [!TIP]
-> 토큰이 없으면 워크플로우의 `lighthouse-test` 작업에서 "github token not set" 경고가 발생할 수 있어요.
-> 실행 자체에는 문제가 없지만, Lighthouse test 결과를 MR 웹에서 확인할 수 없게 되요.
-
-## 🦋 패키지 버저닝 및 배포
+### 🦋 패키지 버저닝 및 배포
 
 이 프로젝트는 [Changesets](https://github.com/changesets/changesets)를 사용하여 패키지 버전 관리와 배포를 간소화하고 있어요. Changesets는 모노레포 환경에서 특히 유용하며, 각 패키지의 변경 사항을 추적하고 이를 기반으로 버전을 업데이트할 수 있도록 도와줘요.
-
-### 새 변경 사항 작성하기
-
-패키지의 변경 사항을 작성하려면, 로컬 환경에서 다음과 같은 명령어를 실행해 주세요:
-
-1. 새 변경 사항 추가:  
-   명령어를 실행하면 변경 사항에 대한 설명을 작성할 수 있는 프롬프트가 나타나요. 이를 통해 변경 사항을 기록할 수 있어요.
-
-   ```bash
-   pnpm changeset
-   ```
-
-2. 버전 업데이트 및 변경 사항 적용:  
-   이 명령어는 모든 패키지의 버전을 업데이트하고, `CHANGELOG.md` 파일을 생성하거나 업데이트해요.
-
-   ```bash
-   pnpm changeset version
-   ```
-
-3. 배포:  
-   이 명령어는 업데이트된 패키지를 npm에 배포해요. 배포를 위해서는 `NPM_TOKEN`이 GitHub Secrets에 설정되어 있어야 해요.
-   ```bash
-   pnpm changeset publish
-   ```
-
-자세한 내용은 [공식 문서](https://github.com/changesets/changesets)를 참고해 주세요.
-
-### changesets 봇 사용을 위한 설정
-
-changesets 봇을 사용하기 위해서는 GitHub 레포지토리의 설정을 변경해야 해요.
-이 설정을 통해 Changesets 봇이 PR을 생성하고, 변경 사항을 자동으로 추적할 수 있어요.
-아래의 단계를 따라 주세요:
-
-1. GitHub 레포지토리 페이지로 이동해요.
-2. `Settings` 탭을 클릭해요.
-3. `Actions` 섹션으로 가요.
-4. `General`을 선택해요.
-5. Workflow Permissions에서 `Read repository contents permission`을 `Read and write permissions`로 변경해요.
-6. 그리고 `Allow GitHub Actions to create and approve pull requests`를 체크해요.
-7. `Save` 버튼을 클릭해요.
-8. [Changeset Bot App](https://github.com/apps/changeset-bot)을 사용하도록 설정해요.
-
-### npm 배포를 위한 토큰 설정 (Optional)
-
-프로젝트의 secret 변수에 `NPM_TOKEN`을 설정해야 해요.
-이 토큰은 npm에 패키지를 배포하는 데 사용돼요.
-GitHub Secrets에 `NPM_TOKEN`을 추가하려면 아래의 단계를 따라 주세요:
-
-1. GitHub 레포지토리 페이지로 이동해요.
-2. `Settings` 탭을 클릭해요.
-3. `Secrets and variables` 섹션으로 가요.
-4. `Actions`를 선택해요.
-5. `New repository secret` 버튼을 클릭해요.
-6. [npm](https://www.npmjs.com/)에서 발급받은 토큰을 `NPM_TOKEN`이라는 이름으로 추가해요.
-7. [`release.yml`](.github/workflows/release.yml) 파일에서 마지막의 "Create Release Pull Request" 단계의 `publish`에 주석 처리된 부분을 해제해요.
 
 ## ⬇️ 의존성 설치
 
@@ -353,7 +197,7 @@ pnpm install
 
 ### CLI 사용
 
-`pnpm install`을 실행하면 [`tools/cli`](./tools/cli)에 정의된 CLI 명령어들을 바로 사용할 수 있어요.
+`pnpm install`을 실행하면 [`tools/cli`](https://iamhoonse-dev.github.io/turborepo-template/ko/tools/clis)에 정의된 CLI 명령어들을 바로 사용할 수 있어요.
 
 ```bash
 example --ls [directory-path]
