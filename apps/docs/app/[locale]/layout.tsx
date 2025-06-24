@@ -25,6 +25,8 @@ export const metadata = {
   // For more information on metadata API, see: https://nextjs.org/docs/app/building-your-application/optimizing/metadata
 };
 
+const logo = <b>turborepo-template</b>;
+
 const banner = <Banner storageKey="some-key">Nextra 4.0 is released 🎉</Banner>;
 
 // currentYear is used in the footer to display the current year dynamically
@@ -117,7 +119,7 @@ export default async function RootLayout({ children, params }: Props) {
           banner={banner}
           navbar={
             <Navbar
-              logo={<b>turborepo-template</b>}
+              logo={logo}
               logoLink={`/${locale}`}
               projectLink="https://github.com/iamhoonse-dev/turborepo-template"
             />
