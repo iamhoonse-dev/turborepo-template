@@ -1,4 +1,5 @@
 import { Callout } from "nextra/components";
+import LocalizedLink from "../../../components/LocalizedLink";
 
 # 🏗️ Build Process
 
@@ -10,14 +11,14 @@ The packages provided in this project are built using Vite.
 
 |Package|Build Tool|
 |---|---|
-|`browser-utils`|[Vite](https://vitejs.dev/)|
-|`http-clients`|[Vite](https://vitejs.dev/)|
-|`node-utils`|[Vite](https://vitejs.dev/)|
-|`react-utils`|[Vite](https://vitejs.dev/)|
-|`react-ui`|[Vite](https://vitejs.dev/)|
+|<LocalizedLink href="packages/default-packages/browser-utils">`packages/browser-utils`</LocalizedLink>|[Vite](https://vitejs.dev/)|
+|<LocalizedLink href="packages/default-packages/http-clients">`http-clients`</LocalizedLink>|[|[Vite](https://vitejs.dev/)|
+|<LocalizedLink href="packages/default-packages/node-utils">`packages/node-utils`</LocalizedLink>|[Vite](https://vitejs.dev/)|
+|<LocalizedLink href="packages/default-packages/react-utils">`packages/react-utils`</LocalizedLink>|[Vite](https://vitejs.dev/)|
+|<LocalizedLink href="packages/default-packages/react-ui">`packages/react-ui`</LocalizedLink>|[Vite](https://vitejs.dev/)|
 
 <Callout type="info">
-  ESLint plugin packages such as `eslint-plugin-sample` are designed not to go through a separate build process.
+  ESLint plugin packages such as <LocalizedLink href="packages/default-packages/eslint-plugin-sample">`eslint-plugin-sample`</LocalizedLink> are designed not to go through a separate build process.
   Instead, ESLint plugin packages are set to use the `index.js` file in the `lib` directory directly
   via the `files`, `main`, and `exports` fields in `package.json`.
 </Callout>

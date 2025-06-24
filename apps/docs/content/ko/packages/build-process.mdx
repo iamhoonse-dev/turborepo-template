@@ -1,4 +1,5 @@
 import { Callout } from "nextra/components";
+import LocalizedLink from "../../../components/LocalizedLink";
 
 # 🏗️ 빌드 방식
 
@@ -11,14 +12,14 @@ import { Callout } from "nextra/components";
 
 |패키지|빌드 방식|
 |---|---|
-|`browser-utils`|[Vite](https://vitejs.dev/)|
-|`http-clients`|[Vite](https://vitejs.dev/)|
-|`node-utils`|[Vite](https://vitejs.dev/)|
-|`react-utils`|[Vite](https://vitejs.dev/)|
-|`react-ui`|[Vite](https://vitejs.dev/)|
+|<LocalizedLink href="packages/default-packages/browser-utils">`packages/browser-utils`</LocalizedLink>|[Vite](https://vitejs.dev/)|
+|<LocalizedLink href="packages/default-packages/http-clients">`http-clients`</LocalizedLink>|[Vite](https://vitejs.dev/)|
+|<LocalizedLink href="packages/default-packages/node-utils">`packages/node-utils`</LocalizedLink>|[Vite](https://vitejs.dev/)|
+|<LocalizedLink href="packages/default-packages/react-utils">`packages/react-utils`</LocalizedLink>|[Vite](https://vitejs.dev/)|
+|<LocalizedLink href="packages/default-packages/react-ui">`packages/react-ui`</LocalizedLink>|[Vite](https://vitejs.dev/)|
 
 <Callout type="info">
-  `eslint-plugin-sample` 패키지와 같은 ESLint 플러그인 패키지는 별도의 빌드 과정을 거치지 않도록 설계되었습니다.
+  <LocalizedLink href="packages/default-packages/eslint-plugin-sample">`eslint-plugin-sample`</LocalizedLink> 패키지와 같은 ESLint 플러그인 패키지는 별도의 빌드 과정을 거치지 않도록 설계되었습니다.
   대신, ESLint 플러그인 패키지는 `lib` 디렉토리에 있는 `index.js` 파일을 그대로 사용하도록
   `package.json`의 `files`, `main`, `exports` 필드에 설정되어 있습니다.
 </Callout>
