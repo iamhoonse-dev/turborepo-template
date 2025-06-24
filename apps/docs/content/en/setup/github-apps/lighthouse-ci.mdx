@@ -1,3 +1,5 @@
+import { Callout } from "nextra/components";
+
 # 🗼 Lighthouse CI
 
 To ensure Lighthouse tests work properly, you must register the `LHCI_GITHUB_APP_TOKEN` variable in your GitHub Secrets.
@@ -25,7 +27,7 @@ To install the Lighthouse CI GitHub App, follow these steps:
 5. Click the `New repository secret` button.
 6. Add the token issued from the [Lighthouse CI GitHub App](https://github.com/apps/lighthouse-ci) as `LHCI_GITHUB_APP_TOKEN`.
 
-> [!TIP]
-> If you do not have the token, you may see a "github token not set" warning in the `lighthouse-test` job of your workflow.
-> This does not affect execution, but you will not be able to view Lighthouse test results in the MR web interface.
-
+<Callout type="warning">
+  If you do not have the token, you may see a "github token not set" warning in the `lighthouse-test` job of your workflow.
+  This does not affect execution, but you will not be able to view Lighthouse test results in the MR web interface.
+</Callout>

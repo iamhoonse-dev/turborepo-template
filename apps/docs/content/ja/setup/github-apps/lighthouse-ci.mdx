@@ -1,3 +1,5 @@
+import { Callout } from "nextra/components";
+
 # 🗼 Lighthouse CI
 
 Lighthouseテストを正常に動作させるには、GitHub Secretsに `LHCI_GITHUB_APP_TOKEN` 変数を必ず登録する必要があります。
@@ -25,6 +27,7 @@ Lighthouse CI GitHub Appをインストールするには、以下の手順に�
 5. `New repository secret` ボタンをクリックします。
 6. [Lighthouse CI GitHub App](https://github.com/apps/lighthouse-ci) で発行したトークンを `LHCI_GITHUB_APP_TOKEN` という名前で追加します。
 
-> [!TIP]
-> トークンがない場合、ワークフローの `lighthouse-test` ジョブで「github token not set」という警告が出ることがあります。
-> 実行自体には問題ありませんが、Lighthouseテストの結果をMRのWeb上で確認できなくなります。
+<Callout type="warning">
+  トークンがない場合、ワークフローの `lighthouse-test` ジョブで「github token not set」という警告が出ることがあります。
+  実行自体には問題ありませんが、Lighthouseテストの結果をMRのWeb上で確認できなくなります。
+</Callout>
