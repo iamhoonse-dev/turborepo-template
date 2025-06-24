@@ -1,3 +1,5 @@
+import LocalizedLink from "../../../../components/LocalizedLink";
+
 # 💬 Giscus
 
 This project integrates GitHub Discussions into the documentation app using Giscus. Giscus is a comment system based on GitHub Discussions, allowing users to leave comments on documentation pages.
@@ -21,5 +23,5 @@ To install the Giscus GitHub App, follow these steps:
     - **`data-repo-id`**: Register as the `GISCUS_REPO_ID` secret in your repository.
     - **`data-category`**: Register as the `GISCUS_DISCUSSION_CATEGORY` variable in your repository.
     - **`data-category-id`**: Register as the `GISCUS_DISCUSSION_CATEGORY_ID` secret in your repository.
-4. The variables set above are used when deploying to GitHub Pages via the [`publish-github-pages.yml`](.github/workflows/publish-github-pages.yml) workflow.
+4. The variables set above are used when deploying to GitHub Pages via the <LocalizedLink href="cicd/publish-github-pages">`publish-github-pages.yml`</LocalizedLink> workflow.
 

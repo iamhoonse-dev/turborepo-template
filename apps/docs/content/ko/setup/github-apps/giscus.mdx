@@ -1,3 +1,5 @@
+import LocalizedLink from "../../../../components/LocalizedLink";
+
 # 💬 Giscus
 
 이 프로젝트는 Giscus를 사용해서 GitHub Discussions을 문서화 앱에 통합하고 있어요. Giscus는 GitHub Discussions를 기반으로 하는 댓글 시스템으로, 문서에 댓글을 달 수 있게 해줘요.
@@ -21,4 +23,4 @@ Giscus GitHub App을 설치하려면 다음 단계를 따라 주세요:
     - **`data-repo-id`**: Giscus GitHub App을 설치한 레포지토리의 Secrets 의 `GISCUS_REPO_ID` 변수로 등록해요.
     - **`data-category`**: Giscus GitHub App을 설치한 레포지토리의 Variables 의 `GISCUS_DISCUSSION_CATEGORY` 변수로 등록해요.
     - **`data-category-id`**: Giscus GitHub App을 설치한 레포지토리의 Secrets 의 `GISCUS_DISCUSSION_CATEGORY_ID` 변수로 등록해요.
-4. 앞서 설정한 변수들은 [`publish-github-pages.yml`](.github/workflows/publish-github-pages.yml) 워크플로우에서 GitHub Pages에 배포할 때 사용돼요.
+4. 앞서 설정한 변수들은 <LocalizedLink href="cicd/publish-github-pages">`publish-github-pages.yml`</LocalizedLink> 워크플로우에서 GitHub Pages에 배포할 때 사용돼요.
