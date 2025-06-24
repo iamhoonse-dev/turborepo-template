@@ -127,6 +127,7 @@ export default async function RootLayout({ children, params }: Props) {
           footer={footer}
           // ... Your additional layout options
           i18n={i18nDropdownMenu}
+          navigation={false}
         >
           {children}
         </Layout>
