@@ -35,4 +35,14 @@ describe("<CodeRepositoryLink>", () => {
       "_self",
     );
   });
+
+  it("rel attribute is set when target is _blank", () => {
+    const { getByText } = render(
+      <CodeRepositoryLink href="/path/to/code">View Code</CodeRepositoryLink>,
+    );
+    expect(getByText("View Code").closest("a")).toHaveAttribute(
+      "rel",
+      "noopener noreferrer",
+    );
+  });
 });
