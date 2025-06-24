@@ -15,7 +15,21 @@ To add `NPM_TOKEN` to GitHub Secrets, follow these steps:
 4. Select `Actions`.
 5. Click the `New repository secret` button.
 6. Add the token issued from [npm](https://www.npmjs.com/) as `NPM_TOKEN`.
-7. In the [`release.yml`](.github/workflows/release.yml) file, uncomment the `publish` step at the end of the "Create Release Pull Request" stage.
+
+```yaml filename=".github/workflows/release.yml" {12}
+      - name: Create Release Pull Request
+        uses: changesets/action@v1
+        with:
+          version: pnpm version-packages
+          # publish: pnpm publish-packages # fixme: if you want to publish packages, uncomment this line
+          commit: |
+            chore(release): 🦋 versioning packages by changesets
+          title: |
+            🦋 Versioning packages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }} # fixme: if you want to publish packages, set this secret on your repo
+```
 
 ## Workflow setup for npm publishing (Optional)
 

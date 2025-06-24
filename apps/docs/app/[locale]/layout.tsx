@@ -25,6 +25,8 @@ export const metadata = {
   // For more information on metadata API, see: https://nextjs.org/docs/app/building-your-application/optimizing/metadata
 };
 
+const logo = <b>turborepo-template</b>;
+
 const banner = <Banner storageKey="some-key">Nextra 4.0 is released 🎉</Banner>;
 
 // currentYear is used in the footer to display the current year dynamically
@@ -32,6 +34,11 @@ const banner = <Banner storageKey="some-key">Nextra 4.0 is released 🎉</Banner
 const currentYear = new Date().getFullYear();
 
 const footer = <Footer>MIT {currentYear} © Nextra.</Footer>;
+
+// feedbackOptions is used to configure the feedback options in the Nextra layout.
+const feedbackOptions: ComponentProps<typeof Layout>["feedback"] = {
+  content: null,
+};
 
 /**
  * getLabelFromLocale is a utility function that returns a localized label for a given locale string.
@@ -117,7 +124,7 @@ export default async function RootLayout({ children, params }: Props) {
           banner={banner}
           navbar={
             <Navbar
-              logo={<b>turborepo-template</b>}
+              logo={logo}
               logoLink={`/${locale}`}
               projectLink="https://github.com/iamhoonse-dev/turborepo-template"
             />
@@ -127,6 +134,8 @@ export default async function RootLayout({ children, params }: Props) {
           footer={footer}
           // ... Your additional layout options
           i18n={i18nDropdownMenu}
+          navigation={false}
+          feedback={feedbackOptions}
         >
           {children}
         </Layout>

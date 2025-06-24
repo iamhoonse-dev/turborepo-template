@@ -1,4 +1,5 @@
-import LocalizedLink from "../../../components/LocalizedLink";
+import { Cards } from "nextra/components";
+import LocalizedCard from "../../../components/LocalizedCard";
 
 # 🧩 共通設定構成
 
@@ -13,8 +14,9 @@ import LocalizedLink from "../../../components/LocalizedLink";
 
 このディレクトリには、ESLint、TypeScript、Vitest、Playwrightなどのツールの設定ファイルが含まれています。
 
-- <LocalizedLink href="/configs/eslint-config">🛡️ ESLint設定</LocalizedLink>
-- <LocalizedLink href="/configs/typescript-config">🟦 TypeScript設定</LocalizedLink>
-- <LocalizedLink href="/configs/vitest-config">🧪 Vitest設定</LocalizedLink>
-- <LocalizedLink href="/configs/playwright-config">🎭 Playwright設定</LocalizedLink>
-
+<Cards>
+  <LocalizedCard title="🛡️ ESLint設定" href="/configs/eslint-config" />
+  <LocalizedCard title="🟦 TypeScript設定" href="/configs/typescript-config" />
+  <LocalizedCard title="🧪 Vitest設定" href="/configs/vitest-config" />
+  <LocalizedCard title="🎭 Playwright設定" href="/configs/playwright-config" />
+</Cards>

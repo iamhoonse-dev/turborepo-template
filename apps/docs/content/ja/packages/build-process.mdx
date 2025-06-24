@@ -1,4 +1,5 @@
 import { Callout } from "nextra/components";
+import LocalizedLink from "../../../components/LocalizedLink";
 
 # 🏗️ ビルド方式
 
@@ -10,14 +11,14 @@ import { Callout } from "nextra/components";
 
 |パッケージ|ビルド方式|
 |---|---|
-|`browser-utils`|[Vite](https://vitejs.dev/)|
-|`http-clients`|[Vite](https://vitejs.dev/)|
-|`node-utils`|[Vite](https://vitejs.dev/)|
-|`react-utils`|[Vite](https://vitejs.dev/)|
-|`react-ui`|[Vite](https://vitejs.dev/)|
+|<LocalizedLink href="packages/default-packages/browser-utils">`packages/browser-utils`</LocalizedLink>|[Vite](https://vitejs.dev/)|
+|<LocalizedLink href="packages/default-packages/http-clients">`http-clients`</LocalizedLink>|[|[Vite](https://vitejs.dev/)|
+|<LocalizedLink href="packages/default-packages/node-utils">`packages/node-utils`</LocalizedLink>|[Vite](https://vitejs.dev/)|
+|<LocalizedLink href="packages/default-packages/react-utils">`packages/react-utils`</LocalizedLink>|[Vite](https://vitejs.dev/)|
+|<LocalizedLink href="packages/default-packages/react-ui">`packages/react-ui`</LocalizedLink>|[Vite](https://vitejs.dev/)|
 
 <Callout type="info">
-  `eslint-plugin-sample` のようなESLintプラグインパッケージは、別途ビルド工程を経ないように設計されています。
+  <LocalizedLink href="packages/default-packages/eslint-plugin-sample">`eslint-plugin-sample`</LocalizedLink>のようなESLintプラグインパッケージは、別途ビルド工程を経ないように設計されています。
   代わりに、ESLintプラグインパッケージは `lib` ディレクトリ内の `index.js` ファイルをそのまま使用するように
   `package.json` の `files`, `main`, `exports` フィールドで設定されています。
 </Callout>
@@ -143,7 +144,7 @@ export default defineConfig({
 - TypeScriptチェックおよびLinterチェック用のスクリプトを提供
 - TypeScriptパスエイリアスをサポートし、ワークスペース内のコードを`import`する際に便利なモジュールパスが利用可能
 - Vitestベースのテスト実行用の基本的な環境とスクリプトを提供
-  - ブラウザDOMやReact関連パッケージの場合、@testing-library/reactおよび@testing-library/jest-domパッケージを使ってテスト環境を構築
+  - ブラウザDOMやReact関連パッケージの場合、`@testing-library/react`および`@testing-library/jest-dom`パッケージを使ってテスト環境を構築
 
 ## 他のパッケージやアプリケーションでの利用
 

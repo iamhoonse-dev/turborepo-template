@@ -1,3 +1,5 @@
+import LocalizedLink from "../../components/LocalizedLink";
+
 # 🚀 クイックスタート
 
 ## このテンプレートを使う
@@ -15,7 +17,7 @@ pnpm install
 ## オーナーIDの変更
 
 コードベース内のすべてのファイルを検索し、既存のオーナーIDが記載されている部分を変更します。
-詳細は[`tools/cli`のREADME](./tools/cli/README.md#-提供機能)を参照してください。
+詳細は<LocalizedLink href="tools/clis">`tools/cli`のREADME</LocalizedLink>を参照してください。
 
 ```bash
 change-owner-name --name your-username
@@ -24,7 +26,7 @@ change-owner-name --name your-username
 ## リポジトリ名の変更
 
 コードベース内のすべてのファイルを検索し、既存のリポジトリ名が記載されている部分を変更します。
-詳細は[`tools/cli`のREADME](./tools/cli/README.md#-提供機能)を参照してください。
+詳細は<LocalizedLink href="tools/clis">`tools/cli`のREADME</LocalizedLink>を参照してください。
 
 ```bash
 rename-repository --name new-repository-name
@@ -34,7 +36,7 @@ rename-repository --name new-repository-name
 
 コードベース内のすべてのファイルを検索し、既存のスコープ名が記載されている部分を変更します。
 モノレポ内の一部コンポーネントを[npm](https://www.npmjs.com/)の特定スコープ（例：`new-scope-name`）で公開したい場合に便利です。
-詳細は[`tools/cli`のREADME](./tools/cli/README.md#-提供機能)を参照してください。
+詳細は<LocalizedLink href="tools/clis">`tools/cli`のREADME</LocalizedLink>を参照してください。
 
 ```bash
 rename-scope --name new-scope-name
