@@ -1,4 +1,5 @@
 import { Callout } from "nextra/components";
+import CodeRepositoryLink from "../../../components/CodeRepositoryLink";
 
 # ✏️ 書き方
 
@@ -51,6 +52,44 @@ import LocalizedLink from "../../../components/LocalizedLink";
   日本語ドキュメントサンプル
 </a>
 ```
+
+### `<CodeRepositoryLink>` コンポーネントの使い方
+
+このドキュメントアプリケーションでは `<Callout>` コンポーネントを提供しています。
+このコンポーネントを使用すると、コードリポジトリへのリンクを簡単に作成できます。
+
+例えば、次のようにコードを書くと、
+リンクはGitHubリポジトリの該当パスに自動的に変換されます：
+
+```mdx filename="code-repository-link-usage.mdx"
+import CodeRepositoryLink from "../../../components/CodeRepositoryLink";
+
+<CodeRepositoryLink
+  href="/packages/react-utils/src/hooks"
+>
+  react-utils/hooks
+</CodeRepositoryLink>
+```
+
+```html filename="rendered-code-repository-link.html"
+<a
+  target="_blank"
+  rel="noopener noreferrer"
+  href="https://github.com/iamhoonse-dev/turborepo-template/tree/main/packages/browser-utils/src/dom"
+>
+  <!-- 注: iamhoonse-dev/turborepo-template の部分は環境変数 GITHUB_REPOSITORY の値に置き換わります。 -->
+  react-utils/hooks
+</a>
+```
+
+<Callout type="info">
+  自動生成されるパスは環境変数 `GITHUB_REPOSITORY` によって異なります。例えば、
+  - 環境変数 `GITHUB_REPOSITORY` が `your-name/repo-name` に設定されていて、
+  - コンポーネントの `href` プロパティに指定されたパスが `/packages/react-utils/src/hooks` の場合、
+
+  最終的に生成されるリンクは `https://github.com/your-name/repo-name/tree/main/packages/react-utils/src/hooks` になります。
+  詳細については <CodeRepositoryLink href="/apps/docs/components/CodeRepositoryLink">`CodeRepositoryLink` コンポーネントのコード</CodeRepositoryLink> を参照してください。
+</Callout>
 
 ## 🖼️ 画像添付ガイド
 
