@@ -35,6 +35,11 @@ const currentYear = new Date().getFullYear();
 
 const footer = <Footer>MIT {currentYear} © Nextra.</Footer>;
 
+// feedbackOptions is used to configure the feedback options in the Nextra layout.
+const feedbackOptions: ComponentProps<typeof Layout>["feedback"] = {
+  content: null,
+};
+
 /**
  * getLabelFromLocale is a utility function that returns a localized label for a given locale string.
  *
@@ -130,6 +135,7 @@ export default async function RootLayout({ children, params }: Props) {
           // ... Your additional layout options
           i18n={i18nDropdownMenu}
           navigation={false}
+          feedback={feedbackOptions}
         >
           {children}
         </Layout>
