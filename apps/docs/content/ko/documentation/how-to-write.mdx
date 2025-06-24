@@ -1,4 +1,5 @@
 import { Callout } from "nextra/components";
+import CodeRepositoryLink from "../../../components/CodeRepositoryLink";
 
 # ✏️ 작성 방법
 
@@ -51,6 +52,44 @@ import LocalizedLink from "../../../components/LocalizedLink";
   한국어 문서 샘플
 </a>
 ```
+
+### `<CodeRepositoryLink>` 컴포넌트 사용하기
+
+이 문서화 어플리케이션에서는 `<Callout>` 컴포넌트를 제공합니다.
+이 컴포넌트를 사용하면 코드 저장소 링크를 쉽게 작성할 수 있습니다.
+
+예를 들어, 다음과 같이 코드를 작성할 경우,
+링크는 GitHub 저장소의 해당 경로로 자동 변환됩니다:
+
+```mdx filename="code-repository-link-usage.mdx"
+import CodeRepositoryLink from "../../../components/CodeRepositoryLink";
+
+<CodeRepositoryLink
+  href="/packages/react-utils/src/hooks"
+>
+  react-utils/hooks
+</CodeRepositoryLink>
+```
+
+```html filename="rendered-code-repository-link.html"
+<a
+  target="_blank"
+  rel="noopener noreferrer"
+  href="https://github.com/iamhoonse-dev/turborepo-template/tree/main/packages/react-utils/src/hooks"
+>
+  <!-- Note: iamhoonse-dev/turborepo-template 부분은 환경 변수 GITHUB_REPOSITORY 값으로 변경됩니다. -->
+  react-utils/hooks
+</a>
+```
+
+<Callout type="info">
+  자동으로 생성되는 경로는 환경 변수 `GITHUB_REPOSITORY`에 따라 달라집니다. 예를 들어,
+  - 환경 변수 `GITHUB_REPOSITORY`가 `your-name/repo-name`로 설정되어 있고,
+  - 컴포넌트의 `href` 프로퍼티에 지정된 경로가 `/packages/react-utils/src/hooks` 라면,
+
+  최종적으로 생성되는 링크는 `https://github.com/your-name/repo-name/tree/main/packages/react-utils/src/hooks`로 생성됩니다.
+  관련하여 보다 자세한 내용은 <CodeRepositoryLink href="/apps/docs/components/CodeRepositoryLink">`CodeRepositoryLink` 컴포넌트 코드</CodeRepositoryLink>를 참고하세요.
+</Callout>
 
 ## 🖼️ 이미지 첨부 가이드
 

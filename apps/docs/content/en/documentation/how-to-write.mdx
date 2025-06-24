@@ -1,4 +1,5 @@
 import { Callout } from "nextra/components";
+import CodeRepositoryLink from "../../../components/CodeRepositoryLink";
 
 # ✏️ How to Write
 
@@ -51,6 +52,44 @@ import LocalizedLink from "../../../components/LocalizedLink";
   Korean Document Sample
 </a>
 ```
+
+### Using the `<CodeRepositoryLink>` Component
+
+This documentation application provides the `<Callout>` component.
+By using this component, you can easily create code repository links.
+
+For example, if you write the code as follows,
+the link will be automatically converted to the corresponding path in the GitHub repository:
+
+```mdx filename="code-repository-link-usage.mdx"
+import CodeRepositoryLink from "../../../components/CodeRepositoryLink";
+
+<CodeRepositoryLink
+  href="/packages/react-utils/src/hooks"
+>
+  react-utils/hooks
+</CodeRepositoryLink>
+```
+
+```html filename="rendered-code-repository-link.html"
+<a
+  target="_blank"
+  rel="noopener noreferrer"
+  href="https://github.com/iamhoonse-dev/turborepo-template/tree/main/packages/react-utils/src/hooks"
+>
+  <!-- Note: The part iamhoonse-dev/turborepo-template will be replaced with the value of the environment variable GITHUB_REPOSITORY. -->
+  react-utils/hooks
+</a>
+```
+
+<Callout type="info">
+  The automatically generated path depends on the environment variable `GITHUB_REPOSITORY`. For example,
+  - If the environment variable `GITHUB_REPOSITORY` is set to `your-name/repo-name`, and
+  - The path specified in the component's `href` property is `/packages/react-utils/src/hooks`,
+
+  The final generated link will be `https://github.com/your-name/repo-name/tree/main/packages/react-utils/src/hooks`.
+  For more details, refer to the <CodeRepositoryLink href="/apps/docs/components/CodeRepositoryLink">`CodeRepositoryLink` component code</CodeRepositoryLink>.
+</Callout>
 
 ## 🖼️ Image Attachment Guide
 

@@ -42,4 +42,14 @@ describe("<LocalizedLink>", () => {
       "_self",
     );
   });
+
+  it("rel attribute is set when target is _blank", () => {
+    const { getByText } = render(
+      <LocalizedLink href="/about">About Us</LocalizedLink>,
+    );
+    expect(getByText("About Us").closest("a")).toHaveAttribute(
+      "rel",
+      "noopener noreferrer",
+    );
+  });
 });
