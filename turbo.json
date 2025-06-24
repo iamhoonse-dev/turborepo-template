@@ -6,7 +6,7 @@
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*", "!**/*.stories.{tsx,jsx,mdx}"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**", "storybook-static/**", "out/**"],
-      "passThroughEnv": ["GISCUS_REPO", "GISCUS_REPO_ID", "GISCUS_DISCUSSION_CATEGORY", "GISCUS_DISCUSSION_CATEGORY_ID"]
+      "passThroughEnv": ["GITHUB_REPOSITORY", "GISCUS_REPO", "GISCUS_REPO_ID", "GISCUS_DISCUSSION_CATEGORY", "GISCUS_DISCUSSION_CATEGORY_ID"]
     },
     "@repo/react-utils#build": {
       "dependsOn": ["@repo/browser-utils#build"]
