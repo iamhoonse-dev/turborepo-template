@@ -1,11 +1,7 @@
 import { render } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect } from "vitest";
 import { REPOSITORY_CODE_URL } from "../../configs/urls";
 import CodeRepositoryLink from ".";
-
-vi.mock("next/navigation", () => ({
-  useParams: vi.fn(),
-}));
 
 describe("<CodeRepositoryLink>", () => {
   it("renders with correct href and target", () => {
