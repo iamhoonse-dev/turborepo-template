@@ -8,7 +8,7 @@ import { useEffect } from "react";
  *
  * @example
  * ```tsx
- * const TARGET_KEY = ""myKey";
+ * const TARGET_KEY = "myKey";
  *
  * useLocalStorageChangeListener(TARGET_KEY, (newValue) => {
  *   console.log(`"${TARGET_KEY}" changed to : `, newValue);
