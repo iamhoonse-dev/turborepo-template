@@ -2,6 +2,7 @@
 
 import type { FC } from "react";
 import Giscus from "@giscus/react";
+import { useTheme } from "nextra-theme-docs";
 
 interface Props {
   /**
@@ -39,6 +40,9 @@ const GiscusCommentsContainer: FC<Props> = ({
   category,
   categoryId,
 }) => {
+  // Get the current Nextra theme
+  const { theme } = useTheme();
+
   return (
     <Giscus
       id="comments"
@@ -51,7 +55,7 @@ const GiscusCommentsContainer: FC<Props> = ({
       reactionsEnabled="1"
       emitMetadata="0"
       inputPosition="bottom"
-      theme="preferred_color_scheme"
+      theme={theme}
       lang="ko"
     />
   );
